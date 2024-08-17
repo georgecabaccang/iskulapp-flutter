@@ -1,99 +1,102 @@
 import 'package:flutter/material.dart';
+import 'profile_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFF5278C1),
-
-      // Set the background color here
-      body: Stack(
-        children: [
-          // White box positioned behind the main content
-          Positioned.fill(
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
-                margin: EdgeInsets.only(
-                    top: 380.0), // Margin to adjust the position
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0), // Top-left corner radius
-                    topRight: Radius.circular(30.0), // Top-right corner radius
-                  ), // Adjust border radius
+ @override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Color(0xFF5278C1),
+    body: Stack(
+      children: [
+        Positioned.fill(
+          child: Align(
+            alignment: Alignment.center,
+            child: Container(
+              margin: EdgeInsets.only(top: 380.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
                 ),
               ),
             ),
           ),
-          Column(
-            children: [
-              profileInfo(), // Call the method that returns the profile info widget
-              importantSection(), // Add the row section here
-              Expanded(child: gridSection()), // Add the grid section here
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+        Column(
+          children: [
+            profileInfo(context), // Pass context here
+            importantSection(),
+            Expanded(child: gridSection()),
+          ],
+        ),
+      ],
+    ),
+  );
+}
 
-  Widget profileInfo() {
-    return SafeArea(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, top: 50.0),
-            child: Container(
-              color: Colors.transparent,
-              width: 250.0,
-              height: 200.0,
-              alignment: Alignment.topLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Hi Akshay",
+
+ Widget profileInfo(BuildContext context) {
+  return SafeArea(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 16.0, top: 50.0),
+          child: Container(
+            color: Colors.transparent,
+            width: 250.0,
+            height: 200.0,
+            alignment: Alignment.topLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Hi Akshay",
+                  style: TextStyle(
+                    fontSize: 38.0,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                Text(
+                  "Class XI-B | Roll no: 04",
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Text(
+                    " 2024-2025 ",
                     style: TextStyle(
-                      fontSize: 38.0,
-                      color: Colors.white,
+                      color: Color(0xFF5278C1),
+                      fontSize: 18.0,
                     ),
                   ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    "Class XI-B | Roll no: 04",
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: Text(
-                      " 2024-2025 ",
-                      style: TextStyle(
-                        color: Color(0xFF5278C1),
-                        fontSize: 18.0,
-                        //fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0, bottom: 50.0),
+        ),
+        Spacer(),
+        Padding(
+          padding: const EdgeInsets.only(right: 16.0, bottom: 50.0),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfilePage()),
+              );
+            },
             child: CircleAvatar(
               radius: 40.0,
               backgroundColor: Colors.grey[300],
@@ -104,10 +107,12 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
+
 
   Widget importantSection() {
     return Padding(
@@ -117,9 +122,7 @@ class HomePage extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              // Handle tap action here
               print('Tapped on first box');
-              // Navigator.pushNamed(context, '/nextPage'); // Example navigation
             },
             child: Container(
               width: 182.0,
@@ -129,8 +132,8 @@ class HomePage extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(
-                  color: Color(0xFF5278C1), // Outline color
-                  width: 2.0, // Outline width
+                  color: Color(0xFF5278C1), 
+                  width: 2.0, 
                 ),
               ),
               child: Column(
