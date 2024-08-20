@@ -1,20 +1,44 @@
 import 'package:flutter/material.dart';
 import 'profile_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
- @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    backgroundColor: Color(0xFF5278C1),
-    body: Stack(
-      children: [
-        Positioned.fill(
-          child: Align(
-            alignment: Alignment.center,
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool _animate = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _startAnimation();
+  }
+
+  void _startAnimation() {
+    Future.delayed(Duration(milliseconds: 300), () {
+      setState(() {
+        _animate = true;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFF5278C1),
+      body: Stack(
+        children: [
+          // White box positioned behind the main content
+          AnimatedPositioned(
+            duration: Duration(milliseconds: 1000),
+            curve: Curves.easeInOut,
+            top: _animate ? 380.0 : 800.0, // Adjust starting position
+            left: 0,
+            right: 0,
             child: Container(
-              margin: EdgeInsets.only(top: 380.0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -22,20 +46,46 @@ Widget build(BuildContext context) {
                   topRight: Radius.circular(30.0),
                 ),
               ),
+              height: MediaQuery.of(context).size.height - 380,
             ),
           ),
-        ),
-        Column(
-          children: [
-            profileInfo(context), 
-            importantSection(),
-            Expanded(child: gridSection()),
-          ],
-        ),
-      ],
-    ),
-  );
-}
+          Column(
+            children: [
+              AnimatedOpacity(
+                opacity: _animate ? 1.0 : 0.0,
+                duration: Duration(milliseconds: 800),
+                child: profileInfo(),
+              ),
+              AnimatedOpacity(
+                opacity: _animate ? 1.0 : 0.0,
+                duration: Duration(milliseconds: 1000),
+                child: importantSection(),
+              ),
+              Expanded(
+                child: Stack(
+                  children: [
+                    AnimatedPositioned(
+                      duration: Duration(milliseconds: 1000),
+                      curve: Curves.easeInOut,
+                      top: _animate ? 0.0 : 200.0, // Adjust starting position
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: AnimatedOpacity(
+                        opacity: _animate ? 1.0 : 0.0,
+                        duration: Duration(milliseconds: 1200),
+                        child: gridSection(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 
 
  Widget profileInfo(BuildContext context) {
@@ -187,22 +237,54 @@ Widget build(BuildContext context) {
             child: Container(
               width: 182.0,
               height: 221.0,
+              alignment: Alignment.centerLeft,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(
-                  color: Color(0xFF5278C1), 
-                  width: 2.0,
+                  color: Color(0xFF5278C1), // Outline color
+                  width: 2.0, // Outline width
                 ),
               ),
-              child: Center(
-                child: Text(
-                  'Box 2',
-                  style: TextStyle(
-                    color: Color(0xFF5278C1),
-                    fontSize: 16.0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 40.0,
+                    backgroundColor: Color.fromRGBO(220, 80, 242, 1),
+                    child: Icon(
+                      Icons.monetization_on,
+                      size: 60.0,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
+                  SizedBox(height: 12.0),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 16.0), // Add left margin here
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '₱50,000', // Example fees due
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 34.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8.0),
+                        Text(
+                          'Fees Due',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -212,41 +294,141 @@ Widget build(BuildContext context) {
   }
 
   Widget gridSection() {
-    return GridView.builder(
-      padding: EdgeInsets.all(16.0),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 16.0,
-        mainAxisSpacing: 16.0,
-        childAspectRatio: 163 / 132, // Width / Height of the boxes
-      ),
-      itemCount: 14, // 7 rows x 2 columns
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            // Handle tap action here
-            print('Tapped on item $index');
-            // Navigator.pushNamed(context, '/nextPage'); // Example navigation
-          },
-          child: Container(
-            width: 163.0, // Set the width
-            height: 132.0, // Set the height
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 245, 246, 252),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Center(
-              child: Text(
-                'Item ${index + 1}',
-                style: TextStyle(
-                  color: Color(0xFF5278C1),
-                  fontSize: 16.0,
+    return AnimatedPositioned(
+      duration: Duration(milliseconds: 1000),
+      curve: Curves.easeInOut,
+      top: _animate ? 0.0 : 200.0, // Initial position, adjust as needed
+      left: 0,
+      right: 0,
+      bottom: 0,
+      child: AnimatedOpacity(
+        opacity: _animate ? 1.0 : 0.0,
+        duration: Duration(milliseconds: 1200),
+        child: GridView.builder(
+          padding: EdgeInsets.all(16.0),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16.0,
+            mainAxisSpacing: 16.0,
+            childAspectRatio: 163 / 132, // Width / Height of the boxes
+          ),
+          itemCount: 12, // 7 rows x 2 columns
+          itemBuilder: (context, index) {
+            // List of items with their corresponding text and icons
+            final List<Map<String, dynamic>> items = [
+              {
+                'title': 'Play Quiz',
+                'icon': Icons.quiz,
+                'color': Color(0xFF5278C1)
+              },
+              {
+                'title': 'Assignment',
+                'icon': Icons.assignment,
+                'color': Color(0xFF5278C1)
+              },
+              {
+                'title': 'School Holiday',
+                'icon': Icons.beach_access,
+                'color': Color(0xFF5278C1)
+              },
+              {
+                'title': 'Time Table',
+                'icon': Icons.schedule,
+                'color': Color(0xFF5278C1)
+              },
+              {
+                'title': 'Result',
+                'icon': Icons.insert_chart,
+                'color': Color(0xFF5278C1)
+              },
+              {
+                'title': 'Date Sheet',
+                'icon': Icons.date_range,
+                'color': Color(0xFF5278C1)
+              },
+              {
+                'title': 'Doubts',
+                'icon': Icons.help,
+                'color': Color(0xFF5278C1)
+              },
+              {
+                'title': 'School Gallery',
+                'icon': Icons.photo_album,
+                'color': Color(0xFF5278C1)
+              },
+              {
+                'title': 'Leave Application',
+                'icon': Icons.note_add,
+                'color': Color(0xFF5278C1)
+              },
+              {
+                'title': 'Change Password',
+                'icon': Icons.lock,
+                'color': Color(0xFF5278C1)
+              },
+              {
+                'title': 'Events',
+                'icon': Icons.event,
+                'color': Color(0xFF5278C1)
+              },
+              {
+                'title': 'Logout',
+                'icon': Icons.logout,
+                'color': Color(0xFF5278C1)
+              },
+            ];
+
+            // Access the current item and cast the values to their correct types
+            final item = items[index];
+            final String title = item['title'] as String;
+            final IconData icon = item['icon'] as IconData;
+            final Color color = item['color'] as Color;
+
+            return GestureDetector(
+              onTap: () {
+                // Handle tap action here
+                print('Tapped on $title');
+                // Navigator.pushNamed(context, '/${title}Page'); // Example navigation
+              },
+              child: Container(
+                width: 163.0, // Set the width
+                height: 132.0, // Set the height
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 245, 246, 252),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 0.0), // Add padding around the Column
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 30.0,
+                        backgroundColor: color,
+                        child: Icon(
+                          icon,
+                          size: 38.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 12.0),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ),
-        );
-      },
+            );
+          },
+        ),
+      ),
     );
   }
 }
