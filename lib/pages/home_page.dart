@@ -27,7 +27,7 @@ Widget build(BuildContext context) {
         ),
         Column(
           children: [
-            profileInfo(context), // Pass context here
+            profileInfo(context), 
             importantSection(),
             Expanded(child: gridSection()),
           ],
@@ -47,7 +47,7 @@ Widget build(BuildContext context) {
           padding: const EdgeInsets.only(left: 16.0, top: 50.0),
           child: Container(
             color: Colors.transparent,
-            width: 250.0,
+            width: 250.0,            
             height: 200.0,
             alignment: Alignment.topLeft,
             child: Column(
@@ -151,12 +151,12 @@ Widget build(BuildContext context) {
                   SizedBox(height: 12.0),
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 16.0), // Add left margin here
+                        left: 16.0), 
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '75.00%', // Example attendance percentage
+                          '75.00%', 
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 34.0,
@@ -180,9 +180,9 @@ Widget build(BuildContext context) {
           ),
           GestureDetector(
             onTap: () {
-              // Handle tap action here
+             
               print('Tapped on second box');
-              // Navigator.pushNamed(context, '/nextPage'); // Example navigation
+            
             },
             child: Container(
               width: 182.0,
@@ -191,8 +191,8 @@ Widget build(BuildContext context) {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(
-                  color: Color(0xFF5278C1), // Outline color
-                  width: 2.0, // Outline width
+                  color: Color(0xFF5278C1), 
+                  width: 2.0,
                 ),
               ),
               child: Center(
