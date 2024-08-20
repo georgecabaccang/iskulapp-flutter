@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -87,66 +86,60 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
- Widget profileInfo(BuildContext context) {
-  return SafeArea(
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 16.0, top: 50.0),
-          child: Container(
-            color: Colors.transparent,
-            width: 250.0,            
-            height: 200.0,
-            alignment: Alignment.topLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Hi Akshay",
-                  style: TextStyle(
-                    fontSize: 38.0,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  "Class XI-B | Roll no: 04",
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(height: 8.0),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: Text(
-                    " 2024-2025 ",
+  Widget profileInfo() {
+    return SafeArea(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, top: 50.0),
+            child: Container(
+              color: Colors.transparent,
+              width: 250.0,
+              height: 200.0,
+              alignment: Alignment.topLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Hi Akshay",
                     style: TextStyle(
-                      color: Color(0xFF5278C1),
-                      fontSize: 18.0,
+                      fontSize: 38.0,
+                      color: Colors.white,
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 8.0),
+                  Text(
+                    "Class XI-B | Roll no: 04",
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 8.0),
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child: Text(
+                      " 2024-2025 ",
+                      style: TextStyle(
+                        color: Color(0xFF5278C1),
+                        fontSize: 18.0,
+                        //fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        Spacer(),
-        Padding(
-          padding: const EdgeInsets.only(right: 16.0, bottom: 50.0),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
-              );
-            },
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0, bottom: 50.0),
             child: CircleAvatar(
               radius: 40.0,
               backgroundColor: Colors.grey[300],
@@ -157,12 +150,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-        ),
-      ],
-    ),
-  );
-}
-
+        ],
+      ),
+    );
+  }
 
   Widget importantSection() {
     return Padding(
@@ -172,7 +163,9 @@ class _HomePageState extends State<HomePage> {
         children: [
           GestureDetector(
             onTap: () {
+              // Handle tap action here
               print('Tapped on first box');
+              // Navigator.pushNamed(context, '/nextPage'); // Example navigation
             },
             child: Container(
               width: 182.0,
@@ -182,8 +175,8 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(
-                  color: Color(0xFF5278C1), 
-                  width: 2.0, 
+                  color: Color(0xFF5278C1), // Outline color
+                  width: 2.0, // Outline width
                 ),
               ),
               child: Column(
@@ -201,12 +194,12 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: 12.0),
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 16.0), 
+                        left: 16.0), // Add left margin here
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '75.00%', 
+                          '75.00%', // Example attendance percentage
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 34.0,
@@ -230,9 +223,9 @@ class _HomePageState extends State<HomePage> {
           ),
           GestureDetector(
             onTap: () {
-             
+              // Handle tap action here
               print('Tapped on second box');
-            
+              // Navigator.pushNamed(context, '/nextPage'); // Example navigation
             },
             child: Container(
               width: 182.0,
