@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/pages/calendar_attendance_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,6 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _animate = false;
+  bool _isTransitioning = false;
 
   @override
   void initState() {
@@ -24,13 +26,35 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _goToCalendarAttendancePage() async {
+    setState(() {
+      _isTransitioning = true;
+    });
+    await Future.delayed(Duration(milliseconds: 800));
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            CalendarAttendancePage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return child; // No additional animation needed here, handled in CalendarAttendancePage
+        },
+      ),
+    ).then((_) {
+      setState(() {
+        _isTransitioning = false;
+        _animate = false;
+        _startAnimation(); // Re-start the animation when coming back
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF5278C1),
       body: Stack(
         children: [
-          // White box positioned behind the main content
           AnimatedPositioned(
             duration: Duration(milliseconds: 1000),
             curve: Curves.easeInOut,
@@ -51,13 +75,13 @@ class _HomePageState extends State<HomePage> {
           Column(
             children: [
               AnimatedOpacity(
-                opacity: _animate ? 1.0 : 0.0,
-                duration: Duration(milliseconds: 800),
+                opacity: _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
+                duration: Duration(milliseconds: 500),
                 child: profileInfo(),
               ),
               AnimatedOpacity(
-                opacity: _animate ? 1.0 : 0.0,
-                duration: Duration(milliseconds: 1000),
+                opacity: _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
+                duration: Duration(milliseconds: 500),
                 child: importantSection(),
               ),
               Expanded(
@@ -71,8 +95,9 @@ class _HomePageState extends State<HomePage> {
                       right: 0,
                       bottom: 0,
                       child: AnimatedOpacity(
-                        opacity: _animate ? 1.0 : 0.0,
-                        duration: Duration(milliseconds: 1200),
+                        opacity:
+                            _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
+                        duration: Duration(milliseconds: 500),
                         child: gridSection(),
                       ),
                     ),
@@ -162,11 +187,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: () {
-              // Handle tap action here
-              print('Tapped on first box');
-              // Navigator.pushNamed(context, '/nextPage'); // Example navigation
-            },
+            onTap: _goToCalendarAttendancePage,
             child: Container(
               width: 182.0,
               height: 221.0,
