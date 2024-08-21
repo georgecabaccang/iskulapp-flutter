@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _startAnimation() {
-    Future.delayed(Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 200), () {
       setState(() {
         _animate = true;
       });
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _isTransitioning = true;
     });
-    await Future.delayed(Duration(milliseconds: 800));
+    await Future.delayed(const Duration(milliseconds: 200));
     Navigator.push(
       context,
       PageRouteBuilder(
@@ -56,13 +56,13 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           AnimatedPositioned(
-            duration: Duration(milliseconds: 1000),
+            duration: const Duration(milliseconds: 1000),
             curve: Curves.easeInOut,
             top: _animate ? 380.0 : 800.0, // Adjust starting position
             left: 0,
             right: 0,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30.0),
@@ -76,19 +76,19 @@ class _HomePageState extends State<HomePage> {
             children: [
               AnimatedOpacity(
                 opacity: _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
                 child: profileInfo(),
               ),
               AnimatedOpacity(
                 opacity: _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
                 child: importantSection(),
               ),
               Expanded(
                 child: Stack(
                   children: [
                     AnimatedPositioned(
-                      duration: Duration(milliseconds: 1000),
+                      duration: const Duration(milliseconds: 1000),
                       curve: Curves.easeInOut,
                       top: _animate ? 0.0 : 200.0, // Adjust starting position
                       left: 0,
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                       child: AnimatedOpacity(
                         opacity:
                             _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
-                        duration: Duration(milliseconds: 500),
+                        duration: const Duration(milliseconds: 500),
                         child: gridSection(),
                       ),
                     ),
@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Hi Akshay",
                     style: TextStyle(
                       fontSize: 38.0,
@@ -134,14 +134,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(height: 8.0),
-                  Text(
+                  const Text(
                     "Class XI-B | Roll no: 04",
                     style: TextStyle(
                       fontSize: 24.0,
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Container(
                     padding:
                         EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    child: Text(
+                    child: const Text(
                       " 2024-2025 ",
                       style: TextStyle(
                         color: Color(0xFF5278C1),
@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
             child: CircleAvatar(
               radius: 40.0,
               backgroundColor: Colors.grey[300],
-              child: Icon(
+              child: const Icon(
                 Icons.person,
                 size: 40.0,
                 color: Colors.white,
@@ -200,7 +200,7 @@ class _HomePageState extends State<HomePage> {
                   width: 2.0, // Outline width
                 ),
               ),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
@@ -214,8 +214,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 12.0),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0), // Add left margin here
+                    padding:
+                        EdgeInsets.only(left: 16.0), // Add left margin here
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -260,7 +260,7 @@ class _HomePageState extends State<HomePage> {
                   width: 2.0, // Outline width
                 ),
               ),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
@@ -274,8 +274,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 12.0),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0), // Add left margin here
+                    padding:
+                        EdgeInsets.only(left: 16.0), // Add left margin here
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -320,7 +320,7 @@ class _HomePageState extends State<HomePage> {
         duration: Duration(milliseconds: 1200),
         child: GridView.builder(
           padding: EdgeInsets.all(16.0),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 16.0,
             mainAxisSpacing: 16.0,
@@ -430,7 +430,7 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 12.0),
                       Text(
                         title,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18.0,
                         ),

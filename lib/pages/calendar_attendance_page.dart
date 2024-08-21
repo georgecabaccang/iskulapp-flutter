@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarAttendancePage extends StatefulWidget {
+  final DateTime focusDate;
+
+  CalendarAttendancePage({Key? key, DateTime? focusDate})
+      : focusDate = focusDate ?? DateTime.now(),
+        super(key: key);
+
   @override
   _CalendarAttendancePageState createState() => _CalendarAttendancePageState();
 }
@@ -19,12 +25,12 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
     super.initState();
     _calendarFormat = CalendarFormat.month;
     _selectedDay = DateTime.now();
-    _focusedDay = DateTime.now();
+    _focusedDay = widget.focusDate;
     _startAnimation();
   }
 
   void _startAnimation() {
-    Future.delayed(Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 300), () {
       setState(() {
         _animate = true;
       });
@@ -42,7 +48,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
           ),
           // White box that starts at the same position as in the HomePage
           AnimatedPositioned(
-            duration: Duration(milliseconds: 1000),
+            duration: const Duration(milliseconds: 1000),
             curve: Curves.easeInOut,
             top: _isBackNavigation
                 ? 460.4
@@ -51,7 +57,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
             right: 0,
             bottom: 0,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30.0),
@@ -101,13 +107,13 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
                       });
                     },
                   ),
-                  Spacer(),
+                  const Spacer(),
                   AnimatedOpacity(
                     duration: Duration(milliseconds: 500),
                     opacity: _isBackNavigation ? 0.0 : (_animate ? 1.0 : 0.0),
                     child: _buildToggleButton(),
                   ),
-                  Spacer(flex: 2),
+                  const Spacer(flex: 2),
                 ],
               ),
             ),
@@ -141,7 +147,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
         });
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         decoration: BoxDecoration(
           color: isSelected ? Colors.white : Colors.transparent,
           borderRadius: BorderRadius.circular(30.0),
