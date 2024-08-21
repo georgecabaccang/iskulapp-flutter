@@ -12,10 +12,20 @@ class CalendarAttendancePage extends StatefulWidget {
   _CalendarAttendancePageState createState() => _CalendarAttendancePageState();
 }
 
+class AnimationState {
+  bool animate = false;
+  bool isAttendanceSelected = true;
+  bool isBackNavigation = false;
+
+  AnimationState({
+    this.animate = false,
+    this.isAttendanceSelected = true,
+    this.isBackNavigation = false,
+  });
+}
+
 class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
-  bool _animate = false;
-  bool _isAttendanceSelected = true;
-  bool _isBackNavigation = false;
+  late AnimationState animationState;
   late CalendarFormat _calendarFormat;
   late DateTime _selectedDay;
   late DateTime _focusedDay;
@@ -23,6 +33,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
   @override
   void initState() {
     super.initState();
+    animationState = AnimationState();
     _calendarFormat = CalendarFormat.month;
     _selectedDay = DateTime.now();
     _focusedDay = widget.focusDate;
@@ -32,7 +43,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
   void _startAnimation() {
     Future.delayed(const Duration(milliseconds: 300), () {
       setState(() {
-        _animate = true;
+        animationState.animate = true;
       });
     });
   }
@@ -50,9 +61,9 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 1000),
             curve: Curves.easeInOut,
-            top: _isBackNavigation
+            top: animationState.isBackNavigation
                 ? 460.4
-                : (_animate ? 100.0 : 380.0), // Position change based on state
+                : (animationState.animate ? 100.0 : 380.0),
             left: 0,
             right: 0,
             bottom: 0,
@@ -68,8 +79,10 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
                 children: [
                   Expanded(
                     child: AnimatedOpacity(
-                      opacity: _isBackNavigation ? 0.0 : (_animate ? 1.0 : 0.0),
-                      duration: Duration(milliseconds: 500),
+                      opacity: animationState.isBackNavigation
+                          ? 0.0
+                          : (animationState.animate ? 1.0 : 0.0),
+                      duration: const Duration(milliseconds: 500),
                       child: _buildCalendar(),
                     ),
                   ),
@@ -92,25 +105,30 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
         child: Column(
           children: [
             AnimatedOpacity(
-              duration: Duration(milliseconds: 500),
-              opacity: _isBackNavigation ? 0.0 : (_animate ? 1.0 : 0.0),
+              duration: const Duration(milliseconds: 500),
+              opacity: animationState.isBackNavigation
+                  ? 0.0
+                  : (animationState.animate ? 1.0 : 0.0),
               child: Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_back, color: Colors.white),
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
                     onPressed: () {
                       setState(() {
-                        _isBackNavigation = true; // Trigger fade out
+                        animationState.isBackNavigation =
+                            true; // Trigger fade out
                       });
-                      Future.delayed(Duration(milliseconds: 800), () {
+                      Future.delayed(const Duration(milliseconds: 800), () {
                         Navigator.pop(context);
                       });
                     },
                   ),
                   const Spacer(),
                   AnimatedOpacity(
-                    duration: Duration(milliseconds: 500),
-                    opacity: _isBackNavigation ? 0.0 : (_animate ? 1.0 : 0.0),
+                    duration: const Duration(milliseconds: 500),
+                    opacity: animationState.isBackNavigation
+                        ? 0.0
+                        : (animationState.animate ? 1.0 : 0.0),
                     child: _buildToggleButton(),
                   ),
                   const Spacer(flex: 2),
@@ -126,14 +144,15 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
   Widget _buildToggleButton() {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFF96B1E5),
+        color: const Color(0xFF96B1E5),
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildCapsuleButton("ATTENDANCE", _isAttendanceSelected),
-          _buildCapsuleButton("HOLIDAY", !_isAttendanceSelected),
+          _buildCapsuleButton(
+              "ATTENDANCE", animationState.isAttendanceSelected),
+          _buildCapsuleButton("HOLIDAY", !animationState.isAttendanceSelected),
         ],
       ),
     );
@@ -143,11 +162,11 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          _isAttendanceSelected = (text == "ATTENDANCE");
+          animationState.isAttendanceSelected = (text == "ATTENDANCE");
         });
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         decoration: BoxDecoration(
           color: isSelected ? Colors.white : Colors.transparent,
           borderRadius: BorderRadius.circular(30.0),
