@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/profile_page.dart';
+import 'package:school_erp/pages/calendar_attendance_page.dart';
+import 'profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _animate = false;
+  bool _isTransitioning = false;
 
   @override
   void initState() {
@@ -18,9 +20,32 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _startAnimation() {
-    Future.delayed(Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 200), () {
       setState(() {
         _animate = true;
+      });
+    });
+  }
+
+  void _goToCalendarAttendancePage() async {
+    setState(() {
+      _isTransitioning = true;
+    });
+    await Future.delayed(const Duration(milliseconds: 200));
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            CalendarAttendancePage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return child; // No additional animation needed here, handled in CalendarAttendancePage
+        },
+      ),
+    ).then((_) {
+      setState(() {
+        _isTransitioning = false;
+        _animate = false;
+        _startAnimation(); // Re-start the animation when coming back
       });
     });
   }
@@ -31,15 +56,14 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Color(0xFF5278C1),
       body: Stack(
         children: [
-          // White box positioned behind the main content
           AnimatedPositioned(
-            duration: Duration(milliseconds: 1000),
+            duration: const Duration(milliseconds: 1000),
             curve: Curves.easeInOut,
             top: _animate ? 380.0 : 800.0, // Adjust starting position
             left: 0,
             right: 0,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30.0),
@@ -52,28 +76,29 @@ class _HomePageState extends State<HomePage> {
           Column(
             children: [
               AnimatedOpacity(
-                opacity: _animate ? 1.0 : 0.0,
-                duration: Duration(milliseconds: 800),
+                opacity: _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
+                duration: const Duration(milliseconds: 500),
                 child: profileInfo(),
               ),
               AnimatedOpacity(
-                opacity: _animate ? 1.0 : 0.0,
-                duration: Duration(milliseconds: 1000),
+                opacity: _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
+                duration: const Duration(milliseconds: 500),
                 child: importantSection(),
               ),
               Expanded(
                 child: Stack(
                   children: [
                     AnimatedPositioned(
-                      duration: Duration(milliseconds: 1000),
+                      duration: const Duration(milliseconds: 1000),
                       curve: Curves.easeInOut,
                       top: _animate ? 0.0 : 200.0, // Adjust starting position
                       left: 0,
                       right: 0,
                       bottom: 0,
                       child: AnimatedOpacity(
-                        opacity: _animate ? 1.0 : 0.0,
-                        duration: Duration(milliseconds: 1200),
+                        opacity:
+                            _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
+                        duration: const Duration(milliseconds: 500),
                         child: gridSection(),
                       ),
                     ),
@@ -102,7 +127,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Hi Akshay",
                     style: TextStyle(
                       fontSize: 38.0,
@@ -110,14 +135,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(height: 8.0),
-                  Text(
+                  const Text(
                     "Class XI-B | Roll no: 04",
                     style: TextStyle(
                       fontSize: 24.0,
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Container(
                     padding:
                         EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
@@ -125,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    child: Text(
+                    child: const Text(
                       " 2024-2025 ",
                       style: TextStyle(
                         color: Color(0xFF5278C1),
@@ -171,11 +196,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: () {
-              // Handle tap action here
-              print('Tapped on first box');
-              // Navigator.pushNamed(context, '/nextPage'); // Example navigation
-            },
+            onTap: _goToCalendarAttendancePage,
             child: Container(
               width: 182.0,
               height: 221.0,
@@ -188,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                   width: 2.0, // Outline width
                 ),
               ),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
@@ -202,8 +223,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 12.0),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0), // Add left margin here
+                    padding:
+                        EdgeInsets.only(left: 16.0), // Add left margin here
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -248,7 +269,7 @@ class _HomePageState extends State<HomePage> {
                   width: 2.0, // Outline width
                 ),
               ),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
@@ -262,8 +283,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 12.0),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0), // Add left margin here
+                    padding:
+                        EdgeInsets.only(left: 16.0), // Add left margin here
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -308,7 +329,7 @@ class _HomePageState extends State<HomePage> {
         duration: Duration(milliseconds: 1200),
         child: GridView.builder(
           padding: EdgeInsets.all(16.0),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 16.0,
             mainAxisSpacing: 16.0,
@@ -418,7 +439,7 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 12.0),
                       Text(
                         title,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18.0,
                         ),
