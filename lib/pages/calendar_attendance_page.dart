@@ -62,7 +62,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
             duration: const Duration(milliseconds: 1000),
             curve: Curves.easeInOut,
             top: animationState.isBackNavigation
-                ? 460.4
+                ? 420.5
                 : (animationState.animate ? 100.0 : 380.0),
             left: 0,
             right: 0,
