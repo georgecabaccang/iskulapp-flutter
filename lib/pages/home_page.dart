@@ -71,41 +71,22 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               height: MediaQuery.of(context).size.height - 380,
+              child: AnimatedOpacity(
+                opacity: _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
+                duration: const Duration(milliseconds: 500),
+                child: gridSection(),
+              ),
             ),
           ),
-          Column(
-            children: [
-              AnimatedOpacity(
-                opacity: _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
-                duration: const Duration(milliseconds: 500),
-                child: profileInfo(),
-              ),
-              AnimatedOpacity(
-                opacity: _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
-                duration: const Duration(milliseconds: 500),
-                child: importantSection(),
-              ),
-              Expanded(
-                child: Stack(
-                  children: [
-                    AnimatedPositioned(
-                      duration: const Duration(milliseconds: 1000),
-                      curve: Curves.easeInOut,
-                      top: _animate ? 0.0 : 200.0, // Adjust starting position
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: AnimatedOpacity(
-                        opacity:
-                            _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
-                        duration: const Duration(milliseconds: 500),
-                        child: gridSection(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          AnimatedOpacity(
+            opacity: _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
+            duration: const Duration(milliseconds: 500),
+            child: Column(
+              children: [
+                profileInfo(),
+                importantSection(),
+              ],
+            ),
           ),
         ],
       ),
@@ -155,7 +136,6 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(
                         color: Color(0xFF5278C1),
                         fontSize: 18.0,
-                        //fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -205,8 +185,8 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(
-                  color: Color(0xFF5278C1), // Outline color
-                  width: 2.0, // Outline width
+                  color: Color(0xFF5278C1),
+                  width: 2.0,
                 ),
               ),
               child: const Column(
@@ -223,13 +203,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 12.0),
                   Padding(
-                    padding:
-                        EdgeInsets.only(left: 16.0), // Add left margin here
+                    padding: EdgeInsets.only(left: 16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '75.00%', // Example attendance percentage
+                          '75.00%',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 34.0,
@@ -253,9 +232,7 @@ class _HomePageState extends State<HomePage> {
           ),
           GestureDetector(
             onTap: () {
-              // Handle tap action here
               print('Tapped on second box');
-              // Navigator.pushNamed(context, '/nextPage'); // Example navigation
             },
             child: Container(
               width: 182.0,
@@ -265,8 +242,8 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(
-                  color: Color(0xFF5278C1), // Outline color
-                  width: 2.0, // Outline width
+                  color: Color(0xFF5278C1),
+                  width: 2.0,
                 ),
               ),
               child: const Column(
@@ -283,13 +260,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 12.0),
                   Padding(
-                    padding:
-                        EdgeInsets.only(left: 16.0), // Add left margin here
+                    padding: EdgeInsets.only(left: 16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '₱50,000', // Example fees due
+                          '₱50,000',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 34.0,
@@ -317,135 +293,102 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget gridSection() {
-    return AnimatedPositioned(
-      duration: Duration(milliseconds: 1000),
-      curve: Curves.easeInOut,
-      top: _animate ? 0.0 : 200.0, // Initial position, adjust as needed
-      left: 0,
-      right: 0,
-      bottom: 0,
-      child: AnimatedOpacity(
-        opacity: _animate ? 1.0 : 0.0,
-        duration: Duration(milliseconds: 1200),
+    return Padding(
+      padding: const EdgeInsets.only(top: 120.0),
+      child: Container(
         child: GridView.builder(
           padding: EdgeInsets.all(16.0),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 16.0,
             mainAxisSpacing: 16.0,
-            childAspectRatio: 163 / 132, // Width / Height of the boxes
+            childAspectRatio: 163 / 132,
           ),
-          itemCount: 12, // 7 rows x 2 columns
+          itemCount: 12,
           itemBuilder: (context, index) {
-            // List of items with their corresponding text and icons
             final List<Map<String, dynamic>> items = [
               {
                 'title': 'Play Quiz',
                 'icon': Icons.quiz,
-                'color': Color(0xFF5278C1)
               },
               {
                 'title': 'Assignment',
                 'icon': Icons.assignment,
-                'color': Color(0xFF5278C1)
               },
               {
                 'title': 'School Holiday',
-                'icon': Icons.beach_access,
-                'color': Color(0xFF5278C1)
+                'icon': Icons.calendar_today,
               },
               {
                 'title': 'Time Table',
                 'icon': Icons.schedule,
-                'color': Color(0xFF5278C1)
               },
               {
                 'title': 'Result',
-                'icon': Icons.insert_chart,
-                'color': Color(0xFF5278C1)
+                'icon': Icons.grade,
               },
               {
                 'title': 'Date Sheet',
                 'icon': Icons.date_range,
-                'color': Color(0xFF5278C1)
               },
               {
                 'title': 'Doubts',
-                'icon': Icons.help,
-                'color': Color(0xFF5278C1)
+                'icon': Icons.help_outline,
               },
               {
                 'title': 'School Gallery',
-                'icon': Icons.photo_album,
-                'color': Color(0xFF5278C1)
+                'icon': Icons.photo_library,
               },
               {
                 'title': 'Leave Application',
-                'icon': Icons.note_add,
-                'color': Color(0xFF5278C1)
+                'icon': Icons.request_page,
               },
               {
                 'title': 'Change Password',
                 'icon': Icons.lock,
-                'color': Color(0xFF5278C1)
               },
               {
                 'title': 'Events',
                 'icon': Icons.event,
-                'color': Color(0xFF5278C1)
               },
               {
                 'title': 'Logout',
                 'icon': Icons.logout,
-                'color': Color(0xFF5278C1)
               },
             ];
 
-            // Access the current item and cast the values to their correct types
-            final item = items[index];
-            final String title = item['title'] as String;
-            final IconData icon = item['icon'] as IconData;
-            final Color color = item['color'] as Color;
-
             return GestureDetector(
               onTap: () {
-                // Handle tap action here
-                print('Tapped on $title');
-                // Navigator.pushNamed(context, '/${title}Page'); // Example navigation
+                final item = items[index];
+                print('Tapped on ${item['title']}');
+                // Add navigation or functionality for each item here
               },
               child: Container(
-                width: 163.0, // Set the width
-                height: 132.0, // Set the height
-                alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 245, 246, 252),
+                  color: Color(0xFFF5F6FC),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 0.0), // Add padding around the Column
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 30.0,
-                        backgroundColor: color,
-                        child: Icon(
-                          icon,
-                          size: 38.0,
-                          color: Colors.white,
-                        ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 30.0,
+                      backgroundColor: Color(0xFF5278C1),
+                      child: Icon(
+                        items[index]['icon'],
+                        size: 40.0,
+                        color: Colors.white,
                       ),
-                      SizedBox(height: 12.0),
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 18.0,
-                        ),
+                    ),
+                    SizedBox(height: 8.0),
+                    Text(
+                      items[index]['title'],
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.black,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             );
