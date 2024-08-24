@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/calendar_attendance_page.dart';
+import 'profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -145,7 +146,13 @@ class _HomePageState extends State<HomePage> {
           Spacer(),
           Padding(
             padding: const EdgeInsets.only(right: 16.0, bottom: 50.0),
-            child: CircleAvatar(
+            child:GestureDetector(
+              onTap: (){
+                Navigator.push(context, 
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+                );
+              },
+              child: CircleAvatar(
               radius: 40.0,
               backgroundColor: Colors.grey[300],
               child: const Icon(
@@ -154,6 +161,8 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
               ),
             ),
+            )
+
           ),
         ],
       ),
