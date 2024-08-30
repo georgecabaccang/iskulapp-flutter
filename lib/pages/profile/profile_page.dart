@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:school_erp/widgets/formText.dart';
+import 'package:school_erp/pages/profile/formText.dart';
 
 class FormTextData {
   final String label;
