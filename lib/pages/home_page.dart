@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/calendar_attendance_page.dart';
-import 'profile_page.dart';
+import 'package:school_erp/pages/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
