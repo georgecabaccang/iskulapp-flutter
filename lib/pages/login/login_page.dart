@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/widgets/forgot_password.dart';
-import 'package:school_erp/widgets/login_body.dart';
-import 'package:school_erp/widgets/login_stack.dart'; // Import the custom container widget
-import 'package:school_erp/pages/home_page.dart';
+import 'package:school_erp/pages/login/widgets/forgot_password.dart';
+import 'package:school_erp/pages/login/widgets/login_body.dart';
+import 'package:school_erp/pages/login/widgets/login_stack.dart'; // Import the custom container widget
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

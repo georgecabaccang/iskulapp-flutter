@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/widgets/rounded_container.dart'; // Import the custom container widget
+import 'package:school_erp/pages/login/widgets/rounded_container.dart'; // Import the custom container widget
 
 class LoginStack extends StatelessWidget {
   final Widget image;
