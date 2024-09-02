@@ -25,7 +25,7 @@ class LoginStack extends StatelessWidget {
           bottom: 0,
           child: RoundedContainer(
             height: double.infinity, // Container takes the remaining space
-            borderRadius: 20.0,
+            borderRadius: 30.0,
             child: containerContent,
           ),
         ),

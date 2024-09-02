@@ -1,8 +1,10 @@
-// lib/widgets/login_body.dart
 import 'package:flutter/material.dart';
+import 'package:school_erp/pages/home_page.dart'; // Import HomePage
 
 class LoginBody extends StatefulWidget {
-  const LoginBody({super.key});
+  final VoidCallback onForgotPassword; // Callback to switch to Forgot Password
+
+  const LoginBody({super.key, required this.onForgotPassword});
 
   @override
   _LoginBodyState createState() => _LoginBodyState();
@@ -98,7 +100,14 @@ class _LoginBodyState extends State<LoginBody> {
                 child: Directionality(
                     textDirection: TextDirection.rtl,
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                        );
+                      }, // Navigate to HomePage
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF5278C1),
                         foregroundColor: Colors.white,
@@ -116,12 +125,15 @@ class _LoginBodyState extends State<LoginBody> {
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Align(
                   alignment: Alignment.centerRight,
-                  child: Text(
-                    'Forgot Password?',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 14,
-                        color: Color(0xFF5278C1)),
+                  child: GestureDetector(
+                    onTap: widget.onForgotPassword, // Switch to Forgot Password
+                    child: Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 14,
+                          color: Color(0xFF5278C1)),
+                    ),
                   ),
                 ),
               )

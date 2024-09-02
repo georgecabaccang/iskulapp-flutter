@@ -1,21 +1,9 @@
-// lib/widgets/login_body.dart
 import 'package:flutter/material.dart';
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({super.key});
+class ForgotPassword extends StatelessWidget {
+  final VoidCallback onBackToLogin; // Callback to switch back to Login screen
 
-  @override
-  _ForgotPassword createState() => _ForgotPassword();
-}
-
-class _ForgotPassword extends State<ForgotPassword> {
-  bool _obscureText = true; // State variable to manage password visibility
-
-  void _togglePasswordVisibility() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
+  const ForgotPassword({super.key, required this.onBackToLogin});
 
   @override
   Widget build(BuildContext context) {
@@ -68,35 +56,39 @@ class _ForgotPassword extends State<ForgotPassword> {
               SizedBox(
                 width: double.infinity,
                 child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: ElevatedButton.icon(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF5278C1),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
+                  textDirection: TextDirection.rtl,
+                  child: ElevatedButton.icon(
+                    onPressed: () {}, // Handle send action
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF5278C1),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
                       ),
-                      icon: const Icon(
-                        Icons.arrow_back,
-                      ),
-                      label: Text("Send"),
-                    )),
+                    ),
+                    icon: const Icon(
+                      Icons.arrow_back,
+                    ),
+                    label: Text("Send"),
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Back to Login',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 14,
-                        color: Colors.black),
+                  child: GestureDetector(
+                    onTap: onBackToLogin, // Switch back to Login screen
+                    child: Text(
+                      'Back to Login',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 14,
+                          color: Colors.black),
+                    ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

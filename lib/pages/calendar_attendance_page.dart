@@ -55,7 +55,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
         children: [
           // Blue background color
           Container(
-            color: Color(0xFF5278C1),
+            color: const Color(0xFF5278C1),
           ),
           // White box that starts at the same position as in the HomePage
           AnimatedPositioned(
@@ -166,7 +166,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
         });
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         decoration: BoxDecoration(
           color: isSelected ? Colors.white : Colors.transparent,
           borderRadius: BorderRadius.circular(30.0),

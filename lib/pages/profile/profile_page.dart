@@ -12,94 +12,169 @@ class FormTextData {
 }
 
 class MyIcons {
-  // Custom camera_alt_outlined icon with lowerCamelCase name
   static const IconData cameraAltOutlined =
       IconData(0xef1e, fontFamily: 'MaterialIcons');
 }
 
-class ProfilePage extends StatelessWidget {
+class AnimationState {
+  bool animate = false;
+  bool isBackNavigation = false;
+
+  AnimationState({
+    this.animate = false,
+    this.isBackNavigation = false,
+  });
+}
+
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-        final double screenHeight = MediaQuery.of(context).size.height;
+  _ProfilePageState createState() => _ProfilePageState();
+}
 
+class _ProfilePageState extends State<ProfilePage> {
+  late AnimationState animationState;
+
+  @override
+  void initState() {
+    super.initState();
+    animationState = AnimationState();
+    _startAnimation();
+  }
+
+  void _startAnimation() {
+    Future.delayed(const Duration(milliseconds: 300), () {
+      setState(() {
+        animationState.animate = true;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF5278C1),
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight + 16.0),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: AppBar(
-            backgroundColor: const Color(0xFF5278C1),
-            title: const Text(
-              "My Profile",
-              style: TextStyle(
+      body: Stack(
+        children: [
+          // Blue background color
+          Container(
+            color: const Color(0xFF5278C1),
+          ),
+          // Animated white box
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 1000),
+            curve: Curves.easeInOut,
+            top: animationState.isBackNavigation
+                ? 420.5
+                : (animationState.animate ? 100.0 : 380.0),
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              decoration: const BoxDecoration(
                 color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    AnimatedOpacity(
+                      opacity: animationState.isBackNavigation
+                          ? 0.0
+                          : (animationState.animate ? 1.0 : 0.0),
+                      duration: const Duration(milliseconds: 500),
+                      child: profileCard(),
+                    ),
+                    AnimatedOpacity(
+                      opacity: animationState.isBackNavigation
+                          ? 0.0
+                          : (animationState.animate ? 1.0 : 0.0),
+                      duration: const Duration(milliseconds: 500),
+                      child: profileForm(),
+                    ),
+                  ],
+                ),
               ),
             ),
-            titleSpacing: 0.0,
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            actions: [
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: TextButton.icon(
-                  onPressed: () {
-                    print('Done button pressed');
-                  },
-                  icon: const Icon(
-                    Icons.check,
-                    color: Colors.blue,
+          ),
+          // Fading AppBar
+          _buildFadingAppBar(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFadingAppBar(BuildContext context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 0.0),
+        child: Column(
+          children: [
+            AnimatedOpacity(
+              duration: const Duration(milliseconds: 500),
+              opacity: animationState.isBackNavigation
+                  ? 0.0
+                  : (animationState.animate ? 1.0 : 0.0),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () {
+                      setState(() {
+                        animationState.isBackNavigation = true;
+                      });
+                      Future.delayed(const Duration(milliseconds: 800), () {
+                        Navigator.pop(context);
+                      });
+                    },
                   ),
-                  label: const Text(
-                    'Done',
+                  const Spacer(),
+                  const Text(
+                    "My Profile",
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Colors.white,
+                      fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                  const Spacer(flex: 2),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: TextButton.icon(
+                      onPressed: () {
+                        print('Done button pressed');
+                      },
+                      icon: const Icon(
+                        Icons.check,
+                        color: Colors.blue,
+                      ),
+                      label: const Text(
+                        'Done',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
+                      ),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8.0),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          constraints: BoxConstraints(
-            minHeight: screenHeight, // Use screen height as minimum height
-          ),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              topRight: Radius.circular(30.0),
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              profileCard(),
-              profileForm(), // Call the refactored profileForm
-            ],
-          ),
+          ],
         ),
       ),
     );
@@ -189,7 +264,6 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget profileForm() {
-    // Define the list of FormTextData items
     final List<List<FormTextData>> formTextDataList = [
       [
         FormTextData('Adhar No.', '1234 4325 4567 1234'),
@@ -200,29 +274,34 @@ class ProfilePage extends StatelessWidget {
         FormTextData('Old Admission No.', 'T00221', CupertinoIcons.lock_fill),
       ],
       [
-        FormTextData('Date of Admission', '01 Apr 2018', CupertinoIcons.lock_fill),
+        FormTextData(
+            'Date of Admission', '01 Apr 2018', CupertinoIcons.lock_fill),
         FormTextData('Date of Birth', '22 July 1996', CupertinoIcons.lock_fill),
       ],
       [
-        FormTextData('Parent Mail ID', 'parentboth84@gmail.com', CupertinoIcons.lock_fill, 370),
+        FormTextData('Parent Mail ID', 'parentboth84@gmail.com',
+            CupertinoIcons.lock_fill, 370),
       ],
       [
-        FormTextData('Mother Name', 'Monica Larson', CupertinoIcons.lock_fill, 370),
+        FormTextData(
+            'Mother Name', 'Monica Larson', CupertinoIcons.lock_fill, 370),
       ],
       [
-        FormTextData('Father Nme', 'Bernard Taylor', CupertinoIcons.lock_fill, 370),
+        FormTextData(
+            'Father Nme', 'Bernard Taylor', CupertinoIcons.lock_fill, 370),
       ],
       [
-        FormTextData('Permanent Add', 'Karol Bagh, Delhi', CupertinoIcons.lock_fill, 370),
+        FormTextData('Permanent Add', 'Karol Bagh, Delhi',
+            CupertinoIcons.lock_fill, 370),
       ],
     ];
 
     return SizedBox(
-     width: double.infinity,
-    height: 650,
+      width: double.infinity,
+      height: 650,
       child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(), 
-        shrinkWrap: true, 
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
         itemCount: formTextDataList.length,
         itemBuilder: (context, index) {
           return buildFormRow(formTextDataList[index]);

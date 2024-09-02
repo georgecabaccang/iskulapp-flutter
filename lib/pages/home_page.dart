@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF5278C1),
+      backgroundColor: const Color(0xFF5278C1),
       body: Stack(
         children: [
           AnimatedPositioned(
@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   const Text(
                     "Class XI-B | Roll no: 04",
                     style: TextStyle(
@@ -125,8 +125,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 8.0),
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 6.0),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(30.0),
@@ -143,27 +143,44 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Padding(
-            padding: const EdgeInsets.only(right: 16.0, bottom: 50.0),
-            child:GestureDetector(
-              onTap: (){
-                Navigator.push(context, 
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
-                );
-              },
-              child: CircleAvatar(
-              radius: 40.0,
-              backgroundColor: Colors.grey[300],
-              child: const Icon(
-                Icons.person,
-                size: 40.0,
-                color: Colors.white,
-              ),
-            ),
-            )
-
-          ),
+              padding: const EdgeInsets.only(right: 16.0, bottom: 50.0),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _isTransitioning = true;
+                  });
+                  Future.delayed(const Duration(milliseconds: 200), () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            const ProfilePage(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          return child; // No additional animation needed here
+                        },
+                      ),
+                    ).then((_) {
+                      setState(() {
+                        _isTransitioning = false;
+                        _animate = false;
+                        _startAnimation(); // Re-start the animation when coming back
+                      });
+                    });
+                  });
+                },
+                child: CircleAvatar(
+                  radius: 40.0,
+                  backgroundColor: Colors.grey[300],
+                  child: const Icon(
+                    Icons.person,
+                    size: 40.0,
+                    color: Colors.white,
+                  ),
+                ),
+              )),
         ],
       ),
     );
@@ -185,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(
-                  color: Color(0xFF5278C1),
+                  color: const Color(0xFF5278C1),
                   width: 2.0,
                 ),
               ),
@@ -242,7 +259,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(
-                  color: Color(0xFF5278C1),
+                  color: const Color(0xFF5278C1),
                   width: 2.0,
                 ),
               ),
@@ -297,7 +314,7 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.only(top: 120.0),
       child: Container(
         child: GridView.builder(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 16.0,
@@ -365,7 +382,7 @@ class _HomePageState extends State<HomePage> {
               },
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color(0xFFF5F6FC),
+                  color: const Color(0xFFF5F6FC),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Column(
@@ -373,17 +390,17 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     CircleAvatar(
                       radius: 30.0,
-                      backgroundColor: Color(0xFF5278C1),
+                      backgroundColor: const Color(0xFF5278C1),
                       child: Icon(
                         items[index]['icon'],
                         size: 40.0,
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(height: 8.0),
+                    const SizedBox(height: 8.0),
                     Text(
                       items[index]['title'],
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16.0,
                         color: Colors.black,
                       ),
