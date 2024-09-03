@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart'; // Import for date formatting
 
 class CalendarAttendancePage extends StatefulWidget {
   final DateTime focusDate;
@@ -29,6 +30,8 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
   late CalendarFormat _calendarFormat;
   late DateTime _selectedDay;
   late DateTime _focusedDay;
+  String _selectedFilter = 'All'; // Variable to store the selected filter
+  late List<DateTime> _daysInMonth; // List to hold days of the current month
 
   @override
   void initState() {
@@ -37,6 +40,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
     _calendarFormat = CalendarFormat.month;
     _selectedDay = DateTime.now();
     _focusedDay = widget.focusDate;
+    _daysInMonth = _getDaysInMonth(_focusedDay);
     _startAnimation();
   }
 
@@ -46,6 +50,22 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
         animationState.animate = true;
       });
     });
+  }
+
+  void _onMonthChanged(DateTime focusedDay) {
+    setState(() {
+      _focusedDay = focusedDay;
+      _daysInMonth = _getDaysInMonth(focusedDay);
+    });
+  }
+
+  List<DateTime> _getDaysInMonth(DateTime date) {
+    DateTime firstDayOfMonth = DateTime(date.year, date.month, 1);
+    DateTime lastDayOfMonth = DateTime(date.year, date.month + 1, 0);
+    return List<DateTime>.generate(
+      lastDayOfMonth.day,
+      (index) => DateTime(date.year, date.month, index + 1),
+    );
   }
 
   @override
@@ -83,7 +103,15 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
                           ? 0.0
                           : (animationState.animate ? 1.0 : 0.0),
                       duration: const Duration(milliseconds: 500),
-                      child: _buildCalendar(),
+                      child: Column(
+                        children: [
+                          _buildCalendar(),
+                          const SizedBox(height: 20.0),
+                          _buildAttendanceTitle(),
+                          const SizedBox(height: 10.0),
+                          _buildAttendanceList(),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -129,7 +157,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
                     opacity: animationState.isBackNavigation
                         ? 0.0
                         : (animationState.animate ? 1.0 : 0.0),
-                    child: _buildToggleButton(),
+                    child: _buildAttendanceButton(),
                   ),
                   const Spacer(flex: 2),
                 ],
@@ -141,42 +169,18 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
     );
   }
 
-  Widget _buildToggleButton() {
+  Widget _buildAttendanceButton() {
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
-        color: const Color(0xFF96B1E5),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(30.0),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildCapsuleButton(
-              "ATTENDANCE", animationState.isAttendanceSelected),
-          _buildCapsuleButton("HOLIDAY", !animationState.isAttendanceSelected),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCapsuleButton(String text, bool isSelected) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          animationState.isAttendanceSelected = (text == "ATTENDANCE");
-        });
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        decoration: BoxDecoration(
-          color: isSelected ? Colors.white : Colors.transparent,
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: isSelected ? Colors.black : Colors.white,
-            fontWeight: FontWeight.bold, // Make text bold
-          ),
+      child: const Text(
+        "ATTENDANCE",
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
@@ -200,6 +204,151 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
           _calendarFormat = format;
         });
       },
+      onPageChanged: (focusedDay) {
+        _onMonthChanged(focusedDay);
+      },
+    );
+  }
+
+  Widget _buildAttendanceTitle() {
+    return Padding(
+      padding: const EdgeInsets.only(
+          left: 20.0, right: 20.0), // Adjusted padding for space
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            "Attendance",
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          _buildDropdownFilter(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDropdownFilter() {
+    return DropdownButton<String>(
+      value: _selectedFilter,
+      items: [
+        _buildDropdownItem('All', Colors.white, Colors.grey),
+        _buildDropdownItem('Absent', Colors.red, Colors.transparent),
+        _buildDropdownItem('Late', Colors.orange, Colors.transparent),
+        _buildDropdownItem('Holiday', Colors.green, Colors.transparent),
+      ],
+      onChanged: (String? newValue) {
+        setState(() {
+          _selectedFilter = newValue!;
+        });
+      },
+      underline: SizedBox(), // Removes the default underline
+    );
+  }
+
+  DropdownMenuItem<String> _buildDropdownItem(
+      String label, Color color, Color borderColor) {
+    return DropdownMenuItem<String>(
+      value: label,
+      child: Row(
+        children: [
+          Container(
+            width: 20, // Increased width
+            height: 20, // Increased height
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: color,
+              border: Border.all(color: borderColor),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(label),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAttendanceList() {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: _daysInMonth.length,
+        itemBuilder: (context, index) {
+          DateTime date = _daysInMonth[index];
+          String day = DateFormat('dd').format(date);
+          String shortMonth =
+              DateFormat('MMM').format(date); // Shortened month name
+          String weekday = DateFormat('EEEE').format(date); // Full weekday name
+
+          // Example attendance data: holidays on weekends
+          bool isHoliday = (weekday == "Saturday" || weekday == "Sunday");
+          String status = isHoliday ? "Holiday" : "Present";
+
+          return Column(
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                child: Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          day,
+                          style: const TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          shortMonth,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey,
+                          ), // Display shortened month name below the date
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: 20.0),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left:
+                              30.0), // Add left padding for status and weekday
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            status,
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            weekday,
+                            style: const TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.grey,
+                            ), // Display day of the week below status
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 60.0), // Trim the divider by 40 pixels
+                child: Divider(), // Line to separate each day
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }
