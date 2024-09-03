@@ -4,9 +4,8 @@ import 'package:table_calendar/table_calendar.dart';
 class CalendarAttendancePage extends StatefulWidget {
   final DateTime focusDate;
 
-  CalendarAttendancePage({Key? key, DateTime? focusDate})
-      : focusDate = focusDate ?? DateTime.now(),
-        super(key: key);
+  CalendarAttendancePage({super.key, DateTime? focusDate})
+      : focusDate = focusDate ?? DateTime.now();
 
   @override
   _CalendarAttendancePageState createState() => _CalendarAttendancePageState();

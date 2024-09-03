@@ -40,8 +40,8 @@ class _LoginBodyState extends State<LoginBody> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20), // Space at the top
-                  Text(
+                  const SizedBox(height: 20), // Space at the top
+                  const Text(
                     'Hi Student',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -50,7 +50,7 @@ class _LoginBodyState extends State<LoginBody> {
                     ),
                     textAlign: TextAlign.start,
                   ),
-                  Text(
+                  const Text(
                     'Sign in to continue',
                     style: TextStyle(
                       fontWeight: FontWeight.w300,
@@ -59,8 +59,8 @@ class _LoginBodyState extends State<LoginBody> {
                     ),
                     textAlign: TextAlign.start,
                   ),
-                  SizedBox(height: 40),
-                  Text(
+                  const SizedBox(height: 40),
+                  const Text(
                     'Mobile Number/Email',
                     style: TextStyle(
                       fontWeight: FontWeight.w100,
@@ -71,7 +71,7 @@ class _LoginBodyState extends State<LoginBody> {
                   ),
                   TextField(
                     controller: _emailController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black45),
                       ),
@@ -80,8 +80,8 @@ class _LoginBodyState extends State<LoginBody> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Password',
                     style: TextStyle(
                       fontWeight: FontWeight.w100,
@@ -94,10 +94,10 @@ class _LoginBodyState extends State<LoginBody> {
                     controller: _passwordController,
                     obscureText: _obscureText, // Toggle password visibility
                     decoration: InputDecoration(
-                      border: UnderlineInputBorder(
+                      border: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black45),
                       ),
-                      focusedBorder: UnderlineInputBorder(
+                      focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black87),
                       ),
                       suffixIcon: IconButton(
@@ -117,7 +117,7 @@ class _LoginBodyState extends State<LoginBody> {
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Text(
                         errorMessage,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.red,
                           fontSize: 14,
                         ),
@@ -137,7 +137,7 @@ class _LoginBodyState extends State<LoginBody> {
                               .add(LoginRequested(email, password));
                         }, // Trigger login action
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF5278C1),
+                          backgroundColor: const Color(0xFF5278C1),
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0),
@@ -146,7 +146,7 @@ class _LoginBodyState extends State<LoginBody> {
                         icon: const Icon(
                           Icons.arrow_back, // Right-facing arrow icon
                         ),
-                        label: Text("Sign in"),
+                        label: const Text("Sign in"),
                       ),
                     ),
                   ),
@@ -157,7 +157,7 @@ class _LoginBodyState extends State<LoginBody> {
                       child: GestureDetector(
                         onTap: widget
                             .onForgotPassword, // Switch to Forgot Password
-                        child: Text(
+                        child: const Text(
                           'Forgot Password?',
                           style: TextStyle(
                             fontWeight: FontWeight.w300,

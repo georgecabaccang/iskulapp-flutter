@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
         builder: (context, state) {
           return Stack(
             children: [
-              LoginView(),
+              const LoginView(),
               if (state is AuthLoading) const LoadingOverlay(),
             ],
           );

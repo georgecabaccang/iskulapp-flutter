@@ -11,13 +11,13 @@ class ForgotPassword extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: EdgeInsets.only(left: 30.0, right: 30.0),
+          padding: const EdgeInsets.only(left: 30.0, right: 30.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20), // Space at the top
-              Text(
+              const SizedBox(height: 20), // Space at the top
+              const Text(
                 'Hi Student',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -25,7 +25,7 @@ class ForgotPassword extends StatelessWidget {
                     color: Colors.black87),
                 textAlign: TextAlign.start,
               ),
-              Text(
+              const Text(
                 'Forgot Password',
                 style: TextStyle(
                     fontWeight: FontWeight.w300,
@@ -33,8 +33,8 @@ class ForgotPassword extends StatelessWidget {
                     color: Colors.black),
                 textAlign: TextAlign.start,
               ),
-              SizedBox(height: 40),
-              Text(
+              const SizedBox(height: 40),
+              const Text(
                 'Mobile Number/Email',
                 style: TextStyle(
                     fontWeight: FontWeight.w100,
@@ -42,7 +42,7 @@ class ForgotPassword extends StatelessWidget {
                     color: Colors.black),
                 textAlign: TextAlign.start,
               ),
-              TextField(
+              const TextField(
                 decoration: InputDecoration(
                   border: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black45),
@@ -52,7 +52,7 @@ class ForgotPassword extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 child: Directionality(
@@ -60,7 +60,7 @@ class ForgotPassword extends StatelessWidget {
                   child: ElevatedButton.icon(
                     onPressed: () {}, // Handle send action
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF5278C1),
+                      backgroundColor: const Color(0xFF5278C1),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
@@ -69,7 +69,7 @@ class ForgotPassword extends StatelessWidget {
                     icon: const Icon(
                       Icons.arrow_back,
                     ),
-                    label: Text("Send"),
+                    label: const Text("Send"),
                   ),
                 ),
               ),
@@ -79,7 +79,7 @@ class ForgotPassword extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: GestureDetector(
                     onTap: onBackToLogin, // Switch back to Login screen
-                    child: Text(
+                    child: const Text(
                       'Back to Login',
                       style: TextStyle(
                           fontWeight: FontWeight.w300,
