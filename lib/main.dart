@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/login/login_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'app_bloc_observer.dart';
+import 'app.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: LoginPage());
-  }
+void main() async {
+  Bloc.observer = const AppBlocObserver();
+  await dotenv.load();
+  runApp(const App());
 }
