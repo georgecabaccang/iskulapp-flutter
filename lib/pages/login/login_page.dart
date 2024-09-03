@@ -1,19 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/features/auth/bloc/auth_bloc_barrel.dart';
 import 'package:school_erp/pages/login/widgets/forgot_password.dart';
 import 'package:school_erp/pages/login/widgets/login_body.dart';
-import 'package:school_erp/pages/login/widgets/login_stack.dart'; // Import the custom container widget
+import 'package:school_erp/pages/login/widgets/login_stack.dart';
+import 'package:school_erp/pages/common_widgets/loading_overlay.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF5278C1),
+      body: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          return Stack(
+            children: [
+              LoginView(),
+              if (state is AuthLoading) const LoadingOverlay(),
+            ],
+          );
+        },
+      ),
+    );
+  }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
+
+  @override
+  _LoginViewState createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
   final PageController _pageController = PageController();
-  bool _showForgotPassword =
-      false; // State to toggle between login and forgot password
+  bool _showForgotPassword = false;
 
   void _toggleForgotPassword() {
     setState(() {
@@ -28,32 +51,26 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF5278C1),
-      body: LoginStack(
-        image: Image.asset(
-          'assets/images/loginPageImage.png',
-          width: 150,
-          height: 180,
-          fit: BoxFit.contain,
-        ),
-        containerContent: PageView(
-          controller: _pageController,
-          physics:
-              const NeverScrollableScrollPhysics(), // Disable manual swiping
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 60.0), // Adjust the top padding as needed
-              child: LoginBody(onForgotPassword: _toggleForgotPassword),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 60.0), // Adjust the top padding as needed
-              child: ForgotPassword(onBackToLogin: _toggleForgotPassword),
-            ),
-          ],
-        ),
+    return LoginStack(
+      image: Image.asset(
+        'assets/images/loginPageImage.png',
+        width: 150,
+        height: 180,
+        fit: BoxFit.contain,
+      ),
+      containerContent: PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 60.0),
+            child: LoginBody(onForgotPassword: _toggleForgotPassword),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 60.0),
+            child: ForgotPassword(onBackToLogin: _toggleForgotPassword),
+          ),
+        ],
       ),
     );
   }
