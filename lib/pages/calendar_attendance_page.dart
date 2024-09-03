@@ -244,7 +244,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
           _selectedFilter = newValue!;
         });
       },
-      underline: SizedBox(), // Removes the default underline
+      underline: const SizedBox(), // Removes the default underline
     );
   }
 

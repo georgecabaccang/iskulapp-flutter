@@ -25,13 +25,13 @@ class _LoginBodyState extends State<LoginBody> {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: EdgeInsets.only(left: 30.0, right: 30.0),
+          padding: const EdgeInsets.only(left: 30.0, right: 30.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20), // Space at the top
-              Text(
+              const SizedBox(height: 20), // Space at the top
+              const Text(
                 'Hi Student',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -39,7 +39,7 @@ class _LoginBodyState extends State<LoginBody> {
                     color: Colors.black87),
                 textAlign: TextAlign.start,
               ),
-              Text(
+              const Text(
                 'Sign in to continue',
                 style: TextStyle(
                     fontWeight: FontWeight.w300,
@@ -47,8 +47,8 @@ class _LoginBodyState extends State<LoginBody> {
                     color: Colors.black),
                 textAlign: TextAlign.start,
               ),
-              SizedBox(height: 40),
-              Text(
+              const SizedBox(height: 40),
+              const Text(
                 'Mobile Number/Email',
                 style: TextStyle(
                     fontWeight: FontWeight.w100,
@@ -56,7 +56,7 @@ class _LoginBodyState extends State<LoginBody> {
                     color: Colors.black),
                 textAlign: TextAlign.start,
               ),
-              TextField(
+              const TextField(
                 decoration: InputDecoration(
                   border: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black45),
@@ -66,8 +66,8 @@ class _LoginBodyState extends State<LoginBody> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Password',
                 style: TextStyle(
                     fontWeight: FontWeight.w100,
@@ -78,10 +78,10 @@ class _LoginBodyState extends State<LoginBody> {
               TextField(
                 obscureText: _obscureText, // Toggle password visibility
                 decoration: InputDecoration(
-                  border: UnderlineInputBorder(
+                  border: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black45),
                   ),
-                  focusedBorder: UnderlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black87),
                   ),
                   suffixIcon: IconButton(
@@ -109,7 +109,7 @@ class _LoginBodyState extends State<LoginBody> {
                         );
                       }, // Navigate to HomePage
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF5278C1),
+                        backgroundColor: const Color(0xFF5278C1),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.0),
@@ -118,7 +118,7 @@ class _LoginBodyState extends State<LoginBody> {
                       icon: const Icon(
                         Icons.arrow_back, // Right-facing arrow icon
                       ),
-                      label: Text("Sign in"),
+                      label: const Text("Sign in"),
                     )),
               ),
               Padding(
@@ -127,7 +127,7 @@ class _LoginBodyState extends State<LoginBody> {
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
                     onTap: widget.onForgotPassword, // Switch to Forgot Password
-                    child: Text(
+                    child: const Text(
                       'Forgot Password?',
                       style: TextStyle(
                           fontWeight: FontWeight.w300,
