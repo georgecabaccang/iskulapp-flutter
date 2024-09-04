@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/calendar_attendance_page.dart';
+import 'package:school_erp/pages/calendar/calendar_attendance_page.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,7 +36,8 @@ class _HomePageState extends State<HomePage> {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            CalendarAttendancePage(),
+            CalendarAttendancePage(
+                focusDate: DateTime.now()), // Pass the focusDate here
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return child; // No additional animation needed here, handled in CalendarAttendancePage
         },

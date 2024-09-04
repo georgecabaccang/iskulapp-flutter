@@ -6,11 +6,11 @@ class RoundedContainer extends StatelessWidget {
   final double borderRadius;
 
   const RoundedContainer({
-    Key? key,
+    super.key,
     required this.child,
     this.height = 400,
     this.borderRadius = 20.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

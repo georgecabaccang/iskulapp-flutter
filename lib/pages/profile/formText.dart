@@ -11,7 +11,7 @@ class FormText extends StatelessWidget {
   final Icon? icon; // Optional icon parameter
 
   const FormText({
-    Key? key,
+    super.key,
     required this.width,
     required this.height,
     required this.label,
@@ -19,7 +19,7 @@ class FormText extends StatelessWidget {
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.icon, // Initialize icon as null by default
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

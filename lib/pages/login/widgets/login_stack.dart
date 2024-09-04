@@ -6,10 +6,10 @@ class LoginStack extends StatelessWidget {
   final Widget containerContent;
 
   const LoginStack({
-    Key? key,
+    super.key,
     required this.image,
     required this.containerContent,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
