@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/calendar/calendar_attendance_page.dart';
+import './calendar/modified_attendance.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
 
 class HomePage extends StatefulWidget {
