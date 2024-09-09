@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AttendanceTitle extends StatelessWidget {
+  const AttendanceTitle({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Padding(
