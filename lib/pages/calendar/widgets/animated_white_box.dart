@@ -1,8 +1,9 @@
-import '../calendar_attendance_page.dart';
+import '../modified_attendance.dart' as modified;
+import '../modified_attendance.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'calendar_widget.dart' as widgets;
 import 'attendance_title.dart';
-import 'calendar_widget.dart';
 
 class AnimatedWhiteBox extends StatelessWidget {
   final AnimationState animationState;
@@ -64,7 +65,8 @@ class AnimatedWhiteBox extends StatelessWidget {
                   duration: const Duration(milliseconds: 500),
                   child: Column(
                     children: [
-                      CalendarWidget(
+                      widgets.CalendarWidget(
+                        // Using alias for CalendarWidget
                         focusedDay: focusedDay,
                         selectedDay: selectedDay,
                         calendarFormat: calendarFormat,
@@ -82,14 +84,17 @@ class AnimatedWhiteBox extends StatelessWidget {
                               padding: EdgeInsets.only(left: 0),
                               child: AttendanceTitle(),
                             ),
-                            DropdownFilter(
+                            modified.DropdownFilter(
+                              // Using alias for DropdownFilter
                               selectedFilter: selectedFilter,
                               onChanged: onFilterChanged,
                             ),
                           ],
                         ),
                       ),
-                      AttendanceList(daysInMonth: daysInMonth),
+                      modified.AttendanceList(
+                        daysInMonth: daysInMonth,
+                      ), // Using alias for AttendanceList
                     ],
                   ),
                 ),

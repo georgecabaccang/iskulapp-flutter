@@ -4,6 +4,16 @@ import 'calendar_attendance_animation.dart';
 import 'widgets/attendance_title.dart';
 import 'package:intl/intl.dart';
 
+class AnimationState {
+  final bool animate;
+  final bool isBackNavigation;
+
+  AnimationState({
+    this.animate = false,
+    this.isBackNavigation = false,
+  });
+}
+
 class CalendarAttendancePage extends StatefulWidget {
   final DateTime focusDate;
 
@@ -174,26 +184,30 @@ class CalendarContent extends StatelessWidget {
     return PageStorage(
       bucket: bucket,
       key: const PageStorageKey<String>('calendarAttendancePage'),
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
+      child: AnimatedBuilder(
+        animation: animationManager.controller,
+        builder: (context, child) {
+          return Opacity(
+            opacity: animationManager.opacity,
+            child: child,
+          );
+        },
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                // Ensuring the white box is visible and remains at full opacity
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0),
+                  ),
                 ),
-              ),
-              child: Column(
-                children: [
-                  AnimatedBuilder(
-                    animation: animationManager.controller,
-                    builder: (context, child) => Opacity(
-                      opacity: animationManager.opacity,
-                      child: child,
-                    ),
-                    child: CalendarWidget(
+                child: Column(
+                  children: [
+                    // All widgets inside this column will share the same opacity
+                    CalendarWidget(
                       focusedDay: focusedDay,
                       selectedDay: selectedDay,
                       calendarFormat: calendarFormat,
@@ -201,30 +215,29 @@ class CalendarContent extends StatelessWidget {
                       onFormatChanged: onFormatChanged,
                       onPageChanged: onPageChanged,
                     ),
-                  ),
-                  const SizedBox(height: 20.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 0),
-                          child: AttendanceTitle(),
-                        ),
-                        DropdownFilter(
-                          selectedFilter: selectedFilter,
-                          onChanged: onFilterChanged,
-                        ),
-                      ],
+                    const SizedBox(height: 20.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const AttendanceTitle(),
+                          DropdownFilter(
+                            selectedFilter: selectedFilter,
+                            onChanged: onFilterChanged,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  AttendanceList(daysInMonth: daysInMonth),
-                ],
+                    Expanded(
+                      child: AttendanceList(daysInMonth: daysInMonth),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -319,18 +332,25 @@ class DropdownFilter extends StatelessWidget {
       value: selectedFilter,
       items: const [
         DropdownMenuItem(
-            value: 'All',
-            child: FilterItem(
-                label: 'All', color: Colors.white, borderColor: Colors.grey)),
+          value: 'All',
+          child: FilterItem(
+            label: 'All',
+            color: Colors.white,
+            borderColor: Colors.grey,
+          ),
+        ),
         DropdownMenuItem(
-            value: 'Absent',
-            child: FilterItem(label: 'Absent', color: Colors.red)),
+          value: 'Absent',
+          child: FilterItem(label: 'Absent', color: Colors.red),
+        ),
         DropdownMenuItem(
-            value: 'Late',
-            child: FilterItem(label: 'Late', color: Colors.orange)),
+          value: 'Late',
+          child: FilterItem(label: 'Late', color: Colors.orange),
+        ),
         DropdownMenuItem(
-            value: 'Holiday',
-            child: FilterItem(label: 'Holiday', color: Colors.green)),
+          value: 'Holiday',
+          child: FilterItem(label: 'Holiday', color: Colors.green),
+        ),
       ],
       onChanged: onChanged,
       underline: const SizedBox(),

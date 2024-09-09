@@ -1,4 +1,5 @@
-import '../calendar_attendance_page.dart';
+import '../modified_attendance.dart' as modified;
+import '../modified_attendance.dart';
 import 'package:flutter/material.dart';
 import 'calendar_widget.dart';
 
@@ -40,7 +41,7 @@ class FadingAppBar extends StatelessWidget {
                     opacity: animationState.isBackNavigation
                         ? 0.0
                         : (animationState.animate ? 1.0 : 0.0),
-                    child: const AttendanceButton(),
+                    child: const modified.AttendanceButton(),
                   ),
                   const Spacer(flex: 2),
                 ],
