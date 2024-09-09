@@ -1,11 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:school_erp/features/auth/bloc/auth_bloc_barrel.dart';
 import 'package:school_erp/features/auth/auth_repository/auth_repository.dart';
-import 'package:school_erp/pages/calendar_attendance_page.dart';
+import 'package:school_erp/pages/calendar/modified_attendance.dart';
 import 'package:school_erp/pages/common_widgets/loading_overlay.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
 import 'widgets/navigation_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(this.user, {super.key});
@@ -43,7 +43,8 @@ class _HomePageState extends State<HomePage> {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            CalendarAttendancePage(),
+            CalendarAttendancePage(
+                focusDate: DateTime.now()), // Pass the focusDate here
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return child; // No additional animation needed here, handled in CalendarAttendancePage
         },
