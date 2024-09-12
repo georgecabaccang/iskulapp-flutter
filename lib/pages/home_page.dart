@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './calendar/modified_attendance.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
+import 'assignment/assignment_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -40,6 +41,28 @@ class _HomePageState extends State<HomePage> {
                 focusDate: DateTime.now()), // Pass the focusDate here
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return child; // No additional animation needed here, handled in CalendarAttendancePage
+        },
+      ),
+    ).then((_) {
+      setState(() {
+        _isTransitioning = false;
+        _animate = false;
+        _startAnimation(); // Re-start the animation when coming back
+      });
+    });
+  }
+
+  void _navigateToPage(Widget page) async {
+    setState(() {
+      _isTransitioning = true;
+    });
+    await Future.delayed(const Duration(milliseconds: 200));
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => page,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return child; // Use your custom transition here if needed
         },
       ),
     ).then((_) {
@@ -313,105 +336,85 @@ class _HomePageState extends State<HomePage> {
   Widget gridSection() {
     return Padding(
       padding: const EdgeInsets.only(top: 120.0),
-      child: Container(
-        child: GridView.builder(
-          padding: const EdgeInsets.all(16.0),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16.0,
-            mainAxisSpacing: 16.0,
-            childAspectRatio: 163 / 132,
-          ),
-          itemCount: 12,
-          itemBuilder: (context, index) {
-            final List<Map<String, dynamic>> items = [
-              {
-                'title': 'Play Quiz',
-                'icon': Icons.quiz,
-              },
-              {
-                'title': 'Assignment',
-                'icon': Icons.assignment,
-              },
-              {
-                'title': 'School Holiday',
-                'icon': Icons.calendar_today,
-              },
-              {
-                'title': 'Time Table',
-                'icon': Icons.schedule,
-              },
-              {
-                'title': 'Result',
-                'icon': Icons.grade,
-              },
-              {
-                'title': 'Date Sheet',
-                'icon': Icons.date_range,
-              },
-              {
-                'title': 'Doubts',
-                'icon': Icons.help_outline,
-              },
-              {
-                'title': 'School Gallery',
-                'icon': Icons.photo_library,
-              },
-              {
-                'title': 'Leave Application',
-                'icon': Icons.request_page,
-              },
-              {
-                'title': 'Change Password',
-                'icon': Icons.lock,
-              },
-              {
-                'title': 'Events',
-                'icon': Icons.event,
-              },
-              {
-                'title': 'Logout',
-                'icon': Icons.logout,
-              },
-            ];
-
-            return GestureDetector(
-              onTap: () {
-                final item = items[index];
-                print('Tapped on ${item['title']}');
-                // Add navigation or functionality for each item here
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF5F6FC),
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 30.0,
-                      backgroundColor: const Color(0xFF5278C1),
-                      child: Icon(
-                        items[index]['icon'],
-                        size: 40.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    Text(
-                      items[index]['title'],
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
+      child: GridView.builder(
+        padding: const EdgeInsets.all(16.0),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16.0,
+          mainAxisSpacing: 16.0,
+          childAspectRatio: 163 / 132,
         ),
+        itemCount: 12,
+        itemBuilder: (context, index) {
+          final List<Map<String, dynamic>> items = [
+            {'title': 'Play Quiz', 'icon': Icons.quiz, 'page': null},
+            {
+              'title': 'Assignment',
+              'icon': Icons.assignment,
+              'page': const AssignmentPage(),
+            },
+            {
+              'title': 'School Holiday',
+              'icon': Icons.calendar_today,
+              'page': null
+            },
+            {'title': 'Time Table', 'icon': Icons.schedule, 'page': null},
+            {'title': 'Result', 'icon': Icons.grade, 'page': null},
+            {'title': 'Date Sheet', 'icon': Icons.date_range, 'page': null},
+            {'title': 'Doubts', 'icon': Icons.help_outline, 'page': null},
+            {
+              'title': 'School Gallery',
+              'icon': Icons.photo_library,
+              'page': null
+            },
+            {
+              'title': 'Leave Application',
+              'icon': Icons.request_page,
+              'page': null
+            },
+            {'title': 'Change Password', 'icon': Icons.lock, 'page': null},
+            {'title': 'Events', 'icon': Icons.event, 'page': null},
+            {'title': 'Logout', 'icon': Icons.logout, 'page': null},
+          ];
+
+          return GestureDetector(
+            onTap: () {
+              final item = items[index];
+              print('Tapped on ${item['title']}');
+              if (item['page'] != null) {
+                _navigateToPage(item['page']);
+              }
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFFF5F6FC),
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 30.0,
+                    backgroundColor: const Color(0xFF5278C1),
+                    child: Icon(
+                      items[index]['icon'],
+                      size: 40.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    items[index]['title'],
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
