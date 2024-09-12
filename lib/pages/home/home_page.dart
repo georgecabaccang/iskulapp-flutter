@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import './calendar/modified_attendance.dart';
+import 'package:school_erp/features/auth/bloc/auth_bloc_barrel.dart';
+import 'package:school_erp/features/auth/auth_repository/auth_repository.dart';
+import 'package:school_erp/pages/calendar/modified_attendance.dart';
+import 'package:school_erp/pages/common_widgets/loading_overlay.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
-import 'assignment/assignment_page.dart';
+import 'widgets/navigation_card.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage(this.user, {super.key});
+
+  final AuthenticatedUser user;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -52,72 +58,63 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _navigateToPage(Widget page) async {
-    setState(() {
-      _isTransitioning = true;
-    });
-    await Future.delayed(const Duration(milliseconds: 200));
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => page,
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return child; // Use your custom transition here if needed
-        },
-      ),
-    ).then((_) {
-      setState(() {
-        _isTransitioning = false;
-        _animate = false;
-        _startAnimation(); // Re-start the animation when coming back
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF5278C1),
-      body: Stack(
-        children: [
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 1000),
-            curve: Curves.easeInOut,
-            top: _animate ? 380.0 : 800.0, // Adjust starting position
-            left: 0,
-            right: 0,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
+      body: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message)),
+            );
+          }
+        },
+        builder: (context, state) {
+          return Stack(
+            children: [
+              // Main content
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 1000),
+                curve: Curves.easeInOut,
+                top: _animate ? 380.0 : 800.0, // Adjust starting position
+                left: 0,
+                right: 0,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                    ),
+                  ),
+                  height: MediaQuery.of(context).size.height - 380,
+                  child: AnimatedOpacity(
+                    opacity: _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
+                    duration: const Duration(milliseconds: 500),
+                    child: gridSection(context),
+                  ),
                 ),
               ),
-              height: MediaQuery.of(context).size.height - 380,
-              child: AnimatedOpacity(
+              AnimatedOpacity(
                 opacity: _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
                 duration: const Duration(milliseconds: 500),
-                child: gridSection(),
+                child: Column(
+                  children: [
+                    profileInfo(widget.user),
+                    importantSection(),
+                  ],
+                ),
               ),
-            ),
-          ),
-          AnimatedOpacity(
-            opacity: _isTransitioning ? 0.0 : (_animate ? 1.0 : 0.0),
-            duration: const Duration(milliseconds: 500),
-            child: Column(
-              children: [
-                profileInfo(),
-                importantSection(),
-              ],
-            ),
-          ),
-        ],
+              if (state is AuthLoading) const LoadingOverlay(),
+            ],
+          );
+        },
       ),
     );
   }
 
-  Widget profileInfo() {
+  Widget profileInfo(AuthenticatedUser user) {
     return SafeArea(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -132,9 +129,9 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Hi Akshay",
-                    style: TextStyle(
+                  Text(
+                    "Hi ${user.firstName} ${user.lastName}",
+                    style: const TextStyle(
                       fontSize: 38.0,
                       color: Colors.white,
                     ),
@@ -333,7 +330,38 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget gridSection() {
+  Widget gridSection(BuildContext context) {
+    final List<Map<String, dynamic>> items = [
+      {'title': 'Play Quiz', 'icon': Icons.quiz, 'callback': () => ()},
+      {'title': 'Assignment', 'icon': Icons.assignment, 'callback': () => ()},
+      {
+        'title': 'School Holiday',
+        'icon': Icons.calendar_today,
+        'callback': () => ()
+      },
+      {'title': 'Time Table', 'icon': Icons.schedule, 'callback': () => ()},
+      {'title': 'Result', 'icon': Icons.grade, 'callback': () => ()},
+      {'title': 'Date Sheet', 'icon': Icons.date_range, 'callback': () => ()},
+      {'title': 'Doubts', 'icon': Icons.help_outline, 'callback': () => ()},
+      {
+        'title': 'School Gallery',
+        'icon': Icons.photo_library,
+        'callback': () => ()
+      },
+      {
+        'title': 'Leave Application',
+        'icon': Icons.request_page,
+        'callback': () => ()
+      },
+      {'title': 'Change Password', 'icon': Icons.lock, 'callback': () => ()},
+      {'title': 'Events', 'icon': Icons.event, 'callback': () => ()},
+      {
+        'title': 'Logout',
+        'icon': Icons.logout,
+        'callback': () => context.read<AuthBloc>().add(LogoutRequested())
+      },
+    ];
+
     return Padding(
       padding: const EdgeInsets.only(top: 120.0),
       child: GridView.builder(
@@ -346,73 +374,11 @@ class _HomePageState extends State<HomePage> {
         ),
         itemCount: 12,
         itemBuilder: (context, index) {
-          final List<Map<String, dynamic>> items = [
-            {'title': 'Play Quiz', 'icon': Icons.quiz, 'page': null},
-            {
-              'title': 'Assignment',
-              'icon': Icons.assignment,
-              'page': const AssignmentPage(),
-            },
-            {
-              'title': 'School Holiday',
-              'icon': Icons.calendar_today,
-              'page': null
-            },
-            {'title': 'Time Table', 'icon': Icons.schedule, 'page': null},
-            {'title': 'Result', 'icon': Icons.grade, 'page': null},
-            {'title': 'Date Sheet', 'icon': Icons.date_range, 'page': null},
-            {'title': 'Doubts', 'icon': Icons.help_outline, 'page': null},
-            {
-              'title': 'School Gallery',
-              'icon': Icons.photo_library,
-              'page': null
-            },
-            {
-              'title': 'Leave Application',
-              'icon': Icons.request_page,
-              'page': null
-            },
-            {'title': 'Change Password', 'icon': Icons.lock, 'page': null},
-            {'title': 'Events', 'icon': Icons.event, 'page': null},
-            {'title': 'Logout', 'icon': Icons.logout, 'page': null},
-          ];
-
-          return GestureDetector(
-            onTap: () {
-              final item = items[index];
-              print('Tapped on ${item['title']}');
-              if (item['page'] != null) {
-                _navigateToPage(item['page']);
-              }
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFFF5F6FC),
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 30.0,
-                    backgroundColor: const Color(0xFF5278C1),
-                    child: Icon(
-                      items[index]['icon'],
-                      size: 40.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    items[index]['title'],
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          final item = items[index];
+          return NavigationCard(
+            item['title'],
+            item['icon'],
+            item['callback'],
           );
         },
       ),
