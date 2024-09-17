@@ -83,7 +83,7 @@ class _AssignmentPageState extends State<AssignmentPage>
                         assignDate: 'Dec 19, 2024 9:00pm',
                         lastSubmissionDate: 'Dec 19, 2024 11:59pm',
                         status: 'TO BE COMPLETED',
-                        statusColor: Colors.blue,
+                        statusColor: Color(0xFF5278C1),
                       ),
                       AssignmentCard(
                         subject: 'Science',
@@ -91,7 +91,7 @@ class _AssignmentPageState extends State<AssignmentPage>
                         assignDate: '10 Oct 20',
                         lastSubmissionDate: '30 Oct 20',
                         status: 'TO BE SUBMITTED',
-                        statusColor: Colors.blue,
+                        statusColor: Color(0xFF5278C1),
                       ),
                       AssignmentCard(
                         subject: 'English',
@@ -99,7 +99,7 @@ class _AssignmentPageState extends State<AssignmentPage>
                         assignDate: '10 Sep 20',
                         lastSubmissionDate: '30 Sep 20',
                         status: 'TO BE SUBMITTED',
-                        statusColor: Colors.blue,
+                        statusColor: Color(0xFF5278C1),
                       ),
                     ],
                   ),
@@ -201,7 +201,7 @@ class AssignmentCard extends StatelessWidget {
                     child: Text(
                       subject,
                       style: const TextStyle(
-                        color: Colors.blue,
+                        color: Color(0xFF5278C1),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
