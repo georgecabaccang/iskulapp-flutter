@@ -15,6 +15,8 @@ class StudentList extends StatelessWidget {
     Student(name: 'A', score: '1', isChecked: true),
   ];
 
+  StudentList({super.key});
+
   // Toggle the check state of a student
   void _toggleCheck(BuildContext context, int index) {
     students[index].isChecked = !students[index].isChecked;
@@ -88,7 +90,7 @@ class __DropdownMenuState extends State<_DropdownMenu> {
         value: null, // Set value to null to hide the selected option
         icon: Transform.translate(
           offset: const Offset(-20, 0), // Move the icon 20 pixels to the left
-          child: Icon(
+          child: const Icon(
             Icons.arrow_drop_down,
             size: 30, // Enlarge the icon
           ),
