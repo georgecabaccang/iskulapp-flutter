@@ -1,16 +1,37 @@
 # school_erp
 
-A new Flutter project.
+An offline-first app for comprehensive school management
 
-## Getting Started
+Setup Guide:
+1. Env setup
+    Create a copy of the .env file from .env.example:
+   
+    ```shell
+   cp .env.example .env
+    ```
 
-This project is a starting point for a Flutter application.
+2. Install project dependencies
+    ```shell
+   flutter pub get
+    ```
 
-A few resources to get you started if this is your first Flutter project:
+3. Generate schema / model serialization related boilerplate from freezed:
+    ```shell
+    dart run build_runner build --delete-conflicting-outputs --build-filter="**/*.freezed.dart"
+    ```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+4. Run the App
+    For default device:
+    ```shell
+    flutter run
+    ```
+    
+    For a specific device:
+    ```shell
+    flutter run -d <device_name>`
+    ```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+   For Web with CORS disabled:
+    ```shell
+    flutter run -d chrome --web-browser-flag "--disable-web-security"
+    ```
