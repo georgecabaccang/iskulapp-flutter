@@ -17,8 +17,7 @@ class AnimationState {
 class CalendarAttendancePage extends StatefulWidget {
   final DateTime focusDate;
 
-  const CalendarAttendancePage({Key? key, required this.focusDate})
-      : super(key: key);
+  const CalendarAttendancePage({super.key, required this.focusDate});
 
   @override
   _CalendarAttendancePageState createState() => _CalendarAttendancePageState();
@@ -164,7 +163,7 @@ class CalendarContent extends StatelessWidget {
   final VoidCallback onBackPressed;
 
   const CalendarContent({
-    Key? key,
+    super.key,
     required this.animationManager,
     required this.bucket,
     required this.focusedDay,
@@ -177,7 +176,7 @@ class CalendarContent extends StatelessWidget {
     required this.onPageChanged,
     required this.onFilterChanged,
     required this.onBackPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -248,10 +247,10 @@ class CalendarAppBar extends StatelessWidget {
   final VoidCallback onBackPressed;
 
   const CalendarAppBar({
-    Key? key,
+    super.key,
     required this.animationManager,
     required this.onBackPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

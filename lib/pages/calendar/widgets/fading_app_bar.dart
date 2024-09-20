@@ -1,7 +1,6 @@
 import '../modified_attendance.dart' as modified;
 import '../modified_attendance.dart';
 import 'package:flutter/material.dart';
-import 'calendar_widget.dart';
 
 class FadingAppBar extends StatelessWidget {
   final AnimationState animationState;
