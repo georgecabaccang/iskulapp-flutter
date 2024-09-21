@@ -71,7 +71,7 @@ bool _animate = false;
     setState(() {
       _isTransitioning = false;
       _animate = false;
-      _startAnimation(); // Restart animation if needed
+      // _startAnimation(); // Restart animation if needed
     });
   });
 }
