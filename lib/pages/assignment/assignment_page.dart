@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'assignment_animation.dart'; // Ensure this is the correct path for AssignmentAnimationManager
 import 'check_assignment.dart'; // Ensure this is the correct path for CheckAssignmentPage
+import 'package:school_erp/pages/teacher/add_assignment_page.dart';
 
 class AnimationState {
   final bool animate;
@@ -14,21 +15,16 @@ class AnimationState {
 
 class AssignmentPage extends StatefulWidget {
   const AssignmentPage({super.key});
-  
 
   @override
   _AssignmentPageState createState() => _AssignmentPageState();
 }
 
-
-
 class _AssignmentPageState extends State<AssignmentPage>
     with SingleTickerProviderStateMixin {
   late AssignmentAnimationManager animationManager;
-bool _animate = false;
+  bool _animate = false;
   bool _isTransitioning = false;
-
-
 
   @override
   void initState() {
@@ -37,7 +33,6 @@ bool _animate = false;
     _startAnimation();
   }
 
-
   void _handleBackPress() {
     animationManager.reverseAnimation();
     Future.delayed(const Duration(milliseconds: 800), () {
@@ -45,7 +40,7 @@ bool _animate = false;
     });
   }
 
- void _startAnimation() {
+  void _startAnimation() {
     Future.delayed(const Duration(milliseconds: 200), () {
       setState(() {
         _animate = true;
@@ -53,28 +48,29 @@ bool _animate = false;
     });
   }
 
-  void _goToTeacherAssignmentPage() async {
-  setState(() {
-    _isTransitioning = true;
-  });
-  await Future.delayed(const Duration(milliseconds: 200));
-  Navigator.push(
-    context,
-    PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          AssignmentPage(), // Navigate to AssignmentPage
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return child; // No additional animation needed
-      },
-    ),
-  ).then((_) {
+  void goToTeacherAssignmentPage() async {
     setState(() {
-      _isTransitioning = false;
-      _animate = false;
-      // _startAnimation(); // Restart animation if needed
+      _isTransitioning = true;
     });
-  });
-}
+    await Future.delayed(const Duration(milliseconds: 200));
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            AddAssignmentPage(), // Navigate to AssignmentPage
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return child; // No additional animation needed
+        },
+      ),
+    ).then((_) {
+      setState(() {
+        _isTransitioning = false;
+        _animate = false;
+        _startAnimation(); // Restart animation if needed
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,8 +94,7 @@ bool _animate = false;
                     ),
                   ),
                   child: Opacity(
-                    opacity: animationManager
-                        .opacity, // Apply fade effect to the content
+                    opacity: animationManager.opacity,
                     child: child ?? Container(),
                   ),
                 ),
@@ -148,6 +143,8 @@ bool _animate = false;
             child: AssignmentAppBar(
               animationManager: animationManager,
               onBackPressed: _handleBackPress,
+              onAddAssignmentPressed:
+                  goToTeacherAssignmentPage, // Add this line
             ),
           ),
         ],
@@ -305,11 +302,13 @@ class AssignmentCard extends StatelessWidget {
 class AssignmentAppBar extends StatelessWidget {
   final AssignmentAnimationManager animationManager;
   final VoidCallback onBackPressed;
+  final VoidCallback onAddAssignmentPressed; // New callback
 
   const AssignmentAppBar({
     super.key,
     required this.animationManager,
     required this.onBackPressed,
+    required this.onAddAssignmentPressed, // Include it in the constructor
   });
 
   @override
@@ -321,7 +320,7 @@ class AssignmentAppBar extends StatelessWidget {
           animation: animationManager.controller,
           builder: (context, child) {
             return Opacity(
-              opacity: animationManager.opacity,
+              opacity: 1.0, // animationManager.opacity,
               child: child,
             );
           },
@@ -342,9 +341,7 @@ class AssignmentAppBar extends StatelessWidget {
               ),
               const Spacer(),
               GestureDetector(
-                onTap: () {
-                  //Handle action from the plus button here
-                },
+                onTap: onAddAssignmentPressed, // Use the callback
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
@@ -353,8 +350,7 @@ class AssignmentAppBar extends StatelessWidget {
                   ),
                   child: const Icon(
                     Icons.add,
-                    color: Color.fromARGB(
-                        255, 255, 255, 255), // Match the app's primary color
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ),
