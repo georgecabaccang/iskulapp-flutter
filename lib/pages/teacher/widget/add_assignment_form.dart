@@ -153,7 +153,7 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                 "AI Generated",
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               AddAssignmentDropdown(
                 value: aiGenerated,
                 items: aiOptions,
@@ -169,7 +169,7 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                 "Instructions",
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
-              const SizedBox(height: 5),
+               SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               TextField(
                 controller: instructionsController,
                 decoration: const InputDecoration(
@@ -180,14 +180,14 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                 ),
               ),
             ],
-            const SizedBox(height: 25), // Add spacing before the button
+             SizedBox(height: MediaQuery.of(context).size.height * 0.01), // Add spacing before the button
             ElevatedButton(
               onPressed: () {
                 // Handle button press (e.g., submit the form)
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF5278C1), // Background color
-                minimumSize: const Size(double.infinity, 70),
+                minimumSize:  Size(double.infinity, MediaQuery.of(context).size.height * 0.08),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0), // Border radius
                 ), // Full width and fixed height

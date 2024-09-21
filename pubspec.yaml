@@ -78,7 +78,6 @@ flutter:
     - assets/images/AddAssignmentImage.png
     - assets/addAssignmentData/classes.json
     - assets/addAssignmentData/subjects.json
-    - assets/addAssignmentData/type.json
     - .env
   #   - images/a_dot_ham.jpeg
 

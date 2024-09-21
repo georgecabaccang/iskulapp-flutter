@@ -84,10 +84,10 @@ class _AddAssignmentPageState extends State<AddAssignmentPage>
                   children: [
                     const AddAssignmentForm(),
                     SizedBox(
-                      height: 150,
+                     height: MediaQuery.of(context).size.height * 0.12, // Adjust height as needed
                       width: double.infinity, 
                       child: Image.asset(
-                        'assets/images/AddAssignmentImage.png', // Replace with your image path
+                        'assets/images/AddAssignmentImage.png', 
                         fit: BoxFit.cover,
                       ),
                     ),
