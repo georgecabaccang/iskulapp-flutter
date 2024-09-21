@@ -14,14 +14,21 @@ class AnimationState {
 
 class AssignmentPage extends StatefulWidget {
   const AssignmentPage({super.key});
+  
 
   @override
   _AssignmentPageState createState() => _AssignmentPageState();
 }
 
+
+
 class _AssignmentPageState extends State<AssignmentPage>
     with SingleTickerProviderStateMixin {
   late AssignmentAnimationManager animationManager;
+bool _animate = false;
+  bool _isTransitioning = false;
+
+
 
   @override
   void initState() {
@@ -30,9 +37,6 @@ class _AssignmentPageState extends State<AssignmentPage>
     _startAnimation();
   }
 
-  void _startAnimation() {
-    animationManager.startAnimation();
-  }
 
   void _handleBackPress() {
     animationManager.reverseAnimation();
@@ -41,6 +45,36 @@ class _AssignmentPageState extends State<AssignmentPage>
     });
   }
 
+ void _startAnimation() {
+    Future.delayed(const Duration(milliseconds: 200), () {
+      setState(() {
+        _animate = true;
+      });
+    });
+  }
+
+  void _goToTeacherAssignmentPage() async {
+  setState(() {
+    _isTransitioning = true;
+  });
+  await Future.delayed(const Duration(milliseconds: 200));
+  Navigator.push(
+    context,
+    PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          AssignmentPage(), // Navigate to AssignmentPage
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return child; // No additional animation needed
+      },
+    ),
+  ).then((_) {
+    setState(() {
+      _isTransitioning = false;
+      _animate = false;
+      _startAnimation(); // Restart animation if needed
+    });
+  });
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -309,7 +343,7 @@ class AssignmentAppBar extends StatelessWidget {
               const Spacer(),
               GestureDetector(
                 onTap: () {
-                  // Handle the action for the plus button here
+                  //Handle action from the plus button here
                 },
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
