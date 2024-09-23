@@ -144,7 +144,7 @@ class _AssignmentPageState extends State<AssignmentPage>
               animationManager: animationManager,
               onBackPressed: _handleBackPress,
               onAddAssignmentPressed:
-                  goToTeacherAssignmentPage, // Add this line
+                  goToTeacherAssignmentPage, 
             ),
           ),
         ],
@@ -302,13 +302,13 @@ class AssignmentCard extends StatelessWidget {
 class AssignmentAppBar extends StatelessWidget {
   final AssignmentAnimationManager animationManager;
   final VoidCallback onBackPressed;
-  final VoidCallback onAddAssignmentPressed; // New callback
+  final VoidCallback onAddAssignmentPressed; 
 
   const AssignmentAppBar({
     super.key,
     required this.animationManager,
     required this.onBackPressed,
-    required this.onAddAssignmentPressed, // Include it in the constructor
+    required this.onAddAssignmentPressed,
   });
 
   @override
@@ -320,7 +320,7 @@ class AssignmentAppBar extends StatelessWidget {
           animation: animationManager.controller,
           builder: (context, child) {
             return Opacity(
-              opacity: 1.0, // animationManager.opacity,
+              opacity: 1.0,
               child: child,
             );
           },
@@ -341,7 +341,7 @@ class AssignmentAppBar extends StatelessWidget {
               ),
               const Spacer(),
               GestureDetector(
-                onTap: onAddAssignmentPressed, // Use the callback
+                onTap: onAddAssignmentPressed, 
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
