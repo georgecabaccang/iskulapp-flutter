@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'assignment_animation.dart'; // Ensure this is the correct path for AssignmentAnimationManager
 import 'check_assignment.dart'; // Ensure this is the correct path for CheckAssignmentPage
-import 'package:school_erp/pages/teacher/add_assignment_page.dart';
 
 class AnimationState {
   final bool animate;
@@ -23,8 +22,6 @@ class AssignmentPage extends StatefulWidget {
 class _AssignmentPageState extends State<AssignmentPage>
     with SingleTickerProviderStateMixin {
   late AssignmentAnimationManager animationManager;
-  bool _animate = false;
-  bool _isTransitioning = false;
 
   @override
   void initState() {
@@ -33,41 +30,14 @@ class _AssignmentPageState extends State<AssignmentPage>
     _startAnimation();
   }
 
+  void _startAnimation() {
+    animationManager.startAnimation();
+  }
+
   void _handleBackPress() {
     animationManager.reverseAnimation();
     Future.delayed(const Duration(milliseconds: 800), () {
       Navigator.pop(context);
-    });
-  }
-
-  void _startAnimation() {
-    Future.delayed(const Duration(milliseconds: 200), () {
-      setState(() {
-        _animate = true;
-      });
-    });
-  }
-
-  void goToTeacherAssignmentPage() async {
-    setState(() {
-      _isTransitioning = true;
-    });
-    await Future.delayed(const Duration(milliseconds: 200));
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            AddAssignmentPage(), // Navigate to AssignmentPage
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return child; // No additional animation needed
-        },
-      ),
-    ).then((_) {
-      setState(() {
-        _isTransitioning = false;
-        _animate = false;
-        _startAnimation(); // Restart animation if needed
-      });
     });
   }
 
@@ -94,7 +64,8 @@ class _AssignmentPageState extends State<AssignmentPage>
                     ),
                   ),
                   child: Opacity(
-                    opacity: animationManager.opacity,
+                    opacity: animationManager
+                        .opacity, // Apply fade effect to the content
                     child: child ?? Container(),
                   ),
                 ),
@@ -143,8 +114,6 @@ class _AssignmentPageState extends State<AssignmentPage>
             child: AssignmentAppBar(
               animationManager: animationManager,
               onBackPressed: _handleBackPress,
-              onAddAssignmentPressed:
-                  goToTeacherAssignmentPage, 
             ),
           ),
         ],
@@ -302,13 +271,11 @@ class AssignmentCard extends StatelessWidget {
 class AssignmentAppBar extends StatelessWidget {
   final AssignmentAnimationManager animationManager;
   final VoidCallback onBackPressed;
-  final VoidCallback onAddAssignmentPressed; 
 
   const AssignmentAppBar({
     super.key,
     required this.animationManager,
     required this.onBackPressed,
-    required this.onAddAssignmentPressed,
   });
 
   @override
@@ -320,7 +287,7 @@ class AssignmentAppBar extends StatelessWidget {
           animation: animationManager.controller,
           builder: (context, child) {
             return Opacity(
-              opacity: 1.0,
+              opacity: animationManager.opacity,
               child: child,
             );
           },
@@ -341,7 +308,9 @@ class AssignmentAppBar extends StatelessWidget {
               ),
               const Spacer(),
               GestureDetector(
-                onTap: onAddAssignmentPressed, 
+                onTap: () {
+                  // Handle the action for the plus button here
+                },
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
@@ -350,7 +319,8 @@ class AssignmentAppBar extends StatelessWidget {
                   ),
                   child: const Icon(
                     Icons.add,
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: Color.fromARGB(
+                        255, 255, 255, 255), // Match the app's primary color
                   ),
                 ),
               ),
