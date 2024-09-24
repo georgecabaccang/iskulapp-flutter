@@ -6,6 +6,7 @@ import 'package:school_erp/pages/common_widgets/loading_overlay.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
 import 'widgets/navigation_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_erp/pages/assignment/assignment_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(this.user, {super.key});
@@ -45,6 +46,29 @@ class _HomePageState extends State<HomePage> {
         pageBuilder: (context, animation, secondaryAnimation) =>
             CalendarAttendancePage(
                 focusDate: DateTime.now()), // Pass the focusDate here
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return child; // No additional animation needed here, handled in CalendarAttendancePage
+        },
+      ),
+    ).then((_) {
+      setState(() {
+        _isTransitioning = false;
+        _animate = false;
+        _startAnimation(); // Re-start the animation when coming back
+      });
+    });
+  }
+
+  void _goToAssignmentPage() async {
+    setState(() {
+      _isTransitioning = true;
+    });
+    await Future.delayed(const Duration(milliseconds: 200));
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const AssignmentPage(), // Pass the focusDate here
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return child; // No additional animation needed here, handled in CalendarAttendancePage
         },
@@ -333,7 +357,11 @@ class _HomePageState extends State<HomePage> {
   Widget gridSection(BuildContext context) {
     final List<Map<String, dynamic>> items = [
       {'title': 'Play Quiz', 'icon': Icons.quiz, 'callback': () => ()},
-      {'title': 'Assignment', 'icon': Icons.assignment, 'callback': () => ()},
+      {
+        'title': 'Assignment',
+        'icon': Icons.assignment,
+        'callback': () => _goToAssignmentPage()
+      },
       {
         'title': 'School Holiday',
         'icon': Icons.calendar_today,
