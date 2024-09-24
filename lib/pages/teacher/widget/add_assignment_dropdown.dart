@@ -21,7 +21,7 @@ class AddAssignmentDropdown extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hint,
         border: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey), // Bottom border only
+          borderSide: BorderSide(color: Colors.grey), 
         ),
       ),
       items: items.map<DropdownMenuItem<String>>((String value) {
@@ -37,7 +37,7 @@ class AddAssignmentDropdown extends StatelessWidget {
       }).toList(),
       onChanged: onChanged,
       isExpanded: true, // Makes the dropdown take the full width
-      icon: const Icon(Icons.keyboard_arrow_down_sharp, color: Colors.grey), // Custom dropdown icon
+      icon: const Icon(Icons.keyboard_arrow_down_sharp, color: Colors.grey), 
     );
   }
 }

@@ -54,6 +54,43 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
     });
   }
 
+
+
+  void _validateAndSubmit() {
+    String? errorMessage;
+
+    // Validate class
+    if (selectedClass == null) {
+      errorMessage = "Please select a class.";
+    }
+    // Validate subject
+    else if (selectedSubject == null) {
+      errorMessage = "Please select a subject.";
+    }
+    // Validate title
+    else if (titleController.text.isEmpty) {
+      errorMessage = "Please enter a title.";
+    }
+    // Validate type-specific fields
+    else if (selectedType == "Online" && urlController.text.isEmpty) {
+      errorMessage = "Please enter a URL.";
+    } else if (selectedType == "Take Home" && instructionsController.text.isEmpty) {
+      errorMessage = "Please enter instructions.";
+    }
+
+    // If validation failed, show error message
+    if (errorMessage != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+    } else {
+      // Submit the form data 
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Assignment submitted successfully!")),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -132,7 +169,7 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
               },
             ),
             const SizedBox(height: 25),
-            // Conditionally show text field based on selected type
+        
             if (selectedType == "Online") ...[
               const Text(
                 "URL",
@@ -169,7 +206,7 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                 "Instructions",
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
-               SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               TextField(
                 controller: instructionsController,
                 decoration: const InputDecoration(
@@ -180,24 +217,22 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                 ),
               ),
             ],
-             SizedBox(height: MediaQuery.of(context).size.height * 0.01), // Add spacing before the button
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             ElevatedButton(
-              onPressed: () {
-                // Handle button press (e.g., submit the form)
-              },
+              onPressed: _validateAndSubmit, 
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF5278C1), // Background color
-                minimumSize:  Size(double.infinity, MediaQuery.of(context).size.height * 0.08),
+                backgroundColor: const Color(0xFF5278C1),
+                minimumSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.08),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0), // Border radius
-                ), // Full width and fixed height
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
               ),
-              child:  Text(
+              child: Text(
                 selectedType == "In App" ? "Create Assignment" : "SEND",
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    letterSpacing: 2.0), // Bold text
+                    letterSpacing: 2.0),
               ),
             ),
           ],
@@ -206,11 +241,12 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
     );
   }
 
+
   @override
   void dispose() {
     titleController.dispose();
-    urlController.dispose(); // Dispose of the URL controller
-    instructionsController.dispose(); // Dispose of the instructions controller
+    urlController.dispose(); 
+    instructionsController.dispose(); 
     super.dispose();
   }
 }
