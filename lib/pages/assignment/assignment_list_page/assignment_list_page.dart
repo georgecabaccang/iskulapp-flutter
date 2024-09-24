@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/assignment/assignment_add_page/assignment_add_page.dart';
+import 'package:school_erp/pages/assignment/assignment_check_page/assignment_check_page.dart';
 import 'package:school_erp/pages/assignment/widgets/assignment_animation_manager.dart';
-import 'check_assignment.dart';
 
-class AssignmentPage extends StatefulWidget {
-  const AssignmentPage({super.key});
+class AssignmentListPage extends StatefulWidget {
+  const AssignmentListPage({super.key});
 
   @override
-  _AssignmentPageState createState() => _AssignmentPageState();
+  _AssignmentListPageState createState() => _AssignmentListPageState();
 }
 
-class _AssignmentPageState extends State<AssignmentPage>
+class _AssignmentListPageState extends State<AssignmentListPage>
     with SingleTickerProviderStateMixin {
   late AssignmentAnimationManager animationManager;
 
@@ -145,7 +145,7 @@ class AssignmentCard extends StatelessWidget {
           context,
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const CheckAssignmentPage(),
+                const AssignmentCheckPage(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               const begin = 0.0;
@@ -304,7 +304,7 @@ class AssignmentAppBar extends StatelessWidget {
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          const AddAssignmentPage(), // Replace with your target page
+                          const AssignmentAddPage(), // Replace with your target page
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         const begin = 0.0;

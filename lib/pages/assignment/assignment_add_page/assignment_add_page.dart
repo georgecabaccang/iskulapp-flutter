@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/pages/assignment/assignment_add_page/widgets/add_assignment_form.dart';
 import 'package:school_erp/pages/assignment/widgets/assignment_animation_manager.dart';
 
-class AddAssignmentPage extends StatefulWidget {
-  const AddAssignmentPage({super.key});
+class AssignmentAddPage extends StatefulWidget {
+  const AssignmentAddPage({super.key});
 
   @override
-  _AddAssignmentPageState createState() => _AddAssignmentPageState();
+  _AssignmentAddPageState createState() => _AssignmentAddPageState();
 }
 
-class _AddAssignmentPageState extends State<AddAssignmentPage>
+class _AssignmentAddPageState extends State<AssignmentAddPage>
     with SingleTickerProviderStateMixin {
   late AssignmentAnimationManager animationManager;
 

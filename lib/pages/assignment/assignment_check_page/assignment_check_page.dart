@@ -4,14 +4,14 @@ import 'widgets/check_assingment_appbar.dart';
 import 'widgets/student_list.dart';
 import 'widgets/close_button_widget.dart';
 
-class CheckAssignmentPage extends StatefulWidget {
-  const CheckAssignmentPage({super.key});
+class AssignmentCheckPage extends StatefulWidget {
+  const AssignmentCheckPage({super.key});
 
   @override
-  _CheckAssignmentPageState createState() => _CheckAssignmentPageState();
+  _AssignmentCheckPageState createState() => _AssignmentCheckPageState();
 }
 
-class _CheckAssignmentPageState extends State<CheckAssignmentPage>
+class _AssignmentCheckPageState extends State<AssignmentCheckPage>
     with SingleTickerProviderStateMixin {
   late AssignmentAnimationManager animationManager;
 
