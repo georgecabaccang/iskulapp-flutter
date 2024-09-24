@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const AssignmentPage(), // Pass the focusDate here
+            const AssignmentListPage(), // Pass the focusDate here
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return child; // No additional animation needed here, handled in CalendarAttendancePage
         },

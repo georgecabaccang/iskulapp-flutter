@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/assignment/widgets/assignment_animation_manager.dart';
 
-class CheckAssignmentAppBar extends StatelessWidget {
+class AssignmentCheckAppBar extends StatelessWidget {
   final AssignmentAnimationManager animationManager;
   final VoidCallback onBackPressed;
 
-  const CheckAssignmentAppBar({
+  const AssignmentCheckAppBar({
     super.key,
     required this.animationManager,
     required this.onBackPressed,

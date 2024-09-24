@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/assignment/assignment_add_page/widgets/add_assignment_form.dart';
 import 'package:school_erp/pages/assignment/widgets/assignment_animation_manager.dart';
+import 'widgets/add_assignment_form.dart';
 
 class AssignmentAddPage extends StatefulWidget {
   const AssignmentAddPage({super.key});

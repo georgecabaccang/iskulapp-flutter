@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/assignment/widgets/assignment_animation_manager.dart';
-import 'widgets/check_assingment_appbar.dart';
-import 'widgets/student_list.dart';
+import 'widgets/assignment_check_appbar.dart';
 import 'widgets/close_button_widget.dart';
+import 'widgets/student_list.dart';
 
 class AssignmentCheckPage extends StatefulWidget {
   const AssignmentCheckPage({super.key});
@@ -65,7 +65,7 @@ class _AssignmentCheckPageState extends State<AssignmentCheckPage>
             top: 0,
             left: 0,
             right: 0,
-            child: CheckAssignmentAppBar(
+            child: AssignmentCheckAppBar(
               animationManager: animationManager,
               onBackPressed: () {
                 animationManager.reverseAnimation();
