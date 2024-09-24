@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../assignment_animation.dart';
+import 'package:school_erp/pages/assignment/widgets/assignment_animation_manager.dart';
 
 class CheckAssignmentAppBar extends StatelessWidget {
   final AssignmentAnimationManager animationManager;

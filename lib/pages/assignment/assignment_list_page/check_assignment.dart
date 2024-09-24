@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'assignment_animation.dart'; // Ensure this is the correct path for AssignmentAnimationManager
+import 'package:school_erp/pages/assignment/widgets/assignment_animation_manager.dart';
 import 'widgets/check_assingment_appbar.dart';
 import 'widgets/student_list.dart';
 import 'widgets/close_button_widget.dart';
