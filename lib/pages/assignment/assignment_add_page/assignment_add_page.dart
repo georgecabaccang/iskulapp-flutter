@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/assignment/widgets/assignment_animation_manager.dart';
+import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'widgets/add_assignment_form.dart';
 
 class AssignmentAddPage extends StatefulWidget {
@@ -9,44 +9,20 @@ class AssignmentAddPage extends StatefulWidget {
   _AssignmentAddPageState createState() => _AssignmentAddPageState();
 }
 
-class _AssignmentAddPageState extends State<AssignmentAddPage>
-    with SingleTickerProviderStateMixin {
-  late AssignmentAnimationManager animationManager;
-
-  @override
-  void initState() {
-    super.initState();
-    animationManager = AssignmentAnimationManager(vsync: this);
-    _startAnimation();
-  }
-
-  void _startAnimation() {
-    animationManager.startAnimation();
-  }
-
+class _AssignmentAddPageState extends State<AssignmentAddPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context); // Navigates back to the previous screen
-          },
-        ),
-        title: const Text(
-          'Add Assignment',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: const Color(0xFF5278C1),
+      appBar: CustomAppBar(
+        title: "Add Assignment",
+        onBackPressed: () => Navigator.pop(context),
       ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: const Color(0xFF5278C1), // Set body background color
+        color: const Color(0xFF5278C1),
         child: Column(
           children: [
-            const SizedBox(height: 25),
             Expanded(
               // This ensures the Container occupies all available space
               child: Container(
@@ -79,11 +55,5 @@ class _AssignmentAddPageState extends State<AssignmentAddPage>
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    animationManager.dispose();
-    super.dispose();
   }
 }
