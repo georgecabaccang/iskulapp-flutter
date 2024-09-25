@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/pages/assignment/assignment_list_page/widgets/assignment_add_button.dart';
 import 'widgets/assignment_card.dart';
-import 'widgets/assignment_appbar.dart';
 import 'package:school_erp/pages/assignment/widgets/assignment_animation_manager.dart';
+import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 
 class AssignmentListPage extends StatefulWidget {
   const AssignmentListPage({super.key});
@@ -27,14 +28,22 @@ class _AssignmentListPageState extends State<AssignmentListPage>
 
   void _handleBackPress() {
     animationManager.reverseAnimation();
-    Future.delayed(const Duration(milliseconds: 800), () {
-      Navigator.pop(context);
+    Future.delayed(animationManager.duration, () {
+      if (mounted) {
+        Navigator.pop(context);
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        title: "Assignment List",
+        fadeAnimation: animationManager.fadeAnimation,
+        onBackPressed: _handleBackPress,
+        trailingWidget: AssignmentAddButton(context: context),
+      ),
       body: Stack(
         children: [
           Container(color: const Color(0xFF5278C1)),
@@ -54,9 +63,8 @@ class _AssignmentListPageState extends State<AssignmentListPage>
                       topRight: Radius.circular(30.0),
                     ),
                   ),
-                  child: Opacity(
-                    opacity: animationManager
-                        .opacity, // Apply fade effect to the content
+                  child: FadeTransition(
+                    opacity: animationManager.fadeAnimation,
                     child: child ?? Container(),
                   ),
                 ),
@@ -64,6 +72,7 @@ class _AssignmentListPageState extends State<AssignmentListPage>
             },
             child: Column(
               children: [
+                const SizedBox(height: 25),
                 Expanded(
                   child: ListView(
                     padding: const EdgeInsets.all(16.0),
@@ -96,15 +105,6 @@ class _AssignmentListPageState extends State<AssignmentListPage>
                   ),
                 ),
               ],
-            ),
-          ),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: AssignmentAppBar(
-              animationManager: animationManager,
-              onBackPressed: _handleBackPress,
             ),
           ),
         ],
