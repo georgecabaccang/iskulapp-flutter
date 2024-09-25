@@ -59,27 +59,29 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _goToAssignmentPage() async {
+  void _goToAssignmentPage() {
     setState(() {
       _isTransitioning = true;
     });
-    await Future.delayed(const Duration(milliseconds: 200));
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const AssignmentListPage(), // Pass the focusDate here
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return child; // No additional animation needed here, handled in CalendarAttendancePage
-        },
-      ),
-    ).then((_) {
+
+    _navigateToAssignmentPage().then((_) {
       setState(() {
         _isTransitioning = false;
         _animate = false;
         _startAnimation(); // Re-start the animation when coming back
       });
     });
+  }
+
+  Future<void> _navigateToAssignmentPage() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    await Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const AssignmentListPage(),
+      ),
+    );
   }
 
   @override
