@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'calendar_widget.dart' as widgets;
 import 'attendance_title.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class AnimatedWhiteBox extends StatelessWidget {
   final AnimationState animationState;
@@ -49,7 +50,7 @@ class AnimatedWhiteBox extends StatelessWidget {
         key: const PageStorageKey<String>('calendarAttendancePage'),
         child: Container(
           decoration: const BoxDecoration(
-            color: Colors.white,
+            color: AppColors.whiteColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),

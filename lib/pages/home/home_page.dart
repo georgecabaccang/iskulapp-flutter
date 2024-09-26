@@ -7,6 +7,8 @@ import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overla
 import 'package:school_erp/pages/profile/profile_page.dart';
 import 'widgets/navigation_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_erp/theme/colors.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage(this.user, {super.key});
@@ -87,7 +89,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF5278C1),
+      backgroundColor: AppColors.primaryColor,
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthFailure) {
@@ -181,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                     child: const Text(
                       " 2024-2025 ",
                       style: TextStyle(
-                        color: Color(0xFF5278C1),
+                        color: AppColors.primaryColor,
                         fontSize: 18.0,
                       ),
                     ),
@@ -249,7 +251,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(
-                  color: const Color(0xFF5278C1),
+                  color: AppColors.primaryColor,
                   width: 2.0,
                 ),
               ),
@@ -258,7 +260,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   CircleAvatar(
                     radius: 40.0,
-                    backgroundColor: Color.fromARGB(255, 233, 174, 36),
+                    backgroundColor: AppColors.warningColor,
                     child: Icon(
                       Icons.school,
                       size: 60.0,
@@ -306,7 +308,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(
-                  color: const Color(0xFF5278C1),
+                  color: AppColors.primaryColor,
                   width: 2.0,
                 ),
               ),
@@ -315,7 +317,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   CircleAvatar(
                     radius: 40.0,
-                    backgroundColor: Color.fromRGBO(220, 80, 242, 1),
+                    backgroundColor:AppColors.purple,
                     child: Icon(
                       Icons.monetization_on,
                       size: 60.0,

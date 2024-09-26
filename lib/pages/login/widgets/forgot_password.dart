@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class ForgotPassword extends StatelessWidget {
   final VoidCallback onBackToLogin; // Callback to switch back to Login screen
@@ -22,7 +23,7 @@ class ForgotPassword extends StatelessWidget {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
-                    color: Colors.black87),
+                    color: Colors.black),
                 textAlign: TextAlign.start,
               ),
               const Text(
@@ -45,10 +46,10 @@ class ForgotPassword extends StatelessWidget {
               const TextField(
                 decoration: InputDecoration(
                   border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black45),
+                    borderSide: BorderSide(color: Colors.black),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black87),
+                    borderSide: BorderSide(color: Colors.black),
                   ),
                 ),
               ),
@@ -60,8 +61,8 @@ class ForgotPassword extends StatelessWidget {
                   child: ElevatedButton.icon(
                     onPressed: () {}, // Handle send action
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF5278C1),
-                      foregroundColor: Colors.white,
+                      backgroundColor: AppColors.primaryColor,
+                      foregroundColor: AppColors.whiteColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),

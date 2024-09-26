@@ -5,14 +5,14 @@ import 'widgets/forgot_password.dart';
 import 'widgets/login_body.dart';
 import 'widgets/login_stack.dart';
 import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overlay.dart';
-
+import 'package:school_erp/theme/colors.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF5278C1),
+      backgroundColor: AppColors.primaryColor,
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           return Stack(

@@ -3,6 +3,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'calendar_attendance_animation.dart';
 import 'widgets/attendance_title.dart';
 import 'package:intl/intl.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class AnimationState {
   final bool animate;
@@ -85,7 +86,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage>
         builder: (context, child) {
           return Stack(
             children: [
-              Container(color: const Color(0xFF5278C1)),
+              Container(color:AppColors.primaryColor),
               Positioned(
                 top: animationManager.topPosition,
                 left: 0,
@@ -105,7 +106,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage>
             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.whiteColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30.0),
                     topRight: Radius.circular(30.0),
@@ -197,7 +198,7 @@ class CalendarContent extends StatelessWidget {
               child: Container(
                 // Ensuring the white box is visible and remains at full opacity
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.whiteColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30.0),
                     topRight: Radius.circular(30.0),
@@ -268,7 +269,7 @@ class CalendarAppBar extends StatelessWidget {
           child: Row(
             children: [
               IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                icon: const Icon(Icons.arrow_back, color: AppColors.whiteColor),
                 onPressed: onBackPressed,
               ),
               const Spacer(),
@@ -334,21 +335,21 @@ class DropdownFilter extends StatelessWidget {
           value: 'All',
           child: FilterItem(
             label: 'All',
-            color: Colors.white,
+            color: AppColors.whiteColor,
             borderColor: Colors.grey,
           ),
         ),
         DropdownMenuItem(
           value: 'Absent',
-          child: FilterItem(label: 'Absent', color: Colors.red),
+          child: FilterItem(label: 'Absent', color:AppColors.dangerColor),
         ),
         DropdownMenuItem(
           value: 'Late',
-          child: FilterItem(label: 'Late', color: Colors.orange),
+          child: FilterItem(label: 'Late', color: AppColors.warningColor),
         ),
         DropdownMenuItem(
           value: 'Holiday',
-          child: FilterItem(label: 'Holiday', color: Colors.green),
+          child: FilterItem(label: 'Holiday', color: AppColors.successColor),
         ),
       ],
       onChanged: onChanged,
@@ -397,7 +398,7 @@ class AttendanceButton extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.whiteColor,
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: const Text(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/profile/formText.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class FormTextData {
   final String label;
@@ -54,12 +55,12 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF5278C1),
+      backgroundColor: AppColors.primaryColor,
       body: Stack(
         children: [
           // Blue background color
           Container(
-            color: const Color(0xFF5278C1),
+            color: AppColors.primaryColor,
           ),
           // Animated white box
           AnimatedPositioned(
@@ -73,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
             bottom: 0,
             child: Container(
               decoration: const BoxDecoration(
-                color: Colors.white,
+                color: AppColors.whiteColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30.0),
                   topRight: Radius.circular(30.0),
@@ -124,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    icon: const Icon(Icons.arrow_back, color: AppColors.whiteColor),
                     onPressed: () {
                       setState(() {
                         animationState.isBackNavigation = true;
@@ -138,7 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   const Text(
                     "My Profile",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.whiteColor,
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -152,12 +153,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                       icon: const Icon(
                         Icons.check,
-                        color: Colors.blue,
+                        color: AppColors.primaryColor,
                       ),
                       label: const Text(
                         'Done',
                         style: TextStyle(
-                          color: Colors.blue,
+                          color: AppColors.primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -190,7 +191,7 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 100.0,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
-                border: Border.all(color: Colors.blue, width: 2.0),
+                border: Border.all(color:AppColors.primaryColor, width: 2.0),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -202,7 +203,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       width: 75,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: const Color.fromARGB(96, 47, 47, 47),
+                        color: Colors.grey,
                       ),
                     ),
                   ),
@@ -224,7 +225,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   child: Text(
                                     'Akshay Syal',
                                     style: TextStyle(
-                                      color: Colors.black87,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
                                     ),

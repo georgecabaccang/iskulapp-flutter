@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:school_erp/pages/assignment/assignment_add/assignment_setup_page/question_setup_page.dart';
 import 'package:school_erp/pages/common_widgets/animation_widgets/fade_page_transition.dart';
 import './add_assignment_dropdown.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class AddAssignmentForm extends StatefulWidget {
   const AddAssignmentForm({super.key});
@@ -224,9 +225,8 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
             ElevatedButton(
               onPressed: _validateAndSubmit,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF5278C1),
-                minimumSize: Size(
-                    double.infinity, MediaQuery.of(context).size.height * 0.08),
+                backgroundColor:AppColors.primaryColor,
+                minimumSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.08),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
