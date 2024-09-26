@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../assignment_animation.dart';
+import 'package:school_erp/theme/colors.dart';
+
 
 class CheckAssignmentAppBar extends StatelessWidget {
   final AssignmentAnimationManager animationManager;
@@ -27,7 +29,7 @@ class CheckAssignmentAppBar extends StatelessWidget {
           child: Row(
             children: [
               IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                icon: const Icon(Icons.arrow_back, color: AppColors.whiteColor),
                 onPressed: onBackPressed,
               ),
               const Spacer(),
@@ -47,12 +49,12 @@ class CheckAssignmentAppBar extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 0, 255, 8),
+                    color: AppColors.successColor,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: const Icon(
                     Icons.add,
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color:AppColors.whiteColor,
                   ),
                 ),
               ),

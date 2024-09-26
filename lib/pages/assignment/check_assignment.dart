@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/theme/colors.dart';
 import 'assignment_animation.dart'; // Ensure this is the correct path for AssignmentAnimationManager
 import 'widgets/check_assingment_appbar.dart';
 import 'widgets/student_list.dart';
@@ -36,7 +37,7 @@ class _CheckAssignmentPageState extends State<CheckAssignmentPage>
       body: Stack(
         children: [
           Container(
-            color: const Color(0xFF5278C1), // Background remains the same
+            color: AppColors.primaryColor, // Background remains the same
           ),
           Positioned(
             top: appBarHeight, // Start below the AppBar using relative height
@@ -45,7 +46,7 @@ class _CheckAssignmentPageState extends State<CheckAssignmentPage>
             bottom: 0, // Extend to the bottom
             child: Container(
               decoration: const BoxDecoration(
-                color: Colors.white,
+                color: AppColors.whiteColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30.0),
                   topRight: Radius.circular(30.0),

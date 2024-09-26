@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:school_erp/theme/colors.dart';
 class RoundedContainer extends StatelessWidget {
   final Widget child;
   final double height;
@@ -18,7 +18,7 @@ class RoundedContainer extends StatelessWidget {
       width: double.infinity,
       height: height,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.whiteColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(borderRadius),
           topRight: Radius.circular(borderRadius),

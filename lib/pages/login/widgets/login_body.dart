@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_erp/features/auth/auth.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class LoginBody extends StatefulWidget {
   final VoidCallback onForgotPassword; // Callback to switch to Forgot Password
@@ -46,7 +47,7 @@ class _LoginBodyState extends State<LoginBody> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
-                      color: Colors.black87,
+                      color: Colors.black,
                     ),
                     textAlign: TextAlign.start,
                   ),
@@ -73,10 +74,10 @@ class _LoginBodyState extends State<LoginBody> {
                     controller: _emailController,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black45),
+                        borderSide: BorderSide(color: Colors.black),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black87),
+                        borderSide: BorderSide(color: Colors.black),
                       ),
                     ),
                   ),
@@ -95,17 +96,17 @@ class _LoginBodyState extends State<LoginBody> {
                     obscureText: _obscureText, // Toggle password visibility
                     decoration: InputDecoration(
                       border: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black45),
+                        borderSide: BorderSide(color: Colors.black),
                       ),
                       focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black87),
+                        borderSide: BorderSide(color: Colors.black),
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _obscureText
                               ? Icons.visibility
                               : Icons.visibility_off,
-                          color: Colors.black45,
+                          color: Colors.black,
                         ),
                         onPressed:
                             _togglePasswordVisibility, // Toggle visibility on press
@@ -118,7 +119,7 @@ class _LoginBodyState extends State<LoginBody> {
                       child: Text(
                         errorMessage,
                         style: const TextStyle(
-                          color: Colors.red,
+                          color: AppColors.dangerColor,
                           fontSize: 14,
                         ),
                       ),
@@ -137,8 +138,8 @@ class _LoginBodyState extends State<LoginBody> {
                               .add(LoginRequested(email, password));
                         }, // Trigger login action
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF5278C1),
-                          foregroundColor: Colors.white,
+                          backgroundColor: AppColors.primaryColor,
+                          foregroundColor: AppColors.whiteColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           ),
@@ -162,7 +163,7 @@ class _LoginBodyState extends State<LoginBody> {
                           style: TextStyle(
                             fontWeight: FontWeight.w300,
                             fontSize: 14,
-                            color: Color(0xFF5278C1),
+                            color: AppColors.primaryColor,
                           ),
                         ),
                       ),

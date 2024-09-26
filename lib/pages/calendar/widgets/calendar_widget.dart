@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class CalendarWidget extends StatelessWidget {
   final DateTime focusedDay;
@@ -57,9 +58,9 @@ class DropdownFilter extends StatelessWidget {
       value: selectedFilter,
       items: [
         _buildDropdownItem('All', Colors.white, Colors.grey),
-        _buildDropdownItem('Absent', Colors.red, Colors.transparent),
-        _buildDropdownItem('Late', Colors.orange, Colors.transparent),
-        _buildDropdownItem('Holiday', Colors.green, Colors.transparent),
+        _buildDropdownItem('Absent', AppColors.dangerColor, Colors.transparent),
+        _buildDropdownItem('Late', AppColors.warningColor, Colors.transparent),
+        _buildDropdownItem('Holiday', AppColors.successColor, Colors.transparent),
       ],
       onChanged: onChanged,
       underline: const SizedBox(),
@@ -97,7 +98,7 @@ class AttendanceButton extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.whiteColor,
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: const Text(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/pages/teacher/add_assignment_page.dart';
 import 'assignment_animation.dart'; // Ensure this is the correct path for AssignmentAnimationManager
 import 'check_assignment.dart'; // Ensure this is the correct path for CheckAssignmentPage
+import 'package:school_erp/theme/colors.dart';
+
 
 class AnimationState {
   final bool animate;
@@ -49,7 +51,7 @@ class _AssignmentPageState extends State<AssignmentPage>
     return Scaffold(
       body: Stack(
         children: [
-          Container(color: const Color(0xFF5278C1)),
+          Container(color:AppColors.primaryColor),
           AnimatedBuilder(
             animation: animationManager.controller,
             builder: (context, child) {
@@ -60,7 +62,7 @@ class _AssignmentPageState extends State<AssignmentPage>
                 bottom: 0,
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: AppColors.whiteColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30.0),
                       topRight: Radius.circular(30.0),
@@ -86,7 +88,7 @@ class _AssignmentPageState extends State<AssignmentPage>
                         assignDate: 'Dec 19, 2024 9:00pm',
                         lastSubmissionDate: 'Dec 19, 2024 11:59pm',
                         status: 'TO BE COMPLETED',
-                        statusColor: Color(0xFF5278C1),
+                        statusColor: AppColors.primaryColor,
                       ),
                       AssignmentCard(
                         subject: 'Science',
@@ -94,7 +96,7 @@ class _AssignmentPageState extends State<AssignmentPage>
                         assignDate: '10 Oct 20',
                         lastSubmissionDate: '30 Oct 20',
                         status: 'TO BE SUBMITTED',
-                        statusColor: Color(0xFF5278C1),
+                        statusColor:AppColors.primaryColor,
                       ),
                       AssignmentCard(
                         subject: 'English',
@@ -102,7 +104,7 @@ class _AssignmentPageState extends State<AssignmentPage>
                         assignDate: '10 Sep 20',
                         lastSubmissionDate: '30 Sep 20',
                         status: 'TO BE SUBMITTED',
-                        statusColor: Color(0xFF5278C1),
+                        statusColor: AppColors.primaryColor,
                       ),
                     ],
                   ),
@@ -204,7 +206,7 @@ class AssignmentCard extends StatelessWidget {
                     child: Text(
                       subject,
                       style: const TextStyle(
-                        color: Color(0xFF5278C1),
+                        color: AppColors.primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -335,12 +337,12 @@ Widget build(BuildContext context) {
               child: Container(
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 0, 255, 8),
+                  color:AppColors.successColor,
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: const Icon(
                   Icons.add,
-                  color: Color.fromARGB(255, 255, 255, 255), // Match the app's primary color
+                  color: AppColors.whiteColor, // Match the app's primary color
                 ),
               ),
             ),

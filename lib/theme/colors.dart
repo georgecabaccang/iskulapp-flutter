@@ -6,5 +6,6 @@ class AppColors {
   static const Color dangerColor = Color(0xFFE92020);  // Red
   static const Color warningColor = Color(0xFFFE8B22); // Warning
   static const Color purple = Color(0xFFDD50F2);       // Purple
-  
+  static const Color whiteColor = Color(0xFFFFFFFF);
+
 }
