@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/theme/colors.dart';
 
-
 class NavigationCard extends StatelessWidget {
   const NavigationCard(this.title, this.icon, this.callback, {super.key});
 
@@ -35,7 +34,7 @@ class NavigationCard extends StatelessWidget {
               title,
               style: const TextStyle(
                 fontSize: 16.0,
-                color: Colors.black,
+                color: Colors.white,
               ),
             ),
           ],
