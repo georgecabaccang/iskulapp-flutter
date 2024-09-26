@@ -225,8 +225,9 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
             ElevatedButton(
               onPressed: _validateAndSubmit,
               style: ElevatedButton.styleFrom(
-                backgroundColor:AppColors.primaryColor,
-                minimumSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.08),
+                backgroundColor: AppColors.primaryColor,
+                minimumSize: Size(
+                    double.infinity, MediaQuery.of(context).size.height * 0.08),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),

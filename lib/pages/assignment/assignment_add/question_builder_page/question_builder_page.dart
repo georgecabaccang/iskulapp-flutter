@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'package:school_erp/pages/login/widgets/rounded_container.dart';
+import 'package:school_erp/theme/colors.dart';
 import './widgets/widgets.dart';
-
 import 'question_type.dart';
 
 class QuestionBuilderPage extends StatelessWidget {
@@ -18,7 +18,7 @@ class QuestionBuilderPage extends StatelessWidget {
         },
       ),
       body: const Material(
-        color: Color(0xFF5278C1),
+        color: AppColors.primaryColor,
         child: SafeArea(
           child: Column(
             children: [
@@ -111,7 +111,7 @@ class PageNumber extends StatelessWidget {
       height: 30,
       margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
-        color: isCurrentPage ? const Color(0xFF5278C1) : Colors.transparent,
+        color: isCurrentPage ? AppColors.primaryColor : Colors.transparent,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Center(

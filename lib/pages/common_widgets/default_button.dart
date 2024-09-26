@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class DefaultButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -11,7 +12,7 @@ class DefaultButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF8EA7E9), Color(0xFF5278C1)],
+          colors: [AppColors.whiteColor, AppColors.primaryColor],
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
         ),

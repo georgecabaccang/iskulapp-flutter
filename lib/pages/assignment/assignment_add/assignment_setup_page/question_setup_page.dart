@@ -7,7 +7,7 @@ import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'package:school_erp/pages/common_widgets/form_fields/datetime_picker.dart';
 import 'package:school_erp/pages/common_widgets/default_button.dart';
 import 'package:school_erp/pages/common_widgets/form_fields/labeled_dropdown.dart';
-
+import 'package:school_erp/theme/colors.dart';
 import 'form_data.dart';
 
 class QuestionSetupPage extends StatelessWidget {
@@ -23,7 +23,7 @@ class QuestionSetupPage extends StatelessWidget {
         },
       ),
       body: const Material(
-        color: Color(0xFF5278C1),
+        color: AppColors.primaryColor,
         child: SafeArea(
           child: Column(
             children: [
@@ -121,7 +121,7 @@ class _FormContentState extends State<FormContent> {
 
       Navigator.of(context).push(
         FadePageRoute(
-          page: QuestionBuilderPage(),
+          page: const QuestionBuilderPage(),
         ),
       );
     }
