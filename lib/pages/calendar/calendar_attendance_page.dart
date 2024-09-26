@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import './widgets/attendance_title.dart';
 import 'package:intl/intl.dart'; // Import for date formatting
+import 'package:school_erp/theme/colors.dart';
 
 class CalendarAttendancePage extends StatefulWidget {
   final DateTime focusDate;
@@ -82,7 +83,7 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
       body: Stack(
         children: [
           Container(
-            color: const Color(0xFF5278C1),
+            color:AppColors.primaryColor,
           ),
           AnimatedWhiteBox(
             animationState: animationState,
@@ -334,9 +335,9 @@ class DropdownFilter extends StatelessWidget {
       value: selectedFilter,
       items: [
         _buildDropdownItem('All', Colors.white, Colors.grey),
-        _buildDropdownItem('Absent', Colors.red, Colors.transparent),
-        _buildDropdownItem('Late', Colors.orange, Colors.transparent),
-        _buildDropdownItem('Holiday', Colors.green, Colors.transparent),
+        _buildDropdownItem('Absent', AppColors.dangerColor, Colors.transparent),
+        _buildDropdownItem('Late', AppColors.warningColor, Colors.transparent),
+        _buildDropdownItem('Holiday', AppColors.successColor, Colors.transparent),
       ],
       onChanged: onChanged,
       underline: const SizedBox(),

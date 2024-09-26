@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'widgets/close_button_widget.dart';
 import 'widgets/student_list.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class AssignmentCheckPage extends StatefulWidget {
   const AssignmentCheckPage({super.key});
@@ -21,7 +22,7 @@ class _AssignmentCheckPageState extends State<AssignmentCheckPage> {
       body: Stack(
         children: [
           Container(
-            color: const Color(0xFF5278C1), // Background remains the same
+            color: AppColors.primaryColor, // Background remains the same
           ),
           Container(
             decoration: const BoxDecoration(

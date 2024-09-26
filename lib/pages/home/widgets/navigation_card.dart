@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/theme/colors.dart';
+
 
 class NavigationCard extends StatelessWidget {
   const NavigationCard(this.title, this.icon, this.callback, {super.key});
@@ -13,7 +15,7 @@ class NavigationCard extends StatelessWidget {
       onTap: () => callback(),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFF5F6FC),
+          color: AppColors.primaryColor,
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Column(
@@ -21,7 +23,7 @@ class NavigationCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 30.0,
-              backgroundColor: const Color(0xFF5278C1),
+              backgroundColor: AppColors.primaryColor,
               child: Icon(
                 icon,
                 size: 40.0,

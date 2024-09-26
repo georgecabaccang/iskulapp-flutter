@@ -1,6 +1,7 @@
 import '../modified_attendance.dart' as modified;
 import '../modified_attendance.dart';
 import 'package:flutter/material.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class FadingAppBar extends StatelessWidget {
   final AnimationState animationState;
@@ -31,7 +32,7 @@ class FadingAppBar extends StatelessWidget {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    icon: const Icon(Icons.arrow_back, color: AppColors.whiteColor),
                     onPressed: onBackPressed,
                   ),
                   const Spacer(),

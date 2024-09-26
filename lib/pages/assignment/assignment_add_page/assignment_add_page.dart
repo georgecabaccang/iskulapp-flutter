@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'widgets/add_assignment_form.dart';
-
+import 'package:school_erp/theme/colors.dart';
 class AssignmentAddPage extends StatefulWidget {
   const AssignmentAddPage({super.key});
 
@@ -20,7 +20,7 @@ class _AssignmentAddPageState extends State<AssignmentAddPage> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: const Color(0xFF5278C1),
+        color: AppColors.primaryColor,
         child: Column(
           children: [
             Expanded(
@@ -28,7 +28,7 @@ class _AssignmentAddPageState extends State<AssignmentAddPage> {
               child: Container(
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.whiteColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30.0),
                     topRight: Radius.circular(30.0),

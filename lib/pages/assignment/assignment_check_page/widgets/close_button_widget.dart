@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class CloseButtonWidget extends StatelessWidget {
   const CloseButtonWidget({super.key});
@@ -15,7 +16,7 @@ class CloseButtonWidget extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             padding:
                 const EdgeInsets.symmetric(vertical: 14.0, horizontal: 160.0),
-            backgroundColor: Colors.redAccent,
+            backgroundColor: AppColors.dangerColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -25,7 +26,7 @@ class CloseButtonWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: AppColors.whiteColor,
             ),
           ),
         ),

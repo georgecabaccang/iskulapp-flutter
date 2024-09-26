@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class StudentItem extends StatelessWidget {
   final Student student;
@@ -22,11 +23,11 @@ class StudentItem extends StatelessWidget {
             backgroundImage: student.imageUrl != null
                 ? NetworkImage(student.imageUrl!)
                 : null,
-            backgroundColor: Colors.purple.shade100,
+            backgroundColor:AppColors.purple.withOpacity(0.8),
             child: student.imageUrl == null
                 ? const Text(
                     'A',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: AppColors.whiteColor),
                   )
                 : null,
           ),
@@ -50,7 +51,7 @@ class StudentItem extends StatelessWidget {
               student.isChecked
                   ? Icons.check_circle
                   : Icons.check_circle_outline,
-              color: student.isChecked ? Colors.green : Colors.grey,
+              color: student.isChecked ? AppColors.successColor : Colors.grey,
             ),
             onPressed: onToggleCheck,
           ),
