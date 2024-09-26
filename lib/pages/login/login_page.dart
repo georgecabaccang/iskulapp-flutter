@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/features/auth/bloc/auth_bloc_barrel.dart';
-import 'package:school_erp/pages/login/widgets/forgot_password.dart';
-import 'package:school_erp/pages/login/widgets/login_body.dart';
-import 'package:school_erp/pages/login/widgets/login_stack.dart';
-import 'package:school_erp/pages/common_widgets/loading_overlay.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_erp/features/auth/bloc/auth_bloc_barrel.dart';
+import 'widgets/forgot_password.dart';
+import 'widgets/login_body.dart';
+import 'widgets/login_stack.dart';
+import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overlay.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

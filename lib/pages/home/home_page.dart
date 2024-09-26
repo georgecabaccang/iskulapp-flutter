@@ -3,7 +3,7 @@ import 'package:school_erp/features/auth/bloc/auth_bloc_barrel.dart';
 import 'package:school_erp/features/auth/auth_repository/auth_repository.dart';
 import 'package:school_erp/pages/assignment/assignment_list_page/assignment_list_page.dart';
 import 'package:school_erp/pages/calendar/modified_attendance.dart';
-import 'package:school_erp/pages/common_widgets/loading_overlay.dart';
+import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overlay.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
 import 'widgets/navigation_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

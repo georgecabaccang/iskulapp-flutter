@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/assignment/assignment_add_page/assignment_add_page.dart';
+import 'package:school_erp/pages/assignment/assignment_add/assignment_add_page/assignment_add_page.dart';
 
 class AssignmentAddButton extends StatelessWidget {
   final BuildContext context;
