@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -48,7 +49,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
         ],
-        backgroundColor: const Color(0xFF5278C1),
+        backgroundColor:AppColors.primaryColor,
       ),
     );
   }

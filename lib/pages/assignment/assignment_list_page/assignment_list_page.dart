@@ -3,6 +3,7 @@ import 'package:school_erp/pages/assignment/assignment_list_page/widgets/assignm
 import 'widgets/assignment_card.dart';
 import 'package:school_erp/pages/assignment/widgets/assignment_animation_manager.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class AssignmentListPage extends StatefulWidget {
   const AssignmentListPage({super.key});
@@ -46,7 +47,7 @@ class _AssignmentListPageState extends State<AssignmentListPage>
       ),
       body: Stack(
         children: [
-          Container(color: const Color(0xFF5278C1)),
+          Container(color: AppColors.primaryColor),
           AnimatedBuilder(
             animation: animationManager.controller,
             builder: (context, child) {
@@ -83,7 +84,7 @@ class _AssignmentListPageState extends State<AssignmentListPage>
                         assignDate: 'Dec 19, 2024 9:00pm',
                         lastSubmissionDate: 'Dec 19, 2024 11:59pm',
                         status: 'TO BE COMPLETED',
-                        statusColor: Color(0xFF5278C1),
+                        statusColor: AppColors.primaryColor,
                       ),
                       AssignmentCard(
                         subject: 'Science',
@@ -91,7 +92,7 @@ class _AssignmentListPageState extends State<AssignmentListPage>
                         assignDate: '10 Oct 20',
                         lastSubmissionDate: '30 Oct 20',
                         status: 'TO BE SUBMITTED',
-                        statusColor: Color(0xFF5278C1),
+                        statusColor: AppColors.primaryColor,
                       ),
                       AssignmentCard(
                         subject: 'English',
@@ -99,7 +100,7 @@ class _AssignmentListPageState extends State<AssignmentListPage>
                         assignDate: '10 Sep 20',
                         lastSubmissionDate: '30 Sep 20',
                         status: 'TO BE SUBMITTED',
-                        statusColor: Color(0xFF5278C1),
+                        statusColor:AppColors.primaryColor,
                       ),
                     ],
                   ),
