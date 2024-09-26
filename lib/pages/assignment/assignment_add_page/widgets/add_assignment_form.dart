@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:school_erp/pages/teacher/widget/add_assignment_dropdown.dart';
+import './add_assignment_dropdown.dart';
 
 class AddAssignmentForm extends StatefulWidget {
   const AddAssignmentForm({super.key});

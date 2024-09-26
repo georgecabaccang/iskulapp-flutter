@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AssignmentAnimationManager {
-  final AnimationController controller;
+  late final AnimationController controller;
   late final Animation<double> slideAnimation;
   late final Animation<double> fadeAnimation;
+  final Duration duration = const Duration(milliseconds: 1000);
 
-  AssignmentAnimationManager({required TickerProvider vsync})
-      : controller = AnimationController(
-          duration: const Duration(milliseconds: 1000),
-          vsync: vsync,
-        ) {
-    slideAnimation = Tween<double>(begin: 380, end: 100).animate(
+  AssignmentAnimationManager({required TickerProvider vsync}) {
+    controller = AnimationController(duration: duration, vsync: vsync);
+    slideAnimation = Tween<double>(begin: 380, end: 0).animate(
       CurvedAnimation(parent: controller, curve: Curves.easeInOut),
     );
     fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(

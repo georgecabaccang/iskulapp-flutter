@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/features/auth/bloc/auth_bloc_barrel.dart';
 import 'package:school_erp/features/auth/auth_repository/auth_repository.dart';
+import 'package:school_erp/pages/assignment/assignment_list_page/assignment_list_page.dart';
 import 'package:school_erp/pages/calendar/modified_attendance.dart';
 import 'package:school_erp/pages/common_widgets/loading_overlay.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
 import 'widgets/navigation_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:school_erp/pages/assignment/assignment_page.dart';
-import 'package:school_erp/theme/colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(this.user, {super.key});
@@ -60,21 +59,12 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _goToAssignmentPage() async {
+  void _goToAssignmentPage() {
     setState(() {
       _isTransitioning = true;
     });
-    await Future.delayed(const Duration(milliseconds: 200));
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const AssignmentPage(), // Pass the focusDate here
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return child; // No additional animation needed here, handled in CalendarAttendancePage
-        },
-      ),
-    ).then((_) {
+
+    _navigateToAssignmentPage().then((_) {
       setState(() {
         _isTransitioning = false;
         _animate = false;
@@ -83,10 +73,21 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Future<void> _navigateToAssignmentPage() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    await Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const AssignmentListPage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:AppColors.primaryColor,
+      backgroundColor: const Color(0xFF5278C1),
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthFailure) {
@@ -107,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                 right: 0,
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: AppColors.whiteColor,
+                    color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30.0),
                       topRight: Radius.circular(30.0),
@@ -158,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                     "Hi ${user.firstName} ${user.lastName}",
                     style: const TextStyle(
                       fontSize: 38.0,
-                      color: AppColors.whiteColor,
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 8.0),
@@ -166,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                     "Class XI-B | Roll no: 04",
                     style: TextStyle(
                       fontSize: 24.0,
-                      color: AppColors.whiteColor,
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 8.0),
@@ -174,13 +175,13 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12.0, vertical: 6.0),
                     decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     child: const Text(
                       " 2024-2025 ",
                       style: TextStyle(
-                        color: AppColors.primaryColor,
+                        color: Color(0xFF5278C1),
                         fontSize: 18.0,
                       ),
                     ),
@@ -223,7 +224,7 @@ class _HomePageState extends State<HomePage> {
                   child: const Icon(
                     Icons.person,
                     size: 40.0,
-                    color: AppColors.whiteColor,
+                    color: Colors.white,
                   ),
                 ),
               )),
@@ -248,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(
-                  color: AppColors.primaryColor,
+                  color: const Color(0xFF5278C1),
                   width: 2.0,
                 ),
               ),
@@ -257,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   CircleAvatar(
                     radius: 40.0,
-                    backgroundColor: AppColors.warningColor,
+                    backgroundColor: Color.fromARGB(255, 233, 174, 36),
                     child: Icon(
                       Icons.school,
                       size: 60.0,
@@ -305,7 +306,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(
-                  color: AppColors.primaryColor,
+                  color: const Color(0xFF5278C1),
                   width: 2.0,
                 ),
               ),
@@ -314,11 +315,11 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   CircleAvatar(
                     radius: 40.0,
-                    backgroundColor:AppColors.purple,
+                    backgroundColor: Color.fromRGBO(220, 80, 242, 1),
                     child: Icon(
                       Icons.monetization_on,
                       size: 60.0,
-                      color: AppColors.whiteColor,
+                      color: Colors.white,
                     ),
                   ),
                   SizedBox(height: 12.0),
