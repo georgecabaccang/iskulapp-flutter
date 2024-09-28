@@ -34,7 +34,7 @@ class NavigationCard extends StatelessWidget {
             const SizedBox(height: 8.0),
             Text(
               title,
-              style: bodyStyle(context)
+              style: bodyStyle().copyWith(fontSize: 16.0)
             ),
           ],
         ),

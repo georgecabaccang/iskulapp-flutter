@@ -10,6 +10,7 @@ import 'widgets/navigation_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/theme/text_styles.dart';
+import 'package:school_erp/constants/text_constants.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(this.user, {super.key});
@@ -159,13 +160,13 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Hi ${user.firstName} ${user.lastName}",
-                  style: headingStyleSecondary(context), 
+                  TextConstants.homePageMessage(user.firstName, user.lastName),
+                  style: headingStyle().copyWith(fontSize: 38.0), 
                 ),
                 const SizedBox(height: 8.0),
                  Text(
                   "Class XI-B | Roll no: 04",
-                  style: bodyStyleSecondary(context),
+                  style: bodyStyle().copyWith(fontSize: 24.0, color: AppColors.whiteColor),
                 ),
                 const SizedBox(height: 8.0),
                 Container(
@@ -177,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   child:  Text(
                     " 2024-2025 ",
-                    style: bodyStyle(context),
+                    style: bodyStyle().copyWith(fontSize: 18.0),
                   ),
                 ),
               ],
@@ -269,12 +270,12 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           '75.00%',
-                          style: headingStyle(context),
+                          style: headingStyle().copyWith(fontSize: 36.0, color: Colors.black),
                         ),
                         const SizedBox(height: 8.0),
                         Text(
                           'Attendance',
-                          style:bodyStyle(context),
+                          style:bodyStyle().copyWith(fontSize: 20.0),
                         ),
                       ],
                     ),
@@ -319,12 +320,12 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           '₱50,000',
-                          style: headingStyle(context),
+                          style: headingStyle().copyWith(fontSize: 36.0, color: Colors.black),
                         ),
                         SizedBox(height: 8.0),
                         Text(
                           'Fees Due',
-                          style: bodyStyle(context),
+                          style:bodyStyle().copyWith(fontSize: 20.0),
                         ),
                       ],
                     ),
