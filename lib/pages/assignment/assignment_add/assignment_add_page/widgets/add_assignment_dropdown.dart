@@ -21,7 +21,7 @@ class AddAssignmentDropdown extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hint,
         border: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey), 
+          borderSide: BorderSide(color: Colors.grey),
         ),
       ),
       items: items.map<DropdownMenuItem<String>>((String value) {
@@ -30,14 +30,15 @@ class AddAssignmentDropdown extends StatelessWidget {
           child: Text(
             value,
             style: TextStyle(
-              fontWeight: value == this.value ? FontWeight.bold : FontWeight.normal,
+              fontWeight:
+                  value == this.value ? FontWeight.bold : FontWeight.normal,
             ),
           ),
         );
       }).toList(),
       onChanged: onChanged,
       isExpanded: true, // Makes the dropdown take the full width
-      icon: const Icon(Icons.keyboard_arrow_down_sharp, color: Colors.grey), 
+      icon: const Icon(Icons.keyboard_arrow_down_sharp, color: Colors.grey),
     );
   }
 }
