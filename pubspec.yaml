@@ -79,6 +79,8 @@ flutter:
     - assets/addAssignmentData/classes.json
     - assets/addAssignmentData/subjects.json
     - .env
+    - assets/questions.json
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
