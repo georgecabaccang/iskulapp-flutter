@@ -5,6 +5,13 @@ import 'package:school_erp/pages/assignment/assignment_add/assignment_setup_page
 import 'package:school_erp/pages/common_widgets/animation_widgets/fade_page_transition.dart';
 import 'package:school_erp/theme/colors.dart';
 
+// Enum for assignment types
+enum AssignmentType {
+  online,
+  inApp,
+  takeHome,
+}
+
 class AddAssignmentForm extends StatefulWidget {
   const AddAssignmentForm({super.key});
 
@@ -18,22 +25,16 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
   String? aiGenerated;
   List<String> classList = [];
   List<String> subjectList = [];
-  List<String> typeList = [
-    "Online",
-    "In App",
-    "Take Home",
-  ];
-  String? selectedType;
+  AssignmentType? selectedType;
   String? selectedAIOption;
   List<String> aiOptions = ["Yes", "No"];
-
 
   @override
   void initState() {
     super.initState();
     _loadClassesTitle();
     _loadSubjects();
-    selectedType = typeList.isNotEmpty ? typeList[0] : null;
+    selectedType = AssignmentType.online;
   }
 
   Future<void> _loadClassesTitle() async {
@@ -60,7 +61,6 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
 
   void _validateAndSubmit() {
     if (_formKey.currentState!.validate()) {
-      // If the form is valid, navigate to the next page
       Navigator.push(
         context,
         FadePageRoute(
@@ -68,10 +68,20 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
         ),
       );
     } else {
-      // If validation fails, show a snack bar or another feedback mechanism
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please fix the errors in red')),
       );
+    }
+  }
+
+  String assignmentTypeToString(AssignmentType type) {
+    switch (type) {
+      case AssignmentType.online:
+        return "Online";
+      case AssignmentType.inApp:
+        return "In App";
+      case AssignmentType.takeHome:
+        return "Take Home";
     }
   }
 
@@ -151,12 +161,12 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                 },
               ),
               const SizedBox(height: 25),
-              DropdownButtonFormField<String>(
+              DropdownButtonFormField<AssignmentType>(
                 value: selectedType,
-                items: typeList.map((String type) {
-                  return DropdownMenuItem<String>(
+                items: AssignmentType.values.map((AssignmentType type) {
+                  return DropdownMenuItem<AssignmentType>(
                     value: type,
-                    child: Text(type),
+                    child: Text(assignmentTypeToString(type)),
                   );
                 }).toList(),
                 onChanged: (newValue) {
@@ -169,14 +179,16 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
+                  if (value == null) {
                     return 'Please select a type';
                   }
-                  return null; // No error if a type is selected
+                  return null;
                 },
               ),
               const SizedBox(height: 25),
-              if (selectedType == "Online") ...[
+
+// Handle enum comparisons here
+              if (selectedType == AssignmentType.online) ...[
                 const SizedBox(height: 5),
                 TextFormField(
                   maxLength: 50,
@@ -195,15 +207,13 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                       r'(:\d+)?(\/\S*)?$', // Optional port and path
                       caseSensitive: false,
                     );
-
                     if (!urlPattern.hasMatch(value)) {
                       return 'Enter a valid URL';
                     }
-
                     return null;
                   },
                 ),
-              ] else if (selectedType == "In App") ...[
+              ] else if (selectedType == AssignmentType.inApp) ...[
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 DropdownButtonFormField<String>(
                   value: selectedAIOption, // Current selected value
@@ -229,7 +239,7 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                     return null; // No error if an option is selected
                   },
                 ),
-              ] else if (selectedType == "Take Home") ...[
+              ] else if (selectedType == AssignmentType.takeHome) ...[
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 TextFormField(
                   maxLength: 30,
