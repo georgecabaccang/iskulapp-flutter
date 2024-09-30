@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_erp/features/auth/auth.dart';
 import 'package:school_erp/theme/colors.dart';
+import 'package:school_erp/constants/text_constants.dart';
+import 'package:school_erp/theme/text_styles.dart';
 
 class LoginBody extends StatefulWidget {
   final VoidCallback onForgotPassword; // Callback to switch to Forgot Password
@@ -42,32 +44,21 @@ class _LoginBodyState extends State<LoginBody> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20), // Space at the top
-                  const Text(
-                    'Hi Student',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.black,
-                    ),
+                   Text(
+                    TextConstants.loginMessage,
+                    style: headingStyle().copyWith(color: Colors.black, fontSize: 40.0),
                     textAlign: TextAlign.start,
                   ),
-                  const Text(
-                    'Sign in to continue',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      fontSize: 24,
-                      color: Colors.black,
-                    ),
+                   Text(
+                    TextConstants.signinMessage,
+                    style: 
+                    bodyStyle().copyWith(color: Colors.black, fontSize: 24.0),
                     textAlign: TextAlign.start,
                   ),
                   const SizedBox(height: 40),
-                  const Text(
+                   Text(
                     'Mobile Number/Email',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w100,
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
+                   style: bodyStyle().copyWith(color: Colors.black, fontSize: 14.0),
                     textAlign: TextAlign.start,
                   ),
                   TextField(
@@ -82,13 +73,9 @@ class _LoginBodyState extends State<LoginBody> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const Text(
+                   Text(
                     'Password',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w100,
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
+                    style: bodyStyle().copyWith(color: Colors.black, fontSize: 14.0),
                     textAlign: TextAlign.start,
                   ),
                   TextField(
@@ -147,7 +134,7 @@ class _LoginBodyState extends State<LoginBody> {
                         icon: const Icon(
                           Icons.arrow_back, // Right-facing arrow icon
                         ),
-                        label: const Text("Sign in"),
+                        label:  Text("Sign in", style: buttonTextStyle(),),
                       ),
                     ),
                   ),
