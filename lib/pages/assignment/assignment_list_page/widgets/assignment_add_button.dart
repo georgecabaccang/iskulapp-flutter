@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/assignment/assignment_add/assignment_add_page/assignment_add_page.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class AssignmentAddButton extends StatelessWidget {
   final BuildContext context;
@@ -13,7 +14,7 @@ class AssignmentAddButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 0, 255, 8),
+          color:AppColors.successColor,
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: const Icon(

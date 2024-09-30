@@ -79,6 +79,13 @@ flutter:
     - assets/addAssignmentData/classes.json
     - assets/addAssignmentData/subjects.json
     - .env
+  fonts:
+    - family: SourceSans
+      fonts:
+        - asset: assets/fonts/SourceSans/SourceSans3-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/SourceSans/SourceSans3-Italic.ttf
+        - asset: assets/fonts/SourceSans/SourceSans3-Regular.ttf
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
