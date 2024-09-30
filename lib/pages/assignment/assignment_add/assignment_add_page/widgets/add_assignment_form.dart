@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:school_erp/pages/assignment/assignment_add/assignment_setup_page/question_setup_page.dart';
 import 'package:school_erp/pages/common_widgets/animation_widgets/fade_page_transition.dart';
-import './add_assignment_dropdown.dart';
 import 'package:school_erp/theme/colors.dart';
 
 class AddAssignmentForm extends StatefulWidget {
@@ -14,9 +13,8 @@ class AddAssignmentForm extends StatefulWidget {
 }
 
 class _AddAssignmentFormState extends State<AddAssignmentForm> {
-  String? selectedClass;
+  String? selectedClassTitle;
   String? selectedSubject;
-  String? selectedType;
   String? aiGenerated;
   List<String> classList = [];
   List<String> subjectList = [];
@@ -25,25 +23,26 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
     "In App",
     "Take Home",
   ];
+  String? selectedType;
+  String? selectedAIOption;
   List<String> aiOptions = ["Yes", "No"];
-  TextEditingController titleController = TextEditingController();
-  TextEditingController urlController = TextEditingController();
-  TextEditingController instructionsController = TextEditingController();
+
 
   @override
   void initState() {
     super.initState();
-    _loadClasses();
+    _loadClassesTitle();
     _loadSubjects();
+    selectedType = typeList.isNotEmpty ? typeList[0] : null;
   }
 
-  Future<void> _loadClasses() async {
+  Future<void> _loadClassesTitle() async {
     String jsonString =
         await rootBundle.loadString('assets/addAssignmentData/classes.json');
     List<dynamic> jsonResponse = json.decode(jsonString);
     setState(() {
       classList = jsonResponse.cast<String>();
-      selectedClass = classList.isNotEmpty ? classList[0] : null;
+      selectedClassTitle = classList.isNotEmpty ? classList[0] : null;
     });
   }
 
@@ -57,41 +56,21 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
     });
   }
 
-  //TODO: convert to form / formField
+  final _formKey = GlobalKey<FormState>();
+
   void _validateAndSubmit() {
-    String? errorMessage;
-
-    // Validate class
-    if (selectedClass == null) {
-      errorMessage = "Please select a class.";
-    }
-    // Validate subject
-    else if (selectedSubject == null) {
-      errorMessage = "Please select a subject.";
-    }
-    // Validate title
-    else if (titleController.text.isEmpty) {
-      errorMessage = "Please enter a title.";
-    }
-    // Validate type-specific fields
-    else if (selectedType == "Online" && urlController.text.isEmpty) {
-      errorMessage = "Please enter a URL.";
-    } else if (selectedType == "Take Home" &&
-        instructionsController.text.isEmpty) {
-      errorMessage = "Please enter instructions.";
-    }
-
-    // If validation failed, show error message
-    if (errorMessage != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(errorMessage)),
-      );
-    } else {
+    if (_formKey.currentState!.validate()) {
+      // If the form is valid, navigate to the next page
       Navigator.push(
         context,
         FadePageRoute(
           page: const QuestionSetupPage(),
         ),
+      );
+    } else {
+      // If validation fails, show a snack bar or another feedback mechanism
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fix the errors in red')),
       );
     }
   }
@@ -102,145 +81,191 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
       padding: const EdgeInsets.all(15.0),
       child: SizedBox(
         width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Select Class",
-              style: TextStyle(color: Colors.grey, fontSize: 16),
-              textAlign: TextAlign.start,
-            ),
-            const SizedBox(height: 5),
-            AddAssignmentDropdown(
-              value: selectedClass,
-              items: classList,
-              hint: "Choose a class",
-              onChanged: (newValue) {
-                setState(() {
-                  selectedClass = newValue;
-                });
-              },
-            ),
-            const SizedBox(height: 25),
-            const Text(
-              "Select Subject",
-              style: TextStyle(color: Colors.grey, fontSize: 16),
-              textAlign: TextAlign.start,
-            ),
-            const SizedBox(height: 5),
-            AddAssignmentDropdown(
-              value: selectedSubject,
-              items: subjectList,
-              hint: "Choose a subject",
-              onChanged: (newValue) {
-                setState(() {
-                  selectedSubject = newValue;
-                });
-              },
-            ),
-            const SizedBox(height: 25),
-            const Text(
-              "Title",
-              style: TextStyle(color: Colors.grey, fontSize: 16),
-              textAlign: TextAlign.start,
-            ),
-            const SizedBox(height: 5),
-            TextField(
-              controller: titleController,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-              decoration: const InputDecoration(
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black),
-                ),
-                hintText: "Type here",
-              ),
-            ),
-            const SizedBox(height: 25),
-            const Text(
-              "Select Type",
-              style: TextStyle(color: Colors.grey, fontSize: 16),
-              textAlign: TextAlign.start,
-            ),
-            const SizedBox(height: 5),
-            AddAssignmentDropdown(
-              value: selectedType,
-              items: typeList,
-              hint: "Choose a type",
-              onChanged: (newValue) {
-                setState(() {
-                  selectedType = newValue;
-                  aiGenerated = null;
-                });
-              },
-            ),
-            const SizedBox(height: 25),
-            if (selectedType == "Online") ...[
-              const Text(
-                "URL",
-                style: TextStyle(color: Colors.grey, fontSize: 16),
-              ),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               const SizedBox(height: 5),
-              TextField(
-                controller: urlController,
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  hintText: "Enter the URL",
-                ),
-              ),
-            ] else if (selectedType == "In App") ...[
-              const Text(
-                "AI Generated",
-                style: TextStyle(color: Colors.grey, fontSize: 16),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              AddAssignmentDropdown(
-                value: aiGenerated,
-                items: aiOptions,
-                hint: "Choose an option",
+              DropdownButtonFormField<String>(
+                value: selectedClassTitle,
+                items: classList.map((String classTitle) {
+                  return DropdownMenuItem<String>(
+                    value: classTitle,
+                    child: Text(classTitle),
+                  );
+                }).toList(),
                 onChanged: (newValue) {
                   setState(() {
-                    aiGenerated = newValue;
+                    selectedClassTitle = newValue;
                   });
                 },
-              ),
-            ] else if (selectedType == "Take Home") ...[
-              const Text(
-                "Instructions",
-                style: TextStyle(color: Colors.grey, fontSize: 16),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              TextField(
-                controller: instructionsController,
                 decoration: const InputDecoration(
-                  border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
+                  labelText: 'Select Class',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select a Class';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 25),
+              DropdownButtonFormField<String>(
+                value: selectedSubject,
+                items: subjectList.map((String subject) {
+                  return DropdownMenuItem<String>(
+                    value: subject,
+                    child: Text(subject),
+                  );
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedSubject = newValue;
+                  });
+                },
+                decoration: const InputDecoration(
+                  labelText: 'Select Subject',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select a type';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 25),
+              TextFormField(
+                maxLength: 30,
+                decoration: const InputDecoration(
+                  hintText: 'What should you call this assignment',
+                  labelText: 'Title',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Enter Title';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 25),
+              DropdownButtonFormField<String>(
+                value: selectedType,
+                items: typeList.map((String type) {
+                  return DropdownMenuItem<String>(
+                    value: type,
+                    child: Text(type),
+                  );
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedType = newValue;
+                  });
+                },
+                decoration: const InputDecoration(
+                  labelText: 'Select Type',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select a type';
+                  }
+                  return null; // No error if a type is selected
+                },
+              ),
+              const SizedBox(height: 25),
+              if (selectedType == "Online") ...[
+                const SizedBox(height: 5),
+                TextFormField(
+                  maxLength: 50,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter valid URL',
+                    labelText: 'URL',
                   ),
-                  hintText: "Enter instructions",
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Enter a URL';
+                    }
+                    final RegExp urlPattern = RegExp(
+                      r'^(https?:\/\/)?' // Optional http or https
+                      r'((([a-z0-9\-]+\.)+[a-z]{2,})|localhost|' // Domain name or localhost
+                      r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))' // IP address
+                      r'(:\d+)?(\/\S*)?$', // Optional port and path
+                      caseSensitive: false,
+                    );
+
+                    if (!urlPattern.hasMatch(value)) {
+                      return 'Enter a valid URL';
+                    }
+
+                    return null;
+                  },
+                ),
+              ] else if (selectedType == "In App") ...[
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                DropdownButtonFormField<String>(
+                  value: selectedAIOption, // Current selected value
+                  items: aiOptions.map((String option) {
+                    return DropdownMenuItem<String>(
+                      value: option, // Use option as value
+                      child: Text(option),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedAIOption = newValue; // Update selected value
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Is it AI generated',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select an option';
+                    }
+                    return null; // No error if an option is selected
+                  },
+                ),
+              ] else if (selectedType == "Take Home") ...[
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                TextFormField(
+                  maxLength: 30,
+                  decoration: const InputDecoration(
+                    hintText: 'How can this assignment be done',
+                    labelText: 'Instructions',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Enter Instructions ';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+              ElevatedButton(
+                onPressed: _validateAndSubmit,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryColor,
+                  minimumSize: Size(double.infinity,
+                      MediaQuery.of(context).size.height * 0.08),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                child: Text(
+                  selectedType == "In App" ? "Create Assignment" : "SEND",
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      letterSpacing: 2.0),
                 ),
               ),
             ],
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            ElevatedButton(
-              onPressed: _validateAndSubmit,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryColor,
-                minimumSize: Size(
-                    double.infinity, MediaQuery.of(context).size.height * 0.08),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: Text(
-                selectedType == "In App" ? "Create Assignment" : "SEND",
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    letterSpacing: 2.0),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -248,9 +273,6 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
 
   @override
   void dispose() {
-    titleController.dispose();
-    urlController.dispose();
-    instructionsController.dispose();
     super.dispose();
   }
 }
