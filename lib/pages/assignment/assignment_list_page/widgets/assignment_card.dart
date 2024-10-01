@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/assignment/assignment_check_page/assignment_check_page.dart';
+import 'package:school_erp/pages/assignment/assignment_preview/assignment_preview_page.dart';
 import 'package:school_erp/theme/colors.dart';
 
 class AssignmentCard extends StatelessWidget {
@@ -38,16 +39,9 @@ class AssignmentCard extends StatelessWidget {
                   Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
               var fadeAnimation = animation.drive(fadeTween);
 
-              return Stack(
-                children: [
-                  Container(
-                    color: Colors.transparent,
-                  ),
-                  FadeTransition(
-                    opacity: fadeAnimation,
-                    child: child,
-                  ),
-                ],
+              return FadeTransition(
+                opacity: fadeAnimation,
+                child: child,
               );
             },
           ),
@@ -130,8 +124,28 @@ class AssignmentCard extends StatelessWidget {
               child: IconButton(
                 icon: const Icon(Icons.edit, color: Colors.grey),
                 onPressed: () {
-                  // Handle edit button press
-                  print('Edit button pressed');
+                  // Ensure AssignmentPreviewPage is defined correctly
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          AssignmentPreviewPage(), // Ensure correct constructor
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = 0.0;
+                        const end = 1.0;
+                        const curve = Curves.easeInOut;
+                        var fadeTween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+                        var fadeAnimation = animation.drive(fadeTween);
+
+                        return FadeTransition(
+                          opacity: fadeAnimation,
+                          child: child,
+                        );
+                      },
+                    ),
+                  );
                 },
               ),
             ),

@@ -79,6 +79,7 @@ flutter:
     - assets/addAssignmentData/classes.json
     - assets/addAssignmentData/subjects.json
     - .env
+    - assets/questions.json
   fonts:
     - family: SourceSans
       fonts:

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/theme/text_styles.dart';
-import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/constants/text_constants.dart';
-import 'package:school_erp/theme/text_styles.dart';
-
 
 class ForgotPassword extends StatelessWidget {
   final VoidCallback onBackToLogin; // Callback to switch back to Login screen
@@ -23,20 +20,23 @@ class ForgotPassword extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20), // Space at the top
-               Text(
+              Text(
                 TextConstants.loginMessage,
-                 style: headingStyle().copyWith(color: Colors.black, fontSize: 40.0),
+                style: headingStyle()
+                    .copyWith(color: Colors.black, fontSize: 40.0),
                 textAlign: TextAlign.start,
               ),
-               Text(
+              Text(
                 'Forgot Password',
-                style: bodyStyle().copyWith(color: Colors.black, fontSize: 24.0),
+                style:
+                    bodyStyle().copyWith(color: Colors.black, fontSize: 24.0),
                 textAlign: TextAlign.start,
               ),
               const SizedBox(height: 40),
-               Text(
+              Text(
                 'Mobile Number/Email',
-                 style: bodyStyle().copyWith(color: Colors.black, fontSize: 14.0),
+                style:
+                    bodyStyle().copyWith(color: Colors.black, fontSize: 14.0),
                 textAlign: TextAlign.start,
               ),
               const TextField(
