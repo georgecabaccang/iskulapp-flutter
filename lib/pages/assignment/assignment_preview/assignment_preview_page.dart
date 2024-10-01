@@ -74,6 +74,22 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
     });
   }
 
+  QuestionType _getQuestionType(String type) {
+    switch (type) {
+      case 'multi':
+        return QuestionType.multipleChoice;
+      case 'essay':
+        return QuestionType.essay;
+      case 'short':
+        return QuestionType.shortAnswer;
+      case 'true_false':
+        return QuestionType.trueOrFalse;
+      default:
+        return QuestionType
+            .multipleChoice; // default to multiple choice if type is unknown
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,6 +126,8 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                           onOptionSelected: _onOptionSelected,
                           onNextPressed: _nextQuestion,
                           onUpdatePressed: _updateQuestion,
+                          questionType: _getQuestionType(
+                              questions[currentQuestionIndex]['type']),
                         ),
                       ),
                     ],

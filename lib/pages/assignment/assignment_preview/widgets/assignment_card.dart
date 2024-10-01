@@ -1,6 +1,12 @@
-// File: pages/assignments/assignment_preview/widgets/assignment_card.dart
 import 'package:flutter/material.dart';
 import 'package:school_erp/theme/text_styles.dart';
+
+enum QuestionType {
+  multipleChoice,
+  essay,
+  shortAnswer,
+  trueOrFalse,
+}
 
 class AssignmentCard extends StatelessWidget {
   final dynamic question;
@@ -10,6 +16,7 @@ class AssignmentCard extends StatelessWidget {
   final Function onOptionSelected;
   final Function onNextPressed;
   final Function onUpdatePressed;
+  final QuestionType questionType;
 
   const AssignmentCard({
     Key? key,
@@ -20,11 +27,11 @@ class AssignmentCard extends StatelessWidget {
     required this.onOptionSelected,
     required this.onNextPressed,
     required this.onUpdatePressed,
+    required this.questionType,
   }) : super(key: key);
 
   Widget _buildOption(String optionText, int optionId, bool isCorrect) {
-    bool isSelected =
-        selectedOption == optionId; // Check if this option is selected
+    bool isSelected = selectedOption == optionId;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
@@ -49,6 +56,36 @@ class AssignmentCard extends StatelessWidget {
     );
   }
 
+  Widget _buildQuestionContent() {
+    switch (questionType) {
+      case QuestionType.multipleChoice:
+        return Column(
+          children: question['answers']?.map<Widget>((option) {
+                final isCorrect = option['is_correct'] == 1;
+                return _buildOption(
+                    option['text'] ?? 'No text', option['id'] ?? 0, isCorrect);
+              }).toList() ??
+              [],
+        );
+      case QuestionType.essay:
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Text(question['answers']?.toString() ?? 'No answer available'),
+        );
+      case QuestionType.shortAnswer:
+        return TextFormField(
+          decoration: InputDecoration(hintText: 'Type your answer here'),
+        );
+      case QuestionType.trueOrFalse:
+        return Column(
+          children: [
+            _buildOption('True', 1, true),
+            _buildOption('False', 2, false),
+          ],
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -70,22 +107,7 @@ class AssignmentCard extends StatelessWidget {
                         .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 16),
-                  if (question['type'] == 'multi') ...[
-                    Column(
-                      children: question['answers']?.map<Widget>((option) {
-                            final isCorrect = option['is_correct'] == 1;
-                            return _buildOption(option['text'] ?? 'No text',
-                                option['id'] ?? 0, isCorrect);
-                          }).toList() ??
-                          [],
-                    ),
-                  ] else if (question['type'] == 'essay') ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: Text(question['answers']?.toString() ??
-                          'No answer available'),
-                    ),
-                  ],
+                  _buildQuestionContent(),
                 ],
               ),
             ),
