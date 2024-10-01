@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'widgets/assignment_card.dart';
+import 'package:school_erp/theme/text_styles.dart';
 
 class AssignmentPreviewPage extends StatefulWidget {
   const AssignmentPreviewPage({super.key});
@@ -95,10 +96,8 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Questions ${currentQuestionIndex + 1}/${questions.length}',
-                            style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                            style: headingStyle()
+                                .copyWith(color: Colors.white, fontSize: 30.0),
                           ),
                         ),
                       ),

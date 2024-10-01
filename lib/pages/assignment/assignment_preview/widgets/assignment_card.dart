@@ -1,5 +1,6 @@
 // File: pages/assignments/assignment_preview/widgets/assignment_card.dart
 import 'package:flutter/material.dart';
+import 'package:school_erp/theme/text_styles.dart';
 
 class AssignmentCard extends StatelessWidget {
   final dynamic question;
@@ -35,7 +36,8 @@ class AssignmentCard extends StatelessWidget {
       child: ListTile(
         title: Text(
           optionText,
-          style: TextStyle(color: isCorrect ? Colors.green : Colors.grey),
+          style: bodyStyle()
+              .copyWith(color: isCorrect ? Colors.green : Colors.grey),
         ),
         leading: Radio<int>(
           value: optionId,
@@ -64,8 +66,8 @@ class AssignmentCard extends StatelessWidget {
                 children: [
                   Text(
                     question['q'] ?? 'No question available',
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w500),
+                    style: bodyStyle()
+                        .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 16),
                   if (question['type'] == 'multi') ...[
@@ -92,8 +94,6 @@ class AssignmentCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
             child: ElevatedButton(
               onPressed: () => onUpdatePressed(),
-              child:
-                  const Text('Update', style: TextStyle(color: Colors.black)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 side: const BorderSide(color: Colors.black),
@@ -101,21 +101,23 @@ class AssignmentCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)),
                 minimumSize: const Size(double.infinity, 50),
               ),
+              child: Text('Update',
+                  style: buttonTextStyle().copyWith(color: Colors.black)),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: ElevatedButton(
               onPressed: () => onNextPressed(),
-              child: Text(
-                currentQuestionIndex < totalQuestions - 1 ? 'Next' : 'Submit',
-                style: const TextStyle(color: Colors.white),
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF5278C1),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 minimumSize: const Size(double.infinity, 50),
+              ),
+              child: Text(
+                currentQuestionIndex < totalQuestions - 1 ? 'Next' : 'Submit',
+                style: buttonTextStyle().copyWith(color: Colors.white),
               ),
             ),
           ),
