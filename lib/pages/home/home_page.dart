@@ -3,12 +3,14 @@ import 'package:school_erp/features/auth/bloc/auth_bloc_barrel.dart';
 import 'package:school_erp/features/auth/auth_repository/auth_repository.dart';
 import 'package:school_erp/pages/assignment/assignment_list_page/assignment_list_page.dart';
 import 'package:school_erp/pages/calendar/modified_attendance.dart';
-import 'package:school_erp/pages/common_widgets/loading_overlay.dart';
+import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overlay.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'widgets/navigation_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_erp/theme/colors.dart';
-
+import 'package:school_erp/theme/text_styles.dart';
+import 'package:school_erp/constants/text_constants.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(this.user, {super.key});
@@ -110,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                 right: 0,
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: AppColors.primaryColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30.0),
                       topRight: Radius.circular(30.0),
@@ -143,97 +145,90 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget profileInfo(AuthenticatedUser user) {
-    return SafeArea(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, top: 50.0),
-            child: Container(
-              color: Colors.transparent,
-              width: 250.0,
-              height: 200.0,
-              alignment: Alignment.topLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Hi ${user.firstName} ${user.lastName}",
-                    style: const TextStyle(
-                      fontSize: 38.0,
-                      color: Colors.white,
-                    ),
+  return SafeArea(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 16.0, top: 50.0),
+          child: Container(
+            color: Colors.transparent,
+            width: 250.0,
+            height: 200.0,
+            alignment: Alignment.topLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  TextConstants.homePageMessage(user.firstName, user.lastName),
+                  style: headingStyle().copyWith(fontSize: 38.0), 
+                ),
+                const SizedBox(height: 8.0),
+                 Text(
+                  "Class XI-B | Roll no: 04",
+                  style: bodyStyle().copyWith(fontSize: 24.0, color: AppColors.whiteColor),
+                ),
+                const SizedBox(height: 8.0),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0, vertical: 6.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
-                  const SizedBox(height: 8.0),
-                  const Text(
-                    "Class XI-B | Roll no: 04",
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      color: Colors.white,
-                    ),
+                  child:  Text(
+                    " 2024-2025 ",
+                    style: bodyStyle().copyWith(fontSize: 18.0),
                   ),
-                  const SizedBox(height: 8.0),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 6.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: const Text(
-                      " 2024-2025 ",
-                      style: TextStyle(
-                        color: AppColors.primaryColor,
-                        fontSize: 18.0,
-                      ),
-                    ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.only(right: 16.0, bottom: 50.0),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _isTransitioning = true;
+              });
+              Future.delayed(const Duration(milliseconds: 200), () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const ProfilePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child; // No additional animation needed here
+                    },
                   ),
-                ],
+                ).then((_) {
+                  setState(() {
+                    _isTransitioning = false;
+                    _animate = false;
+                    _startAnimation(); // Re-start the animation when coming back
+                  });
+                });
+              });
+            },
+            child: CircleAvatar(
+              radius: 40.0,
+              backgroundColor: Colors.grey[300],
+              child: const Icon(
+                Icons.person,
+                size: 40.0,
+                color: Colors.white,
               ),
             ),
           ),
-          const Spacer(),
-          Padding(
-              padding: const EdgeInsets.only(right: 16.0, bottom: 50.0),
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _isTransitioning = true;
-                  });
-                  Future.delayed(const Duration(milliseconds: 200), () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            const ProfilePage(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          return child; // No additional animation needed here
-                        },
-                      ),
-                    ).then((_) {
-                      setState(() {
-                        _isTransitioning = false;
-                        _animate = false;
-                        _startAnimation(); // Re-start the animation when coming back
-                      });
-                    });
-                  });
-                },
-                child: CircleAvatar(
-                  radius: 40.0,
-                  backgroundColor: Colors.grey[300],
-                  child: const Icon(
-                    Icons.person,
-                    size: 40.0,
-                    color: Colors.white,
-                  ),
-                ),
-              )),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
+
 
   Widget importantSection() {
     return Padding(
@@ -255,10 +250,10 @@ class _HomePageState extends State<HomePage> {
                   width: 2.0,
                 ),
               ),
-              child: const Column(
+              child:  Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 40.0,
                     backgroundColor: AppColors.warningColor,
                     child: Icon(
@@ -267,7 +262,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 12.0),
+                 const SizedBox(height: 12.0),
                   Padding(
                     padding: EdgeInsets.only(left: 16.0),
                     child: Column(
@@ -275,19 +270,12 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           '75.00%',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 34.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: headingStyle().copyWith(fontSize: 36.0, color: Colors.black),
                         ),
-                        SizedBox(height: 8.0),
+                        const SizedBox(height: 8.0),
                         Text(
                           'Attendance',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16.0,
-                          ),
+                          style:bodyStyle().copyWith(fontSize: 20.0),
                         ),
                       ],
                     ),
@@ -312,10 +300,10 @@ class _HomePageState extends State<HomePage> {
                   width: 2.0,
                 ),
               ),
-              child: const Column(
+              child:  Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 40.0,
                     backgroundColor:AppColors.purple,
                     child: Icon(
@@ -332,19 +320,12 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           '₱50,000',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 34.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: headingStyle().copyWith(fontSize: 36.0, color: Colors.black),
                         ),
                         SizedBox(height: 8.0),
                         Text(
                           'Fees Due',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16.0,
-                          ),
+                          style:bodyStyle().copyWith(fontSize: 20.0),
                         ),
                       ],
                     ),
@@ -386,7 +367,7 @@ class _HomePageState extends State<HomePage> {
         'callback': () => ()
       },
       {'title': 'Change Password', 'icon': Icons.lock, 'callback': () => ()},
-      {'title': 'Events', 'icon': Icons.event, 'callback': () => ()},
+      {'title': 'Events', 'icon': Icons.event, 'callback': () => ()}, 
       {
         'title': 'Logout',
         'icon': Icons.logout,

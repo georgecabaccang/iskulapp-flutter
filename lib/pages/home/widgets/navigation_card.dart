@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/theme/colors.dart';
-
+import 'package:school_erp/theme/text_styles.dart';
 
 class NavigationCard extends StatelessWidget {
   const NavigationCard(this.title, this.icon, this.callback, {super.key});
@@ -15,7 +15,7 @@ class NavigationCard extends StatelessWidget {
       onTap: () => callback(),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.primaryColor,
+          color: AppColors.whiteColor,
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Column(
@@ -33,10 +33,7 @@ class NavigationCard extends StatelessWidget {
             const SizedBox(height: 8.0),
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 16.0,
-                color: Colors.black,
-              ),
+              style: bodyStyle().copyWith(fontSize: 16.0)
             ),
           ],
         ),

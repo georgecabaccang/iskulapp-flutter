@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:school_erp/pages/assignment/assignment_add/assignment_setup_page/question_setup_page.dart';
+import 'package:school_erp/pages/common_widgets/animation_widgets/fade_page_transition.dart';
 import './add_assignment_dropdown.dart';
 import 'package:school_erp/theme/colors.dart';
 
@@ -55,8 +57,7 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
     });
   }
 
-
-
+  //TODO: convert to form / formField
   void _validateAndSubmit() {
     String? errorMessage;
 
@@ -75,7 +76,8 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
     // Validate type-specific fields
     else if (selectedType == "Online" && urlController.text.isEmpty) {
       errorMessage = "Please enter a URL.";
-    } else if (selectedType == "Take Home" && instructionsController.text.isEmpty) {
+    } else if (selectedType == "Take Home" &&
+        instructionsController.text.isEmpty) {
       errorMessage = "Please enter instructions.";
     }
 
@@ -85,9 +87,11 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
         SnackBar(content: Text(errorMessage)),
       );
     } else {
-      // Submit the form data 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Assignment submitted successfully!")),
+      Navigator.push(
+        context,
+        FadePageRoute(
+          page: const QuestionSetupPage(),
+        ),
       );
     }
   }
@@ -170,7 +174,6 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
               },
             ),
             const SizedBox(height: 25),
-        
             if (selectedType == "Online") ...[
               const Text(
                 "URL",
@@ -220,10 +223,11 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
             ],
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             ElevatedButton(
-              onPressed: _validateAndSubmit, 
+              onPressed: _validateAndSubmit,
               style: ElevatedButton.styleFrom(
-                backgroundColor:AppColors.primaryColor,
-                minimumSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.08),
+                backgroundColor: AppColors.primaryColor,
+                minimumSize: Size(
+                    double.infinity, MediaQuery.of(context).size.height * 0.08),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
@@ -242,12 +246,11 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
     );
   }
 
-
   @override
   void dispose() {
     titleController.dispose();
-    urlController.dispose(); 
-    instructionsController.dispose(); 
+    urlController.dispose();
+    instructionsController.dispose();
     super.dispose();
   }
 }

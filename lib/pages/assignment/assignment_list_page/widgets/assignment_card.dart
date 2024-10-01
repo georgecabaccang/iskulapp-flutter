@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/assignment/assignment_check_page/assignment_check_page.dart';
 import 'package:school_erp/pages/assignment/assignment_preview/assignment_preview_page.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class AssignmentCard extends StatelessWidget {
   final String subject;
@@ -68,7 +69,7 @@ class AssignmentCard extends StatelessWidget {
                     child: Text(
                       subject,
                       style: const TextStyle(
-                        color: Color(0xFF5278C1),
+                        color: AppColors.primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
