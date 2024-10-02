@@ -5,7 +5,7 @@ import 'package:school_erp/pages/assignment/assignment_add/assignment_setup_page
 import 'package:school_erp/pages/common_widgets/animation_widgets/fade_page_transition.dart';
 import 'package:school_erp/theme/colors.dart';
 
-// Enum for assignment types
+
 enum AssignmentType {
   online,
   inApp,
@@ -186,75 +186,7 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                 },
               ),
               const SizedBox(height: 25),
-
-// Handle enum comparisons here
-              if (selectedType == AssignmentType.online) ...[
-                const SizedBox(height: 5),
-                TextFormField(
-                  maxLength: 50,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter valid URL',
-                    labelText: 'URL',
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Enter a URL';
-                    }
-                    final RegExp urlPattern = RegExp(
-                      r'^(https?:\/\/)?' // Optional http or https
-                      r'((([a-z0-9\-]+\.)+[a-z]{2,})|localhost|' // Domain name or localhost
-                      r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))' // IP address
-                      r'(:\d+)?(\/\S*)?$', // Optional port and path
-                      caseSensitive: false,
-                    );
-                    if (!urlPattern.hasMatch(value)) {
-                      return 'Enter a valid URL';
-                    }
-                    return null;
-                  },
-                ),
-              ] else if (selectedType == AssignmentType.inApp) ...[
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                DropdownButtonFormField<String>(
-                  value: selectedAIOption, // Current selected value
-                  items: aiOptions.map((String option) {
-                    return DropdownMenuItem<String>(
-                      value: option, // Use option as value
-                      child: Text(option),
-                    );
-                  }).toList(),
-                  onChanged: (newValue) {
-                    setState(() {
-                      selectedAIOption = newValue; // Update selected value
-                    });
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Is it AI generated',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please select an option';
-                    }
-                    return null; // No error if an option is selected
-                  },
-                ),
-              ] else if (selectedType == AssignmentType.takeHome) ...[
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                TextFormField(
-                  maxLength: 30,
-                  decoration: const InputDecoration(
-                    hintText: 'How can this assignment be done',
-                    labelText: 'Instructions',
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Enter Instructions ';
-                    }
-                    return null;
-                  },
-                ),
-              ],
+              _buildAssignmentTypeForm(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               ElevatedButton(
                 onPressed: _validateAndSubmit,
@@ -267,7 +199,9 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                   ),
                 ),
                 child: Text(
-                  selectedType == "In App" ? "Create Assignment" : "SEND",
+                  selectedType == AssignmentType.inApp
+                      ? "Create Assignment"
+                      : "SEND",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -279,6 +213,98 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
         ),
       ),
     );
+  }
+  Widget _buildAssignmentTypeForm() {
+    switch (selectedType) {
+      case AssignmentType.online:
+        return Column(
+          children: [
+            const SizedBox(height: 5),
+            TextFormField(
+              maxLength: 50,
+              decoration: const InputDecoration(
+                hintText: 'Enter valid URL',
+                labelText: 'URL',
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Enter a URL';
+                }
+                final RegExp urlPattern = RegExp(
+                  r'^(https?:\/\/)?' // Optional http or https
+                  r'((([a-z0-9\-]+\.)+[a-z]{2,})|localhost|' // Domain name or localhost
+                  r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))' // IP address
+                  r'(:\d+)?(\/\S*)?$', // Optional port and path
+                  caseSensitive: false,
+                );
+                if (!urlPattern.hasMatch(value)) {
+                  return 'Enter a valid URL';
+                }
+                return null;
+              },
+            ),
+          ],
+        );
+
+      case AssignmentType.inApp:
+        return Column(
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            DropdownButtonFormField<String>(
+              value: selectedAIOption,
+              items: aiOptions.map((String option) {
+                return DropdownMenuItem<String>(
+                  value: option,
+                  child: Text(option),
+                );
+              }).toList(),
+              onChanged: (newValue) {
+                setState(() {
+                  selectedAIOption = newValue;
+                });
+              },
+              decoration: const InputDecoration(
+                labelText: 'Is it AI generated',
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please select an option';
+                }
+                return null;
+              },
+            ),
+          ],
+        );
+
+      case AssignmentType.takeHome:
+        return Column(
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            TextFormField(
+              maxLength: 30,
+              decoration: const InputDecoration(
+                hintText: 'How can this assignment be done',
+                labelText: 'Instructions',
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Enter Instructions';
+                }
+                return null;
+              },
+            ),
+          ],
+        );
+
+      default:
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Invalid assignment type selected'),
+          ),
+        );
+        return const SizedBox.shrink(); 
+    }
   }
 
   @override
