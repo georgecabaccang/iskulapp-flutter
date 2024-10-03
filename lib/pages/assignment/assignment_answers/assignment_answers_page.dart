@@ -3,17 +3,22 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
-import 'package:school_erp/pages/assignment/assignment_preview/widgets/assignment_card.dart';
+import 'package:school_erp/pages/assignment/assignment_check_page/widgets/student_item.dart';
 import 'package:school_erp/theme/text_styles.dart';
+import 'widgets/assignment_card.dart';
 
-class AssignmentPreviewPage extends StatefulWidget {
-  const AssignmentPreviewPage({super.key});
+class AssignmentAnswersPage extends StatefulWidget {
+  final Student student; // Add this line
+
+  const AssignmentAnswersPage(
+      {super.key,
+      required this.student}); // Update the constructor to include this parameter
 
   @override
-  _AssignmentPreviewPageState createState() => _AssignmentPreviewPageState();
+  _AssignmentAnswersPageState createState() => _AssignmentAnswersPageState();
 }
 
-class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
+class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
   List<dynamic> questions = [];
   int currentQuestionIndex = 0;
   int? selectedOption;
@@ -94,7 +99,7 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Assignment Preview",
+        title: "${widget.student.name} Assignment Answers", // Example usage
         onBackPressed: () => _handleBackPress(context),
       ),
       body: Stack(
@@ -106,17 +111,6 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                 ? const Center(child: CircularProgressIndicator())
                 : Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Questions ${currentQuestionIndex + 1}/${questions.length}',
-                            style: headingStyle()
-                                .copyWith(color: Colors.white, fontSize: 30.0),
-                          ),
-                        ),
-                      ),
                       Expanded(
                         child: AssignmentCard(
                           question: questions[currentQuestionIndex],
@@ -128,6 +122,7 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                           onUpdatePressed: _updateQuestion,
                           questionType: _getQuestionType(
                               questions[currentQuestionIndex]['type']),
+                          isInteractionEnabled: false,
                         ),
                       ),
                     ],
