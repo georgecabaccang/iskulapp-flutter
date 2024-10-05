@@ -77,15 +77,26 @@ class AssignmentCard extends StatelessWidget {
     Color borderColor = isCorrect
         ? Colors.green
         : (isStudentAnswered ? Colors.red : Colors.grey);
+
+    Color backgroundColor;
+
+    if (isSelected) {
+      // If selected, use a light version of the border color
+      backgroundColor = borderColor.withOpacity(0.2);
+    } else if (!isCorrect && isStudentAnswered) {
+      // If incorrect and answered by the student, use a red background
+      backgroundColor = Colors.red.withOpacity(0.2);
+    } else {
+      // Default white background
+      backgroundColor = Colors.white;
+    }
+
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        border: Border.all(
-            color: isCorrect
-                ? Colors.green
-                : (isStudentAnswered ? Colors.red : Colors.grey)),
+        border: Border.all(color: borderColor),
         borderRadius: BorderRadius.circular(12),
-        color: isSelected ? Colors.white : Colors.white,
+        color: backgroundColor,
       ),
       child: ListTile(
         title: Row(
@@ -94,11 +105,12 @@ class AssignmentCard extends StatelessWidget {
               child: Text(
                 optionText,
                 style: bodyStyle().copyWith(
-                    color: isCorrect
-                        ? Colors.green
-                        : isStudentAnswered
-                            ? Colors.red
-                            : Colors.grey),
+                  color: isCorrect
+                      ? Colors.green
+                      : isStudentAnswered
+                          ? Colors.red
+                          : Colors.grey,
+                ),
               ),
             ),
             if (isStudentAnswered && !isCorrect)
@@ -190,11 +202,19 @@ class AssignmentCard extends StatelessWidget {
                         ),
                       ),
                       Chip(
+                        elevation: 0,
                         label: Text(
                           status,
                           style: bodyStyle().copyWith(color: Colors.white),
                         ),
                         backgroundColor: statusColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: const BorderSide(
+                            color: Colors.transparent,
+                            width: 0,
+                          ),
+                        ),
                       ),
                     ],
                   ),
