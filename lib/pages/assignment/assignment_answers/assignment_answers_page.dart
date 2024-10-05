@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'package:school_erp/pages/assignment/assignment_check_page/widgets/student_item.dart';
-import 'package:school_erp/theme/text_styles.dart';
 import 'widgets/assignment_card.dart';
 
 class AssignmentAnswersPage extends StatefulWidget {
