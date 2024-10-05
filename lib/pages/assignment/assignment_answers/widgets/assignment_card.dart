@@ -13,11 +13,11 @@ class AssignmentCard extends StatelessWidget {
   final int currentQuestionIndex;
   final int totalQuestions;
   final int? selectedOption;
-  final Function(int) onOptionSelected; // Specify type for clarity
+  final Function(int) onOptionSelected;
   final Function onNextPressed;
   final Function onUpdatePressed;
   final QuestionType questionType;
-  final bool isInteractionEnabled; // New parameter to control interaction
+  final bool isInteractionEnabled;
 
   const AssignmentCard({
     Key? key,
@@ -29,12 +29,12 @@ class AssignmentCard extends StatelessWidget {
     required this.onNextPressed,
     required this.onUpdatePressed,
     required this.questionType,
-    this.isInteractionEnabled = true, // Default to true
+    this.isInteractionEnabled = true,
   }) : super(key: key);
 
   String _getAnswerStatus() {
     if (questionType == QuestionType.essay) {
-      return 'Pending'; // Pending for essay type
+      return 'Pending';
     }
 
     if (questionType == QuestionType.multipleChoice && selectedOption != null) {
@@ -52,17 +52,17 @@ class AssignmentCard extends StatelessWidget {
       }
     }
 
-    return 'Wrong'; // Return status if not answered
+    return 'Wrong';
   }
 
   Color _getStatusColor(String status) {
     switch (status) {
       case 'Correct':
-        return Colors.green; // Color for answered status
+        return Colors.green;
       case 'Incorrect':
-        return Colors.red; // Color for incorrect answer
+        return Colors.red;
       case 'Wrong':
-        return Colors.red; // Color for not answered
+        return Colors.red;
       case 'Pending':
         return Colors.orange;
       default:
@@ -92,7 +92,7 @@ class AssignmentCard extends StatelessWidget {
     }
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
         border: Border.all(color: borderColor),
         borderRadius: BorderRadius.circular(12),
@@ -115,12 +115,12 @@ class AssignmentCard extends StatelessWidget {
             ),
             if (isStudentAnswered && !isCorrect)
               const Icon(
-                Icons.close, // Red cross to indicate wrong answer
+                Icons.close,
                 color: Colors.red,
               ),
-            if (isStudentAnswered && isCorrect)
+            if (isCorrect)
               const Icon(
-                Icons.check, // Green check to indicate correct answer
+                Icons.check,
                 color: Colors.green,
               ),
           ],
@@ -156,7 +156,7 @@ class AssignmentCard extends StatelessWidget {
         );
       case QuestionType.shortAnswer:
         return TextFormField(
-          decoration: InputDecoration(hintText: 'Type your answer here'),
+          decoration: const InputDecoration(hintText: 'Type your answer here'),
         );
       case QuestionType.trueOrFalse:
         return Column(
@@ -183,7 +183,7 @@ class AssignmentCard extends StatelessWidget {
           Expanded(
             child: Container(
               padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
               ),
@@ -194,7 +194,7 @@ class AssignmentCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Questions ${currentQuestionIndex + 1}/${totalQuestions}',
+                        'Questions ${currentQuestionIndex + 1}/$totalQuestions',
                         style: headingStyle().copyWith(
                           fontSize: 26,
                           fontWeight: FontWeight.bold,
