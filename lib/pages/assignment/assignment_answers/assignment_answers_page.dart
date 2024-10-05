@@ -8,11 +8,9 @@ import 'package:school_erp/theme/text_styles.dart';
 import 'widgets/assignment_card.dart';
 
 class AssignmentAnswersPage extends StatefulWidget {
-  final Student student; // Add this line
+  final Student student;
 
-  const AssignmentAnswersPage(
-      {super.key,
-      required this.student}); // Update the constructor to include this parameter
+  const AssignmentAnswersPage({super.key, required this.student});
 
   @override
   _AssignmentAnswersPageState createState() => _AssignmentAnswersPageState();
@@ -57,7 +55,7 @@ class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
               .firstWhere((option) => option['is_correct'] == 1);
           selectedOption = correctOption['id'];
         } else {
-          selectedOption = null; // Clear selection for non-multi questions
+          selectedOption = null;
         }
       });
     } else {
@@ -90,8 +88,7 @@ class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
       case 'true_false':
         return QuestionType.trueOrFalse;
       default:
-        return QuestionType
-            .multipleChoice; // default to multiple choice if type is unknown
+        return QuestionType.multipleChoice;
     }
   }
 
@@ -99,7 +96,7 @@ class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "${widget.student.name} Assignment Answers", // Example usage
+        title: "${widget.student.name} Assignment Answers",
         onBackPressed: () => _handleBackPress(context),
       ),
       body: Stack(
