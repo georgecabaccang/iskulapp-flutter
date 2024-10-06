@@ -398,11 +398,7 @@ class _HomePageState extends State<HomePage> {
         'callback': () => ()
       },
       {'title': 'Change Password', 'icon': Icons.lock, 'callback': () => ()},
-<<<<<<< HEAD
       {'title': 'Events', 'icon': Icons.event, 'callback':() => _goToEventsPage()}, 
-=======
-      {'title': 'Events', 'icon': Icons.event, 'callback': () => ()},
->>>>>>> 6d472b3d8f098ff1399bd71f8990ec792ccda224
       {
         'title': 'Logout',
         'icon': Icons.logout,
