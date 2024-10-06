@@ -1,0 +1,28 @@
+[
+    {
+      "id": 1,
+      "title": "Sleepover Night",
+      "date": "06 Jan 21",
+      "time": "09:00 AM",
+      "description": "A sleepover is a great treat for kids. Many schools use such an event as the culminating activity of the school year. "
+    },
+
+    {
+        "id": 2,
+        "title": "Fishing Tournament",
+        "date": "12 Jan 21",
+        "time": "09:00 AM",
+        "description": "Silver Sands Middle School in Port Orange, Florida, offers many special events, but one of the most unique ones is a springtime..."
+      },
+
+      {
+        "id": 3,
+        "title": "Rhyme Time: A Night of Poetry",
+        "date": "24 Jan 21",
+        "time": "09:00 AM",
+        "description": "April is also National Poetry Month. Now there is a great theme for a fun family night! Combine poetry readings by students..."
+      }
+  
+
+  ]
+  

@@ -4,6 +4,7 @@ import 'package:school_erp/features/auth/auth_repository/auth_repository.dart';
 import 'package:school_erp/pages/assignment/assignment_list_page/assignment_list_page.dart';
 import 'package:school_erp/pages/calendar/modified_attendance.dart';
 import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overlay.dart';
+import 'package:school_erp/pages/events/events_page.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'widgets/navigation_card.dart';
@@ -84,6 +85,33 @@ class _HomePageState extends State<HomePage> {
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             const AssignmentListPage(),
+      ),
+    );
+  }
+
+
+  
+  void _goToEventsPage() {
+    setState(() {
+      _isTransitioning = true;
+    });
+
+    _navigateToEventsPage().then((_) {
+      setState(() {
+        _isTransitioning = false;
+        _animate = false;
+        _startAnimation(); 
+      });
+    });
+  }
+
+  Future<void> _navigateToEventsPage() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    await Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const EventsPage(),
       ),
     );
   }
@@ -370,7 +398,7 @@ class _HomePageState extends State<HomePage> {
         'callback': () => ()
       },
       {'title': 'Change Password', 'icon': Icons.lock, 'callback': () => ()},
-      {'title': 'Events', 'icon': Icons.event, 'callback': () => ()},
+      {'title': 'Events', 'icon': Icons.event, 'callback':() => _goToEventsPage()}, 
       {
         'title': 'Logout',
         'icon': Icons.logout,
