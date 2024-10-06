@@ -128,7 +128,9 @@ class AssignmentCard extends StatelessWidget {
         leading: Radio<int>(
           value: optionId,
           groupValue: isStudentAnswered ? optionId : null,
-          onChanged: (value) => onOptionSelected(optionId),
+          onChanged: isInteractionEnabled
+              ? (value) => onOptionSelected(optionId)
+              : null,
           activeColor: borderColor,
         ),
       ),
@@ -173,99 +175,106 @@ class AssignmentCard extends StatelessWidget {
     final status = _getAnswerStatus();
     final statusColor = _getStatusColor(status);
 
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Questions ${currentQuestionIndex + 1}/$totalQuestions',
-                        style: headingStyle().copyWith(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Chip(
-                        elevation: 0,
-                        label: Text(
-                          status,
-                          style: bodyStyle().copyWith(color: Colors.white),
-                        ),
-                        backgroundColor: statusColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          side: const BorderSide(
-                            color: Colors.transparent,
-                            width: 0,
+    return SizedBox(
+      // Ensure the Card takes the full width of the screen
+      width: double.infinity,
+      child: Card(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.only(
+                    top: 0.0, left: 10, right: 10, bottom: 0),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Questions ${currentQuestionIndex + 1}/$totalQuestions',
+                          style: headingStyle().copyWith(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    question['q'] ?? 'No question available',
-                    style: bodyStyle().copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                        Chip(
+                          elevation: 0,
+                          label: Text(
+                            status,
+                            style: bodyStyle().copyWith(color: Colors.white),
+                          ),
+                          backgroundColor: statusColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: const BorderSide(
+                              color: Colors.transparent,
+                              width: 0,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildQuestionContent(),
-                ],
+                    const SizedBox(height: 16),
+                    Text(
+                      question['q'] ?? 'No question available',
+                      style: bodyStyle().copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildQuestionContent(),
+                  ],
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-            child: ElevatedButton(
-              onPressed: () => onUpdatePressed(),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                side: const BorderSide(color: Colors.grey),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                minimumSize: const Size(double.infinity, 50),
-              ),
-              child: Text(
-                'Update Correct Answer',
-                style: buttonTextStyle().copyWith(color: Colors.grey),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: ElevatedButton(
-              onPressed: () => onNextPressed(),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF5278C1),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                minimumSize: const Size(double.infinity, 50),
-              ),
-              child: Text(
-                currentQuestionIndex < totalQuestions - 1 ? 'Next' : 'Submit',
-                style: buttonTextStyle().copyWith(color: Colors.white),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              child: ElevatedButton(
+                onPressed: () => onUpdatePressed(),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  side: const BorderSide(color: Colors.grey),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  minimumSize: const Size(double.infinity, 50),
+                  elevation: 0,
+                ),
+                child: Text(
+                  'Update Correct Answer',
+                  style: buttonTextStyle().copyWith(color: Colors.grey),
+                ),
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: ElevatedButton(
+                onPressed: () => onNextPressed(),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF5278C1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  minimumSize: const Size(double.infinity, 50),
+                  elevation: 0,
+                ),
+                child: Text(
+                  currentQuestionIndex < totalQuestions - 1 ? 'Next' : 'Submit',
+                  style: buttonTextStyle().copyWith(color: Colors.white),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

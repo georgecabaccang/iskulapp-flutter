@@ -101,28 +101,42 @@ class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
       body: Stack(
         children: [
           Container(color: AppColors.primaryColor),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: questions.isEmpty
-                ? const Center(child: CircularProgressIndicator())
-                : Column(
-                    children: [
-                      Expanded(
-                        child: AssignmentCard(
-                          question: questions[currentQuestionIndex],
-                          currentQuestionIndex: currentQuestionIndex,
-                          totalQuestions: questions.length,
-                          selectedOption: selectedOption,
-                          onOptionSelected: _onOptionSelected,
-                          onNextPressed: _nextQuestion,
-                          onUpdatePressed: _updateQuestion,
-                          questionType: _getQuestionType(
-                              questions[currentQuestionIndex]['type']),
-                          isInteractionEnabled: false,
+          Positioned(
+            top: 16,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
+              ),
+              child: questions.isEmpty
+                  ? const Center(child: CircularProgressIndicator())
+                  : Column(
+                      children: [
+                        const SizedBox(height: 25),
+                        Expanded(
+                          // Make sure the AssignmentCard takes the full space
+                          child: AssignmentCard(
+                            question: questions[currentQuestionIndex],
+                            currentQuestionIndex: currentQuestionIndex,
+                            totalQuestions: questions.length,
+                            selectedOption: selectedOption,
+                            onOptionSelected: _onOptionSelected,
+                            onNextPressed: _nextQuestion,
+                            onUpdatePressed: _updateQuestion,
+                            questionType: _getQuestionType(
+                                questions[currentQuestionIndex]['type']),
+                            isInteractionEnabled: false,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+            ),
           ),
         ],
       ),
