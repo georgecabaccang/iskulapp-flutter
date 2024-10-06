@@ -21,7 +21,7 @@ class _TimeTablePageState extends State<TimeTablePage> with SingleTickerProvider
   @override
   void initState() {
     super.initState();
-    loadJsonData(); 
+    // loadJsonData(); 
     animationManager = AssignmentAnimationManager(vsync:this);
     _startAnimation();
   }
