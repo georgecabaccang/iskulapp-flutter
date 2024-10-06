@@ -51,7 +51,7 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(   appBar: CustomAppBar(
-        title: "Assignment List",
+        title: "Events & Programs",
         fadeAnimation: animationManager.fadeAnimation,
         onBackPressed: _handleBackPress,
       ),
