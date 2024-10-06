@@ -6,6 +6,7 @@ import 'package:school_erp/pages/calendar/modified_attendance.dart';
 import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overlay.dart';
 import 'package:school_erp/pages/events/events_page.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
+import 'package:school_erp/pages/timetable/timetable_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'widgets/navigation_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,6 +116,34 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+
+  
+  void _goToTimeTablePage() {
+    setState(() {
+      _isTransitioning = true;
+    });
+
+    _navigateToTimeTablePage().then((_) {
+      setState(() {
+        _isTransitioning = false;
+        _animate = false;
+        _startAnimation(); 
+      });
+    });
+  }
+
+  Future<void> _navigateToTimeTablePage() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    await Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const TimeTablePage(),
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -383,7 +412,7 @@ class _HomePageState extends State<HomePage> {
         'icon': Icons.calendar_today,
         'callback': () => ()
       },
-      {'title': 'Time Table', 'icon': Icons.schedule, 'callback': () => ()},
+      {'title': 'Time Table', 'icon': Icons.schedule, 'callback':() => _goToTimeTablePage()},
       {'title': 'Result', 'icon': Icons.grade, 'callback': () => ()},
       {'title': 'Date Sheet', 'icon': Icons.date_range, 'callback': () => ()},
       {'title': 'Doubts', 'icon': Icons.help_outline, 'callback': () => ()},
@@ -398,11 +427,9 @@ class _HomePageState extends State<HomePage> {
         'callback': () => ()
       },
       {'title': 'Change Password', 'icon': Icons.lock, 'callback': () => ()},
-<<<<<<< HEAD
+
       {'title': 'Events', 'icon': Icons.event, 'callback':() => _goToEventsPage()}, 
-=======
-      {'title': 'Events', 'icon': Icons.event, 'callback': () => ()},
->>>>>>> 6d472b3d8f098ff1399bd71f8990ec792ccda224
+
       {
         'title': 'Logout',
         'icon': Icons.logout,
