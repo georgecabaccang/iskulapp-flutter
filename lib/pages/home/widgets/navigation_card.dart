@@ -15,7 +15,7 @@ class NavigationCard extends StatelessWidget {
       onTap: () => callback(),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.whiteColor,
+          color: AppColors.navigationCard,
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Column(
@@ -31,10 +31,7 @@ class NavigationCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8.0),
-            Text(
-              title,
-              style: bodyStyle().copyWith(fontSize: 16.0)
-            ),
+            Text(title, style: bodyStyle().copyWith(fontSize: 16.0)),
           ],
         ),
       ),
