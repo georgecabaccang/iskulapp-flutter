@@ -34,7 +34,8 @@ class AssignmentCard extends StatelessWidget {
     bool isSelected = selectedOption == optionId;
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.symmetric(
+          vertical: 10), // Uniform vertical margin for consistent spacing
       decoration: BoxDecoration(
         border: Border.all(color: isCorrect ? Colors.green : Colors.grey),
         borderRadius: BorderRadius.circular(12),
@@ -43,15 +44,31 @@ class AssignmentCard extends StatelessWidget {
       child: ListTile(
         title: Text(
           optionText,
-          style: bodyStyle()
-              .copyWith(color: isCorrect ? Colors.green : Colors.grey),
+          style: bodyStyle().copyWith(
+            color: isCorrect ? Colors.green : Colors.grey,
+          ),
         ),
-        leading: Radio<int>(
-          value: optionId,
-          groupValue: selectedOption,
-          onChanged: (value) => onOptionSelected(optionId),
-          activeColor: Colors.green,
+        trailing: Container(
+          width: 30,
+          height: 30,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: isSelected ? Colors.green : Colors.grey,
+              width: 2,
+            ),
+            color: isSelected ? Colors.green : Colors.transparent,
+          ),
+          child: isSelected
+              ? const Icon(
+                  Icons.check,
+                  color: Colors.white,
+                  size: 24,
+                )
+              : null,
         ),
+        onTap: () =>
+            onOptionSelected(optionId), // Handle option selection on tap
       ),
     );
   }
@@ -106,7 +123,9 @@ class AssignmentCard extends StatelessWidget {
                     style: bodyStyle()
                         .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(
+                      height:
+                          20), // Consistent spacing between question and answers
                   _buildQuestionContent(),
                 ],
               ),

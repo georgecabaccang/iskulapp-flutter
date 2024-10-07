@@ -5,6 +5,7 @@ import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'package:school_erp/pages/assignment/assignment_preview/widgets/assignment_card.dart';
 import 'package:school_erp/theme/text_styles.dart';
+import 'package:school_erp/pages/assignment/assignment_preview/widgets/dotted_lines.dart'; // Ensure this path is correct
 
 class AssignmentPreviewPage extends StatefulWidget {
   const AssignmentPreviewPage({super.key});
@@ -106,17 +107,22 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                 ? const Center(child: CircularProgressIndicator())
                 : Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Questions ${currentQuestionIndex + 1}/${questions.length}',
-                            style: headingStyle()
-                                .copyWith(color: Colors.white, fontSize: 30.0),
-                          ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Questions ${currentQuestionIndex + 1}/${questions.length}',
+                          style: bodyStyle()
+                              .copyWith(color: Colors.white, fontSize: 34.0),
                         ),
                       ),
+                      CustomPaint(
+                        painter: DottedLinePainter(),
+                        child: Container(
+                          height: 10,
+                          width: double.infinity,
+                        ),
+                      ),
+                      const SizedBox(height: 30),
                       Expanded(
                         child: AssignmentCard(
                           question: questions[currentQuestionIndex],

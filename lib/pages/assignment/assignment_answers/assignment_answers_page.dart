@@ -113,7 +113,6 @@ class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
                 ? const Center(child: CircularProgressIndicator())
                 : Column(
                     children: [
-                      const SizedBox(height: 25),
                       Expanded(
                         // Make sure the AssignmentCard takes the full space
                         child: AssignmentCard(

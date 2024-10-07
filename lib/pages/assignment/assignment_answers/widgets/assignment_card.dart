@@ -74,64 +74,56 @@ class AssignmentCard extends StatelessWidget {
       String optionText, int optionId, bool isCorrect, bool isStudentAnswered) {
     bool isSelected = selectedOption == optionId;
 
+    // Define colors based on selection and correctness
     Color borderColor = isCorrect
         ? Colors.green
         : (isStudentAnswered ? Colors.red : Colors.grey);
-
-    Color backgroundColor;
-
-    if (isSelected) {
-      // If selected, use a light version of the border color
-      backgroundColor = borderColor.withOpacity(0.2);
-    } else if (!isCorrect && isStudentAnswered) {
-      // If incorrect and answered by the student, use a red background
-      backgroundColor = Colors.red.withOpacity(0.2);
-    } else {
-      // Default white background
-      backgroundColor = Colors.white;
-    }
+    Color backgroundColor = isSelected ? Colors.grey[200]! : Colors.white;
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         border: Border.all(color: borderColor),
         borderRadius: BorderRadius.circular(12),
         color: backgroundColor,
       ),
       child: ListTile(
-        title: Row(
-          children: [
-            Expanded(
-              child: Text(
-                optionText,
-                style: bodyStyle().copyWith(
-                  color: isCorrect
-                      ? Colors.green
-                      : isStudentAnswered
-                          ? Colors.red
-                          : Colors.grey,
-                ),
-              ),
-            ),
-            if (isStudentAnswered && !isCorrect)
-              const Icon(
-                Icons.close,
-                color: Colors.red,
-              ),
-            if (isCorrect)
-              const Icon(
-                Icons.check,
-                color: Colors.green,
-              ),
-          ],
+        title: Text(
+          optionText,
+          style: bodyStyle().copyWith(
+            color: isCorrect ? Colors.green : Colors.grey,
+          ),
         ),
-        leading: Radio<int>(
-          value: optionId,
-          groupValue: isStudentAnswered ? optionId : null,
-          onChanged: isInteractionEnabled
-              ? (value) => onOptionSelected(optionId)
-              : null,
-          activeColor: borderColor,
+        trailing: Container(
+          width: 30,
+          height: 30,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: borderColor,
+              width: 2,
+            ),
+            color: isSelected ? borderColor : Colors.transparent,
+          ),
+          child: isSelected
+              ? Icon(
+                  isCorrect ? Icons.check : Icons.close,
+                  color: Colors.white,
+                  size: 24,
+                )
+              : (isStudentAnswered && !isCorrect)
+                  ? Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red,
+                      ),
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                    )
+                  : null,
         ),
       ),
     );
@@ -201,9 +193,8 @@ class AssignmentCard extends StatelessWidget {
                       children: [
                         Text(
                           'Questions ${currentQuestionIndex + 1}/$totalQuestions',
-                          style: headingStyle().copyWith(
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
+                          style: bodyStyle().copyWith(
+                            fontSize: 34,
                             color: Colors.black,
                           ),
                         ),
