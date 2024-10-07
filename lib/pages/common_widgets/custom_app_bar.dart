@@ -6,6 +6,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onBackPressed;
   final Widget? trailingWidget;
   final Animation<double>? fadeAnimation;
+  final TextStyle? titleStyle; // New parameter for title style
 
   const CustomAppBar({
     super.key,
@@ -13,6 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.onBackPressed,
     this.trailingWidget,
     this.fadeAnimation,
+    this.titleStyle, // Include the new parameter
   });
 
   @override
@@ -36,7 +38,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           opacity: fadeAnimation ?? const AlwaysStoppedAnimation(1.0),
           child: Text(
             title,
-            style: const TextStyle(color: Colors.white),
+            style: titleStyle ??
+                const TextStyle(color: Colors.white, fontSize: 24.0),
           ),
         ),
         actions: [
@@ -44,7 +47,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             FadeTransition(
               opacity: fadeAnimation ?? const AlwaysStoppedAnimation(1.0),
               child: Padding(
-                padding: const EdgeInsets.only(right: 32.0),
+                padding: const EdgeInsets.only(right: 20.0),
                 child: trailingWidget!,
               ),
             ),

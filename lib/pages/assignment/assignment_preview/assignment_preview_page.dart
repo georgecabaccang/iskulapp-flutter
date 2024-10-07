@@ -97,6 +97,18 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
       appBar: CustomAppBar(
         title: "Assignment Preview",
         onBackPressed: () => _handleBackPress(context),
+        trailingWidget: TextButton(
+          onPressed: () {
+            // Action to skip preview
+            Navigator.pop(context); // Example action, replace with actual logic
+          },
+          child: Text(
+            'Skip Preview',
+            style: bodyStyle()
+                .copyWith(color: Colors.white, fontSize: 16), // Style as needed
+          ),
+        ),
+        titleStyle: const TextStyle(color: Colors.white, fontSize: 20.0),
       ),
       body: Stack(
         children: [
