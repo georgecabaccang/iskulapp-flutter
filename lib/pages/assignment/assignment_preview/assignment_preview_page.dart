@@ -118,7 +118,6 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                       CustomPaint(
                         painter: DottedLinePainter(),
                         child: Container(
-                          height: 10,
                           width: double.infinity,
                         ),
                       ),
