@@ -14,7 +14,7 @@ class DottedLinePainter extends CustomPainter {
     final paint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0; // Thinner stroke width for dotted lines
+      ..strokeWidth = 1.0;
 
     double startX = 0;
     while (startX < size.width) {

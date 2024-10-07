@@ -101,8 +101,7 @@ class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
         titleStyle: const TextStyle(color: Colors.white, fontSize: 18.0),
         trailingWidget: Text(
           'Section 1',
-          style: bodyStyle()
-              .copyWith(color: Colors.white, fontSize: 16), // Style as needed
+          style: bodyStyle().copyWith(color: Colors.white, fontSize: 16),
         ),
       ),
       body: Stack(

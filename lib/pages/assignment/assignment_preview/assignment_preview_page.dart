@@ -53,7 +53,7 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
               .firstWhere((option) => option['is_correct'] == 1);
           selectedOption = correctOption['id'];
         } else {
-          selectedOption = null; // Clear selection for non-multi questions
+          selectedOption = null;
         }
       });
     } else {
@@ -86,8 +86,7 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
       case 'true_false':
         return QuestionType.trueOrFalse;
       default:
-        return QuestionType
-            .multipleChoice; // default to multiple choice if type is unknown
+        return QuestionType.multipleChoice;
     }
   }
 
@@ -100,12 +99,11 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
         trailingWidget: TextButton(
           onPressed: () {
             // Action to skip preview
-            Navigator.pop(context); // Example action, replace with actual logic
+            Navigator.pop(context);
           },
           child: Text(
             'Skip Preview',
-            style: bodyStyle()
-                .copyWith(color: Colors.white, fontSize: 16), // Style as needed
+            style: bodyStyle().copyWith(color: Colors.white, fontSize: 16),
           ),
         ),
         titleStyle: const TextStyle(color: Colors.white, fontSize: 20.0),
