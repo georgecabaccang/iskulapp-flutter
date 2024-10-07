@@ -20,7 +20,7 @@ class AssignmentCard extends StatelessWidget {
   final bool isInteractionEnabled;
 
   const AssignmentCard({
-    Key? key,
+    super.key,
     required this.question,
     required this.currentQuestionIndex,
     required this.totalQuestions,
@@ -30,7 +30,7 @@ class AssignmentCard extends StatelessWidget {
     required this.onUpdatePressed,
     required this.questionType,
     this.isInteractionEnabled = true,
-  }) : super(key: key);
+  });
 
   String _getAnswerStatus() {
     if (questionType == QuestionType.essay) {

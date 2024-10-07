@@ -19,7 +19,7 @@ class AssignmentCard extends StatelessWidget {
   final QuestionType questionType;
 
   const AssignmentCard({
-    Key? key,
+    super.key,
     required this.question,
     required this.currentQuestionIndex,
     required this.totalQuestions,
@@ -28,7 +28,7 @@ class AssignmentCard extends StatelessWidget {
     required this.onNextPressed,
     required this.onUpdatePressed,
     required this.questionType,
-  }) : super(key: key);
+  });
 
   Widget _buildOption(String optionText, int optionId, bool isCorrect) {
     bool isSelected = selectedOption == optionId;
@@ -74,7 +74,7 @@ class AssignmentCard extends StatelessWidget {
         );
       case QuestionType.shortAnswer:
         return TextFormField(
-          decoration: InputDecoration(hintText: 'Type your answer here'),
+          decoration: const InputDecoration(hintText: 'Type your answer here'),
         );
       case QuestionType.trueOrFalse:
         return Column(
