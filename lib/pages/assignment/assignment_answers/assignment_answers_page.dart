@@ -3,17 +3,19 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
-import 'package:school_erp/pages/assignment/assignment_preview/widgets/assignment_card.dart';
-import 'package:school_erp/theme/text_styles.dart';
+import 'package:school_erp/pages/assignment/assignment_check_page/widgets/student_item.dart';
+import 'widgets/assignment_card.dart';
 
-class AssignmentPreviewPage extends StatefulWidget {
-  const AssignmentPreviewPage({super.key});
+class AssignmentAnswersPage extends StatefulWidget {
+  final Student student;
+
+  const AssignmentAnswersPage({super.key, required this.student});
 
   @override
-  _AssignmentPreviewPageState createState() => _AssignmentPreviewPageState();
+  _AssignmentAnswersPageState createState() => _AssignmentAnswersPageState();
 }
 
-class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
+class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
   List<dynamic> questions = [];
   int currentQuestionIndex = 0;
   int? selectedOption;
@@ -52,7 +54,7 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
               .firstWhere((option) => option['is_correct'] == 1);
           selectedOption = correctOption['id'];
         } else {
-          selectedOption = null; // Clear selection for non-multi questions
+          selectedOption = null;
         }
       });
     } else {
@@ -85,8 +87,7 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
       case 'true_false':
         return QuestionType.trueOrFalse;
       default:
-        return QuestionType
-            .multipleChoice; // default to multiple choice if type is unknown
+        return QuestionType.multipleChoice;
     }
   }
 
@@ -94,30 +95,27 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Assignment Preview",
+        title: "${widget.student.name} Assignment Answers",
         onBackPressed: () => _handleBackPress(context),
       ),
       body: Stack(
         children: [
           Container(color: AppColors.primaryColor),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30.0),
+                topRight: Radius.circular(30.0),
+              ),
+            ),
             child: questions.isEmpty
                 ? const Center(child: CircularProgressIndicator())
                 : Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Questions ${currentQuestionIndex + 1}/${questions.length}',
-                            style: headingStyle()
-                                .copyWith(color: Colors.white, fontSize: 30.0),
-                          ),
-                        ),
-                      ),
+                      const SizedBox(height: 25),
                       Expanded(
+                        // Make sure the AssignmentCard takes the full space
                         child: AssignmentCard(
                           question: questions[currentQuestionIndex],
                           currentQuestionIndex: currentQuestionIndex,
@@ -128,6 +126,7 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                           onUpdatePressed: _updateQuestion,
                           questionType: _getQuestionType(
                               questions[currentQuestionIndex]['type']),
+                          isInteractionEnabled: false,
                         ),
                       ),
                     ],
