@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'student_item.dart';
+import 'package:school_erp/pages/assignment/assignment_answers/assignment_answers_page.dart'; // Import AssignmentAnswersPage
 
 class StudentList extends StatelessWidget {
-  // List of students with their details and checked state
   final List<Student> students = [
     Student(
-        name: 'Fred Mad',
-        imageUrl: 'https://via.placeholder.com/150',
-        score: '100',
-        isChecked: true),
+      name: 'Fred Mad',
+      imageUrl: 'https://via.placeholder.com/150',
+      score: '100',
+      isChecked: true,
+    ),
     Student(name: 'Ambot', score: '80+', isChecked: false),
     Student(name: 'Aimbot', score: '90', isChecked: true),
     Student(name: 'AMNMMM', score: '78', isChecked: true),
@@ -17,17 +18,24 @@ class StudentList extends StatelessWidget {
 
   StudentList({super.key});
 
-  // Toggle the check state of a student
-  void _toggleCheck(BuildContext context, int index) {
-    students[index].isChecked = !students[index].isChecked;
-    (context as Element).markNeedsBuild(); // Triggers rebuild
+  void _navigateToAssignmentAnswersPage(BuildContext context, Student student) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AssignmentAnswersPage(student: student),
+      ),
+    );
+  }
+
+  void _toggleCheck(Student student) {
+    // Toggle the isChecked state of the student
+    student.isChecked = !student.isChecked;
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Title and dropdown section
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Row(
@@ -40,7 +48,7 @@ class StudentList extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              _DropdownMenu(), // Adding the dropdown menu widget
+              _DropdownMenu(),
             ],
           ),
         ),
@@ -55,17 +63,20 @@ class StudentList extends StatelessWidget {
             ),
           ),
         ),
-        // Scrollable list of students
         Expanded(
           child: ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             itemCount: students.length,
             itemBuilder: (context, index) {
               final student = students[index];
-              return StudentItem(
-                student: student,
-                index: index,
-                onToggleCheck: () => _toggleCheck(context, index),
+              return GestureDetector(
+                onTap: () => _navigateToAssignmentAnswersPage(context, student),
+                child: StudentItem(
+                  student: student,
+                  index: index,
+                  onToggleCheck: () =>
+                      _toggleCheck(student), // Pass the toggle function
+                ),
               );
             },
           ),
@@ -81,22 +92,21 @@ class _DropdownMenu extends StatefulWidget {
 }
 
 class __DropdownMenuState extends State<_DropdownMenu> {
-  String selectedOption = 'Authorize Students'; // Default selected option
+  String selectedOption = 'Authorize Students';
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: DropdownButton<String>(
-        value: null, // Set value to null to hide the selected option
+        value: null,
         icon: Transform.translate(
-          offset: const Offset(-20, 0), // Move the icon 20 pixels to the left
+          offset: const Offset(-20, 0),
           child: const Icon(
             Icons.arrow_drop_down,
-            size: 30, // Enlarge the icon
+            size: 30,
           ),
         ),
         onChanged: (String? newValue) {
-          // Update state or perform action when an option is selected
           setState(() {
             selectedOption = newValue!;
           });
@@ -104,7 +114,7 @@ class __DropdownMenuState extends State<_DropdownMenu> {
         items: <String>[
           'Authorize Students',
           'Fail Students',
-          'Exempt Students'
+          'Exempt Students',
         ].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,

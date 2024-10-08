@@ -90,8 +90,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
-  
   void _goToEventsPage() {
     setState(() {
       _isTransitioning = true;
@@ -101,7 +99,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _isTransitioning = false;
         _animate = false;
-        _startAnimation(); 
+        _startAnimation();
       });
     });
   }
@@ -322,7 +320,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 12.0),
                   Padding(
-                    padding: EdgeInsets.only(left: 16.0),
+                    padding: const EdgeInsets.only(left: 16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -371,9 +369,9 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 12.0),
+                  const SizedBox(height: 12.0),
                   Padding(
-                    padding: EdgeInsets.only(left: 16.0),
+                    padding: const EdgeInsets.only(left: 16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -382,7 +380,7 @@ class _HomePageState extends State<HomePage> {
                           style: headingStyle()
                               .copyWith(fontSize: 36.0, color: Colors.black),
                         ),
-                        SizedBox(height: 8.0),
+                        const SizedBox(height: 8.0),
                         Text(
                           'Fees Due',
                           style: bodyStyle().copyWith(fontSize: 20.0),
@@ -427,7 +425,11 @@ class _HomePageState extends State<HomePage> {
         'callback': () => ()
       },
       {'title': 'Change Password', 'icon': Icons.lock, 'callback': () => ()},
-      {'title': 'Events', 'icon': Icons.event, 'callback':() => _goToEventsPage()}, 
+      {
+        'title': 'Events',
+        'icon': Icons.event,
+        'callback': () => _goToEventsPage()
+      },
       {
         'title': 'Logout',
         'icon': Icons.logout,
@@ -458,4 +460,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

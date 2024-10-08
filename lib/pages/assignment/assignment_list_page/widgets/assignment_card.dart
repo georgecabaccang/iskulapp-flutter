@@ -129,7 +129,7 @@ class AssignmentCard extends StatelessWidget {
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          AssignmentPreviewPage(), // Ensure correct constructor
+                          const AssignmentPreviewPage(), // Ensure correct constructor
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         const begin = 0.0;

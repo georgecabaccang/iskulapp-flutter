@@ -6,6 +6,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onBackPressed;
   final Widget? trailingWidget;
   final Animation<double>? fadeAnimation;
+  final TextStyle? titleStyle; // New parameter for title style
+  final double height; // New parameter for height
 
   const CustomAppBar({
     super.key,
@@ -13,15 +15,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.onBackPressed,
     this.trailingWidget,
     this.fadeAnimation,
+    this.titleStyle,
+    this.height = 100, // Default height
   });
 
   @override
-  Size get preferredSize => const Size.fromHeight(100);
+  Size get preferredSize => Size.fromHeight(height);
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height * 0.15;
-
     return SizedBox(
       height: height,
       child: AppBar(
@@ -36,7 +38,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           opacity: fadeAnimation ?? const AlwaysStoppedAnimation(1.0),
           child: Text(
             title,
-            style: const TextStyle(color: Colors.white),
+            style: titleStyle ??
+                const TextStyle(color: Colors.white, fontSize: 24.0),
           ),
         ),
         actions: [
@@ -44,12 +47,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             FadeTransition(
               opacity: fadeAnimation ?? const AlwaysStoppedAnimation(1.0),
               child: Padding(
-                padding: const EdgeInsets.only(right: 32.0),
+                padding: const EdgeInsets.only(right: 20.0),
                 child: trailingWidget!,
               ),
             ),
         ],
-        backgroundColor:AppColors.primaryColor,
+        backgroundColor: AppColors.primaryColor,
       ),
     );
   }
