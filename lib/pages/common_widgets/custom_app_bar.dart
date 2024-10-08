@@ -7,6 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? trailingWidget;
   final Animation<double>? fadeAnimation;
   final TextStyle? titleStyle; // New parameter for title style
+  final double height; // New parameter for height
 
   const CustomAppBar({
     super.key,
@@ -14,16 +15,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.onBackPressed,
     this.trailingWidget,
     this.fadeAnimation,
-    this.titleStyle, // Include the new parameter
+    this.titleStyle,
+    this.height = 100, // Default height
   });
 
   @override
-  Size get preferredSize => const Size.fromHeight(100);
+  Size get preferredSize => Size.fromHeight(height);
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height * 0.15;
-
     return SizedBox(
       height: height,
       child: AppBar(

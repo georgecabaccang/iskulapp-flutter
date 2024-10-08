@@ -34,8 +34,7 @@ class AssignmentCard extends StatelessWidget {
     bool isSelected = selectedOption == optionId;
 
     return Container(
-      margin: const EdgeInsets.symmetric(
-          vertical: 10), // Uniform vertical margin for consistent spacing
+      margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         border: Border.all(color: isCorrect ? Colors.green : Colors.grey),
         borderRadius: BorderRadius.circular(12),
@@ -67,8 +66,7 @@ class AssignmentCard extends StatelessWidget {
                 )
               : null,
         ),
-        onTap: () =>
-            onOptionSelected(optionId), // Handle option selection on tap
+        onTap: () => onOptionSelected(optionId),
       ),
     );
   }
@@ -105,64 +103,74 @@ class AssignmentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    question['q'] ?? 'No question available',
-                    style: bodyStyle()
-                        .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
+    return Padding(
+      padding: const EdgeInsets.only(top: 30.0),
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+          border: Border.all(color: Colors.grey),
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      question['q'] ?? 'No question available',
+                      style: bodyStyle().copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    _buildQuestionContent(),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              child: ElevatedButton(
+                onPressed: () => onUpdatePressed(),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  side: const BorderSide(color: Colors.black),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  const SizedBox(
-                      height:
-                          20), // Consistent spacing between question and answers
-                  _buildQuestionContent(),
-                ],
+                  minimumSize: const Size(double.infinity, 50),
+                ),
+                child: Text(
+                  'Update',
+                  style: buttonTextStyle().copyWith(color: Colors.black),
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-            child: ElevatedButton(
-              onPressed: () => onUpdatePressed(),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                side: const BorderSide(color: Colors.black),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                minimumSize: const Size(double.infinity, 50),
-              ),
-              child: Text('Update',
-                  style: buttonTextStyle().copyWith(color: Colors.black)),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: ElevatedButton(
-              onPressed: () => onNextPressed(),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF5278C1),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                minimumSize: const Size(double.infinity, 50),
-              ),
-              child: Text(
-                currentQuestionIndex < totalQuestions - 1 ? 'Next' : 'Submit',
-                style: buttonTextStyle().copyWith(color: Colors.white),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: ElevatedButton(
+                onPressed: () => onNextPressed(),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF5278C1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  minimumSize: const Size(double.infinity, 50),
+                ),
+                child: Text(
+                  currentQuestionIndex < totalQuestions - 1 ? 'Next' : 'Submit',
+                  style: buttonTextStyle().copyWith(color: Colors.white),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
