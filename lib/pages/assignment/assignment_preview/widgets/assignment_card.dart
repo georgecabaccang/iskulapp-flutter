@@ -38,7 +38,12 @@ class AssignmentCard extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: isCorrect ? Colors.green : Colors.grey),
         borderRadius: BorderRadius.circular(12),
-        color: isSelected ? Colors.grey[200] : Colors.white,
+        color: isSelected
+            ? Colors.green.withOpacity(0.2) // Green tint when selected
+            : isCorrect
+                ? Colors.green
+                    .withOpacity(0.1) // Green tint for correct answers
+                : Colors.white,
       ),
       child: ListTile(
         title: Text(
