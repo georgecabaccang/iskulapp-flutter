@@ -5,6 +5,7 @@ import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'package:school_erp/pages/assignment/assignment_check_page/widgets/student_item.dart';
 import 'widgets/assignment_card.dart';
+import 'package:school_erp/theme/text_styles.dart';
 
 class AssignmentAnswersPage extends StatefulWidget {
   final Student student;
@@ -97,6 +98,11 @@ class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
       appBar: CustomAppBar(
         title: "${widget.student.name} Assignment Answers",
         onBackPressed: () => _handleBackPress(context),
+        titleStyle: const TextStyle(color: Colors.white, fontSize: 18.0),
+        trailingWidget: Text(
+          'Section 1',
+          style: bodyStyle().copyWith(color: Colors.white, fontSize: 16),
+        ),
       ),
       body: Stack(
         children: [
@@ -113,7 +119,6 @@ class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
                 ? const Center(child: CircularProgressIndicator())
                 : Column(
                     children: [
-                      const SizedBox(height: 25),
                       Expanded(
                         // Make sure the AssignmentCard takes the full space
                         child: AssignmentCard(

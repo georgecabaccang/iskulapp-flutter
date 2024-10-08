@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:school_erp/theme/colors.dart';
-import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'package:school_erp/pages/assignment/assignment_preview/widgets/assignment_card.dart';
 import 'package:school_erp/theme/text_styles.dart';
+import 'package:school_erp/pages/assignment/assignment_preview/widgets/dotted_lines.dart'; // Ensure this path is correct
 
 class AssignmentPreviewPage extends StatefulWidget {
   const AssignmentPreviewPage({super.key});
@@ -52,7 +52,7 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
               .firstWhere((option) => option['is_correct'] == 1);
           selectedOption = correctOption['id'];
         } else {
-          selectedOption = null; // Clear selection for non-multi questions
+          selectedOption = null;
         }
       });
     } else {
@@ -85,53 +85,87 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
       case 'true_false':
         return QuestionType.trueOrFalse;
       default:
-        return QuestionType
-            .multipleChoice; // default to multiple choice if type is unknown
+        return QuestionType.multipleChoice;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Assignment Preview",
-        onBackPressed: () => _handleBackPress(context),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text("Assignment (Preview)",
+            style: bodyStyle().copyWith(color: Colors.white, fontSize: 20.0)),
+        backgroundColor: AppColors.primaryColor,
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Action to skip preview
+              Navigator.pop(context);
+            },
+            child: Text(
+              'Skip Preview',
+              style: bodyStyle().copyWith(color: Colors.white, fontSize: 20),
+            ),
+          ),
+        ],
       ),
       body: Stack(
         children: [
           Container(color: AppColors.primaryColor),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: questions.isEmpty
-                ? const Center(child: CircularProgressIndicator())
-                : Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Questions ${currentQuestionIndex + 1}/${questions.length}',
-                            style: headingStyle()
-                                .copyWith(color: Colors.white, fontSize: 30.0),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: AssignmentCard(
-                          question: questions[currentQuestionIndex],
-                          currentQuestionIndex: currentQuestionIndex,
-                          totalQuestions: questions.length,
-                          selectedOption: selectedOption,
-                          onOptionSelected: _onOptionSelected,
-                          onNextPressed: _nextQuestion,
-                          onUpdatePressed: _updateQuestion,
-                          questionType: _getQuestionType(
-                              questions[currentQuestionIndex]['type']),
-                        ),
-                      ),
-                    ],
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Questions ${currentQuestionIndex + 1}/${questions.length}',
+                    style: bodyStyle()
+                        .copyWith(color: Colors.white, fontSize: 34.0),
                   ),
+                ),
+              ),
+              CustomPaint(
+                painter: DottedLinePainter(),
+                child: Container(
+                  width: 380,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Expanded(
+                child: Stack(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 30),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: questions.isEmpty
+                          ? const Center(child: CircularProgressIndicator())
+                          : AssignmentCard(
+                              question: questions[currentQuestionIndex],
+                              currentQuestionIndex: currentQuestionIndex,
+                              totalQuestions: questions.length,
+                              selectedOption: selectedOption,
+                              onOptionSelected: _onOptionSelected,
+                              onNextPressed: _nextQuestion,
+                              onUpdatePressed: _updateQuestion,
+                              questionType: _getQuestionType(
+                                  questions[currentQuestionIndex]['type']),
+                            ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
