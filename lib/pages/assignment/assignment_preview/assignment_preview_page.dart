@@ -126,13 +126,12 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                   ),
                 ),
               ),
-              // Wrap DottedLine with a Container to set the width
               Container(
-                width: 380, // Width of the dotted line
+                width: 380,
                 child: const DottedLine(
-                  dashLength: 6.0, // Length of the dotted line segments
-                  lineThickness: 1.0, // Overall thickness of the line
-                  dashColor: Colors.white, // Color of the dotted line
+                  dashLength: 6.0,
+                  lineThickness: 1.0,
+                  dashColor: Colors.white,
                 ),
               ),
               const SizedBox(height: 10),
@@ -160,6 +159,7 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                               onUpdatePressed: _updateQuestion,
                               questionType: _getQuestionType(
                                   questions[currentQuestionIndex]['type']),
+                              isInteractionEnabled: false,
                             ),
                     ),
                   ],

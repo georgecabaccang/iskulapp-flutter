@@ -17,6 +17,7 @@ class AssignmentCard extends StatelessWidget {
   final Function onNextPressed;
   final Function onUpdatePressed;
   final QuestionType questionType;
+  final bool isInteractionEnabled;
 
   const AssignmentCard({
     super.key,
@@ -28,6 +29,7 @@ class AssignmentCard extends StatelessWidget {
     required this.onNextPressed,
     required this.onUpdatePressed,
     required this.questionType,
+    this.isInteractionEnabled = true,
   });
 
   Widget _buildOption(String optionText, int optionId, bool isCorrect) {
@@ -125,7 +127,7 @@ class AssignmentCard extends StatelessWidget {
                   const EdgeInsets.only(top: 30.0, left: 23.0, right: 23.0),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
-                  maxHeight: 75, // Limit height for question area
+                  maxHeight: 160, // Limit height for question area
                 ),
                 child: SingleChildScrollView(
                   child: Align(
@@ -149,8 +151,7 @@ class AssignmentCard extends StatelessWidget {
             const Spacer(),
 
             Padding(
-              padding:
-                  const EdgeInsets.only(top: 60.0, left: 23.0, right: 23.0),
+              padding: const EdgeInsets.only(top: 0.0, left: 23.0, right: 23.0),
               child: _buildQuestionContent(),
             ),
             // Spacer to push the options to the middle
