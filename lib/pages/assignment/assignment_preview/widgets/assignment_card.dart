@@ -108,36 +108,55 @@ class AssignmentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30.0),
+      padding: const EdgeInsets.only(top: 0.0),
       child: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
-          border: Border.all(color: Colors.grey),
+          border: Border.all(color: Colors.white),
         ),
         child: Column(
           children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
+            // Question area with limited space for scrolling
+            Padding(
+              padding:
+                  const EdgeInsets.only(top: 30.0, left: 23.0, right: 23.0),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxHeight: 75, // Limit height for question area
+                ),
+                child: SingleChildScrollView(
+                  child: Align(
+                    alignment:
+                        Alignment.centerLeft, // Ensure text aligns to the left
+                    child: Text(
                       question['q'] ?? 'No question available',
                       style: bodyStyle().copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                       ),
+                      textAlign:
+                          TextAlign.left, // Align text within the Text widget
                     ),
-                    const SizedBox(height: 20),
-                    _buildQuestionContent(),
-                  ],
+                  ),
                 ),
               ),
             ),
+
+            // Spacer to push the options to the center
+            const Spacer(),
+
+            Padding(
+              padding:
+                  const EdgeInsets.only(top: 60.0, left: 23.0, right: 23.0),
+              child: _buildQuestionContent(),
+            ),
+            // Spacer to push the options to the middle
+            const Spacer(),
+
+            // Bottom buttons (fixed at the bottom)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
               child: ElevatedButton(
