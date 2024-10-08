@@ -233,7 +233,7 @@ class AssignmentCard extends StatelessWidget {
                               question['q'] ?? 'No question available',
                               style: bodyStyle().copyWith(
                                 fontSize: 18,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.bold,
                               ),
                               textAlign: TextAlign.left,
                             ),
