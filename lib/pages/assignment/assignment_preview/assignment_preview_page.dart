@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/pages/assignment/assignment_preview/widgets/assignment_card.dart';
 import 'package:school_erp/theme/text_styles.dart';
-import 'package:school_erp/pages/assignment/assignment_preview/widgets/dotted_lines.dart'; // Ensure this path is correct
+import 'package:dotted_line/dotted_line.dart'; // Ensure this path is correct
 
 class AssignmentPreviewPage extends StatefulWidget {
   const AssignmentPreviewPage({super.key});
@@ -116,7 +116,7 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.only(left: 12.0, bottom: 12.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -126,10 +126,12 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                   ),
                 ),
               ),
-              CustomPaint(
-                painter: DottedLinePainter(),
-                child: Container(
-                  width: 380,
+              Container(
+                width: 380,
+                child: const DottedLine(
+                  dashLength: 6.0,
+                  lineThickness: 1.0,
+                  dashColor: Colors.white,
                 ),
               ),
               const SizedBox(height: 10),
@@ -137,7 +139,7 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                 child: Stack(
                   children: [
                     Container(
-                      margin: const EdgeInsets.only(top: 30),
+                      margin: const EdgeInsets.only(top: 28.0),
                       decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
@@ -145,9 +147,6 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                           topRight: Radius.circular(30),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(0.0),
                       child: questions.isEmpty
                           ? const Center(child: CircularProgressIndicator())
                           : AssignmentCard(
@@ -160,6 +159,7 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                               onUpdatePressed: _updateQuestion,
                               questionType: _getQuestionType(
                                   questions[currentQuestionIndex]['type']),
+                              isInteractionEnabled: false,
                             ),
                     ),
                   ],

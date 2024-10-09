@@ -74,7 +74,6 @@ class AssignmentCard extends StatelessWidget {
       String optionText, int optionId, bool isCorrect, bool isStudentAnswered) {
     bool isSelected = selectedOption == optionId;
 
-    // Define colors based on selection and correctness
     Color borderColor = isCorrect
         ? Colors.green
         : (isStudentAnswered ? Colors.red : Colors.grey);
@@ -168,7 +167,6 @@ class AssignmentCard extends StatelessWidget {
     final statusColor = _getStatusColor(status);
 
     return SizedBox(
-      // Ensure the Card takes the full width of the screen
       width: double.infinity,
       child: Card(
         elevation: 0,
@@ -179,8 +177,6 @@ class AssignmentCard extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(
-                    top: 0.0, left: 10, right: 10, bottom: 0),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -188,43 +184,70 @@ class AssignmentCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Questions ${currentQuestionIndex + 1}/$totalQuestions',
-                          style: bodyStyle().copyWith(
-                            fontSize: 34,
-                            color: Colors.black,
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 21,
+                        right: 39,
+                        top: 11,
+                        bottom: 24,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Questions ${currentQuestionIndex + 1}/$totalQuestions',
+                            style: bodyStyle().copyWith(
+                              fontSize: 34,
+                              color: Colors.black,
+                            ),
                           ),
+                          Chip(
+                            elevation: 0,
+                            label: Text(
+                              status,
+                              style: bodyStyle()
+                                  .copyWith(color: Colors.white, fontSize: 18),
+                            ),
+                            backgroundColor: statusColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              side: const BorderSide(
+                                color: Colors.transparent,
+                                width: 3,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 32, right: 32),
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxHeight: 160,
                         ),
-                        Chip(
-                          elevation: 0,
-                          label: Text(
-                            status,
-                            style: bodyStyle().copyWith(color: Colors.white),
-                          ),
-                          backgroundColor: statusColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            side: const BorderSide(
-                              color: Colors.transparent,
-                              width: 0,
+                        child: SingleChildScrollView(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              question['q'] ?? 'No question available',
+                              style: bodyStyle().copyWith(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.left,
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      question['q'] ?? 'No question available',
-                      style: bodyStyle().copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    _buildQuestionContent(),
+                    const Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 0.0, left: 28.0, right: 28.0, bottom: 28),
+                      child: _buildQuestionContent(),
+                    ),
+                    const Spacer(),
                   ],
                 ),
               ),
