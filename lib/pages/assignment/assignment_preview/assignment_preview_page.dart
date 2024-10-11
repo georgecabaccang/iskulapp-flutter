@@ -126,9 +126,9 @@ class _AssignmentPreviewPageState extends State<AssignmentPreviewPage> {
                   ),
                 ),
               ),
-              Container(
+              const SizedBox(
                 width: 380,
-                child: const DottedLine(
+                child: DottedLine(
                   dashLength: 6.0,
                   lineThickness: 1.0,
                   dashColor: Colors.white,
