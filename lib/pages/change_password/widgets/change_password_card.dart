@@ -22,7 +22,7 @@ class ChangePasswordCard extends StatelessWidget {
               border: InputBorder.none,
             ),
             style: bodyStyle().copyWith(fontSize: 18),
-            obscureText: true, // Hide password input
+            obscureText: true,
           ),
           const Divider(color: Color(0xFFA5A5A5)),
           const SizedBox(height: 16.0),
@@ -36,7 +36,7 @@ class ChangePasswordCard extends StatelessWidget {
               border: InputBorder.none,
             ),
             style: bodyStyle().copyWith(fontSize: 18),
-            obscureText: true, // Hide password input
+            obscureText: true,
           ),
           const Divider(color: Color(0xFFA5A5A5)),
           const SizedBox(height: 16.0),

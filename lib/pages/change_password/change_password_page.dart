@@ -45,7 +45,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage>
       ),
       body: Stack(
         children: [
-          // Background with gradient and some designs
           Container(color: AppColors.primaryColor),
           AnimatedBuilder(
             animation: animationManager.controller,

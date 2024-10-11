@@ -45,7 +45,6 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage>
       ),
       body: Stack(
         children: [
-          // Background with gradient and some designs
           Container(color: AppColors.primaryColor),
           AnimatedBuilder(
             animation: animationManager.controller,
@@ -65,7 +64,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage>
                   ),
                   child: FadeTransition(
                     opacity: animationManager.fadeAnimation,
-                    child: const LeaveApplicationCard(), // Use the new widget
+                    child: const LeaveApplicationCard(),
                   ),
                 ),
               );
