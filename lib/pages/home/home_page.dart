@@ -12,6 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/theme/text_styles.dart';
 import 'package:school_erp/constants/text_constants.dart';
+import 'package:school_erp/pages/leave_application/leave_application_page.dart';
+import 'package:school_erp/pages/change_password/change_password_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(this.user, {super.key});
@@ -110,6 +112,56 @@ class _HomePageState extends State<HomePage> {
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             const EventsPage(),
+      ),
+    );
+  }
+
+  void _goToLeaveApplicationPage() {
+    setState(() {
+      _isTransitioning = true;
+    });
+
+    _navigateToLeaveApplicationPage().then((_) {
+      setState(() {
+        _isTransitioning = false;
+        _animate = false;
+        _startAnimation(); // Re-start the animation when coming back
+      });
+    });
+  }
+
+  Future<void> _navigateToLeaveApplicationPage() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    await Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const LeaveApplicationPage(),
+      ),
+    );
+  }
+
+  void _goToChangePasswordPage() {
+    setState(() {
+      _isTransitioning = true;
+    });
+
+    _navigateToChangePasswordPage().then((_) {
+      setState(() {
+        _isTransitioning = false;
+        _animate = false;
+        _startAnimation(); // Re-start the animation when coming back
+      });
+    });
+  }
+
+  Future<void> _navigateToChangePasswordPage() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    await Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const ChangePasswordPage(),
       ),
     );
   }
@@ -393,9 +445,13 @@ class _HomePageState extends State<HomePage> {
       {
         'title': 'Leave Application',
         'icon': Icons.request_page,
-        'callback': () => ()
+        'callback': () => _goToLeaveApplicationPage()
       },
-      {'title': 'Change Password', 'icon': Icons.lock, 'callback': () => ()},
+      {
+        'title': 'Change Password',
+        'icon': Icons.lock,
+        'callback': () => _goToChangePasswordPage()
+      },
       {
         'title': 'Events',
         'icon': Icons.event,
