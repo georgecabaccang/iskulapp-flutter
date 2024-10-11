@@ -11,9 +11,11 @@ class TimeTableTabBar extends StatefulWidget {
 }
 
 class _TimeTableTabBarState extends State<TimeTableTabBar> {
-  @override
-  Widget build(BuildContext context) {
-    return TabBar(
+ @override
+Widget build(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20.0), 
+    child: TabBar(
       controller: widget.controller,
       unselectedLabelStyle: const TextStyle(color: Colors.grey),
       labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -39,6 +41,8 @@ class _TimeTableTabBarState extends State<TimeTableTabBar> {
           ),
         );
       }),
-    );
-  }
+    ),
+  );
+}
+
 }
