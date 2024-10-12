@@ -80,6 +80,7 @@ flutter:
     - assets/images/AddAssignmentImage.png
     - assets/addAssignmentData/classes.json
     - assets/addAssignmentData/subjects.json
+    - assets/timetable.json
     - assets/events.json
     - .env
     - assets/questions.json

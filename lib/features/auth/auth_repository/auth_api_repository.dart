@@ -67,6 +67,7 @@ class AuthRepository {
           "client_secret": clientSecret
         }));
     final parsed = jsonDecode(res.body);
+    print(parsed);
     final String accessToken = parsed['access_token'];
     return accessToken;
   }
