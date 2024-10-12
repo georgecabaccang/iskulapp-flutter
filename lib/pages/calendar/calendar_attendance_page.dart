@@ -127,9 +127,6 @@ class CalendarWidget extends StatelessWidget {
       headerStyle: const HeaderStyle(
         titleCentered: true
       ),
-      onFormatChanged: (format) {
-        onFormatChanged(format);
-      },
       onPageChanged: (focusedDay) {
         onPageChanged(focusedDay);
       },
