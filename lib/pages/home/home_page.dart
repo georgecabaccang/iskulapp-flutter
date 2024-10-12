@@ -29,18 +29,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  void initState() {
-    super.initState();
-    _startAnimation();
-  }
-
-  void _startAnimation() {
-    Future.delayed(const Duration(milliseconds: 200), () {
-      setState(() {});
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
