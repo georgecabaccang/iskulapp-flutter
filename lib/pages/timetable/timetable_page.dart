@@ -59,11 +59,6 @@ class _TimeTablePageState extends State<TimeTablePage> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Timetable",
-        fadeAnimation: animationManager.fadeAnimation,
-        onBackPressed: _handleBackPress,
-      ),
       body: Stack(
         children: [
           Container(color: AppColors.primaryColor),

@@ -39,12 +39,6 @@ class _AssignmentListPageState extends State<AssignmentListPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Assignment List",
-        fadeAnimation: animationManager.fadeAnimation,
-        onBackPressed: _handleBackPress,
-        trailingWidget: AssignmentAddButton(context: context),
-      ),
       body: Stack(
         children: [
           Container(color: AppColors.primaryColor),

@@ -10,14 +10,8 @@ class QuestionBuilderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: "Question and Answer",
-        onBackPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      body: const Material(
+    return const Scaffold(
+      body: Material(
         color: AppColors.primaryColor,
         child: SafeArea(
           child: Column(

@@ -15,10 +15,6 @@ class _AssignmentCheckPageState extends State<AssignmentCheckPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Check Assignment",
-        onBackPressed: () => Navigator.pop(context),
-      ),
       body: Stack(
         children: [
           Container(

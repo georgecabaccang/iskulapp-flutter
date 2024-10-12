@@ -13,10 +13,6 @@ class _AssignmentAddPageState extends State<AssignmentAddPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Add Assignment",
-        onBackPressed: () => Navigator.pop(context),
-      ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
