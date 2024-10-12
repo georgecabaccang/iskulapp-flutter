@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 import 'package:school_erp/features/auth/bloc/auth_bloc_barrel.dart';
 import 'package:school_erp/features/auth/auth_repository/auth_repository.dart';
 import 'package:school_erp/pages/EnterExitRoute.dart';
@@ -53,8 +54,13 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildMainContent() {
     return Container(
+<<<<<<< HEAD
       margin: const EdgeInsets.only(top: 350),
       padding: const EdgeInsets.only(top: 90),
+=======
+      margin: const EdgeInsets.only(top: 350 ),
+      padding: const EdgeInsets.only(top: 90 ),
+>>>>>>> develop
       decoration: const BoxDecoration(
         color: AppColors.whiteColor,
         borderRadius: BorderRadius.only(
@@ -78,6 +84,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget profileInfo(AuthenticatedUser user) {
     return SafeArea(
+<<<<<<< HEAD
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -110,9 +117,57 @@ class _HomePageState extends State<HomePage> {
                 ),
               )),
         ],
+=======
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          double screenWidth = MediaQuery.of(context).size.width;
+          bool isSmallScreen = screenWidth < 400;
+
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0, top: 50.0),
+                child: _buildUserInfo(user),
+              ),
+              const Spacer(),
+              Padding(
+                padding: EdgeInsets.only(
+                  right: isSmallScreen ? 16.0 : 30.0,
+                  top: isSmallScreen ? 0.0 : 30.0,
+                ),
+                child: Align(
+                  alignment: isSmallScreen ? Alignment.topLeft : Alignment.bottomLeft,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        EnterExitRoute(
+                          exitPage: context.widget,
+                          enterPage: const ProfilePage(),
+                        ),
+                      );
+                    },
+                    child: CircleAvatar(
+                      radius: isSmallScreen ? 40 : 50, // Adjust the radius for small screens
+                      backgroundColor: Colors.grey[300],
+                      child: Icon(
+                        Icons.person,
+                        size: isSmallScreen ? 60 : 90, // Adjust icon size
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+>>>>>>> develop
       ),
     );
   }
+
 
   Widget _buildUserInfo(AuthenticatedUser user) {
     return Container(
@@ -124,8 +179,12 @@ class _HomePageState extends State<HomePage> {
         children: [
           Text(
             TextConstants.homePageMessage(user.firstName, user.lastName),
+<<<<<<< HEAD
             style: headingStyle()
                 .copyWith(fontSize: 50.0, fontWeight: FontWeight.w500),
+=======
+            style: headingStyle().copyWith(fontSize: 30.0, fontWeight: FontWeight.w500),
+>>>>>>> develop
           ),
           const SizedBox(height: 8.0),
           Opacity(
@@ -133,7 +192,7 @@ class _HomePageState extends State<HomePage> {
             child: Text(
               "Class XI-B | Roll no: 04",
               style: bodyStyle().copyWith(
-                fontSize: 24.0,
+                fontSize: 18.0,
                 color: AppColors.whiteColor,
               ),
             ),
@@ -149,8 +208,12 @@ class _HomePageState extends State<HomePage> {
             ),
             child: Text(
               "2024-2025",
+<<<<<<< HEAD
               style: bodyStyle()
                   .copyWith(fontSize: 18.0, color: const Color(0xFF6184C7)),
+=======
+              style: bodyStyle().copyWith(fontSize: 14.0, color: const Color(0xFF6184C7) ),
+>>>>>>> develop
             ),
           ),
         ],
@@ -177,8 +240,9 @@ class _HomePageState extends State<HomePage> {
     ];
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
       child: GridView.builder(
+<<<<<<< HEAD
         physics:
             const NeverScrollableScrollPhysics(), // To keep it non-scrollable
         shrinkWrap:
@@ -200,6 +264,28 @@ class _HomePageState extends State<HomePage> {
             onTap: item['onTap'],
           );
         },
+=======
+          physics: const NeverScrollableScrollPhysics(),  // To keep it non-scrollable
+          shrinkWrap: true,  // Ensures the grid view only takes the necessary space
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16.0,
+            mainAxisSpacing: 16.0,
+            mainAxisExtent: 256,
+            childAspectRatio: 0.78,
+          ),
+          itemCount: importantItems.length,
+          itemBuilder: (context, index) {
+            final item = importantItems[index];
+            return _buildImportantCard(
+              title: item['title'],
+              value: item['value'],
+              icon: item['icon'],
+              color: item['color'],
+              onTap: item['onTap'],
+            );
+          },
+>>>>>>> develop
       ),
     );
   }
@@ -211,11 +297,16 @@ class _HomePageState extends State<HomePage> {
     required Color color,
     required VoidCallback onTap,
   }) {
+
+    double screenWidth = MediaQuery.of(context).size.width;
+    double textSize = math.min(screenWidth * 0.1, 40.0);  // Max size is 40
+    double textSizeSm = math.min(screenWidth * 0.049, 24.0);  // Max size is 24
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20.0),
@@ -231,14 +322,14 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    radius: 40.0,
+                    radius: 35.0,
                     backgroundColor: color,
-                    child: Icon(icon, size: 60.0, color: Colors.white),
+                    child: Icon(icon, size: 40.0, color: Colors.white),
                   ),
                   Text(
                     value,
                     style: headingStyle().copyWith(
-                      fontSize: 46.0,
+                      fontSize: textSize,
                       color: Colors.black,
                       fontWeight: FontWeight.w500,
                     ),
@@ -246,7 +337,7 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 8.0),
                   Text(
                     title,
-                    style: bodyStyle().copyWith(fontSize: 20.0),
+                    style: bodyStyle().copyWith(fontSize: textSizeSm),
                   ),
                 ],
               ),
@@ -338,7 +429,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisSpacing: 16.0,
         childAspectRatio: 1.2,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 25.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30.0),
       itemCount: items.length,
       itemBuilder: (context, index) {
         return NavigationCard(
