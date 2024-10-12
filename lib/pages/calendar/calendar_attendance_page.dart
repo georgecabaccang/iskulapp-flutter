@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/pages/common_widgets/app_content.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'package:table_calendar/table_calendar.dart';
 import './widgets/attendance_title.dart';
@@ -16,7 +17,6 @@ class CalendarAttendancePage extends StatefulWidget {
 }
 
 class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
-  late CalendarFormat _calendarFormat;
   late DateTime _selectedDay;
   late DateTime _focusedDay;
   String _selectedFilter = 'All';
@@ -26,7 +26,6 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
   @override
   void initState() {
     super.initState();
-    _calendarFormat = CalendarFormat.week;
     _selectedDay = DateTime.now();
     _focusedDay = widget.focusDate;
     _daysInMonth = _getDaysInMonth(_focusedDay);
@@ -61,57 +60,39 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
       body: Column(
         children: [
           const CustomAppBar(title: 'Calendar'),
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white, // Set the background of the expanded area to white
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20.0), // Rounded top left corner
-                  topRight: Radius.circular(20.0), // Rounded top right corner
-                ),
-              ),
-              child: Column(
+          AppContent(content: [
+            CalendarWidget(
+              focusedDay: _focusedDay,
+              selectedDay: _selectedDay,
+              // calendarFormat: _calendarFormat,
+              onDaySelected: _handleDaySelected,
+              onPageChanged: (focusedDay) {
+                _onMonthChanged(focusedDay);
+              },
+            ),
+            const SizedBox(height: 20.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CalendarWidget(
-                    focusedDay: _focusedDay,
-                    selectedDay: _selectedDay,
-                    // calendarFormat: _calendarFormat,
-                    onDaySelected: _handleDaySelected,
-                    onFormatChanged: (format) {
+                  const Padding(
+                    padding: EdgeInsets.only(left: 0),
+                    child: AttendanceTitle(),
+                  ),
+                  DropdownFilter(
+                    selectedFilter: _selectedFilter,
+                    onChanged: (newValue) {
                       setState(() {
-                        _calendarFormat = format;
+                        _selectedFilter = newValue!;
                       });
                     },
-                    onPageChanged: (focusedDay) {
-                      _onMonthChanged(focusedDay);
-                    },
                   ),
-                  const SizedBox(height: 20.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 0),
-                          child: AttendanceTitle(),
-                        ),
-                        DropdownFilter(
-                          selectedFilter: _selectedFilter,
-                          onChanged: (newValue) {
-                            setState(() {
-                              _selectedFilter = newValue!;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  AttendanceList(daysInMonth: _daysInMonth),
                 ],
               ),
             ),
-          ),
+            AttendanceList(daysInMonth: _daysInMonth),
+          ])
         ],
       ),
     );
@@ -123,7 +104,6 @@ class CalendarWidget extends StatelessWidget {
   final DateTime focusedDay;
   final DateTime selectedDay;
   final void Function(DateTime, DateTime) onDaySelected;
-  final ValueChanged<CalendarFormat> onFormatChanged;
   final ValueChanged<DateTime> onPageChanged;
 
   const CalendarWidget({
@@ -131,7 +111,6 @@ class CalendarWidget extends StatelessWidget {
     required this.focusedDay,
     required this.selectedDay,
     required this.onDaySelected,
-    required this.onFormatChanged,
     required this.onPageChanged,
   });
 

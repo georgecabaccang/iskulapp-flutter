@@ -19,6 +19,7 @@ class _AssignmentAddPageState extends State<AssignmentAddPage> {
         color: AppColors.primaryColor,
         child: Column(
           children: [
+            const CustomAppBar(title: 'Add Assignment'),
             Expanded(
               // This ensures the Container occupies all available space
               child: Container(
