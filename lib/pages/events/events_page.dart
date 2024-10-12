@@ -88,7 +88,7 @@ class _EventsPageState extends State<EventsPage> with SingleTickerProviderStateM
                   child: ListView(
                     padding: const EdgeInsets.all(16.0),
                     children: [
-                          ...events.map((event) => eventsCard(event)).toList(),
+                          ...events.map((event) => eventsCard(event)),
                         ],
                   ),
                 ),
