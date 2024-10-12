@@ -8,6 +8,8 @@ import 'package:school_erp/pages/calendar/modified_attendance.dart';
 import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overlay.dart';
 import 'package:school_erp/pages/events/events_page.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
+import 'package:school_erp/pages/timetable/timetable_page.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'widgets/navigation_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_erp/theme/colors.dart';
@@ -24,6 +26,124 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool _animate = false;
+  bool _isTransitioning = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _startAnimation();
+  }
+
+  void _startAnimation() {
+    Future.delayed(const Duration(milliseconds: 200), () {
+      setState(() {
+        _animate = true;
+      });
+    });
+  }
+
+  void _goToCalendarAttendancePage() async {
+    setState(() {
+      _isTransitioning = true;
+    });
+    await Future.delayed(const Duration(milliseconds: 200));
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            CalendarAttendancePage(
+                focusDate: DateTime.now()), // Pass the focusDate here
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return child; // No additional animation needed here, handled in CalendarAttendancePage
+        },
+      ),
+    ).then((_) {
+      setState(() {
+        _isTransitioning = false;
+        _animate = false;
+        _startAnimation(); // Re-start the animation when coming back
+      });
+    });
+  }
+
+  void _goToAssignmentPage() {
+    setState(() {
+      _isTransitioning = true;
+    });
+
+    _navigateToAssignmentPage().then((_) {
+      setState(() {
+        _isTransitioning = false;
+        _animate = false;
+        _startAnimation(); // Re-start the animation when coming back
+      });
+    });
+  }
+
+  Future<void> _navigateToAssignmentPage() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    await Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const AssignmentListPage(),
+      ),
+    );
+  }
+
+  void _goToEventsPage() {
+    setState(() {
+      _isTransitioning = true;
+    });
+
+    _navigateToEventsPage().then((_) {
+      setState(() {
+        _isTransitioning = false;
+        _animate = false;
+        _startAnimation();
+      });
+    });
+  }
+
+  Future<void> _navigateToEventsPage() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    await Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const EventsPage(),
+      ),
+    );
+  }
+
+
+  
+  void _goToTimeTablePage() {
+    setState(() {
+      _isTransitioning = true;
+    });
+
+    _navigateToTimeTablePage().then((_) {
+      setState(() {
+        _isTransitioning = false;
+        _animate = false;
+        _startAnimation(); 
+      });
+    });
+  }
+
+  Future<void> _navigateToTimeTablePage() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    await Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const TimeTablePage(),
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -273,6 +393,17 @@ class _HomePageState extends State<HomePage> {
   Widget gridSection(BuildContext context) {
     final List<Map<String, dynamic>> items = [
       {'title': 'Play Quiz', 'icon': Icons.quiz, 'callback': () => ()},
+      {
+        'title': 'Assignment',
+        'icon': Icons.assignment,
+        'callback': () => _goToAssignmentPage()
+      },
+      {
+        'title': 'School Holiday',
+        'icon': Icons.calendar_today,
+        'callback': () => ()
+      },
+      {'title': 'Time Table', 'icon': Icons.schedule, 'callback':() => _goToTimeTablePage()},
       {'title': 'Assignment', 'icon': Icons.assignment, 'callback': () {
         Navigator.push(
             context,

@@ -1,0 +1,221 @@
+{
+    "timetable": {
+      "Monday": [
+        {
+          "subject": "Computer Science",
+          "time": "08:15am - 09:00am",
+          "teacher": "Lebron James",
+          "period": "Period 1"
+        },
+        {
+          "subject": "Mathematics",
+          "time": "09:00am - 09:45am",
+          "teacher": "Rivka Steadman",
+          "period": "Period 2"
+        },
+        {
+          "subject": "English",
+          "time": "09:45am - 11:30am",
+          "teacher": "Alyx Star",
+          "period": "Period 3"
+        },
+        {
+          "subject": "Lunch",
+          "time": "11:30am - 01:00pm"
+        },
+        {
+          "subject": "Japanese",
+          "time": "01:00pm - 2:00pm",
+          "teacher": "Rara Anzai",
+          "period": "Period 4"
+        },
+        {
+          "subject": "History",
+          "time": "02:00pm - 3:00pm",
+          "teacher": "Kuya Kim",
+          "period": "Period 5"
+        }
+      ],
+      "Tuesday": [
+        {
+          "subject": "History",
+          "time": "08:15pm - 9:00am",
+          "teacher": "Kuya Kim",
+          "period": "Period 5"
+        },
+        {
+          "subject": "Physics",
+          "time": "09:00am - 09:45am",
+          "teacher": "Jane Smith",
+          "period": "Period 2"
+        },
+        {
+          "subject": "English",
+          "time": "09:45am - 11:30am",
+          "teacher": "Alyx Star",
+          "period": "Period 3"
+        },
+        {
+          "subject": "Lunch",
+          "time": "11:30am - 01:00pm"
+        },
+        {
+          "subject": "Japanese",
+          "time": "01:00pm - 2:00pm",
+          "teacher": "Rara Anzai",
+          "period": "Period 4"
+        },
+        {
+          "subject": "History",
+          "time": "02:00pm - 3:00pm",
+          "teacher": "Kim Kardashian",
+          "period": "Period 5"
+        }
+      ],
+      "Wednesday": [
+        {
+          "subject": "Chemistry",
+          "time": "08:15am - 09:00am",
+          "teacher": "Albert Johnson",
+          "period": "Period 1"
+        },
+        {
+          "subject": "History",
+          "time": "09:00am - 09:45am",
+          "teacher": "Emma Stone",
+          "period": "Period 2"
+        },
+        {
+          "subject": "English",
+          "time": "09:45am - 11:30am",
+          "teacher": "Alyx Star",
+          "period": "Period 3"
+        },
+        {
+          "subject": "Lunch",
+          "time": "11:30am - 01:00pm"
+        },
+        {
+          "subject": "Japanese",
+          "time": "01:00pm - 2:00pm",
+          "teacher": "Rara Anzai",
+          "period": "Period 4"
+        },
+        {
+          "subject": "History",
+          "time": "02:00pm - 3:00pm",
+          "teacher": "Kuya Kim",
+          "period": "Period 5"
+        }
+      ],
+      "Thursday": [
+        {
+          "subject": "Biology",
+          "time": "08:15am - 09:00am",
+          "teacher": "David Williams",
+          "period": "Period 1"
+        },
+        {
+          "subject": "Geography",
+          "time": "09:00am - 09:45am",
+          "teacher": "Sophia Martinez",
+          "period": "Period 2"
+        },
+        {
+          "subject": "English",
+          "time": "09:45am - 11:30am",
+          "teacher": "Alyx Star",
+          "period": "Period 3"
+        },
+        {
+          "subject": "Lunch",
+          "time": "11:30am - 01:00pm"
+        },
+        {
+          "subject": "Japanese",
+          "time": "01:00pm - 2:00pm",
+          "teacher": "Rara Anzai",
+          "period": "Period 4"
+        },
+        {
+          "subject": "History",
+          "time": "02:00pm - 3:00pm",
+          "teacher": "Kuya Kim",
+          "period": "Period 5"
+        }
+      ],
+      "Friday": [
+        {
+          "subject": "Physical Education",
+          "time": "08:15am - 09:00am",
+          "teacher": "Chris Hemsworth",
+          "period": "Period 1"
+        },
+        {
+          "subject": "Art",
+          "time": "09:00am - 09:45am",
+          "teacher": "Jessica Brown",
+          "period": "Period 2"
+        },
+        {
+          "subject": "English",
+          "time": "09:45am - 11:30am",
+          "teacher": "Alyx Star",
+          "period": "Period 3"
+        },
+        {
+          "subject": "Lunch",
+          "time": "11:30am - 01:00pm"
+        },
+        {
+          "subject": "Japanese",
+          "time": "01:00pm - 2:00pm",
+          "teacher": "Rara Anzai",
+          "period": "Period 4"
+        },
+        {
+          "subject": "History",
+          "time": "02:00pm - 3:00pm",
+          "teacher": "Kuya Kim",
+          "period": "Period 5"
+        }
+      ],
+      "Saturday": [
+        {
+          "subject": "Physical Education",
+          "time": "08:15am - 09:00am",
+          "teacher": "Chris Evans",
+          "period": "Period 1"
+        },
+        {
+          "subject": "Art",
+          "time": "09:00am - 09:45am",
+          "teacher": "Jessica Brown",
+          "period": "Period 2"
+        },
+        {
+          "subject": "English",
+          "time": "09:45am - 11:30am",
+          "teacher": "Alyx Star",
+          "period": "Period 3"
+        },
+        {
+          "subject": "Lunch",
+          "time": "11:30am - 01:00pm"
+        },
+        {
+          "subject": "Japanese",
+          "time": "01:00pm - 2:00pm",
+          "teacher": "Rara Anzai",
+          "period": "Period 4"
+        },
+        {
+          "subject": "History",
+          "time": "02:00pm - 3:00pm",
+          "teacher": "Kuya Kim",
+          "period": "Period 5"
+        }
+      ]
+    }
+  }
+  
