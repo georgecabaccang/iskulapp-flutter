@@ -3,7 +3,11 @@ import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/theme/text_styles.dart';
 
 class NavigationCard extends StatelessWidget {
-  const NavigationCard({super.key, required this.title, required this.icon, required this.callback});
+  const NavigationCard(
+      {super.key,
+      required this.title,
+      required this.icon,
+      required this.callback});
 
   final String title;
   final IconData icon;
@@ -28,11 +32,11 @@ class NavigationCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-               Icon(
-                icon,
-                size: iconSize,
-                color: const Color(0xFF6184C7),
-              ),
+            Icon(
+              icon,
+              size: iconSize,
+              color: const Color(0xFF6184C7),
+            ),
             const SizedBox(height: 24.0),
             Text(title, style: bodyStyle().copyWith(fontSize: textSize)),
           ],
