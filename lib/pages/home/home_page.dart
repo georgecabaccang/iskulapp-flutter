@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/features/auth/bloc/auth_bloc_barrel.dart';
 import 'package:school_erp/features/auth/auth_repository/auth_repository.dart';
+import 'package:school_erp/pages/EnterExitRoute.dart';
 import 'package:school_erp/pages/assignment/assignment_list_page/assignment_list_page.dart';
 import 'package:school_erp/pages/calendar/modified_attendance.dart';
 import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overlay.dart';
@@ -91,9 +92,7 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (_) => const ProfilePage(),
-                    ),
+                    EnterExitRoute(exitPage: context.widget, enterPage: const ProfilePage())
                   );
                 },
                 child: CircleAvatar(
@@ -160,14 +159,7 @@ class _HomePageState extends State<HomePage> {
         'value': 'TOP 2',
         'icon': Icons.school,
         'color': AppColors.warningColor,
-        'onTap': () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => CalendarAttendancePage(focusDate: DateTime.now()),
-            ),
-          );
-        },
+        'onTap': () => print('Tapped top 2'),
       },
       {
         'title': 'Merit POints',
@@ -262,13 +254,17 @@ class _HomePageState extends State<HomePage> {
       {'title': 'Play Quiz', 'icon': Icons.quiz, 'callback': () => ()},
       {'title': 'Assignment', 'icon': Icons.assignment, 'callback': () {
         Navigator.push(
+            context,
+            EnterExitRoute(exitPage: context.widget, enterPage: const AssignmentListPage())
+        );
+      }},
+      {'title': 'Attendance', 'icon': Icons.calendar_today, 'callback': () {
+        Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (_) => const AssignmentListPage(),
+          EnterExitRoute(exitPage: context.widget, enterPage: CalendarAttendancePage(focusDate: DateTime.now())
           ),
         );
       }},
-      {'title': 'School Holiday', 'icon': Icons.calendar_today, 'callback': () => ()},
       {'title': 'Time Table', 'icon': Icons.schedule, 'callback': () => ()},
       {'title': 'Result', 'icon': Icons.grade, 'callback': () => ()},
       {'title': 'Date Sheet', 'icon': Icons.date_range, 'callback': () => ()},
@@ -277,11 +273,10 @@ class _HomePageState extends State<HomePage> {
       {'title': 'Leave Application', 'icon': Icons.request_page, 'callback': () => ()},
       {'title': 'Change Password', 'icon': Icons.lock, 'callback': () => ()},
       {'title': 'Events', 'icon': Icons.event, 'callback': () {
+
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (_) => const EventsPage(),
-          ),
+          EnterExitRoute(exitPage: context.widget, enterPage: const EventsPage())
         );
       }},
       {'title': 'Logout', 'icon': Icons.logout, 'callback': () => context.read<AuthBloc>().add(LogoutRequested())},
