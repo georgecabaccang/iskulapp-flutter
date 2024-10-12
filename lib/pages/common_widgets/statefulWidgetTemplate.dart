@@ -16,7 +16,7 @@ class _StatefulWidgetTemplateState extends State<StatefulWidgetTemplate> {
   @override
   Widget build(BuildContext context) {
     return const DefaultLayout(title: 'POGI SI EARL', content: [
-      Center(child: Text('Mas pogi si Fred')), // Placeholder for content/ Placeholder for content
+      Center(child: Text('Mas pogi si Fred')),
     ]);
   }
 }
