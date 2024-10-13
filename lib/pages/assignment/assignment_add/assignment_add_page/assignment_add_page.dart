@@ -22,7 +22,7 @@ class _AssignmentAddPageState extends State<AssignmentAddPage> {
       backgroundColor: AppColors.primaryColor,
       body: Column(
         children: [
-          CustomAppBar(
+          const CustomAppBar(
             title: 'Assignment Add ',
           ),
           AppContent(
