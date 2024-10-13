@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/profile/formText.dart';
 import 'package:school_erp/theme/colors.dart';
+import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
+import 'package:school_erp/pages/common_widgets/app_content.dart';
 
 class FormTextData {
   final String label;
@@ -17,16 +19,6 @@ class MyIcons {
       IconData(0xef1e, fontFamily: 'MaterialIcons');
 }
 
-class AnimationState {
-  bool animate = false;
-  bool isBackNavigation = false;
-
-  AnimationState({
-    this.animate = false,
-    this.isBackNavigation = false,
-  });
-}
-
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -35,151 +27,56 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late AnimationState animationState;
-
-  @override
-  void initState() {
-    super.initState();
-    animationState = AnimationState();
-    _startAnimation();
-  }
-
-  void _startAnimation() {
-    Future.delayed(const Duration(milliseconds: 300), () {
-      setState(() {
-        animationState.animate = true;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      body: Stack(
+      body: Column(
         children: [
-          // Blue background color
-          Container(
-            color: AppColors.primaryColor,
-          ),
-          // Animated white box
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 1000),
-            curve: Curves.easeInOut,
-            top: animationState.isBackNavigation
-                ? 420.5
-                : (animationState.animate ? 100.0 : 380.0),
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: AppColors.whiteColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
+          CustomAppBar(
+            title: 'My Profile',
+            trailingWidget: TextButton.icon(
+              onPressed: () {
+                print('Done button pressed');
+              },
+              icon: const Icon(
+                Icons.check,
+                color: AppColors.primaryColor,
+              ),
+              label: const Text(
+                'Done',
+                style: TextStyle(
+                  color: AppColors.primaryColor,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    AnimatedOpacity(
-                      opacity: animationState.isBackNavigation
-                          ? 0.0
-                          : (animationState.animate ? 1.0 : 0.0),
-                      duration: const Duration(milliseconds: 500),
-                      child: profileCard(),
-                    ),
-                    AnimatedOpacity(
-                      opacity: animationState.isBackNavigation
-                          ? 0.0
-                          : (animationState.animate ? 1.0 : 0.0),
-                      duration: const Duration(milliseconds: 500),
-                      child: profileForm(),
-                    ),
-                  ],
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               ),
             ),
           ),
-          // Fading AppBar
-          _buildFadingAppBar(context),
+          AppContent(
+            content: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  profileCard(),
+                  SingleChildScrollView(child: profileForm())
+                ],
+              )
+            ],
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildFadingAppBar(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 0.0),
-        child: Column(
-          children: [
-            AnimatedOpacity(
-              duration: const Duration(milliseconds: 500),
-              opacity: animationState.isBackNavigation
-                  ? 0.0
-                  : (animationState.animate ? 1.0 : 0.0),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: AppColors.whiteColor),
-                    onPressed: () {
-                      setState(() {
-                        animationState.isBackNavigation = true;
-                      });
-                      Future.delayed(const Duration(milliseconds: 800), () {
-                        Navigator.pop(context);
-                      });
-                    },
-                  ),
-                  const Spacer(),
-                  const Text(
-                    "My Profile",
-                    style: TextStyle(
-                      color: AppColors.whiteColor,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Spacer(flex: 2),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: TextButton.icon(
-                      onPressed: () {
-                        print('Done button pressed');
-                      },
-                      icon: const Icon(
-                        Icons.check,
-                        color: AppColors.primaryColor,
-                      ),
-                      label: const Text(
-                        'Done',
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 8.0),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   Widget profileCard() {
     return Row(
@@ -191,7 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 100.0,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
-                border: Border.all(color:AppColors.primaryColor, width: 2.0),
+                border: Border.all(color: AppColors.primaryColor, width: 2.0),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
