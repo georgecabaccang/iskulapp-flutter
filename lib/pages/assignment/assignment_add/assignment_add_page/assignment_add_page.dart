@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'widgets/add_assignment_form.dart';
+import 'package:school_erp/pages/EnterExitRoute.dart';
+import 'package:school_erp/pages/common_widgets/app_content.dart';
+import 'package:school_erp/pages/assignment/assignment_add/assignment_setup_page/question_setup_page.dart';
 import 'package:school_erp/theme/colors.dart';
+
 class AssignmentAddPage extends StatefulWidget {
   const AssignmentAddPage({super.key});
 
@@ -10,46 +14,39 @@ class AssignmentAddPage extends StatefulWidget {
 }
 
 class _AssignmentAddPageState extends State<AssignmentAddPage> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        color: AppColors.primaryColor,
-        child: Column(
-          children: [
-            const CustomAppBar(title: 'Add Assignment'),
-            Expanded(
-              // This ensures the Container occupies all available space
-              child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: AppColors.whiteColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+      backgroundColor: AppColors.primaryColor,
+      body: Column(
+        children: [
+          CustomAppBar(
+            title: 'Assignment Add ',
+          ),
+          AppContent(
+            content: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
                     const AddAssignmentForm(),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height *
-                          0.12, // Adjust height as needed
-                      width: double.infinity,
-                      child: Image.asset(
-                        'assets/images/AddAssignmentImage.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ],
+              SizedBox(
+                height: MediaQuery.of(context).size.height *
+                    0.12, 
+                width: double.infinity,
+                child: Image.asset(
+                  'assets/images/AddAssignmentImage.png',
+                  fit: BoxFit.cover,
                 ),
               ),
-            ),
-          ],
-        ),
+                ],
+              )
+            
+            ],
+          ),
+        ],
       ),
     );
   }

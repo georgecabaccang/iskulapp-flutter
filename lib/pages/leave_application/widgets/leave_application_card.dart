@@ -62,7 +62,7 @@ class LeaveApplicationCard extends StatelessWidget {
                 minimumSize: const Size(double.infinity, 50),
               ),
               onPressed: () {
-                // Submit leave application logic here
+                print("Leave application sent"); 
               },
               child: Text(
                 'SEND REQUEST',

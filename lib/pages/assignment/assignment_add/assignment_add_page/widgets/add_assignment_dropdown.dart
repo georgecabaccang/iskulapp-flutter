@@ -16,29 +16,31 @@ class AddAssignmentDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField<String>(
-      value: value,
-      decoration: InputDecoration(
-        hintText: hint,
-        border: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
-        ),
-      ),
-      items: items.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(
-            value,
-            style: TextStyle(
-              fontWeight:
-                  value == this.value ? FontWeight.bold : FontWeight.normal,
-            ),
+    return Material(
+      child: DropdownButtonFormField<String>(
+        value: value,
+        decoration: InputDecoration(
+          hintText: hint,
+          border: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey),
           ),
-        );
-      }).toList(),
-      onChanged: onChanged,
-      isExpanded: true, // Makes the dropdown take the full width
-      icon: const Icon(Icons.keyboard_arrow_down_sharp, color: Colors.grey),
+        ),
+        items: items.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(
+              value,
+              style: TextStyle(
+                fontWeight:
+                    value == this.value ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          );
+        }).toList(),
+        onChanged: onChanged,
+        isExpanded: true, // Makes the dropdown take the full width
+        icon: const Icon(Icons.keyboard_arrow_down_sharp, color: Colors.grey),
+      ),
     );
   }
 }

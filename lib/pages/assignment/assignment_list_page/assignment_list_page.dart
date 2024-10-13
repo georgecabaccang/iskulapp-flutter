@@ -4,6 +4,7 @@ import 'widgets/assignment_card.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/pages/common_widgets/app_content.dart';
+import 'package:school_erp/pages/EnterExitRoute.dart';
 
 class AssignmentListPage extends StatefulWidget {
   const AssignmentListPage({super.key});
@@ -23,11 +24,10 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
             title: 'Assignment List',
             trailingWidget: IconButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const AssignmentAddPage()),
-                );
+               Navigator.push(
+                context,
+                EnterExitRoute(exitPage: context.widget, enterPage: const AssignmentAddPage())
+        );
               },
               icon: const Icon(
                 IconData(0xe74a, fontFamily: 'MaterialIcons'),

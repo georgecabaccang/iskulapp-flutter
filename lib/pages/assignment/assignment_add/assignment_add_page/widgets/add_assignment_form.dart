@@ -2,9 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:school_erp/pages/assignment/assignment_add/assignment_setup_page/question_setup_page.dart';
-import 'package:school_erp/pages/common_widgets/animation_widgets/fade_page_transition.dart';
 import 'package:school_erp/theme/colors.dart';
-
+import 'package:school_erp/pages/EnterExitRoute.dart';
 
 enum AssignmentType {
   online,
@@ -61,12 +60,9 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
 
   void _validateAndSubmit() {
     if (_formKey.currentState!.validate()) {
-      Navigator.push(
-        context,
-        FadePageRoute(
-          page: const QuestionSetupPage(),
-        ),
-      );
+    Navigator.push(
+                context,
+                EnterExitRoute(exitPage: context.widget, enterPage: const QuestionSetupPage()));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please fix the errors in red')),
