@@ -16,12 +16,6 @@ class QuestionSetupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Add Assignment",
-        onBackPressed: () {
-          Navigator.pop(context);
-        },
-      ),
       body: const Material(
         color: AppColors.primaryColor,
         child: SafeArea(

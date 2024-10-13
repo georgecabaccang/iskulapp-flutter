@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/pages/common_widgets/default_layout.dart';
 import 'package:table_calendar/table_calendar.dart';
 import './widgets/attendance_title.dart';
-import 'package:intl/intl.dart'; // Import for date formatting
+import 'package:intl/intl.dart';
 import 'package:school_erp/theme/colors.dart';
 
 class CalendarAttendancePage extends StatefulWidget {
@@ -14,21 +15,7 @@ class CalendarAttendancePage extends StatefulWidget {
   _CalendarAttendancePageState createState() => _CalendarAttendancePageState();
 }
 
-class AnimationState {
-  bool animate;
-  bool isAttendanceSelected;
-  bool isBackNavigation;
-
-  AnimationState({
-    this.animate = false,
-    this.isAttendanceSelected = true,
-    this.isBackNavigation = false,
-  });
-}
-
 class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
-  late AnimationState animationState;
-  late CalendarFormat _calendarFormat;
   late DateTime _selectedDay;
   late DateTime _focusedDay;
   String _selectedFilter = 'All';
@@ -38,20 +25,9 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
   @override
   void initState() {
     super.initState();
-    animationState = AnimationState();
-    _calendarFormat = CalendarFormat.month;
     _selectedDay = DateTime.now();
     _focusedDay = widget.focusDate;
     _daysInMonth = _getDaysInMonth(_focusedDay);
-    _startAnimation();
-  }
-
-  void _startAnimation() {
-    Future.delayed(const Duration(milliseconds: 300), () {
-      setState(() {
-        animationState.animate = true;
-      });
-    });
   }
 
   void _onMonthChanged(DateTime focusedDay) {
@@ -62,7 +38,6 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
   }
 
   List<DateTime> _getDaysInMonth(DateTime date) {
-    DateTime firstDayOfMonth = DateTime(date.year, date.month, 1);
     DateTime lastDayOfMonth = DateTime(date.year, date.month + 1, 0);
     return List<DateTime>.generate(
       lastDayOfMonth.day,
@@ -79,222 +54,55 @@ class _CalendarAttendancePageState extends State<CalendarAttendancePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            color:AppColors.primaryColor,
-          ),
-          AnimatedWhiteBox(
-            animationState: animationState,
-            bucket: _bucket,
-            focusedDay: _focusedDay,
-            selectedDay: _selectedDay,
-            calendarFormat: _calendarFormat,
-            onDaySelected: _handleDaySelected,
-            onFormatChanged: (format) {
-              setState(() {
-                _calendarFormat = format;
-              });
-            },
-            onPageChanged: (focusedDay) {
-              _onMonthChanged(focusedDay);
-            },
-            daysInMonth: _daysInMonth,
-            selectedFilter: _selectedFilter, // Pass the selected filter
-            onFilterChanged: (newValue) {
-              setState(() {
-                _selectedFilter = newValue!;
-              });
-            },
-          ),
-          FadingAppBar(
-            animationState: animationState,
-            onBackPressed: () {
-              setState(() {
-                animationState.isBackNavigation = true;
-              });
-              Future.delayed(const Duration(milliseconds: 800), () {
-                Navigator.pop(context);
-              });
-            },
-            selectedFilter: _selectedFilter,
-            onFilterChanged: (newValue) {
-              setState(() {
-                _selectedFilter = newValue!;
-              });
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AnimatedWhiteBox extends StatelessWidget {
-  final AnimationState animationState;
-  final PageStorageBucket bucket;
-  final DateTime focusedDay;
-  final DateTime selectedDay;
-  final CalendarFormat calendarFormat;
-  final void Function(DateTime, DateTime) onDaySelected;
-  final ValueChanged<CalendarFormat> onFormatChanged;
-  final ValueChanged<DateTime> onPageChanged;
-  final List<DateTime> daysInMonth;
-  final String selectedFilter;
-  final ValueChanged<String?> onFilterChanged;
-
-  const AnimatedWhiteBox({
-    super.key,
-    required this.animationState,
-    required this.bucket,
-    required this.focusedDay,
-    required this.selectedDay,
-    required this.calendarFormat,
-    required this.onDaySelected,
-    required this.onFormatChanged,
-    required this.onPageChanged,
-    required this.daysInMonth,
-    required this.selectedFilter,
-    required this.onFilterChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedPositioned(
-      duration: const Duration(milliseconds: 1000),
-      curve: Curves.easeInOut,
-      top: animationState.isBackNavigation
-          ? 420.5
-          : (animationState.animate ? 100.0 : 380.0),
-      left: 0,
-      right: 0,
-      bottom: 0,
-      child: PageStorage(
-        bucket: bucket,
-        key: const PageStorageKey<String>('calendarAttendancePage'),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              topRight: Radius.circular(30.0),
-            ),
-          ),
-          child: Column(
+    return DefaultLayout(
+      title: 'Calendar',
+      content: [
+        CalendarWidget(
+          focusedDay: _focusedDay,
+          selectedDay: _selectedDay,
+          onDaySelected: _handleDaySelected,
+          onPageChanged: (focusedDay) {
+            _onMonthChanged(focusedDay);
+          },
+        ),
+        const SizedBox(height: 20.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: AnimatedOpacity(
-                  opacity: animationState.isBackNavigation
-                      ? 0.0
-                      : (animationState.animate ? 1.0 : 0.0),
-                  duration: const Duration(milliseconds: 500),
-                  child: Column(
-                    children: [
-                      CalendarWidget(
-                        focusedDay: focusedDay,
-                        selectedDay: selectedDay,
-                        calendarFormat: calendarFormat,
-                        onDaySelected: onDaySelected,
-                        onFormatChanged: onFormatChanged,
-                        onPageChanged: onPageChanged,
-                      ),
-                      const SizedBox(height: 20.0),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(left: 0),
-                              child: AttendanceTitle(),
-                            ),
-                            DropdownFilter(
-                              selectedFilter: selectedFilter,
-                              onChanged: onFilterChanged,
-                            ),
-                          ],
-                        ),
-                      ),
-                      AttendanceList(daysInMonth: daysInMonth),
-                    ],
-                  ),
-                ),
+              const Padding(
+                padding: EdgeInsets.only(left: 0),
+                child: AttendanceTitle(),
+              ),
+              DropdownFilter(
+                selectedFilter: _selectedFilter,
+                onChanged: (newValue) {
+                  setState(() {
+                    _selectedFilter = newValue!;
+                  });
+                },
               ),
             ],
           ),
         ),
-      ),
-    );
+        AttendanceList(daysInMonth: _daysInMonth),
+      ]);
   }
 }
 
-class FadingAppBar extends StatelessWidget {
-  final AnimationState animationState;
-  final VoidCallback onBackPressed;
-  final String selectedFilter;
-  final ValueChanged<String?> onFilterChanged;
-
-  const FadingAppBar({
-    super.key,
-    required this.animationState,
-    required this.onBackPressed,
-    required this.selectedFilter,
-    required this.onFilterChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 0.0),
-        child: Column(
-          children: [
-            AnimatedOpacity(
-              duration: const Duration(milliseconds: 500),
-              opacity: animationState.isBackNavigation
-                  ? 0.0
-                  : (animationState.animate ? 1.0 : 0.0),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: onBackPressed,
-                  ),
-                  const Spacer(),
-                  AnimatedOpacity(
-                    duration: const Duration(milliseconds: 500),
-                    opacity: animationState.isBackNavigation
-                        ? 0.0
-                        : (animationState.animate ? 1.0 : 0.0),
-                    child: const AttendanceButton(),
-                  ),
-                  const Spacer(flex: 2),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class CalendarWidget extends StatelessWidget {
   final DateTime focusedDay;
   final DateTime selectedDay;
-  final CalendarFormat calendarFormat;
   final void Function(DateTime, DateTime) onDaySelected;
-  final ValueChanged<CalendarFormat> onFormatChanged;
   final ValueChanged<DateTime> onPageChanged;
 
   const CalendarWidget({
     super.key,
     required this.focusedDay,
     required this.selectedDay,
-    required this.calendarFormat,
     required this.onDaySelected,
-    required this.onFormatChanged,
     required this.onPageChanged,
   });
 
@@ -304,17 +112,19 @@ class CalendarWidget extends StatelessWidget {
       focusedDay: focusedDay,
       firstDay: DateTime.utc(2020, 1, 1),
       lastDay: DateTime.utc(2123, 12, 31),
-      calendarFormat: calendarFormat,
       selectedDayPredicate: (day) => isSameDay(selectedDay, day),
       onDaySelected: (selectedDay, focusedDay) {
         onDaySelected(selectedDay, focusedDay);
       },
-      onFormatChanged: (format) {
-        onFormatChanged(format);
-      },
+      headerStyle: const HeaderStyle(
+        titleCentered: true
+      ),
       onPageChanged: (focusedDay) {
         onPageChanged(focusedDay);
       },
+      availableCalendarFormats:  const {
+         CalendarFormat.month: 'Month',
+      }
     );
   }
 }
@@ -362,28 +172,6 @@ class DropdownFilter extends StatelessWidget {
           const SizedBox(width: 8),
           Text(label),
         ],
-      ),
-    );
-  }
-}
-
-class AttendanceButton extends StatelessWidget {
-  const AttendanceButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30.0),
-      ),
-      child: const Text(
-        "ATTENDANCE",
-        style: TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
       ),
     );
   }

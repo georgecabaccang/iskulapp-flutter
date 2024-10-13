@@ -38,11 +38,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Change Password",
-        fadeAnimation: animationManager.fadeAnimation,
-        onBackPressed: _handleBackPress,
-      ),
       body: Stack(
         children: [
           Container(color: AppColors.primaryColor),

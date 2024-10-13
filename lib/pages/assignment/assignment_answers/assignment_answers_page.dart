@@ -95,15 +95,15 @@ class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "${widget.student.name} Assignment Answers",
-        onBackPressed: () => _handleBackPress(context),
-        titleStyle: const TextStyle(color: Colors.white, fontSize: 18.0),
-        trailingWidget: Text(
-          'Section 1',
-          style: bodyStyle().copyWith(color: Colors.white, fontSize: 16),
-        ),
-      ),
+      // appBar: CustomAppBar(
+      //   title: "${widget.student.name} Assignment Answers",
+      //   onBackPressed: () => _handleBackPress(context),
+      //   titleStyle: const TextStyle(color: Colors.white, fontSize: 18.0),
+      //   trailingWidget: Text(
+      //     'Section 1',
+      //     style: bodyStyle().copyWith(color: Colors.white, fontSize: 16),
+      //   ),
+      // ),
       body: Stack(
         children: [
           Container(color: AppColors.primaryColor),

@@ -4,7 +4,7 @@ import 'package:school_erp/features/auth/bloc/auth_bloc_barrel.dart';
 import 'package:school_erp/features/auth/auth_repository/auth_repository.dart';
 import 'package:school_erp/pages/EnterExitRoute.dart';
 import 'package:school_erp/pages/assignment/assignment_list_page/assignment_list_page.dart';
-import 'package:school_erp/pages/calendar/modified_attendance.dart';
+import 'package:school_erp/pages/calendar/calendar_attendance_page.dart';
 import 'package:school_erp/pages/change_password/change_password_page.dart';
 import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overlay.dart';
 import 'package:school_erp/pages/events/events_page.dart';
@@ -27,6 +27,71 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  Widget gridSection(BuildContext context) {
+    final List<Map<String, dynamic>> items = [
+      {'title': 'Play Quiz', 'icon': Icons.quiz, 'callback': () => ()},
+      {'title': 'Assignment', 'icon': Icons.assignment, 'callback': () {
+        Navigator.push(
+            context,
+            EnterExitRoute(exitPage: context.widget, enterPage: const AssignmentListPage())
+        );
+      }},
+      {'title': 'Calendar', 'icon': Icons.calendar_today, 'callback': () {
+        Navigator.push(
+          context,
+          EnterExitRoute(exitPage: context.widget, enterPage: CalendarAttendancePage(focusDate: DateTime.now())
+          ),
+        );
+      }},
+      {'title': 'Time Table', 'icon': Icons.schedule, 'callback': () {
+        Navigator.push(
+            context,
+            EnterExitRoute(exitPage: context.widget, enterPage: const TimeTablePage())
+        );
+      }},
+      {'title': 'Doubts', 'icon': Icons.help_outline, 'callback': () => ()},
+      {'title': 'School Gallery', 'icon': Icons.photo_album, 'callback': () => ()},
+      {'title': 'Leave Application', 'icon': Icons.request_page, 'callback': () {
+        Navigator.push(
+            context,
+            EnterExitRoute(exitPage: context.widget, enterPage: const LeaveApplicationPage())
+        );
+      }},
+      {'title': 'Change Password', 'icon': Icons.lock, 'callback': () {
+        Navigator.push(
+            context,
+            EnterExitRoute(exitPage: context.widget, enterPage: const ChangePasswordPage())
+        );
+      }},
+      {'title': 'Events', 'icon': Icons.event, 'callback': () {
+        Navigator.push(
+            context,
+            EnterExitRoute(exitPage: context.widget, enterPage: const EventsPage())
+        );
+      }},
+      {'title': 'Logout', 'icon': Icons.logout, 'callback': () => context.read<AuthBloc>().add(LogoutRequested())},
+    ];
+
+
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 16.0,
+        mainAxisSpacing: 16.0,
+        childAspectRatio: 1.2,
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30.0),
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        return NavigationCard(
+          title: items[index]['title'],
+          icon: items[index]['icon'],
+          callback: items[index]['callback'],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +120,8 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildMainContent() {
     return Container(
-      margin: const EdgeInsets.only(top: 350 ),
-      padding: const EdgeInsets.only(top: 130 ),
+      margin: const EdgeInsets.only(top: 350),
+      padding: const EdgeInsets.only(top: 130),
       decoration: const BoxDecoration(
         color: AppColors.whiteColor,
         borderRadius: BorderRadius.only(
@@ -273,68 +338,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget gridSection(BuildContext context) {
-    final List<Map<String, dynamic>> items = [
-      {'title': 'Play Quiz', 'icon': Icons.quiz, 'callback': () => ()},
-      {'title': 'Assignment', 'icon': Icons.assignment, 'callback': () {
-        Navigator.push(
-            context,
-            EnterExitRoute(exitPage: context.widget, enterPage: const AssignmentListPage())
-        );
-      }},
-      {'title': 'Attendance', 'icon': Icons.calendar_today, 'callback': () {
-        Navigator.push(
-          context,
-          EnterExitRoute(exitPage: context.widget, enterPage: CalendarAttendancePage(focusDate: DateTime.now())
-          ),
-        );
-      }},
-      {'title': 'Time Table', 'icon': Icons.schedule, 'callback': () {
-        Navigator.push(
-            context,
-            EnterExitRoute(exitPage: context.widget, enterPage: const TimeTablePage())
-        );
-      }},
-      {'title': 'Doubts', 'icon': Icons.help_outline, 'callback': () => ()},
-      {'title': 'School Gallery', 'icon': Icons.photo_album, 'callback': () => ()},
-      {'title': 'Leave Application', 'icon': Icons.request_page, 'callback': () {
-        Navigator.push(
-            context,
-            EnterExitRoute(exitPage: context.widget, enterPage: const LeaveApplicationPage())
-        );
-      }},
-      {'title': 'Change Password', 'icon': Icons.lock, 'callback': () {
-        Navigator.push(
-            context,
-            EnterExitRoute(exitPage: context.widget, enterPage: const ChangePasswordPage())
-        );
-      }},
-      {'title': 'Events', 'icon': Icons.event, 'callback': () {
-        Navigator.push(
-          context,
-          EnterExitRoute(exitPage: context.widget, enterPage: const EventsPage())
-        );
-      }},
-      {'title': 'Logout', 'icon': Icons.logout, 'callback': () => context.read<AuthBloc>().add(LogoutRequested())},
-    ];
-
-
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 16.0,
-        mainAxisSpacing: 16.0,
-        childAspectRatio: 1.2,
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30.0),
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        return NavigationCard(
-          title: items[index]['title'],
-          icon: items[index]['icon'],
-          callback: items[index]['callback'],
-        );
-      },
-    );
-  }
 }

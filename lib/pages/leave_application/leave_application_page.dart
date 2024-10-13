@@ -38,11 +38,6 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Leave Application",
-        fadeAnimation: animationManager.fadeAnimation,
-        onBackPressed: _handleBackPress,
-      ),
       body: Stack(
         children: [
           Container(color: AppColors.primaryColor),
