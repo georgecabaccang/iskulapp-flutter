@@ -5,7 +5,6 @@ import 'package:school_erp/theme/colors.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
-import 'package:school_erp/pages/assignment/widgets/assignment_animation_manager.dart';
 import 'package:school_erp/pages/timetable/widget/timetable_card.dart';
 
 class TimeTablePage extends StatefulWidget {
@@ -16,22 +15,16 @@ class TimeTablePage extends StatefulWidget {
 }
 
 class _TimeTablePageState extends State<TimeTablePage> with TickerProviderStateMixin {
-  late AssignmentAnimationManager animationManager;
   late TabController _tabController;
   Map<String, dynamic>? timetableData;
 
   @override
   void initState() {
     super.initState();
-    animationManager = AssignmentAnimationManager(vsync: this);
     _tabController = TabController(length: 6, vsync: this);
-    _startAnimation();
     _loadTimetable();
   }
 
-  void _startAnimation() {
-    animationManager.startAnimation();
-  }
 
   Future<void> _loadTimetable() async {
     final String response = await rootBundle.loadString('assets/timetable.json');
