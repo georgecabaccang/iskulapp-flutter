@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:school_erp/pages/assignment/assignment_add/assignment_setup_page/question_setup_page.dart';
+import 'package:school_erp/pages/common_widgets/animation_widgets/fade_page_transition.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/pages/EnterExitRoute.dart';
+import 'package:school_erp/pages/assignment/assignment_add/assignment_add_page/assignment_add_page.dart';
 
 enum AssignmentType {
   online,
@@ -85,126 +87,128 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: SizedBox(
-        width: double.infinity,
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 5),
-              DropdownButtonFormField<String>(
-                value: selectedClassTitle,
-                items: classList.map((String classTitle) {
-                  return DropdownMenuItem<String>(
-                    value: classTitle,
-                    child: Text(classTitle),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    selectedClassTitle = newValue;
-                  });
-                },
-                decoration: const InputDecoration(
-                  labelText: 'Select Class',
-                  border: OutlineInputBorder(),
+      child: SingleChildScrollView(
+        child: SizedBox(
+          width: double.infinity,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 5),
+                DropdownButtonFormField<String>(
+                  value: selectedClassTitle,
+                  items: classList.map((String classTitle) {
+                    return DropdownMenuItem<String>(
+                      value: classTitle,
+                      child: Text(classTitle),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedClassTitle = newValue;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Select Class',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select a Class';
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please select a Class';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 25),
-              DropdownButtonFormField<String>(
-                value: selectedSubject,
-                items: subjectList.map((String subject) {
-                  return DropdownMenuItem<String>(
-                    value: subject,
-                    child: Text(subject),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    selectedSubject = newValue;
-                  });
-                },
-                decoration: const InputDecoration(
-                  labelText: 'Select Subject',
-                  border: OutlineInputBorder(),
+                const SizedBox(height: 25),
+                DropdownButtonFormField<String>(
+                  value: selectedSubject,
+                  items: subjectList.map((String subject) {
+                    return DropdownMenuItem<String>(
+                      value: subject,
+                      child: Text(subject),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedSubject = newValue;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Select Subject',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select a type';
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please select a type';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 25),
-              TextFormField(
-                maxLength: 30,
-                decoration: const InputDecoration(
-                  hintText: 'What should you call this assignment',
-                  labelText: 'Title',
+                const SizedBox(height: 25),
+                TextFormField(
+                  maxLength: 30,
+                  decoration: const InputDecoration(
+                    hintText: 'What should you call this assignment',
+                    labelText: 'Title',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Enter Title';
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Enter Title';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 25),
-              DropdownButtonFormField<AssignmentType>(
-                value: selectedType,
-                items: AssignmentType.values.map((AssignmentType type) {
-                  return DropdownMenuItem<AssignmentType>(
-                    value: type,
-                    child: Text(assignmentTypeToString(type)),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    selectedType = newValue;
-                  });
-                },
-                decoration: const InputDecoration(
-                  labelText: 'Select Type',
-                  border: OutlineInputBorder(),
+                const SizedBox(height: 25),
+                DropdownButtonFormField<AssignmentType>(
+                  value: selectedType,
+                  items: AssignmentType.values.map((AssignmentType type) {
+                    return DropdownMenuItem<AssignmentType>(
+                      value: type,
+                      child: Text(assignmentTypeToString(type)),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedType = newValue;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Select Type',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please select a type';
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please select a type';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 25),
-              _buildAssignmentTypeForm(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              ElevatedButton(
-                onPressed: _validateAndSubmit,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryColor,
-                  minimumSize: Size(double.infinity,
-                      MediaQuery.of(context).size.height * 0.08),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                const SizedBox(height: 25),
+                _buildAssignmentTypeForm(),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                ElevatedButton(
+                  onPressed: _validateAndSubmit,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryColor,
+                    minimumSize: Size(double.infinity,
+                        MediaQuery.of(context).size.height * 0.08),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  child: Text(
+                    selectedType == AssignmentType.inApp
+                        ? "Create Assignment"
+                        : "SEND",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: 2.0),
                   ),
                 ),
-                child: Text(
-                  selectedType == AssignmentType.inApp
-                      ? "Create Assignment"
-                      : "SEND",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: 2.0),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

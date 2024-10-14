@@ -18,7 +18,7 @@ class _AssignmentAddPageState extends State<AssignmentAddPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: Column(
         children: [
@@ -27,23 +27,7 @@ class _AssignmentAddPageState extends State<AssignmentAddPage> {
           ),
           AppContent(
             content: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                    const AddAssignmentForm(),
-              SizedBox(
-                height: MediaQuery.of(context).size.height *
-                    0.12, 
-                width: double.infinity,
-                child: Image.asset(
-                  'assets/images/AddAssignmentImage.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-                ],
-              )
-            
+              AddAssignmentForm()
             ],
           ),
         ],
