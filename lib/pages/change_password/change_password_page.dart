@@ -16,7 +16,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return const DefaultLayout(
-        title: "Add Assignment", content: [ChangePasswordCard()]);
+        title: "Change Password", content: [ChangePasswordCard()]);
   }
 }
 

@@ -3,8 +3,7 @@ import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/theme/text_styles.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
-import 'package:school_erp/pages/common_widgets/app_content.dart';
+import 'package:school_erp/pages/common_widgets/default_layout.dart';
 
 class EventsPage extends StatefulWidget {
   const EventsPage({super.key});
@@ -32,28 +31,16 @@ class _EventsPageState extends State<EventsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.primaryColor,
-      body: Column(
-        children: [
-          const CustomAppBar(
-            title: 'Events',
-          ),
-          AppContent(
-            content: [
-              Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.all(16.0),
-                  children: [
-                    ...events.map((event) => eventsCard(event)),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
+    return DefaultLayout(title: "Change Password", content: [
+      Expanded(
+        child: ListView(
+          padding: const EdgeInsets.all(16.0),
+          children: [
+            ...events.map((event) => eventsCard(event)),
+          ],
+        ),
       ),
-    );
+    ]);
   }
 
   Widget eventsCard(Map<String, dynamic> event) {
