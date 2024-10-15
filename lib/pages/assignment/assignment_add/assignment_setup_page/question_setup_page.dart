@@ -15,12 +15,14 @@ class QuestionSetupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Material(
-        color: AppColors.primaryColor,
-        child: SafeArea(
+    return const Scaffold(
+        backgroundColor: AppColors.primaryColor,
+        body: SafeArea(
           child: Column(
             children: [
+              CustomAppBar(
+            title: 'Assignment Set up',
+          ),
               Expanded(
                 child: RoundedContainer(
                   borderRadius: 30.0,
@@ -30,7 +32,6 @@ class QuestionSetupPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }
