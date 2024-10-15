@@ -14,30 +14,18 @@ class DefaultLayout extends StatefulWidget {
 }
 
 class _DefaultLayoutState extends State<DefaultLayout> {
-
-  late String _title;
-  late List<Widget> _content;
-
-  @override
-  void initState() {
-    super.initState();
-    _title = widget.title;
-    _content = widget.content;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: Column(
         children: [
-          CustomAppBar(title: _title),
+          CustomAppBar(title: widget.title),
           AppContent(
-            content: _content,
+            content: widget.content,
           ),
         ],
       ),
     );
   }
 }
-

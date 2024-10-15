@@ -31,7 +31,7 @@ class _EventsPageState extends State<EventsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultLayout(title: "Change Password", content: [
+    return DefaultLayout(title: "Events Page", content: [
       Expanded(
         child: ListView(
           padding: const EdgeInsets.all(16.0),
