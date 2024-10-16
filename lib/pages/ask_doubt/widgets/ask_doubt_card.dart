@@ -183,7 +183,7 @@ class _AskDoubtCardState extends State<AskDoubtCard> {
                 print("Doubt submitted");
               },
               child: Text(
-                'SUBMIT DOUBT',
+                'SEND',
                 style: buttonTextStyle().copyWith(color: Colors.white),
               ),
             ),
