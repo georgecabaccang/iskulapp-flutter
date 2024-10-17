@@ -11,6 +11,7 @@ import 'package:school_erp/pages/events/events_page.dart';
 import 'package:school_erp/pages/leave_application/leave_application_page.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
 import 'package:school_erp/pages/timetable/timetable_page.dart';
+import 'package:school_erp/pages/ask_doubt/ask_doubt_page.dart';
 import 'widgets/navigation_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_erp/theme/colors.dart';
@@ -27,52 +28,95 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   Widget gridSection(BuildContext context) {
     final List<Map<String, dynamic>> items = [
       {'title': 'Play Quiz', 'icon': Icons.quiz, 'callback': () => ()},
-      {'title': 'Assignment', 'icon': Icons.assignment, 'callback': () {
-        Navigator.push(
+      {
+        'title': 'Assignment',
+        'icon': Icons.assignment,
+        'callback': () {
+          Navigator.push(
+              context,
+              EnterExitRoute(
+                  exitPage: context.widget,
+                  enterPage: const AssignmentListPage()));
+        }
+      },
+      {
+        'title': 'Calendar',
+        'icon': Icons.calendar_today,
+        'callback': () {
+          Navigator.push(
             context,
-            EnterExitRoute(exitPage: context.widget, enterPage: const AssignmentListPage())
-        );
-      }},
-      {'title': 'Calendar', 'icon': Icons.calendar_today, 'callback': () {
-        Navigator.push(
-          context,
-          EnterExitRoute(exitPage: context.widget, enterPage: CalendarAttendancePage(focusDate: DateTime.now())
-          ),
-        );
-      }},
-      {'title': 'Time Table', 'icon': Icons.schedule, 'callback': () {
-        Navigator.push(
-            context,
-            EnterExitRoute(exitPage: context.widget, enterPage: const TimeTablePage())
-        );
-      }},
-      {'title': 'Doubts', 'icon': Icons.help_outline, 'callback': () => ()},
-      {'title': 'School Gallery', 'icon': Icons.photo_album, 'callback': () => ()},
-      {'title': 'Leave Application', 'icon': Icons.request_page, 'callback': () {
-        Navigator.push(
-            context,
-            EnterExitRoute(exitPage: context.widget, enterPage: const LeaveApplicationPage())
-        );
-      }},
-      {'title': 'Change Password', 'icon': Icons.lock, 'callback': () {
-        Navigator.push(
-            context,
-            EnterExitRoute(exitPage: context.widget, enterPage: const ChangePasswordPage())
-        );
-      }},
-      {'title': 'Events', 'icon': Icons.event, 'callback': () {
-        Navigator.push(
-            context,
-            EnterExitRoute(exitPage: context.widget, enterPage: const EventsPage())
-        );
-      }},
-      {'title': 'Logout', 'icon': Icons.logout, 'callback': () => context.read<AuthBloc>().add(LogoutRequested())},
+            EnterExitRoute(
+                exitPage: context.widget,
+                enterPage: CalendarAttendancePage(focusDate: DateTime.now())),
+          );
+        }
+      },
+      {
+        'title': 'Time Table',
+        'icon': Icons.schedule,
+        'callback': () {
+          Navigator.push(
+              context,
+              EnterExitRoute(
+                  exitPage: context.widget, enterPage: const TimeTablePage()));
+        }
+      },
+      {
+        'title': 'Doubts',
+        'icon': Icons.help_outline,
+        'callback': () {
+          Navigator.push(
+              context,
+              EnterExitRoute(
+                  exitPage: context.widget, enterPage: const AskDoubtPage()));
+        }
+      },
+      {
+        'title': 'School Gallery',
+        'icon': Icons.photo_album,
+        'callback': () => ()
+      },
+      {
+        'title': 'Leave Application',
+        'icon': Icons.request_page,
+        'callback': () {
+          Navigator.push(
+              context,
+              EnterExitRoute(
+                  exitPage: context.widget,
+                  enterPage: const LeaveApplicationPage()));
+        }
+      },
+      {
+        'title': 'Change Password',
+        'icon': Icons.lock,
+        'callback': () {
+          Navigator.push(
+              context,
+              EnterExitRoute(
+                  exitPage: context.widget,
+                  enterPage: const ChangePasswordPage()));
+        }
+      },
+      {
+        'title': 'Events',
+        'icon': Icons.event,
+        'callback': () {
+          Navigator.push(
+              context,
+              EnterExitRoute(
+                  exitPage: context.widget, enterPage: const EventsPage()));
+        }
+      },
+      {
+        'title': 'Logout',
+        'icon': Icons.logout,
+        'callback': () => context.read<AuthBloc>().add(LogoutRequested())
+      },
     ];
-
 
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -164,7 +208,8 @@ class _HomePageState extends State<HomePage> {
                   top: isSmallScreen ? 0.0 : 30.0,
                 ),
                 child: Align(
-                  alignment: isSmallScreen ? Alignment.topLeft : Alignment.bottomLeft,
+                  alignment:
+                      isSmallScreen ? Alignment.topLeft : Alignment.bottomLeft,
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -176,7 +221,9 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                     child: CircleAvatar(
-                      radius: isSmallScreen ? 40 : 50, // Adjust the radius for small screens
+                      radius: isSmallScreen
+                          ? 40
+                          : 50, // Adjust the radius for small screens
                       backgroundColor: Colors.grey[300],
                       child: Icon(
                         Icons.person,
@@ -194,7 +241,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   Widget _buildUserInfo(AuthenticatedUser user) {
     return Container(
       color: Colors.transparent,
@@ -205,7 +251,8 @@ class _HomePageState extends State<HomePage> {
         children: [
           Text(
             TextConstants.homePageMessage(user.firstName, user.lastName),
-            style: headingStyle().copyWith(fontSize: 30.0, fontWeight: FontWeight.w500),
+            style: headingStyle()
+                .copyWith(fontSize: 30.0, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 8.0),
           Opacity(
@@ -221,20 +268,23 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 12.0),
           Container(
             alignment: Alignment.topLeft,
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 3.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(30.0),
             ),
             child: Text(
               "2024-2025",
-              style: bodyStyle().copyWith(fontSize: 14.0, color: const Color(0xFF6184C7) ),
+              style: bodyStyle()
+                  .copyWith(fontSize: 14.0, color: const Color(0xFF6184C7)),
             ),
           ),
         ],
       ),
     );
   }
+
   Widget importantSection() {
     final List<Map<String, dynamic>> importantItems = [
       {
@@ -256,26 +306,28 @@ class _HomePageState extends State<HomePage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
       child: GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),  // To keep it non-scrollable
-          shrinkWrap: true,  // Ensures the grid view only takes the necessary space
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16.0,
-            mainAxisSpacing: 16.0,
-            mainAxisExtent: 256,
-            childAspectRatio: 0.78,
-          ),
-          itemCount: importantItems.length,
-          itemBuilder: (context, index) {
-            final item = importantItems[index];
-            return _buildImportantCard(
-              title: item['title'],
-              value: item['value'],
-              icon: item['icon'],
-              color: item['color'],
-              onTap: item['onTap'],
-            );
-          },
+        physics:
+            const NeverScrollableScrollPhysics(), // To keep it non-scrollable
+        shrinkWrap:
+            true, // Ensures the grid view only takes the necessary space
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16.0,
+          mainAxisSpacing: 16.0,
+          mainAxisExtent: 256,
+          childAspectRatio: 0.78,
+        ),
+        itemCount: importantItems.length,
+        itemBuilder: (context, index) {
+          final item = importantItems[index];
+          return _buildImportantCard(
+            title: item['title'],
+            value: item['value'],
+            icon: item['icon'],
+            color: item['color'],
+            onTap: item['onTap'],
+          );
+        },
       ),
     );
   }
@@ -287,10 +339,9 @@ class _HomePageState extends State<HomePage> {
     required Color color,
     required VoidCallback onTap,
   }) {
-
     double screenWidth = MediaQuery.of(context).size.width;
-    double textSize = math.min(screenWidth * 0.1, 40.0);  // Max size is 40
-    double textSizeSm = math.min(screenWidth * 0.049, 24.0);  // Max size is 24
+    double textSize = math.min(screenWidth * 0.1, 40.0); // Max size is 40
+    double textSizeSm = math.min(screenWidth * 0.049, 24.0); // Max size is 24
 
     return GestureDetector(
       onTap: onTap,
@@ -337,5 +388,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 }
