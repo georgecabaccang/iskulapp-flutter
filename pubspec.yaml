@@ -88,7 +88,6 @@ flutter:
     - assets/events.json
     - .env
     - assets/questions.json
-    - assets/teachers.json
   fonts:
     - family: SourceSans
       fonts:
