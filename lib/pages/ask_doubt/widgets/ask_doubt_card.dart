@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/theme/text_styles.dart';
 
-class LeaveApplicationCard extends StatelessWidget {
-  const LeaveApplicationCard({Key? key}) : super(key: key);
+class AskDoubtCard extends StatefulWidget {
+  const AskDoubtCard({Key? key}) : super(key: key);
 
+  @override
+  _AskDoubtCardState createState() => _AskDoubtCardState();
+}
+
+class _AskDoubtCardState extends State<AskDoubtCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,7 +19,7 @@ class LeaveApplicationCard extends StatelessWidget {
           const SizedBox(height: 16.0),
           TextField(
             decoration: InputDecoration(
-              labelText: 'Class Teacher',
+              labelText: 'Teacher Name',
               labelStyle:
                   bodyStyle().copyWith(color: Colors.grey, fontSize: 18),
               hintText: '--',
@@ -27,7 +32,7 @@ class LeaveApplicationCard extends StatelessWidget {
           const SizedBox(height: 16.0),
           TextField(
             decoration: InputDecoration(
-              labelText: 'Application Title',
+              labelText: 'Subject',
               labelStyle:
                   bodyStyle().copyWith(color: Colors.grey, fontSize: 18),
               hintText: '--',
@@ -40,14 +45,27 @@ class LeaveApplicationCard extends StatelessWidget {
           const SizedBox(height: 16.0),
           TextField(
             decoration: InputDecoration(
-              labelText: 'Description',
+              labelText: 'Title',
               labelStyle:
                   bodyStyle().copyWith(color: Colors.grey, fontSize: 18),
               hintText: '--',
               floatingLabelBehavior: FloatingLabelBehavior.always,
               border: InputBorder.none,
             ),
-            maxLines: 3,
+            style: bodyStyle().copyWith(fontSize: 18),
+          ),
+          const Divider(color: Color(0xFFA5A5A5)),
+          const SizedBox(height: 16.0),
+          TextField(
+            decoration: InputDecoration(
+              labelText: 'Doubt Description',
+              labelStyle:
+                  bodyStyle().copyWith(color: Colors.grey, fontSize: 18),
+              hintText: '--',
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              border: InputBorder.none,
+            ),
+            maxLines: 1,
             style: bodyStyle().copyWith(fontSize: 18),
           ),
           const Divider(color: Color(0xFFA5A5A5)),
@@ -62,14 +80,14 @@ class LeaveApplicationCard extends StatelessWidget {
                 minimumSize: const Size(double.infinity, 50),
               ),
               onPressed: () {
-                print("Leave application sent"); 
+                print("Doubt submitted");
               },
               child: Text(
-                'SEND REQUEST',
+                'SEND',
                 style: buttonTextStyle().copyWith(color: Colors.white),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
