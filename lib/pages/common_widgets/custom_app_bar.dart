@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import './app_bar_widgets/sync_status.dart';
 
-class CustomAppBar extends StatelessWidget  {
+class CustomAppBar extends StatelessWidget {
   final String title;
   final VoidCallback? onBackPressed;
   final Widget? trailingWidget;
@@ -21,27 +22,27 @@ class CustomAppBar extends StatelessWidget  {
         padding: const EdgeInsets.fromLTRB(0.0, 14.0, 16.0, 0.0),
         child: SizedBox(
           height: 56.0,
-          child:
-            Row(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    iconSize: 36,
-                    icon: const Icon(Icons.chevron_left, color: Colors.white),
-                    onPressed: onBackPressed ?? () => Navigator.pop(context),
-                  ),
+          child: Row(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  iconSize: 36,
+                  icon: const Icon(Icons.chevron_left, color: Colors.white),
+                  onPressed: onBackPressed ?? () => Navigator.pop(context),
                 ),
-                Text(
+              ),
+              Expanded(
+                child: Text(
                   title,
-                  style: titleStyle ?? const TextStyle(color: Colors.white, fontSize: 24.0),
+                  style: titleStyle ??
+                      const TextStyle(color: Colors.white, fontSize: 24.0),
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: trailingWidget
-                ),
-              ],
-            ),
+              ),
+              const AppBarSyncStatus(),
+              Align(alignment: Alignment.centerRight, child: trailingWidget),
+            ],
+          ),
         ),
       ),
     );
