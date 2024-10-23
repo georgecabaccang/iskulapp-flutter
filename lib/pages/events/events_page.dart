@@ -4,6 +4,9 @@ import 'package:school_erp/theme/text_styles.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
+import 'package:school_erp/pages/events/events_detail/events_detail_page.dart';
+import 'package:school_erp/pages/EnterExitRoute.dart';
+
 
 class EventsPage extends StatefulWidget {
   const EventsPage({super.key});
@@ -43,11 +46,21 @@ class _EventsPageState extends State<EventsPage> {
     ]);
   }
 
-  Widget eventsCard(Map<String, dynamic> event) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-      child: FractionallySizedBox(
-        widthFactor: 1,
+ Widget eventsCard(Map<String, dynamic> event) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+    child: FractionallySizedBox(
+      widthFactor: 1,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            EnterExitRoute(
+              exitPage: context.widget,
+              enterPage: EventDetailsPage(event: event),
+            ),
+          );
+        },
         child: Card(
           margin: const EdgeInsets.symmetric(vertical: 10),
           elevation: 1,
@@ -116,6 +129,9 @@ class _EventsPageState extends State<EventsPage> {
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
+
 }
