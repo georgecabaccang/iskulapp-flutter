@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/enums/assessment_status.dart';
-<<<<<<< HEAD
 import 'package:intl/intl.dart';
 import 'package:school_erp/pages/assignment/assignment_check_page/assignment_check_page.dart';
 import 'package:school_erp/utils/extensions/string_extension.dart';
-=======
-import 'package:school_erp/theme/colors.dart';
-import 'package:school_erp/pages/assignment/assignment_check_page/assignment_check_page.dart';
->>>>>>> 0a335b30071591f3932911ecc4b57dbd7a23cec5
 
 class AssignmentCard extends StatelessWidget {
   final String subject;
@@ -84,7 +79,8 @@ class AssignmentCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 8.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
-          side: const BorderSide(color: Colors.grey, width: 1.0),
+          side: const BorderSide(
+              color: Color.fromARGB(255, 226, 226, 226), width: 1.0),
         ),
         color: Colors.white,
         child: Padding(
@@ -93,7 +89,6 @@ class AssignmentCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-<<<<<<< HEAD
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
@@ -124,36 +119,6 @@ class AssignmentCard extends StatelessWidget {
                       ),
                     ),
                   ),
-=======
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    subject,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  Container(
-                    width: 98.0,
-                    height: 28.0,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 4.0, horizontal: 8.0),
-                    decoration: BoxDecoration(
-                      color: getStatusColor(),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Center(
-                      child: Text(
-                        getStatusText(),
-                        style: TextStyle(
-                          color: getStatusTextColor(),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
->>>>>>> 0a335b30071591f3932911ecc4b57dbd7a23cec5
                 ],
               ),
               const SizedBox(height: 8.0),

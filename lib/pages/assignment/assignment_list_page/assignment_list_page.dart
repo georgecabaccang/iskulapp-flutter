@@ -43,7 +43,7 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
     _subscription?.cancel();
   }
 
-  String formatDate(DateTime date) => DateFormat('dd-MM-yyyy').format(date);
+  String formatDate(DateTime date) => DateFormat('dd MMM yy').format(date);
 
   @override
   Widget build(BuildContext context) {
