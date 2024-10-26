@@ -116,9 +116,14 @@ class CalendarWidget extends StatelessWidget {
       onDaySelected: (selectedDay, focusedDay) {
         onDaySelected(selectedDay, focusedDay);
       },
-      headerStyle: const HeaderStyle(
+      headerStyle: HeaderStyle(
         titleCentered: true,
         formatButtonVisible: false,
+        titleTextStyle: TextStyle(
+          fontSize:
+              screenWidth * 0.05, // Adjusted font size based on screen width
+          fontWeight: FontWeight.bold,
+        ),
       ),
       onPageChanged: (focusedDay) {
         onPageChanged(focusedDay);
@@ -128,12 +133,20 @@ class CalendarWidget extends StatelessWidget {
       },
       daysOfWeekStyle: DaysOfWeekStyle(
         weekdayStyle: TextStyle(
-          fontSize: screenWidth * 0.035,
+          fontSize: screenWidth * 0.035, // Responsive font size
           fontWeight: FontWeight.w500,
         ),
         weekendStyle: TextStyle(
-          fontSize: screenWidth * 0.035,
+          fontSize: screenWidth * 0.035, // Responsive font size
           fontWeight: FontWeight.w500,
+        ),
+      ),
+      calendarStyle: CalendarStyle(
+        defaultTextStyle: TextStyle(
+          fontSize: screenWidth * 0.035, // Responsive font size for days
+        ),
+        weekendTextStyle: TextStyle(
+          fontSize: screenWidth * 0.035,
         ),
       ),
       calendarBuilders: CalendarBuilders(
@@ -143,7 +156,7 @@ class CalendarWidget extends StatelessWidget {
             child: Center(
               child: Text(
                 DateFormat('MMMM yyyy').format(focusedDay),
-                style: bodyStyle().copyWith(fontSize: 20),
+                style: bodyStyle().copyWith(fontSize: screenWidth * 0.05),
               ),
             ),
           );
@@ -167,8 +180,8 @@ class CalendarWidget extends StatelessWidget {
                 return ListTile(
                   title: Text(
                     _getMonthName(index),
-                    style: const TextStyle(
-                      fontSize: 18,
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.045,
                     ),
                   ),
                   onTap: () {
@@ -198,7 +211,7 @@ class CalendarWidget extends StatelessWidget {
       'September',
       'October',
       'November',
-      'December',
+      'December'
     ];
     return monthNames[monthIndex];
   }
