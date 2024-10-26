@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:school_erp/enums/assessment_status.dart';
 import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/models/assessment.dart';
 import 'package:school_erp/pages/assignment/assignment_add/assignment_add_page/assignment_add_page.dart';
@@ -58,7 +59,16 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
                 child: ListView(
                   padding: const EdgeInsets.all(16.0),
                   children: _data.map((assessment) {
-                    return AssignmentCard(assessment!);
+                    return AssignmentCard(
+                      subject: assessment!.subject,
+                      title: assessment.title,
+                      assignDate:
+                          assessment.startTime.toString(), // Use startTime
+                      lastSubmissionDate:
+                          assessment.deadLine.toString(), // Use deadLine
+                      status:
+                          AssessmentStatus.fromString(assessment.status.value),
+                    );
                   }).toList(),
                 ),
               ),

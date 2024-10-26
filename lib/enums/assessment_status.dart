@@ -1,3 +1,4 @@
+// lib/enums/assessment_status.dart
 enum AssessmentStatus {
   toBeCompleted('to_be_completed', 'To Be Completed'),
   toBePublished('to_be_published', 'To Be Published'),
