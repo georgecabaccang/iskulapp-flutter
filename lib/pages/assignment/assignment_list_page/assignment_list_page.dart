@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:school_erp/enums/assessment_status.dart';
 import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/models/assessment.dart';
 import 'package:school_erp/pages/assignment/assignment_add/assignment_add_page/assignment_add_page.dart';
@@ -8,6 +9,7 @@ import 'package:school_erp/pages/common_widgets/app_content.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'widgets/assignment_card.dart';
 import 'package:school_erp/theme/colors.dart';
+import 'package:intl/intl.dart';
 
 class AssignmentListPage extends StatefulWidget {
   const AssignmentListPage({super.key});
@@ -41,6 +43,8 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
     _subscription?.cancel();
   }
 
+  String formatDate(DateTime date) => DateFormat('dd-MM-yyyy').format(date);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +62,14 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
                 child: ListView(
                   padding: const EdgeInsets.all(16.0),
                   children: _data.map((assessment) {
-                    return AssignmentCard(assessment!);
+                    return AssignmentCard(
+                      subject: assessment!.subject,
+                      title: assessment.title,
+                      assignDate: formatDate(assessment.startTime),
+                      lastSubmissionDate: formatDate(assessment.deadLine),
+                      status:
+                          AssessmentStatus.fromString(assessment.status.value),
+                    );
                   }).toList(),
                 ),
               ),

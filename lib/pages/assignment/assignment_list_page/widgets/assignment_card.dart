@@ -1,16 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/enums/assessment_status.dart';
 import 'package:intl/intl.dart';
-import 'package:school_erp/models/assessment.dart';
-import 'package:school_erp/pages/EnterExitRoute.dart';
-import 'package:school_erp/pages/assignment/assignment_preview/assignment_preview_page.dart';
-import 'package:school_erp/pages/common_widgets/default_button.dart';
+import 'package:school_erp/pages/assignment/assignment_check_page/assignment_check_page.dart';
 import 'package:school_erp/utils/extensions/string_extension.dart';
-import 'package:school_erp/theme/colors.dart';
 
 class AssignmentCard extends StatelessWidget {
-  final Assessment assessment;
+  final String subject;
+  final String title;
+  final String assignDate;
+  final String lastSubmissionDate;
+  final AssessmentStatus status;
 
-  const AssignmentCard(this.assessment, {super.key});
+  const AssignmentCard({
+    super.key,
+    required this.subject,
+    required this.title,
+    required this.assignDate,
+    required this.lastSubmissionDate,
+    required this.status,
+  });
+
+  String getStatusText() => status.displayName;
+
+  Color getStatusTextColor() {
+    switch (status) {
+      case AssessmentStatus.toBeCompleted:
+        return Colors.blue;
+      case AssessmentStatus.toBePublished:
+        return Colors.orange;
+      case AssessmentStatus.published:
+        return Colors.green;
+      case AssessmentStatus.toFinishEvaluation:
+        return Colors.yellow.shade700;
+      case AssessmentStatus.finishedEvaluation:
+        return Colors.grey.shade900;
+    }
+  }
+
+  Color getStatusColor() {
+    switch (status) {
+      case AssessmentStatus.toBeCompleted:
+        return Colors.lightBlue.shade50;
+      case AssessmentStatus.toBePublished:
+        return Colors.orange.shade100;
+      case AssessmentStatus.published:
+        return Colors.green.shade100;
+      case AssessmentStatus.toFinishEvaluation:
+        return Colors.yellow.shade200;
+      case AssessmentStatus.finishedEvaluation:
+        return Colors.grey.shade400;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +58,20 @@ class AssignmentCard extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          EnterExitRoute(
-            exitPage: context.widget,
-            enterPage: const AssignmentPreviewPage(),
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const AssignmentCheckPage(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              var fadeTween = Tween(begin: 0.0, end: 1.0)
+                  .chain(CurveTween(curve: Curves.easeInOut));
+              var fadeAnimation = animation.drive(fadeTween);
+
+              return FadeTransition(
+                opacity: fadeAnimation,
+                child: child,
+              );
+            },
           ),
         );
       },
@@ -28,80 +79,85 @@ class AssignmentCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 8.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
+          side: const BorderSide(color: Colors.grey, width: 1.0),
         ),
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 4.0, horizontal: 8.0),
-                    decoration: BoxDecoration(
-                      color: Colors.blue.shade100,
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+                  Expanded(
                     child: Text(
-                      assessment.subject.capitalize(),
+                      subject.capitalize(),
                       style: const TextStyle(
-                        color: AppColors.primaryColor,
                         fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    assessment.title,
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    width: 98.0,
+                    height: 28.0,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 4.0, horizontal: 8.0),
+                    decoration: BoxDecoration(
+                      color: getStatusColor(),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Center(
+                      child: Text(
+                        getStatusText(),
+                        style: TextStyle(
+                            color: getStatusTextColor(),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 8.0),
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 4.0),
-                  Text(
-                    'Start Date: ${DateFormat('yyyy-MM-dd HH:mm').format(assessment.startTime)}',
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14.0,
-                    ),
-                  ),
-                  Text(
-                    'Submission Date: ${DateFormat('yyyy-MM-dd HH:mm').format(assessment.deadLine)}',
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14.0,
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                    child: DefaultButton(
-                      text: assessment.status.displayName,
-                      onPressed: () => (),
-                    ),
-                  )
                 ],
               ),
-            ),
-            Positioned(
-              top: 8.0,
-              right: 8.0,
-              child: IconButton(
-                icon: const Icon(Icons.edit, color: Colors.grey),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    EnterExitRoute(
-                      exitPage: context.widget,
-                      enterPage: const AssignmentPreviewPage(),
-                    ),
-                  );
-                },
+              const SizedBox(height: 8.0),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 8.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Assign Date',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  Text(
+                    assignDate,
+                    style: const TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Last Submission Date',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  Text(
+                    lastSubmissionDate,
+                    style: const TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
