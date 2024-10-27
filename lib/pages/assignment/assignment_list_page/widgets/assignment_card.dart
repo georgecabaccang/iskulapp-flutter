@@ -93,7 +93,7 @@ class AssignmentCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      subject.capitalize(),
+                      subject.title(),
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
