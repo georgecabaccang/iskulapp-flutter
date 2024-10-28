@@ -19,9 +19,11 @@ class AppBarSyncStatusState extends State<AppBarSyncStatus> {
   void initState() {
     super.initState();
     _connectionState = db.currentStatus;
+    debugPrint(_connectionState.toString());
     _syncStatusSubscription = db.statusStream.listen((event) {
       setState(() {
         _connectionState = db.currentStatus;
+        debugPrint(_connectionState.toString());
       });
     });
   }
