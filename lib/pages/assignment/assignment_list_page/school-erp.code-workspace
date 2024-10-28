@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "../../../.."
+		},
+		{
+			"path": "\\\\wsl.localhost\\Ubuntu\\home\\mark\\School-ERP-backend"
 		}
 	],
 	"settings": {}
