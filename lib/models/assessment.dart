@@ -6,7 +6,7 @@ import 'package:school_erp/features/powersync/db.dart';
 class Assessment {
   final String id;
   final String subject;
-  final int preparedById;
+  final String preparedById;
   final AssessmentType assessmentType;
   final String title;
   final int totalQuestions;
@@ -52,7 +52,7 @@ class Assessment {
         LEFT JOIN subject_years ON subject_years.id = assessment_takers.subject_year_id
         LEFT JOIN subjects ON subjects.id = subject_years.subject_id
         WHERE assessment_type = ?
-        ORDER BY dead_line ASC;
+        ORDER BY created_at DESC;
       """,
       parameters: [assessmentType.value],
     ).map((results) {
