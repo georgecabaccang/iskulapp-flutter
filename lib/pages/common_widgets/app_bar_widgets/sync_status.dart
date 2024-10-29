@@ -19,7 +19,6 @@ class AppBarSyncStatusState extends State<AppBarSyncStatus> {
   void initState() {
     super.initState();
     _connectionState = db.currentStatus;
-    debugPrint(_connectionState.toString());
     _syncStatusSubscription = db.statusStream.listen((event) {
       setState(() {
         _connectionState = db.currentStatus;
@@ -48,6 +47,7 @@ class SyncStatusIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     if (status.anyError != null) {
       //TODO: verbose errors should be replaced with something user-friendly
+      //
       if (!status.connected) {
         return IconToolTip(status.anyError!.toString(), Icons.cloud_off);
       } else {

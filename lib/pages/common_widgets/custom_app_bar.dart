@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/pages/EnterExitRoute.dart';
+import 'package:school_erp/pages/common_widgets/app_bar_widgets/sql_console.dart';
 import './app_bar_widgets/sync_status.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -37,6 +39,29 @@ class CustomAppBar extends StatelessWidget {
                   title,
                   style: titleStyle ??
                       const TextStyle(color: Colors.white, fontSize: 24.0),
+                ),
+              ),
+              GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  EnterExitRoute(
+                    exitPage: context.widget,
+                    enterPage: Scaffold(
+                      appBar: AppBar(
+                        title: const Text('SQL Console'),
+                      ),
+                      body: const QueryWidget(
+                          defaultQuery: "SELECT * FROM assessments"),
+                    ),
+                  ),
+                ),
+                child: const Text(
+                  '{ }',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
                 ),
               ),
               const AppBarSyncStatus(),
