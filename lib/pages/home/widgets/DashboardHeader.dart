@@ -14,40 +14,42 @@ class DashboardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-        builder: (context, constraints) {
-          double screenWidth = MediaQuery.of(context).size.width;
-          bool isSmallScreen = screenWidth < 400;
+      builder: (context, constraints) {
+        double screenWidth = MediaQuery.of(context).size.width;
+        bool isSmallScreen = screenWidth < 400;
 
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    EnterExitRoute(
-                      exitPage: context.widget,
-                      enterPage: const ProfilePage(),
-                    ),
-                  );
-                },
-                child: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.grey[300],
-                  child: Icon(
-                    Icons.person,
-                    size: 50, // Adjust icon size
-                    color: Colors.white,
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  EnterExitRoute(
+                    exitPage: context.widget,
+                    enterPage: const ProfilePage(),
                   ),
+                );
+              },
+              child: CircleAvatar(
+                radius: 30,
+                backgroundColor: Colors.grey[300],
+                child: Icon(
+                  Icons.person,
+                  size: 50, // Adjust icon size
+                  color: Colors.white,
                 ),
               ),
-              Expanded(
-                child: _userInfo(context, user),
-              ),
-              // const Spacer(),
-            ],
-          );
-        },
+            ),
+            Expanded(
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _userInfo(context, user)),
+            ),
+            // const Spacer(),
+          ],
+        );
+      },
     );
   }
 
@@ -56,51 +58,39 @@ class DashboardHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
-          child:
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Text(
-                    TextConstants.studentName(user.firstName, user.lastName),
-                    style: headingStyle().copyWith(
-                      fontSize: 16,
-                    ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  TextConstants.studentName(user.firstName, user.lastName),
+                  style: headingStyle().copyWith(
+                    fontSize: 20,
                   ),
                 ),
-                const SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Text(
-                    'Grade 8 | Sampaguita',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.white,
-                    ),
+              ),
+              const SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  'Grade 8 | Sampaguita',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.white,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              EnterExitRoute(
-                exitPage: context.widget,
-                enterPage: const ProfilePage(),
-              ),
-            );
-          },
+          onTap: () => {},
           child: const Icon(
             Icons.notifications,
-            size: 24,
+            size: 32,
             color: Colors.white,
           ),
-        )
+        ),
       ],
     );
   }

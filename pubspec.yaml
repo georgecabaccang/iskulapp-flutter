@@ -83,6 +83,8 @@ flutter:
   assets:
     - assets/images/loginPageImage.png
     - assets/images/AddAssignmentImage.png
+    - assets/images/logo.png
+    - assets/images/logo-text.png
     - assets/addAssignmentData/classes.json
     - assets/addAssignmentData/subjects.json
     - assets/timetable.json
