@@ -18,17 +18,18 @@ class AssessmentService {
   }
 
   Future<(bool, (ResultSet, ResultSet))> create({
-    required AssessmentCreateDTO assessmentDTO,
+    required AssessmentCreateDTOBuilder assessmentDTOBuilder,
     required AssessmentTakerCreateDTOBuilder assessmentTakerDTOBuilder,
   }) async {
     try {
       final result = await db.writeTransaction((tx) async {
-        final ResultSet resultAssessment =
-            await assessmentRepository.createTransaction(assessmentDTO, tx);
+        final ResultSet resultAssessment = await assessmentRepository
+            .createTransaction(assessmentDTOBuilder.build(), tx);
+
         assessmentTakerDTOBuilder.assessmentId = resultAssessment.first['id'];
-        final assessmentTakerDTO = assessmentTakerDTOBuilder.build();
+
         final ResultSet resultAssessmentTaker = await assessmentTakerRepository
-            .createTransaction(assessmentTakerDTO, tx);
+            .createTransaction(assessmentTakerDTOBuilder.build(), tx);
 
         return (true, (resultAssessment, resultAssessmentTaker));
       });

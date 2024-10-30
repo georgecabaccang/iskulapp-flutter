@@ -17,16 +17,21 @@ void main() {
   });
 
   group('AssessmentService', () {
-    final AssessmentCreateDTO assessmentCreateDTO = AssessmentCreateDTO(
-      assessmentType: AssessmentType.assignment,
-      preparedById: '1',
-      title: 'Test Title',
-      totalQuestions: 20,
-      randomizeSequence: false,
-      startTime: DateTime.now(),
-      deadLine: DateTime.now(),
-      durationMinutes: 20,
-    );
+    final AssessmentCreateDTOBuilder assessmentCreateDTOBuilder =
+        AssessmentCreateDTOBuilder();
+
+    // form data
+    assessmentCreateDTOBuilder.assessmentType = AssessmentType.assignment;
+    assessmentCreateDTOBuilder.preparedById = '1';
+    assessmentCreateDTOBuilder.title = 'Test Title';
+    assessmentCreateDTOBuilder.totalQuestions = 20;
+    assessmentCreateDTOBuilder.randomizeSequence = false;
+    assessmentCreateDTOBuilder.startTime = DateTime.now();
+    assessmentCreateDTOBuilder.deadLine = DateTime.now();
+    assessmentCreateDTOBuilder.durationMinutes = 20;
+
+    final assessmentCreateDTO = assessmentCreateDTOBuilder.build();
+
     final AssessmentTakerCreateDTOBuilder assessmentTakerCreateDTOBuilder =
         AssessmentTakerCreateDTOBuilder();
     assessmentTakerCreateDTOBuilder.sectionId = '1';
@@ -38,7 +43,7 @@ void main() {
       final assessmentService = AssessmentService(database: testDB);
       final (success, (resultAssessment, resultTaker)) =
           await assessmentService.create(
-              assessmentDTO: assessmentCreateDTO,
+              assessmentDTOBuilder: assessmentCreateDTOBuilder,
               assessmentTakerDTOBuilder: assessmentTakerCreateDTOBuilder);
       expect(success, isTrue);
 
