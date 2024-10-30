@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/EnterExitRoute.dart';
 import 'package:school_erp/pages/common_widgets/app_bar_widgets/sql_console.dart';
@@ -41,29 +42,30 @@ class CustomAppBar extends StatelessWidget {
                       const TextStyle(color: Colors.white, fontSize: 24.0),
                 ),
               ),
-              GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  EnterExitRoute(
-                    exitPage: context.widget,
-                    enterPage: Scaffold(
-                      appBar: AppBar(
-                        title: const Text('SQL Console'),
+              if (kDebugMode)
+                GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    EnterExitRoute(
+                      exitPage: context.widget,
+                      enterPage: Scaffold(
+                        appBar: AppBar(
+                          title: const Text('SQL Console'),
+                        ),
+                        body: const QueryWidget(
+                            defaultQuery: "SELECT * FROM assessments"),
                       ),
-                      body: const QueryWidget(
-                          defaultQuery: "SELECT * FROM assessments"),
+                    ),
+                  ),
+                  child: const Text(
+                    '{ }',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
                     ),
                   ),
                 ),
-                child: const Text(
-                  '{ }',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                  ),
-                ),
-              ),
               const AppBarSyncStatus(),
               Align(alignment: Alignment.centerRight, child: trailingWidget),
             ],
