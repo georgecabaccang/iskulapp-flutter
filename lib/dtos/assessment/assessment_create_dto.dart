@@ -1,11 +1,10 @@
+import 'package:school_erp/dtos/dto.dart';
 import 'package:school_erp/enums/assessment_status.dart';
 import 'package:school_erp/enums/assessment_type.dart';
 
-class AssessmentCreateDTO {
+class AssessmentCreateDTO extends CreateDTO {
   final AssessmentType assessmentType;
   final String preparedById;
-  final String subjectYearId;
-  final String sectionId;
   final String title;
   final int totalQuestions;
   final bool randomizeSequence;
@@ -17,8 +16,6 @@ class AssessmentCreateDTO {
   AssessmentCreateDTO({
     required this.assessmentType,
     required this.preparedById,
-    required this.subjectYearId,
-    required this.sectionId,
     required this.title,
     required this.totalQuestions,
     required this.randomizeSequence,
@@ -46,8 +43,6 @@ class AssessmentCreateDTOBuilder {
     return AssessmentCreateDTO(
       assessmentType: assessmentType,
       preparedById: preparedById,
-      subjectYearId: subjectYearId,
-      sectionId: sectionId,
       title: title,
       totalQuestions: totalQuestions,
       randomizeSequence: randomizeSequence,
