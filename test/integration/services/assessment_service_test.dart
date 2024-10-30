@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:school_erp/dtos/assessment/assessment_create_dto.dart';
+import 'package:school_erp/dtos/assessment/assessment_taker_create_dto.dart';
 import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/features/assessment/assessment_service.dart';
 
@@ -7,6 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  DartPluginRegistrant.ensureInitialized();
 
   setUp(() async {
     await openTestDatabase();
@@ -16,8 +20,6 @@ void main() {
     final AssessmentCreateDTO assessmentCreateDTO = AssessmentCreateDTO(
       assessmentType: AssessmentType.assignment,
       preparedById: '1',
-      subjectYearId: '1',
-      sectionId: '1',
       title: 'Test Title',
       totalQuestions: 20,
       randomizeSequence: false,
@@ -25,12 +27,19 @@ void main() {
       deadLine: DateTime.now(),
       durationMinutes: 20,
     );
+    final AssessmentTakerCreateDTOBuilder assessmentTakerCreateDTOBuilder =
+        AssessmentTakerCreateDTOBuilder();
+    assessmentTakerCreateDTOBuilder.sectionId = '1';
+    assessmentTakerCreateDTOBuilder.subjectYearId = '1';
 
     test(
         'assessment service creates record for assessments and assessment_takers table',
         () async {
+      final assessmentService = AssessmentService(database: testDB);
       final (success, (resultAssessment, resultTaker)) =
-          await AssessmentService.create(db: testDB, data: assessmentCreateDTO);
+          await assessmentService.create(
+              assessmentDTO: assessmentCreateDTO,
+              assessmentTakerDTOBuilder: assessmentTakerCreateDTOBuilder);
       expect(success, isTrue);
 
       // Check if the assessment record is created
@@ -57,9 +66,9 @@ void main() {
       expect(resultTaker.first['assessment_id'],
           equals(resultAssessment.first['id']));
       expect(resultTaker.first['subject_year_id'],
-          equals(assessmentCreateDTO.subjectYearId));
+          equals(assessmentTakerCreateDTOBuilder.subjectYearId));
       expect(resultTaker.first['section_id'],
-          equals(assessmentCreateDTO.sectionId));
+          equals(assessmentTakerCreateDTOBuilder.sectionId));
     });
   });
 }
