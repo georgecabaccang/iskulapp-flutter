@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/dtos/assessment/assessment_create_dto.dart';
+import 'package:school_erp/dtos/assessment/assessment_taker_create_dto.dart';
 import 'package:school_erp/features/assessment/assessment_service.dart';
 import 'package:school_erp/features/powersync/db.dart';
 import 'package:school_erp/pages/EnterExitRoute.dart';
@@ -12,21 +13,27 @@ import 'package:school_erp/pages/common_widgets/form_fields/labeled_dropdown.dar
 
 class QuestionSetupPage extends StatelessWidget {
   final AssessmentCreateDTOBuilder assessmentCreateDTOBuilder;
+  final AssessmentTakerCreateDTOBuilder assessmentTakerCreateDTOBuilder;
 
-  const QuestionSetupPage(this.assessmentCreateDTOBuilder, {super.key});
+  const QuestionSetupPage(
+      this.assessmentCreateDTOBuilder, this.assessmentTakerCreateDTOBuilder,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return DefaultLayout(
-        title: 'Assignment Setup',
-        content: [FormContent(assessmentCreateDTOBuilder)]);
+    return DefaultLayout(title: 'Assignment Setup', content: [
+      FormContent(assessmentCreateDTOBuilder, assessmentTakerCreateDTOBuilder)
+    ]);
   }
 }
 
 class FormContent extends StatefulWidget {
   final AssessmentCreateDTOBuilder assessmentCreateDTOBuilder;
+  final AssessmentTakerCreateDTOBuilder assessmentTakerCreateDTOBuilder;
 
-  const FormContent(this.assessmentCreateDTOBuilder, {super.key});
+  const FormContent(
+      this.assessmentCreateDTOBuilder, this.assessmentTakerCreateDTOBuilder,
+      {super.key});
 
   @override
   _FormContentState createState() => _FormContentState();
@@ -97,9 +104,12 @@ class _FormContentState extends State<FormContent> {
       BuildContext context, AssessmentCreateDTOBuilder formData) async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      final assessmentCreateDTO = widget.assessmentCreateDTOBuilder.build();
-
-      await AssessmentService.create(db: db, data: assessmentCreateDTO);
+      final assessmentService =
+          AssessmentService(database: db); // di ini dapat didi temp didi muna
+      await assessmentService.create(
+        assessmentDTOBuilder: widget.assessmentCreateDTOBuilder,
+        assessmentTakerDTOBuilder: widget.assessmentTakerCreateDTOBuilder,
+      );
 
       if (!mounted) return;
 

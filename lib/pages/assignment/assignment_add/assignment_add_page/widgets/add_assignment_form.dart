@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/dtos/assessment/assessment_create_dto.dart';
+import 'package:school_erp/dtos/assessment/assessment_taker_create_dto.dart';
 import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/enums/assignment_type.dart';
 import 'package:school_erp/features/auth/auth.dart';
@@ -26,8 +27,12 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
   Section? selectedSection;
   SubjectYear? selectedSubject;
   bool isLoading = true;
+
   final AssessmentCreateDTOBuilder assessmentCreateDTOBuilder =
       AssessmentCreateDTOBuilder();
+
+  final AssessmentTakerCreateDTOBuilder assessmentTakerCreateDTOBuilder =
+      AssessmentTakerCreateDTOBuilder();
 
   @override
   void initState() {
@@ -96,7 +101,10 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
         context,
         EnterExitRoute(
           exitPage: context.widget,
-          enterPage: QuestionSetupPage(assessmentCreateDTOBuilder),
+          enterPage: QuestionSetupPage(
+            assessmentCreateDTOBuilder,
+            assessmentTakerCreateDTOBuilder,
+          ),
         ),
       );
     } else {
@@ -133,7 +141,7 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                     });
                   },
                   onSaved: (Section? newValue) {
-                    assessmentCreateDTOBuilder.sectionId = newValue!.id;
+                    assessmentTakerCreateDTOBuilder.sectionId = newValue!.id;
                   },
                   decoration: const InputDecoration(
                     labelText: 'Select Class',
@@ -161,7 +169,8 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                     });
                   },
                   onSaved: (SubjectYear? newValue) {
-                    assessmentCreateDTOBuilder.subjectYearId = newValue!.id;
+                    assessmentTakerCreateDTOBuilder.subjectYearId =
+                        newValue!.id;
                   },
                   decoration: const InputDecoration(
                     labelText: 'Select Subject',
