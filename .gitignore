@@ -896,3 +896,8 @@ DerivedData/
 /macos
 /linux
 /windows
+/lib/features/auth/auth_repository/schemas/auth_response.freezed.dart
+/lib/features/auth/auth_repository/schemas/auth_response.g.dart
+/lib/features/auth/bloc/auth_state.freezed.dart
+/lib/features/auth/auth_repository/schemas/user.freezed.dart
+/lib/features/auth/auth_repository/schemas/user.g.dart
