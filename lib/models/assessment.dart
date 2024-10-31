@@ -2,6 +2,7 @@ import 'package:powersync/sqlite3_common.dart' as sqlite;
 import 'package:school_erp/enums/assessment_status.dart';
 import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/features/powersync/db.dart';
+import 'package:school_erp/utils/sql_statements.dart';
 
 class Assessment {
   final String id;
@@ -45,15 +46,7 @@ class Assessment {
 
   static Stream<List<Assessment?>> watchLists(AssessmentType assessmentType) {
     return db.watch(
-      """
-        SELECT assessments.*, subjects.name AS subject_name
-        FROM assessments
-        LEFT JOIN assessment_takers ON assessment_takers.assessment_id = assessments.id
-        LEFT JOIN subject_years ON subject_years.id = assessment_takers.subject_year_id
-        LEFT JOIN subjects ON subjects.id = subject_years.subject_id
-        WHERE assessment_type = ?
-        ORDER BY created_at DESC;
-      """,
+      assessmentsSql,
       parameters: [assessmentType.value],
     ).map((results) {
       return results.map(Assessment.fromRow).toList(growable: false);

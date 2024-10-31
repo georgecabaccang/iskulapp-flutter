@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/EnterExitRoute.dart';
 import 'package:school_erp/pages/common_widgets/app_bar_widgets/sql_console.dart';
+import 'package:school_erp/utils/sql_statements.dart';
 import './app_bar_widgets/sync_status.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -53,7 +54,7 @@ class CustomAppBar extends StatelessWidget {
                           title: const Text('SQL Console'),
                         ),
                         body: const QueryWidget(
-                            defaultQuery: "SELECT * FROM assessments"),
+                            defaultQuery: defaultSqlConsoleQuery),
                       ),
                     ),
                   ),
