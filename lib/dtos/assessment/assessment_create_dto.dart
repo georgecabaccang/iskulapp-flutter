@@ -37,7 +37,9 @@ class AssessmentCreateDTOBuilder {
   late DateTime deadLine;
   late int? durationMinutes;
 
-  AssessmentCreateDTOBuilder({this.durationMinutes});
+  AssessmentCreateDTOBuilder() {
+    durationMinutes = null;
+  }
 
   AssessmentCreateDTO build() {
     return AssessmentCreateDTO(
