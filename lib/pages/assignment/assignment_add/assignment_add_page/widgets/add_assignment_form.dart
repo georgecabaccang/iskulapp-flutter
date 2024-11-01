@@ -5,11 +5,11 @@ import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/enums/assignment_type.dart';
 import 'package:school_erp/features/auth/auth.dart';
 import 'package:school_erp/features/auth/utils.dart';
+import 'package:school_erp/features/transition/clean_slide_transition.dart';
 import 'package:school_erp/models/section.dart';
 import 'package:school_erp/models/subject_year.dart';
 import 'package:school_erp/models/teacher.dart';
 import 'package:school_erp/pages/assignment/assignment_add/assignment_setup_page/question_setup_page.dart';
-import 'package:school_erp/pages/EnterExitRoute.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -99,9 +99,7 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
       _formKey.currentState!.save();
       Navigator.push(
         context,
-        EnterExitRoute(
-          exitPage: context.widget,
-          enterPage: QuestionSetupPage(
+        createSlideRoute(QuestionSetupPage(
             assessmentCreateDTOBuilder,
             assessmentTakerCreateDTOBuilder,
           ),

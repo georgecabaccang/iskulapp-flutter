@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/profile/profile_page.dart';
-import '../../../constants/text_constants.dart';
-import '../../../features/auth/auth_repository/schemas/user.dart';
-import '../../../theme/text_styles.dart';
-import '../../EnterExitRoute.dart';
+import 'package:school_erp/constants/text_constants.dart';
+import 'package:school_erp/features/auth/auth_repository/schemas/user.dart';
+import 'package:school_erp/features/transition/clean_slide_transition.dart';
+import 'package:school_erp/theme/text_styles.dart';
 
 class DashboardHeader extends StatelessWidget {
   final AuthenticatedUser user;
@@ -14,9 +13,6 @@ class DashboardHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        double screenWidth = MediaQuery.of(context).size.width;
-        bool isSmallScreen = screenWidth < 400;
-
         return Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -76,7 +72,7 @@ class DashboardHeader extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              _createSlideRoute(NotificationWidget(user: user)),
+              createSlideRoute(NotificationWidget(user: user)),
             );
           },
           child: const Icon(
@@ -88,25 +84,6 @@ class DashboardHeader extends StatelessWidget {
       ],
     );
   }
-}
-
-Route _createSlideRoute(Widget page) {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => page,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(1.0, 0.0);
-      const end = Offset.zero;
-      const curve = Curves.ease;
-
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-      var offsetAnimation = animation.drive(tween);
-
-      return SlideTransition(
-        position: offsetAnimation,
-        child: child,
-      );
-    },
-  );
 }
 
 class NotificationWidget extends StatelessWidget {

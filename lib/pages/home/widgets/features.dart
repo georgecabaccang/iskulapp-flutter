@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:school_erp/features/transition/clean_slide_transition.dart';
+import 'package:school_erp/pages/assignment/assignment_list_page/assignment_list_page.dart';
+import 'package:school_erp/pages/calendar/calendar_attendance_page.dart';
+import 'package:school_erp/pages/defualt_page.dart';
+import 'package:school_erp/pages/events/events_page.dart';
+import 'package:school_erp/pages/learn/learn.dart';
+import 'package:school_erp/pages/leave_application/leave_application_page.dart';
+import 'package:school_erp/pages/school_gallery/school_gallery_page.dart';
 import 'package:school_erp/theme/colors.dart';
-import '../../../theme/text_styles.dart';
-import '../../../features/auth/auth_repository/schemas/user.dart';
-import '../../EnterExitRoute.dart';
-import '../../profile/profile_page.dart';
+import 'package:school_erp/theme/text_styles.dart';
+import 'package:school_erp/features/auth/auth_repository/schemas/user.dart';
+import 'package:school_erp/pages/timetable/timetable_page.dart';
 
 class Features extends StatelessWidget {
   final AuthenticatedUser user;
@@ -13,20 +20,20 @@ class Features extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const List<FeatureSection> features = [
-      FeatureSection(title: 'Core', features: [
-        FeatureButton(title: 'Quiz', icon: Icons.edit_note_outlined),
-        FeatureButton(title: 'Homework', icon: Icons.assignment),
-        FeatureButton(title: 'Learn', icon: Icons.local_library_outlined),
+    List<FeatureSection> features = [
+      const FeatureSection(title: 'Core', features: [
+        FeatureButton(title: 'Quiz', icon: Icons.edit_note_outlined, target: DefaultPage()),
+        FeatureButton(title: 'Homework', icon: Icons.assignment, target: AssignmentListPage()),
+        FeatureButton(title: 'Learn', icon: Icons.local_library_outlined, target: LearnPage()),
       ]),
       FeatureSection(title: 'Time Calendar', features: [
-        FeatureButton(title: 'Calendar', icon: Icons.calendar_month),
-        FeatureButton(title: 'Subject\nSchedule', icon: Icons.event_note),
-        FeatureButton(title: 'Apply Absents', icon: Icons.edit_calendar),
+        FeatureButton(title: 'Calendar', icon: Icons.calendar_month, target: CalendarAttendancePage()),
+        const FeatureButton(title: 'Subject\nSchedule', icon: Icons.event_note, target: TimeTablePage()),
+        const FeatureButton(title: 'Apply Absents', icon: Icons.edit_calendar, target: LeaveApplicationPage()),
       ]),
-      FeatureSection(title: 'Activities', features: [
-        FeatureButton(title: 'Events', icon: Icons.celebration),
-        FeatureButton(title: 'School Gallery', icon: Icons.collections),
+      const FeatureSection(title: 'Activities', features: [
+        FeatureButton(title: 'Events', icon: Icons.celebration, target: EventsPage()),
+        FeatureButton(title: 'School Gallery', icon: Icons.collections, target: SchoolGalleryPage()),
       ]),
     ];
 
@@ -64,10 +71,7 @@ class Features extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      EnterExitRoute(
-                        exitPage: context.widget,
-                        enterPage: const ProfilePage(),
-                      ),
+                      createSlideRoute(feature.target),
                     );
                   },
                   child: Column(
@@ -117,6 +121,7 @@ class FeatureSection {
 class FeatureButton {
   final String title;
   final IconData icon;
+  final Widget target;
 
-  const FeatureButton({required this.title, required this.icon});
+  const FeatureButton({required this.title, required this.icon,required this.target});
 }

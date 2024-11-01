@@ -3,7 +3,7 @@ import 'package:school_erp/dtos/assessment/assessment_create_dto.dart';
 import 'package:school_erp/dtos/assessment/assessment_taker_create_dto.dart';
 import 'package:school_erp/features/assessment/assessment_service.dart';
 import 'package:school_erp/features/powersync/db.dart';
-import 'package:school_erp/pages/EnterExitRoute.dart';
+import 'package:school_erp/features/transition/clean_slide_transition.dart';
 import 'package:school_erp/pages/assignment/assignment_add/question_builder_page/question_builder_page.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
 import 'package:school_erp/pages/common_widgets/form_fields/number_input.dart';
@@ -115,9 +115,7 @@ class _FormContentState extends State<FormContent> {
 
       Navigator.pushReplacement(
         context,
-        EnterExitRoute(
-          exitPage: widget,
-          enterPage: const QuestionBuilderPage(),
+        createSlideRoute(const QuestionBuilderPage(),
         ),
       );
     }
