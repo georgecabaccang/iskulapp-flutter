@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../features/auth/auth_repository/schemas/user.dart';
-import '../../../theme/colors.dart';
-import '../../../theme/text_styles.dart';
+import 'package:school_erp/features/auth/auth_repository/schemas/user.dart';
+import 'package:school_erp/theme/colors.dart';
+import 'package:school_erp/theme/text_styles.dart';
 
 class MessageWidget extends StatefulWidget {
   const MessageWidget({super.key, required this.user});
