@@ -149,11 +149,11 @@ class ComingSoonWidget extends StatelessWidget {
               color: AppColors.whiteColor,
             ),
           ),
-          const SizedBox(height: 16), // Space between image and text
+          const SizedBox(height: 16),
           Image.asset(
-            'assets/images/under_construction.webp', // Make sure to replace with your image path
+            'assets/images/under_construction.webp',
           ),
-          const SizedBox(height: 16), // Space between image and text
+          const SizedBox(height: 16),
           const Text(
             "Thank you for your patience! \n Stay tuned for what's coming soon!",
             textAlign: TextAlign.center,
