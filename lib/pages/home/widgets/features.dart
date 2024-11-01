@@ -6,24 +6,23 @@ import '../../../features/auth/auth_repository/schemas/user.dart';
 import '../../EnterExitRoute.dart';
 import '../../profile/profile_page.dart';
 
-// User info widget displaying name and grade
-class Feature extends StatelessWidget {
+class Features extends StatelessWidget {
   final AuthenticatedUser user;
 
-  const Feature({super.key, required this.user});
+  const Features({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     const List<FeatureSection> features = [
       FeatureSection(title: 'Core', features: [
         FeatureButton(title: 'Quiz', icon: Icons.edit_note_outlined),
-        FeatureButton(title: 'Assignment', icon: Icons.assignment),
+        FeatureButton(title: 'Homework', icon: Icons.assignment),
         FeatureButton(title: 'Learn', icon: Icons.local_library_outlined),
       ]),
       FeatureSection(title: 'Time Calendar', features: [
         FeatureButton(title: 'Calendar', icon: Icons.calendar_month),
         FeatureButton(title: 'Subject\nSchedule', icon: Icons.event_note),
-        FeatureButton(title: 'Apply Leave', icon: Icons.edit_calendar),
+        FeatureButton(title: 'Apply Absents', icon: Icons.edit_calendar),
       ]),
       FeatureSection(title: 'Activities', features: [
         FeatureButton(title: 'Events', icon: Icons.celebration),
@@ -57,7 +56,7 @@ class Feature extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: (18)),
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: (14)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: feature.features.map((feature) {
@@ -74,7 +73,7 @@ class Feature extends StatelessWidget {
                   child: Column(
                     children: [
                       CircleAvatar(
-                        radius: 30,
+                        radius: 25,
                         backgroundColor: AppColors.whiteColor,
                         child: Icon(
                           feature.icon,
@@ -84,7 +83,7 @@ class Feature extends StatelessWidget {
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(vertical: 4),
-                        width: 82,
+                        width: 75,
                         height: 50,
                         child: Text(
                           feature.title,

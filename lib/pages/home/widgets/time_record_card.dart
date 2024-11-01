@@ -4,6 +4,8 @@ import 'package:school_erp/theme/text_styles.dart';
 import 'package:school_erp/theme/colors.dart';
 
 class TimeRecordWidget extends StatefulWidget {
+  const TimeRecordWidget({super.key});
+
   @override
   _TimeRecordWidgetState createState() => _TimeRecordWidgetState();
 }

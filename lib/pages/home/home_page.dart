@@ -1,14 +1,11 @@
-import 'dart:io';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:school_erp/features/auth/bloc/auth_bloc_barrel.dart';
-import 'package:school_erp/features/auth/auth_repository/auth_repository.dart';
-import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overlay.dart';
-import 'package:school_erp/pages/home/widgets/DashboardHeader.dart';
-import 'package:school_erp/pages/home/widgets/Feature.dart';
-import 'package:school_erp/pages/home/widgets/TimeRecordTable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_erp/features/auth/auth_repository/schemas/user.dart';
+import 'package:school_erp/pages/home/widgets/dashboard_header.dart';
+import 'package:school_erp/pages/home/widgets/features.dart';
+import 'package:school_erp/pages/home/widgets/feeds.dart';
+import 'package:school_erp/pages/home/widgets/message.dart';
+import 'package:school_erp/pages/home/widgets/settings.dart';
+import 'package:school_erp/pages/home/widgets/time_record_card.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/theme/text_styles.dart';
 
@@ -23,20 +20,31 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
 
   void _navOnTap(int index) {
     setState(() {
       currentPageIndex = index;
     });
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.ease,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'St. Andrew Acadmey',
+        title: const Text(
+          'St. Andrew Academy',
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
         actions: [
@@ -50,6 +58,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       bottomNavigationBar: NavigationBar(
+        height: 60,
         onDestinationSelected: _navOnTap,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
@@ -59,198 +68,104 @@ class _HomePageState extends State<HomePage> {
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.menu)),
+            selectedIcon: Icon(Icons.menu),
+            icon: Icon(Icons.menu_rounded),
             label: 'Feeds',
           ),
           NavigationDestination(
-            icon: Badge(
-              label: Text('2'),
-              child: Icon(Icons.messenger_sharp),
-            ),
-            label: 'Messages',
+            selectedIcon:Icon(Icons.messenger_sharp),
+            icon: Icon(Icons.messenger_outline_sharp),
+            label: 'Rooms',
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings),
+            selectedIcon: Icon(Icons.settings),
+            icon: Icon(Icons.settings_outlined),
             label: 'Setting',
           ),
         ],
       ),
-
       backgroundColor: AppColors.primaryColor,
-      body: <Widget>[
-        HomeWidget(user: widget.user),
-        FeedsWidget(user: widget.user),
-
-        /// Messages page
-        ListView.builder(
-          reverse: true,
-          itemCount: 2,
-          itemBuilder: (BuildContext context, int index) {
-            if (index == 0) {
-              return Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  margin: const EdgeInsets.all(8.0),
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Text(
-                    'Hello',
-                    style: theme.textTheme.bodyLarge!
-                        .copyWith(color: theme.colorScheme.onPrimary),
-                  ),
-                ),
-              );
-            }
-            return Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                margin: const EdgeInsets.all(8.0),
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Text(
-                  'Hi!',
-                  style: theme.textTheme.bodyLarge!
-                      .copyWith(color: theme.colorScheme.onPrimary),
-                ),
-              ),
-            );
-          },
-        ),
-        
-        Text('Setings'),
-
-
-        /// Notifications page
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications_sharp),
-                  title: Text('Notification 1'),
-                  subtitle: Text('This is a notification'),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications_sharp),
-                  title: Text('Notification 2'),
-                  subtitle: Text('This is a notification'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ][currentPageIndex]
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        children: [
+          HomeWidget(user: widget.user),
+          FeedsWidget(user: widget.user),
+          ComingSoonWidget(),
+          //MessageWidget(user: widget.user),
+          SettingWidget(user: widget.user),
+        ],
+      ),
     );
   }
 }
 
-
 class HomeWidget extends StatelessWidget {
-
   const HomeWidget({super.key, required this.user});
 
   final AuthenticatedUser user;
 
   @override
   Widget build(BuildContext context) {
-    return
-      BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is AuthFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
-          }
-        },
-        builder: (context, state) {
-          if (state is AuthLoading) return const LoadingOverlay();
-          return SafeArea(
+    return SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
-                  child: Column(
-                    children: [
-                      DashboardHeader(user: user),
-                      const SizedBox(height: 16),
-                      TimeRecordWidget(),
-                    ],
-                  ),
-                ),
-                Expanded(child: Feature(user: user))
+                DashboardHeader(user: user),
+                const SizedBox(height: 16),
+                const TimeRecordWidget(),
               ],
             ),
-          );
-        },
-      );
-  }
-}
-
-class FeedsWidget extends StatelessWidget {
-  const FeedsWidget({super.key, required this.user});
-
-  final AuthenticatedUser user;
-  @override
-  Widget build(BuildContext context) {
-    /// Feeds page
-    return ListView.builder(
-      reverse: true,
-      itemCount: 2,
-      itemBuilder: (BuildContext context, int index) {
-        if (index == 0) {
-          return Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              margin: const EdgeInsets.all(8.0),
-              padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: AppColors.whiteColor,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Text(
-                'Hello',
-                style: bodyStyle()
-                    .copyWith(color: AppColors.whiteColor),
-              ),
-            ),
-          );
-        }
-        return Align(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            margin: const EdgeInsets.all(8.0),
-            padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: AppColors.whiteColor,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Text(
-              'Hi!',
-              style: bodyStyle()
-                  .copyWith(color: AppColors.whiteColor),
-            ),
           ),
-        );
-      },
+          Expanded(child: Features(user: user)),
+        ],
+      ),
     );
   }
 }
 
-class SchoolWidget extends StatelessWidget {
+class ComingSoonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('School Page'));
+    return Center(
+      child:  Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Chat rooms are under construction!!!',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          const SizedBox(height: 16), // Space between image and text
+          Image.asset(
+            'assets/images/under_construction.webp', // Make sure to replace with your image path
+          ),
+          const SizedBox(height: 16), // Space between image and text
+          const Text(
+            "Thank you for your patience! \n Stay tuned for what's coming soon!",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.whiteColor,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
+

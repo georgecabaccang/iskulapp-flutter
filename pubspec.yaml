@@ -87,6 +87,7 @@ flutter:
     - assets/images/logo-text.png
     - assets/addAssignmentData/classes.json
     - assets/addAssignmentData/subjects.json
+    - assets/images/under_construction.webp
     - assets/timetable.json
     - assets/events.json
     - .env

@@ -7,6 +7,8 @@ class AppColors {
   static const Color warningColor = Color(0xFFFE8B22); // Warning
   static const Color purple = Color(0xFFDD50F2); // Purple
   static const Color whiteColor = Color(0xFFFFFFFF);
+  static const Color greyColor = Color(0xFF9E9E9E);
+  static const Color blackColor = Color(0xFF000000);
 
   static const Color navigationCard = Color(0xFFF2F3F4); // light grey
 }
