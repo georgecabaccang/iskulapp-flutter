@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:school_erp/features/auth/bloc/auth_bloc_barrel.dart';
 import 'package:school_erp/features/auth/auth_repository/auth_repository.dart';
+import 'package:school_erp/features/powersync/db.dart';
 import 'package:school_erp/pages/EnterExitRoute.dart';
 import 'package:school_erp/pages/assignment/assignment_list_page/assignment_list_page.dart';
 import 'package:school_erp/pages/calendar/calendar_attendance_page.dart';
@@ -35,7 +36,8 @@ class _HomePageState extends State<HomePage> {
       {
         'title': 'Assignment',
         'icon': Icons.assignment,
-        'callback': () {
+        'callback': () async {
+          await openDatabase();
           Navigator.push(
               context,
               EnterExitRoute(
