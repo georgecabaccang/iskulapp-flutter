@@ -1,6 +1,6 @@
 import 'package:powersync/powersync.dart';
 
-const subjectYearsTable = Table('subject_years', [
+const teacherYearTable = Table('teacher_year', [
+  Column.text('teacher_id'),
   Column.text('academic_year_id'),
-  Column.text('subject_id'),
 ]);
