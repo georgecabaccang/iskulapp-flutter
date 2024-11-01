@@ -43,16 +43,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'St. Andrew Academy',
-          style: TextStyle(fontWeight: FontWeight.w500),
+          style: headingStyle().copyWith(color: AppColors.primaryColor),
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Text(
               'YR: 2024 - 2025',
-              style: bodyStyle().copyWith(color: AppColors.primaryColor),
+              style: bodyStyle().copyWith(color: AppColors.primaryColor, fontSize: 12),
             ),
           )
         ],
