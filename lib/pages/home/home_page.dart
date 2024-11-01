@@ -9,6 +9,7 @@ import 'package:school_erp/pages/calendar/calendar_attendance_page.dart';
 import 'package:school_erp/pages/change_password/change_password_page.dart';
 import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overlay.dart';
 import 'package:school_erp/pages/events/events_page.dart';
+import 'package:school_erp/pages/home/widgets/logout_modal.dart';
 import 'package:school_erp/pages/leave_application/leave_application_page.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
 import 'package:school_erp/pages/timetable/timetable_page.dart';
@@ -123,8 +124,8 @@ class _HomePageState extends State<HomePage> {
       {
         'title': 'Logout',
         'icon': Icons.logout,
-        'callback': () => context.read<AuthBloc>().add(LogoutRequested())
-      },
+        'callback': () => LogoutModal(context).show(),
+      }
     ];
 
     return GridView.builder(
