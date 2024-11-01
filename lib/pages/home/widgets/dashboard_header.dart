@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
 import '../../../constants/text_constants.dart';
 import '../../../features/auth/auth_repository/schemas/user.dart';
-import '../../../theme/text_styles.dart'
+import '../../../theme/text_styles.dart';
 import '../../EnterExitRoute.dart';
 
 class DashboardHeader extends StatelessWidget {
