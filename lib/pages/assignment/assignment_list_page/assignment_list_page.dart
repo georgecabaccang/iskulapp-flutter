@@ -20,27 +20,22 @@ class AssignmentListPage extends StatefulWidget {
 
 class _AssignmentListPageState extends State<AssignmentListPage> {
   List<Assessment?> _data = [];
-  late StreamSubscription? _subscription;
+  late StreamSubscription<List<Assessment?>>? _subscription;
 
   @override
   void initState() {
     super.initState();
-    final stream = Assessment.watchLists(AssessmentType.assignment);
-
-    _subscription = stream.listen((data) {
-      if (!context.mounted) {
-        return;
-      }
-      setState(() {
-        _data = data;
-      });
+    _subscription =
+        Assessment.watchLists(AssessmentType.assignment).listen((data) {
+      if (!mounted) return;
+      setState(() => _data = data);
     });
   }
 
   @override
   void dispose() {
-    super.dispose();
     _subscription?.cancel();
+    super.dispose();
   }
 
   String formatDate(DateTime date) => DateFormat('dd MMM yy').format(date);
@@ -54,23 +49,24 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
           CustomAppBar(
             title: 'Assignment List',
             trailingWidget: AppBarAddButton(
-                exitPage: widget, enterPage: const AssignmentAddPage()),
+              exitPage: widget,
+              enterPage: const AssignmentAddPage(),
+            ),
           ),
           AppContent(
             content: [
               Expanded(
-                child: ListView(
+                child: ListView.builder(
                   padding: const EdgeInsets.all(16.0),
-                  children: _data.map((assessment) {
-                    return AssignmentCard(
-                      subject: assessment!.subject,
-                      title: assessment.title,
-                      assignDate: formatDate(assessment.startTime),
-                      lastSubmissionDate: formatDate(assessment.deadLine),
-                      status:
-                          AssessmentStatus.fromString(assessment.status.value),
-                    );
-                  }).toList(),
+                  itemCount: _data.length,
+                  itemBuilder: (context, index) {
+                    final assessment = _data[index];
+                    return assessment != null
+                        ? AssignmentCard(
+                            assessment: assessment,
+                          )
+                        : const SizedBox.shrink();
+                  },
                 ),
               ),
             ],
