@@ -21,3 +21,4 @@ void fl_register_plugins(FlPluginRegistry* registry) {
       fl_plugin_registry_get_registrar_for_plugin(registry, "Sqlite3FlutterLibsPlugin");
   sqlite3_flutter_libs_plugin_register_with_registrar(sqlite3_flutter_libs_registrar);
 }
+
