@@ -109,6 +109,7 @@ class CalendarWidget extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return TableCalendar(
+      daysOfWeekHeight: 28,
       focusedDay: focusedDay,
       firstDay: DateTime.utc(2020, 1, 1),
       lastDay: DateTime.utc(2123, 12, 31),
