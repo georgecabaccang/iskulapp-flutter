@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
-import 'package:school_erp/theme/text_styles.dart';
 import 'package:table_calendar/table_calendar.dart';
 import './widgets/attendance_title.dart';
 import 'package:intl/intl.dart';
@@ -106,115 +105,21 @@ class CalendarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-
     return TableCalendar(
-      daysOfWeekHeight: 28,
-      focusedDay: focusedDay,
-      firstDay: DateTime.utc(2020, 1, 1),
-      lastDay: DateTime.utc(2123, 12, 31),
-      selectedDayPredicate: (day) => isSameDay(selectedDay, day),
-      onDaySelected: (selectedDay, focusedDay) {
-        onDaySelected(selectedDay, focusedDay);
-      },
-      headerStyle: HeaderStyle(
-        titleCentered: true,
-        formatButtonVisible: false,
-        titleTextStyle: TextStyle(
-          fontSize:
-              screenWidth * 0.05, // Adjusted font size based on screen width
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      onPageChanged: (focusedDay) {
-        onPageChanged(focusedDay);
-      },
-      availableCalendarFormats: const {
-        CalendarFormat.month: 'Month',
-      },
-      daysOfWeekStyle: DaysOfWeekStyle(
-        weekdayStyle: TextStyle(
-          fontSize: screenWidth * 0.035, // Responsive font size
-          fontWeight: FontWeight.w500,
-        ),
-        weekendStyle: TextStyle(
-          fontSize: screenWidth * 0.035, // Responsive font size
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      calendarStyle: CalendarStyle(
-        defaultTextStyle: TextStyle(
-          fontSize: screenWidth * 0.035, // Responsive font size for days
-        ),
-        weekendTextStyle: TextStyle(
-          fontSize: screenWidth * 0.035,
-        ),
-      ),
-      calendarBuilders: CalendarBuilders(
-        headerTitleBuilder: (context, focusedDay) {
-          return GestureDetector(
-            onTap: () => _showMonthSelectionDialog(context),
-            child: Center(
-              child: Text(
-                DateFormat('MMMM yyyy').format(focusedDay),
-                style: bodyStyle().copyWith(fontSize: screenWidth * 0.05),
-              ),
-            ),
-          );
+        focusedDay: focusedDay,
+        firstDay: DateTime.utc(2020, 1, 1),
+        lastDay: DateTime.utc(2123, 12, 31),
+        selectedDayPredicate: (day) => isSameDay(selectedDay, day),
+        onDaySelected: (selectedDay, focusedDay) {
+          onDaySelected(selectedDay, focusedDay);
         },
-      ),
-    );
-  }
-
-  void _showMonthSelectionDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Select Month"),
-          content: SizedBox(
-            width: 300,
-            height: 300,
-            child: ListView.builder(
-              itemCount: 12,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    _getMonthName(index),
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.045,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    final selectedMonth = DateTime(focusedDay.year, index + 1);
-                    onPageChanged(selectedMonth);
-                  },
-                );
-              },
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  String _getMonthName(int monthIndex) {
-    const monthNames = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ];
-    return monthNames[monthIndex];
+        headerStyle: const HeaderStyle(titleCentered: true),
+        onPageChanged: (focusedDay) {
+          onPageChanged(focusedDay);
+        },
+        availableCalendarFormats: const {
+          CalendarFormat.month: 'Month',
+        });
   }
 }
 
@@ -289,64 +194,62 @@ class AttendanceList extends StatelessWidget {
           bool isHoliday = (weekday == "Saturday" || weekday == "Sunday");
           String status = isHoliday ? "Holiday" : "Present";
 
-          return Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-                child: Row(
+          return Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(width: 15,),
+                Column(
+                 mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          day,
-                          style: const TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          shortMonth,
-                          style: const TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      day,
+                      style: const TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    const SizedBox(width: 20.0),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            status,
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Text(
-                            weekday,
-                            style: const TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
+                    Text(
+                      shortMonth,
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
                       ),
                     ),
                   ],
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 60.0),
-                child: Divider(),
-              ),
-            ],
+                const SizedBox(width: 15,),
+                Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey, width: 1.5))),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          status,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 2.5),
+                        Text(
+                          weekday,
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),
