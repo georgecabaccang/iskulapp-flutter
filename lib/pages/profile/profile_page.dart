@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:school_erp/pages/common_widgets/default_layout.dart';
 import 'package:school_erp/pages/profile/formText.dart';
 import 'package:school_erp/theme/colors.dart';
-import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'package:school_erp/pages/common_widgets/app_content.dart';
 
 class FormTextData {
@@ -21,22 +21,30 @@ class MyIcons {
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
-
+  
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
   
- @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    backgroundColor: AppColors.primaryColor,
-    body: Column(
-      children: [
-        CustomAppBar(
-          title: 'My Profile',
-          trailingWidget: TextButton.icon(
+  @override
+  Widget build(BuildContext context) {
+    return DefaultLayout(
+      title: 'My Profile',
+      content: [
+        AppContent(content: [
+          profileCard(),
+          AppContent(
+            content: [
+              profileForm(), // Wrap profileForm in its own AppContent
+              // More widgets if needed
+            ],
+            isScrollable: true, // Make this specific content scrollable
+          ),
+        ]),
+      ],
+      trailingWidget: TextButton.icon(
             onPressed: () {
               print('Done button pressed');
             },
@@ -59,23 +67,8 @@ Widget build(BuildContext context) {
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             ),
           ),
-        ),
-        AppContent(
-          content: [
-            profileCard(),
-            AppContent(
-              content: [
-                profileForm(), // Wrap profileForm in its own AppContent
-                // More widgets if needed
-              ],
-              isScrollable: true, // Make this specific content scrollable
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
+    );
+  }
 
   Widget profileCard() {
     return Row(
