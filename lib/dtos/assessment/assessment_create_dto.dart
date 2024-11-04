@@ -24,33 +24,3 @@ class AssessmentCreateDTO extends CreateDTO {
     this.durationMinutes,
   }) : status = AssessmentStatus.toBeCompleted;
 }
-
-class AssessmentCreateDTOBuilder {
-  late AssessmentType assessmentType;
-  late String preparedById;
-  late String subjectYearId;
-  late String sectionId;
-  late String title;
-  late int totalQuestions;
-  late bool randomizeSequence;
-  late DateTime startTime;
-  late DateTime deadLine;
-  late int? durationMinutes;
-
-  AssessmentCreateDTOBuilder() {
-    durationMinutes = null;
-  }
-
-  AssessmentCreateDTO build() {
-    return AssessmentCreateDTO(
-      assessmentType: assessmentType,
-      preparedById: preparedById,
-      title: title,
-      totalQuestions: totalQuestions,
-      randomizeSequence: randomizeSequence,
-      startTime: startTime,
-      deadLine: deadLine,
-      durationMinutes: durationMinutes,
-    );
-  }
-}

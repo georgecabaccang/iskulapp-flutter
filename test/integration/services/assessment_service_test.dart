@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:school_erp/dtos/assessment/assessment_create_dto.dart';
-import 'package:school_erp/dtos/assessment/assessment_taker_create_dto.dart';
+import 'package:school_erp/dtos/assessment_taker/assessment_taker_create_dto.dart';
 import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/features/assessment/assessment_service.dart';
 
@@ -16,37 +16,33 @@ void main() {
     await openTestDatabase();
   });
 
-  group('AssessmentService', () {
-    final AssessmentCreateDTOBuilder assessmentCreateDTOBuilder =
-        AssessmentCreateDTOBuilder();
+  group('assessment assignment create', () {
+    final assessmentCreateDTO = AssessmentCreateDTO(
+      assessmentType: AssessmentType.assignment,
+      preparedById: '1',
+      title: 'Test Title',
+      totalQuestions: 20,
+      randomizeSequence: false,
+      startTime: DateTime.now().add(Duration(days: 1)),
+      deadLine: DateTime.now().add(Duration(days: 3)),
+      durationMinutes: null,
+    );
 
-    // form data
-    assessmentCreateDTOBuilder.assessmentType = AssessmentType.assignment;
-    assessmentCreateDTOBuilder.preparedById = '1';
-    assessmentCreateDTOBuilder.title = 'Test Title';
-    assessmentCreateDTOBuilder.totalQuestions = 20;
-    assessmentCreateDTOBuilder.randomizeSequence = false;
-    assessmentCreateDTOBuilder.startTime = DateTime.now();
-    assessmentCreateDTOBuilder.deadLine = DateTime.now();
-    assessmentCreateDTOBuilder.durationMinutes = 20;
-
-    final assessmentCreateDTO = assessmentCreateDTOBuilder.build();
-
-    final AssessmentTakerCreateDTOBuilder assessmentTakerCreateDTOBuilder =
-        AssessmentTakerCreateDTOBuilder();
-    assessmentTakerCreateDTOBuilder.sectionId = '1';
-    assessmentTakerCreateDTOBuilder.subjectYearId = '1';
+    final assessmentTakerCreateDTO = AssessmentTakerCreateDTO(
+      sectionId: '1',
+      subjectYearId: '1',
+    );
 
     test(
         'assessment service creates record for assessments and assessment_takers table',
         () async {
-      final assessmentService = AssessmentService(database: testDB);
+      final assessmentService = AssessmentService(testDB);
       final (success, (resultAssessment, resultTaker)) =
           await assessmentService.create(
-              assessmentDTOBuilder: assessmentCreateDTOBuilder,
-              assessmentTakerDTOBuilder: assessmentTakerCreateDTOBuilder);
+        assessmentCreateDTO: assessmentCreateDTO,
+        assessmentTakerCreateDTO: assessmentTakerCreateDTO,
+      );
       expect(success, isTrue);
-
       // Check if the assessment record is created
       expect(resultAssessment.first['id'], isNotNull);
       expect(resultAssessment.first['prepared_by'],
@@ -71,9 +67,9 @@ void main() {
       expect(resultTaker.first['assessment_id'],
           equals(resultAssessment.first['id']));
       expect(resultTaker.first['subject_year_id'],
-          equals(assessmentTakerCreateDTOBuilder.subjectYearId));
+          equals(assessmentTakerCreateDTO.subjectYearId));
       expect(resultTaker.first['section_id'],
-          equals(assessmentTakerCreateDTOBuilder.sectionId));
+          equals(assessmentTakerCreateDTO.sectionId));
     });
   });
 }

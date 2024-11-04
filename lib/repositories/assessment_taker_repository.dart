@@ -1,6 +1,6 @@
 import 'package:powersync/powersync.dart';
-import 'package:school_erp/dtos/assessment/assessment_taker_create_dto.dart';
 import 'package:school_erp/dtos/assessment/assessment_update_dto.dart';
+import 'package:school_erp/dtos/assessment_taker/assessment_taker_create_dto.dart';
 import 'package:school_erp/models/tables/assessment_takers_table.dart';
 import 'package:school_erp/repositories/base_crud_repository.dart';
 
