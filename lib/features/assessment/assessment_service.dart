@@ -1,35 +1,36 @@
 import 'package:powersync/powersync.dart';
 import 'package:powersync/sqlite3_common.dart';
 import 'package:school_erp/dtos/assessment/assessment_create_dto.dart';
-import 'package:school_erp/dtos/assessment/assessment_taker_create_dto.dart';
+import 'package:school_erp/dtos/assessment_taker/assessment_taker_create_dto.dart';
 import 'package:school_erp/repositories/assessment_repository.dart';
 import 'package:school_erp/features/powersync/db.dart' as ps;
 import 'package:school_erp/repositories/assessment_taker_repository.dart';
 
 class AssessmentService {
-  late PowerSyncDatabase db;
-  late AssessmentRepository assessmentRepository;
-  late AssessmentTakerRepository assessmentTakerRepository;
+  final PowerSyncDatabase db;
+  final AssessmentRepository assessmentRepository;
+  final AssessmentTakerRepository assessmentTakerRepository;
 
-  AssessmentService({PowerSyncDatabase? database}) {
-    db = database ?? ps.db;
-    assessmentRepository = AssessmentRepository(database: db);
-    assessmentTakerRepository = AssessmentTakerRepository(database: db);
-  }
+  AssessmentService(PowerSyncDatabase? database)
+      : db = database ?? ps.db,
+        assessmentRepository =
+            AssessmentRepository(database: database ?? ps.db),
+        assessmentTakerRepository =
+            AssessmentTakerRepository(database: database ?? ps.db);
 
   Future<(bool, (ResultSet, ResultSet))> create({
-    required AssessmentCreateDTOBuilder assessmentDTOBuilder,
-    required AssessmentTakerCreateDTOBuilder assessmentTakerDTOBuilder,
+    required AssessmentCreateDTO assessmentCreateDTO,
+    required AssessmentTakerCreateDTO assessmentTakerCreateDTO,
   }) async {
     try {
       final result = await db.writeTransaction((tx) async {
         final ResultSet resultAssessment = await assessmentRepository
-            .createTransaction(assessmentDTOBuilder.build(), tx);
+            .createTransaction(assessmentCreateDTO, tx);
 
-        assessmentTakerDTOBuilder.assessmentId = resultAssessment.first['id'];
+        assessmentTakerCreateDTO.assessmentId = resultAssessment.first['id'];
 
         final ResultSet resultAssessmentTaker = await assessmentTakerRepository
-            .createTransaction(assessmentTakerDTOBuilder.build(), tx);
+            .createTransaction(assessmentTakerCreateDTO, tx);
 
         return (true, (resultAssessment, resultAssessmentTaker));
       });
