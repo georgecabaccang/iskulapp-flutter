@@ -7,7 +7,7 @@ class AssignmentAddPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DefaultLayout(
+    return DefaultLayout(
         title: "Add Assignment", content: [AddAssignmentForm()]);
   }
 }

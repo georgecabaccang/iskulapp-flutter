@@ -1,38 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/dtos/assessment/assessment_create_dto.dart';
-import 'package:school_erp/dtos/assessment/assessment_taker_create_dto.dart';
-import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/enums/assignment_type.dart';
-import 'package:school_erp/features/auth/auth.dart';
-import 'package:school_erp/features/auth/utils.dart';
 import 'package:school_erp/features/transition/clean_slide_transition.dart';
 import 'package:school_erp/models/section.dart';
 import 'package:school_erp/models/subject_year.dart';
 import 'package:school_erp/models/teacher.dart';
 import 'package:school_erp/pages/assignment/assignment_add/assignment_setup_page/question_setup_page.dart';
 import 'package:school_erp/theme/colors.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_erp/utils/extensions/string_extension.dart';
+
+final assignmentFormKey = GlobalKey<
+    AddAssignmentFormState>(); // to be passed on succeeding page to access state
 
 class AddAssignmentForm extends StatefulWidget {
-  const AddAssignmentForm({super.key});
+  AddAssignmentForm() : super(key: assignmentFormKey);
 
   @override
-  State<AddAssignmentForm> createState() => _AddAssignmentFormState();
+  State<AddAssignmentForm> createState() => AddAssignmentFormState();
 }
 
-class _AddAssignmentFormState extends State<AddAssignmentForm> {
+class AddAssignmentFormState extends State<AddAssignmentForm> {
   List<Section?> sections = [];
   List<SubjectYear?> subjectYears = [];
-  AssignmentType? selectedType = AssignmentType.inApp;
+
+  AssignmentType selectedType = AssignmentType.inApp;
   Section? selectedSection;
   SubjectYear? selectedSubject;
+  String? title;
   bool isLoading = true;
-
-  final AssessmentCreateDTOBuilder assessmentCreateDTOBuilder =
-      AssessmentCreateDTOBuilder();
-
-  final AssessmentTakerCreateDTOBuilder assessmentTakerCreateDTOBuilder =
-      AssessmentTakerCreateDTOBuilder();
 
   @override
   void initState() {
@@ -42,22 +36,9 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
 
   Future<void> _initializeForm() async {
     try {
-      _createAssessmentDTO();
       await _loadData();
     } catch (e) {
       _handleError('Initialization error: ${e.toString()}');
-    }
-  }
-
-  void _createAssessmentDTO() {
-    try {
-      final authState = context.read<AuthBloc>().state;
-      final teacherId = getTeacherId(authState);
-
-      assessmentCreateDTOBuilder.assessmentType = AssessmentType.assignment;
-      assessmentCreateDTOBuilder.preparedById = teacherId;
-    } catch (e) {
-      throw Exception('Failed to create assessment: ${e.toString()}');
     }
   }
 
@@ -99,11 +80,8 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
       _formKey.currentState!.save();
       Navigator.push(
         context,
-        createSlideRoute(QuestionSetupPage(
-            assessmentCreateDTOBuilder,
-            assessmentTakerCreateDTOBuilder,
-          ),
-        ),
+        createSlideRoute(
+            QuestionSetupPage(addAssignmentKey: assignmentFormKey)),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -128,7 +106,7 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                 DropdownButtonFormField<Section?>(
                   value: selectedSection,
                   items: sections.map((Section? value) {
-                    return DropdownMenuItem<Section?>(
+                    return DropdownMenuItem<Section>(
                       value: value,
                       child: Text(value!.name),
                     );
@@ -137,9 +115,6 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                     setState(() {
                       selectedSection = newValue;
                     });
-                  },
-                  onSaved: (Section? newValue) {
-                    assessmentTakerCreateDTOBuilder.sectionId = newValue!.id;
                   },
                   decoration: const InputDecoration(
                     labelText: 'Select Class',
@@ -158,17 +133,13 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                   items: subjectYears.map((SubjectYear? subjectYear) {
                     return DropdownMenuItem<SubjectYear?>(
                       value: subjectYear,
-                      child: Text(subjectYear?.subjectName ?? ''),
+                      child: Text(subjectYear?.subjectName.title() ?? ''),
                     );
                   }).toList(),
                   onChanged: (SubjectYear? newValue) {
                     setState(() {
                       selectedSubject = newValue;
                     });
-                  },
-                  onSaved: (SubjectYear? newValue) {
-                    assessmentTakerCreateDTOBuilder.subjectYearId =
-                        newValue!.id;
                   },
                   decoration: const InputDecoration(
                     labelText: 'Select Subject',
@@ -195,7 +166,7 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                       return null;
                     },
                     onSaved: (value) {
-                      assessmentCreateDTOBuilder.title = value!;
+                      title = value;
                     }),
                 const SizedBox(height: 25),
                 DropdownButtonFormField<AssignmentType>(
@@ -209,7 +180,7 @@ class _AddAssignmentFormState extends State<AddAssignmentForm> {
                   }).toList(),
                   onChanged: (newValue) {
                     setState(() {
-                      selectedType = newValue;
+                      selectedType = newValue!;
                     });
                   },
                   decoration: const InputDecoration(
