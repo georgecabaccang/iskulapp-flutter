@@ -68,6 +68,8 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   build_runner: ^2.4.12
   json_serializable: ^6.8.0
+  flutter_launcher_icons: ^0.9.2
+  flutter_native_splash: ^2.1.8
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -89,6 +91,9 @@ flutter:
     - assets/addAssignmentData/classes.json
     - assets/addAssignmentData/subjects.json
     - assets/images/under_construction.webp
+    - assets/images/logo-text-white.png
+    - assets/images/logo-text-white-x.png
+    - assets/images/splash.png
     - assets/timetable.json
     - assets/events.json
     - .env
@@ -128,3 +133,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo-text-white.png"
+  adaptive_icon_background: "#FF5278C1" # or path to a background image
+  adaptive_icon_foreground: "assets/images/logo-text-white.png" # if using adaptive icons
+  overwrite: true
