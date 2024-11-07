@@ -1,5 +1,7 @@
 abstract class CreateDTO {}
 
 abstract class UpdateDTO {
-  String get id;
+  final String? id;
+
+  const UpdateDTO(this.id);
 }
