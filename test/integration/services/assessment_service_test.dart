@@ -2,10 +2,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:school_erp/dtos/assessment_dto.dart';
 import 'package:school_erp/dtos/assessment_taker_dto.dart';
 import 'package:school_erp/enums/assessment_type.dart';
+import 'package:school_erp/enums/assessment_status.dart';
 import 'package:school_erp/features/assessment/assessment_service.dart';
 import '../test_db.dart';
 
-//TODO: create fixtures, some assert statements are hard coded with values, not ideal
+//TODO:  create fixtures, some assert checks are hardcoded
 void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   await openTestDatabase();
@@ -24,6 +25,7 @@ void main() async {
     setUp(() {
       validAssessmentDTO = AssessmentCreateDTO(
         assessmentType: AssessmentType.assignment,
+        subjectYearId: '1',
         preparedById: '1',
         title: 'Test Title',
         totalQuestions: 20,
@@ -35,13 +37,11 @@ void main() async {
       validAssessmentTakerDTOs = [
         AssessmentTakerCreateDTO(
           sectionId: '1',
-          subjectYearId: '1',
           startTime: now,
           deadLine: now.add(const Duration(days: 7)),
         ),
         AssessmentTakerCreateDTO(
           sectionId: '2',
-          subjectYearId: '1',
           startTime: now,
           deadLine: now.add(const Duration(days: 7)),
         ),
@@ -58,6 +58,8 @@ void main() async {
       expect(result.assessment.first['id'], isNotNull);
       expect(result.assessment.first['prepared_by'],
           validAssessmentDTO.preparedById);
+      expect(result.assessment.first['subject_year_id'],
+          validAssessmentDTO.subjectYearId);
       expect(result.assessment.first['assessment_type'],
           validAssessmentDTO.assessmentType.value);
       expect(result.assessment.first['title'], validAssessmentDTO.title);
@@ -67,6 +69,8 @@ void main() async {
           validAssessmentDTO.randomizeSequence);
       expect(result.assessment.first['duration_mins'],
           validAssessmentDTO.durationMinutes);
+      expect(result.assessment.first['status'],
+          AssessmentStatus.toBeCompleted.value);
 
       // Verify takers
       expect(result.assessmentTakers.length,
@@ -77,8 +81,6 @@ void main() async {
         expect(assessmentTaker.first['id'], isNotNull);
         expect(assessmentTaker.first['assessment_id'],
             result.assessment.first['id']);
-        expect(assessmentTaker.first['subject_year_id'],
-            expectedTaker.subjectYearId);
         expect(assessmentTaker.first['section_id'], expectedTaker.sectionId);
         expect(assessmentTaker.first['start_time'],
             expectedTaker.startTime.toIso8601String());
@@ -122,6 +124,7 @@ void main() async {
       // Create initial assessment and takers for update tests
       final assessmentDTO = AssessmentCreateDTO(
         assessmentType: AssessmentType.assignment,
+        subjectYearId: '1',
         preparedById: '1',
         title: 'Original Title',
         totalQuestions: 10,
@@ -132,13 +135,11 @@ void main() async {
       final assessmentTakerDTOs = [
         AssessmentTakerCreateDTO(
           sectionId: '1',
-          subjectYearId: '1',
           startTime: DateTime.now(),
           deadLine: DateTime.now().add(const Duration(days: 7)),
         ),
         AssessmentTakerCreateDTO(
           sectionId: '2',
-          subjectYearId: '1',
           startTime: DateTime.now(),
           deadLine: DateTime.now().add(const Duration(days: 7)),
         ),
@@ -156,19 +157,19 @@ void main() async {
       updateDTO = AssessmentUpdateDTO(
         existingAssessmentId,
         title: 'Updated Title',
+        subjectYearId: '2',
         totalQuestions: 15,
         randomizeSequence: true,
         durationMinutes: 45,
-      );
-
-      final updateTakerDTO1 = AssessmentTakerUpdateDTO(
-        existingTakerIds.first,
-        sectionId: '3',
-        deadLine: DateTime.now().add(const Duration(days: 14)),
+        status: AssessmentStatus.published,
       );
 
       updateTakerDTOs = [
-        updateTakerDTO1,
+        AssessmentTakerUpdateDTO(
+          existingTakerIds.first,
+          sectionId: '3',
+          deadLine: DateTime.now().add(const Duration(days: 14)),
+        ),
       ];
     });
 
@@ -184,12 +185,16 @@ void main() async {
       // Verify assessment updates
       expect(result.assessment, isNotNull);
       expect(result.assessment!.first['title'], equals(updateDTO.title));
+      expect(result.assessment!.first['subject_year_id'],
+          equals(updateDTO.subjectYearId));
       expect(result.assessment!.first['total_questions'],
           equals(updateDTO.totalQuestions));
-      expect(result.assessment?.first['randomize_sequence'],
-          equals(updateDTO.randomizeSequence!));
+      expect(result.assessment!.first['randomize_sequence'],
+          equals(updateDTO.randomizeSequence));
       expect(result.assessment!.first['duration_mins'],
           equals(updateDTO.durationMinutes));
+      expect(
+          result.assessment!.first['status'], equals(updateDTO.status!.value));
 
       // Verify taker updates
       expect(result.assessmentTakers.length, equals(1));
@@ -260,7 +265,6 @@ void main() async {
           AssessmentTakerUpdateDTO(
             null, // New taker
             sectionId: '3',
-            subjectYearId: '1',
             startTime: now,
             deadLine: now.add(const Duration(days: 7)),
           ),

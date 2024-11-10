@@ -16,13 +16,12 @@ class Teacher {
     required this.endDate,
   });
 
-  static Future<List<Section?>> sections() async {
+  static Future<List<Section>> activeSections() async {
     final results = await db.execute(teacherActiveSectionsSql);
     return results.map(Section.fromRow).toList(growable: false);
   }
 
-  // on the assumption that only current academic year gets synced
-  static Future<List<SubjectYear?>> activeSubjects() async {
+  static Future<List<SubjectYear>> activeSubjects() async {
     final results = await db.execute(teacherActiveSubjectsSql);
     return results.map(SubjectYear.fromRow).toList(growable: false);
   }

@@ -5,8 +5,10 @@ import 'package:school_erp/enums/assessment_type.dart';
 
 class AssessmentCreateDTO extends CreateDTO {
   final AssessmentType assessmentType;
+  final String subjectYearId;
   final String preparedById;
   final String title;
+  final String? instructions;
   final int totalQuestions;
   final int randomizeSequence;
   final int? durationMinutes;
@@ -14,8 +16,10 @@ class AssessmentCreateDTO extends CreateDTO {
 
   AssessmentCreateDTO({
     required this.assessmentType,
+    required this.subjectYearId,
     required this.preparedById,
     required this.title,
+    this.instructions,
     required this.totalQuestions,
     required bool randomizeSequence,
     this.durationMinutes,
@@ -25,6 +29,8 @@ class AssessmentCreateDTO extends CreateDTO {
 
 class AssessmentUpdateDTO extends UpdateDTO {
   final String? title;
+  final String? subjectYearId;
+  final String? instructions;
   final int? totalQuestions;
   final int? randomizeSequence;
   final int? durationMinutes;
@@ -33,6 +39,8 @@ class AssessmentUpdateDTO extends UpdateDTO {
   AssessmentUpdateDTO(
     super.id, {
     this.title,
+    this.instructions,
+    this.subjectYearId,
     this.totalQuestions,
     bool? randomizeSequence,
     this.durationMinutes,
