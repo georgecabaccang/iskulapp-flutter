@@ -1,11 +1,10 @@
 import 'package:powersync/powersync.dart';
-import 'package:school_erp/dtos/assessment/assessment_update_dto.dart';
-import 'package:school_erp/dtos/assessment_taker/assessment_taker_create_dto.dart';
+import 'package:school_erp/dtos/assessment_taker_dto.dart';
 import 'package:school_erp/models/tables/assessment_takers_table.dart';
 import 'package:school_erp/repositories/base_crud_repository.dart';
 
-class AssessmentTakerRepository
-    extends BaseCrudRepository<AssessmentTakerCreateDTO, AssessmentUpdateDTO> {
+class AssessmentTakerRepository extends BaseCrudRepository<
+    AssessmentTakerCreateDTO, AssessmentTakerUpdateDTO> {
   AssessmentTakerRepository({required PowerSyncDatabase database})
       : super(table: assessmentTakersTable, database: database);
 
@@ -14,14 +13,18 @@ class AssessmentTakerRepository
     return {
       'assessment_id': dto.assessmentId,
       'section_id': dto.sectionId,
-      'subject_year_id': dto.subjectYearId,
+      'start_time': dto.startTime.toIso8601String(),
+      'dead_line': dto.deadLine.toIso8601String(),
     };
   }
 
   @override
-  Map<String, dynamic> toUpdateMap(AssessmentUpdateDTO dto) {
+  Map<String, dynamic> toUpdateMap(AssessmentTakerUpdateDTO dto) {
     return {
-      'status': 'no implementation', // no implementation yet
+      'assessment_id': dto.assessmentId,
+      'section_id': dto.sectionId,
+      'start_time': dto.startTime?.toIso8601String(),
+      'dead_line': dto.deadLine?.toIso8601String(),
     };
   }
 }

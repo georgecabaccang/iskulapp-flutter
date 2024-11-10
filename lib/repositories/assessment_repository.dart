@@ -1,6 +1,5 @@
 import 'package:powersync/powersync.dart';
-import 'package:school_erp/dtos/assessment/assessment_update_dto.dart';
-import 'package:school_erp/dtos/assessment/assessment_create_dto.dart';
+import 'package:school_erp/dtos/assessment_dto.dart';
 import 'package:school_erp/models/tables/assessments_table.dart';
 import 'package:school_erp/repositories/base_crud_repository.dart';
 
@@ -12,13 +11,14 @@ class AssessmentRepository
   @override
   Map<String, dynamic> toCreateMap(AssessmentCreateDTO dto) {
     return {
+      'subject_year_id': dto.subjectYearId,
       'prepared_by': dto.preparedById,
       'assessment_type': dto.assessmentType.value,
       'title': dto.title,
+      'instructions': dto.instructions,
       'total_questions': dto.totalQuestions,
-      'start_time': dto.startTime.toIso8601String(),
-      'dead_line': dto.deadLine.toIso8601String(),
       'duration_mins': dto.durationMinutes,
+      'randomize_sequence': dto.randomizeSequence,
       'status': dto.status.value,
     };
   }
@@ -26,7 +26,13 @@ class AssessmentRepository
   @override
   Map<String, dynamic> toUpdateMap(AssessmentUpdateDTO dto) {
     return {
-      'status': 'no implementation', // no implementation yet
+      'subject_year_id': dto.subjectYearId,
+      'title': dto.title,
+      'instructions': dto.instructions,
+      'total_questions': dto.totalQuestions,
+      'duration_mins': dto.durationMinutes,
+      'randomize_sequence': dto.randomizeSequence,
+      'status': dto.status?.value,
     };
   }
 }
