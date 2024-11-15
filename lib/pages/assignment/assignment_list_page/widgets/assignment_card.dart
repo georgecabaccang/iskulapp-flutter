@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/features/transition/clean_slide_transition.dart';
+import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/enums/assessment_status.dart';
+import 'package:school_erp/features/transition/clean_slide_transition.dart';
 import 'package:school_erp/models/assessment.dart';
 import 'package:school_erp/pages/assessment/assessment_create_update/assessment_setup/assessment_setup_page.dart';
-import 'package:school_erp/pages/assignment/assignment_preview/assignment_preview_page.dart';
 import 'package:school_erp/utils/extensions/string_extension.dart';
 import 'package:school_erp/theme/text_styles.dart';
 
@@ -50,10 +50,13 @@ class AssignmentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        createSlideRoute(AssessmentSetupPage(
-            title: 'Update Assignment', assessment: assessment)),
+      onTap: () => Navigator.of(context).push(
+        createSlideRoute(
+          AssessmentSetupPage(
+            assessmentTypeOnCreate: AssessmentType.assignment,
+            assessment: assessment,
+          ),
+        ),
       ),
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 8.0),
