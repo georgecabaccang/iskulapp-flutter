@@ -63,6 +63,12 @@ abstract class BaseCrudRepository<M extends BaseModel> {
     final executor = tx ?? database;
     final results =
         await executor.execute(statement, [...tableData.values, model.id]);
+
+    if (results.isEmpty) {
+      throw StateError(
+          'Failed to update ${model.runtimeType} with ID ${model.id}: record not found in database');
+    }
+
     return fromRow(results.first);
   }
 
@@ -97,8 +103,9 @@ abstract class BaseCrudRepository<M extends BaseModel> {
   Future<M> upsert(M model, {SqliteWriteContext? tx}) async {
     if (model.id == null) {
       return await create(model, tx: tx);
+    } else {
+      return await update(model, tx: tx);
     }
-    return await update(model, tx: tx);
   }
 
   /// Create multiple records in a transaction
@@ -251,8 +258,6 @@ abstract class BaseCrudRepository<M extends BaseModel> {
     List<String>? update,
   }) {
     // variables for insert statement
-    print('this are the table keys');
-    print(tableData.keys);
     final columns = tableData.keys.toList();
     final placeholders =
         columns.map((column) => column == 'id' ? 'uuid()' : '?').toList();
