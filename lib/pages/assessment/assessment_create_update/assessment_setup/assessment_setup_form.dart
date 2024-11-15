@@ -1,84 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_erp/enums/assignment_type.dart';
+import 'package:school_erp/features/assessment/cubit/assessment_cubit.dart';
+import 'package:school_erp/features/assessment/cubit/assessment_state.dart';
 import 'package:school_erp/features/transition/clean_slide_transition.dart';
-import 'package:school_erp/models/assessment.dart';
 import 'package:school_erp/models/subject_year.dart';
-import 'package:school_erp/models/teacher.dart';
 import 'package:school_erp/pages/assessment/assessment_create_update/assessment_takers/assessment_takers_page.dart';
+import 'package:school_erp/repositories/repositories.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/utils/extensions/string_extension.dart';
 
 class AssessmentSetupForm extends StatefulWidget {
-  final Assessment? assessment;
-  const AssessmentSetupForm({this.assessment, super.key});
+  const AssessmentSetupForm({super.key});
 
   @override
   _AssessmentSetupFormState createState() => _AssessmentSetupFormState();
 }
 
 class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
-  AssignmentType selectedType = AssignmentType.inApp;
-  SubjectYear? selectedSubject;
-  String? title;
-  String? instructions;
-
-  List<SubjectYear> _subjectYears = [];
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _instructionsController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  List<SubjectYear> activeSubjects = [];
 
   @override
   void initState() {
     super.initState();
-    setState(() {});
-    _loadData();
+    _loadSubjectSelection();
   }
 
-  Future<void> _loadData() async {
-    try {
-      _subjectYears = await Teacher.activeSubjects();
-      if (!mounted) return;
-
-      if (widget.assessment != null) {
-        var subjectYear = await widget.assessment!.subjectYear();
-
-        print('contains');
-        print('this is selected ${subjectYear.id}');
-        for (final subjectYear in _subjectYears) {
-          print(subjectYear.id);
-        }
-
-        setState(() {
-          selectedSubject = subjectYear;
-          print(_subjectYears.contains(selectedSubject));
-          _titleController.text = widget.assessment!.title;
-          _instructionsController.text = widget.assessment!.instructions ?? '';
-        });
-      } else {
-        setState(() {
-          selectedSubject = _subjectYears.firstOrNull;
-        });
-      }
-    } catch (e) {
-      _handleError('Error loading data: ${e.toString()}');
-    }
+  void _loadSubjectSelection() async {
+    final subjects = await teacherRepository.activeSubjects();
+    setState(() {
+      activeSubjects = subjects;
+    });
   }
 
-  void _handleError(String message) {
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
-  }
-
-  void _validateAndSubmit() {
+  void _validateAndSubmit(context) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      Navigator.push(
-        context,
+      //TODO: temporary implementation, must figure out / have an option to create the route below the widget tree (not sure as to why it cant atm)
+      Navigator.of(context).push(
         createSlideRoute(
-          AssessmentTakersPage(
-              assessment: widget.assessment, title: 'Assignment Takers'),
+          BlocProvider<AssessmentCubit>.value(
+            value: BlocProvider.of<AssessmentCubit>(context),
+            child: const AssessmentTakersPage(),
+          ),
         ),
       );
     } else {
@@ -89,46 +54,43 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
   }
 
   @override
-  void dispose() {
-    _titleController.dispose();
-    _instructionsController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 5),
-                _buildTitleField(),
-                const SizedBox(height: 25),
-                _buildSubjectField(),
-                const SizedBox(height: 25),
-                _buildInstructionsField(),
-                const SizedBox(height: 25),
-                _buildAssignmentTypeField(),
-                const SizedBox(height: 25),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                _buildNextButton(),
-              ],
+    return BlocBuilder<AssessmentCubit, AssessmentState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: SingleChildScrollView(
+            child: SizedBox(
+              width: double.infinity,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 5),
+                    _buildTitleField(context, state),
+                    const SizedBox(height: 25),
+                    _buildSubjectField(context, state),
+                    const SizedBox(height: 25),
+                    _buildInstructionsField(context, state),
+                    const SizedBox(height: 25),
+                    _buildAssignmentTypeField(context, state),
+                    const SizedBox(height: 25),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                    _buildNextButton(context, state),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
-  Widget _buildTitleField() {
+  Widget _buildTitleField(BuildContext context, AssessmentState state) {
     return TextFormField(
-      controller: _titleController,
+      initialValue: state.assessment.title,
       maxLength: 30,
       decoration: const InputDecoration(
         hintText: 'What should you call this assignment',
@@ -140,34 +102,39 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
         }
         return null;
       },
-      onSaved: (value) {
-        setState(() {
-          title = value;
-        });
+      onChanged: (value) {
+        context.read<AssessmentCubit>().updateAssessment(
+              state.assessment.copyWith(title: value),
+            );
       },
     );
   }
 
-  Widget _buildSubjectField() {
+  Widget _buildSubjectField(BuildContext context, AssessmentState state) {
+    final selectedSubjectYear = state.assessment.subjectYearId.isEmpty
+        ? null
+        : activeSubjects.firstWhere(
+            (subjectYear) => subjectYear.id == state.assessment.subjectYearId,
+          );
+
     return DropdownButtonFormField<SubjectYear?>(
-      value: _subjectYears.firstWhere(
-        (subjectYear) => subjectYear.id == selectedSubject!.id,
-        orElse: () => _subjectYears.first,
-      ),
-      items: _subjectYears.map((SubjectYear? subjectYear) {
+      value: selectedSubjectYear,
+      items: activeSubjects.map((SubjectYear? subjectYear) {
         return DropdownMenuItem<SubjectYear?>(
           value: subjectYear,
           child: Text(subjectYear?.subjectName?.title() ?? ''),
         );
       }).toList(),
       onChanged: (SubjectYear? newValue) {
-        setState(() {
-          selectedSubject = newValue;
-        });
+        context.read<AssessmentCubit>().updateAssessment(
+              state.assessment.copyWith(
+                subjectYearId: newValue?.id ?? '',
+              ),
+            );
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: 'Subject',
-        border: const UnderlineInputBorder(
+        border: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),
         ),
       ),
@@ -182,7 +149,8 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
     );
   }
 
-  Widget _buildAssignmentTypeField() {
+  Widget _buildAssignmentTypeField(
+      BuildContext context, AssessmentState state) {
     return DropdownButtonFormField<AssignmentType>(
       value: AssignmentType.inApp,
       items: AssignmentType.values.map((AssignmentType assignmentType) {
@@ -191,14 +159,10 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
           child: Text(assignmentType.displayName),
         );
       }).toList(),
-      onChanged: (newValue) {
-        setState(() {
-          selectedType = newValue!;
-        });
-      },
+      onChanged: (newValue) {},
       decoration: const InputDecoration(
         labelText: 'Select Type',
-        border: const UnderlineInputBorder(
+        border: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),
         ),
       ),
@@ -212,22 +176,24 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
     );
   }
 
-  Widget _buildInstructionsField() {
+  Widget _buildInstructionsField(BuildContext context, AssessmentState state) {
     return TextFormField(
-      controller: _instructionsController,
+      initialValue: state.assessment.instructions,
       maxLength: 30,
       decoration: const InputDecoration(
         labelText: 'Instructions',
       ),
       onSaved: (value) {
-        instructions = value;
+        context
+            .read<AssessmentCubit>()
+            .updateAssessment(state.assessment.copyWith(instructions: value!));
       },
     );
   }
 
-  Widget _buildNextButton() {
+  Widget _buildNextButton(BuildContext context, AssessmentState state) {
     return ElevatedButton(
-      onPressed: _validateAndSubmit,
+      onPressed: () => _validateAndSubmit(context),
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primaryColor,
         minimumSize:
@@ -237,7 +203,7 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
         ),
       ),
       child: Text(
-        selectedType == AssignmentType.inApp ? "Next" : "Send",
+        "Next",
         style: const TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.white,
