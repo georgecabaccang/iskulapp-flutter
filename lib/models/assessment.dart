@@ -1,77 +1,73 @@
 import 'package:powersync/sqlite3_common.dart' as sqlite;
 import 'package:school_erp/enums/assessment_status.dart';
 import 'package:school_erp/enums/assessment_type.dart';
-import 'package:school_erp/features/powersync/db.dart';
-import 'package:school_erp/models/assessment_taker.dart';
-import 'package:school_erp/models/subject_year.dart';
-import 'package:school_erp/utils/sql_statements.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import './base_model/base_model.dart';
 
-class Assessment {
-  final String id;
-  final String subjectYearId;
-  final String preparedById;
-  final AssessmentType assessmentType;
-  final String title;
-  final String? instructions;
-  final int totalQuestions;
-  final bool randomizeSequence;
-  final AssessmentStatus status;
-  final int? durationMinutes;
+part 'assessment.freezed.dart';
 
-  /// related fields
-  final String? subjectName;
+@freezed
+class Assessment extends BaseModel with _$Assessment {
+  const Assessment._();
 
-  Assessment({
-    required this.id,
-    required this.subjectYearId,
-    required this.preparedById,
-    required this.assessmentType,
-    required this.title,
-    this.instructions,
-    required this.totalQuestions,
-    required this.randomizeSequence,
-    required this.status,
-    this.durationMinutes,
-    this.subjectName,
-  });
+  const factory Assessment({
+    String? id,
+    required String preparedById,
+    required String subjectYearId,
+    required AssessmentType assessmentType,
+    required String title,
+    required String instructions,
+    required int totalQuestions,
+    required bool randomizeSequence,
+    required AssessmentStatus status,
+    int? durationMinutes,
 
-  factory Assessment.fromRow(sqlite.Row row) {
+    /// from relationships, populated only depending on the SELECT statements
+    String? subjectName,
+  }) = _Assessment;
+
+  factory Assessment.initialize({
+    required String preparedById,
+    required String subjectYearId,
+    required AssessmentType assessmentType,
+  }) {
     return Assessment(
-      id: row['id'],
-      subjectYearId: row['subject_year_id'],
-      preparedById: row['prepared_by'],
-      assessmentType: AssessmentType.fromString(row['assessment_type']),
-      title: row['title'],
-      instructions: row['instructions'],
-      totalQuestions: row['total_questions'],
-      randomizeSequence: (row['randomize_sequence'] == 1),
-      durationMinutes: row['duration_mins'],
-      status: AssessmentStatus.fromString(row['status']),
-      subjectName: row['subject_name'],
+      preparedById: preparedById,
+      subjectYearId: subjectYearId,
+      assessmentType: assessmentType,
+      title: '',
+      instructions: '',
+      totalQuestions: 0,
+      randomizeSequence: false,
+      status: AssessmentStatus.toBeCompleted,
     );
   }
 
-  Future<List<AssessmentTaker>> assessmentTakers() async {
-    var results = await db.execute(assessmentTakersSql, [id]);
-    return results.map(AssessmentTaker.fromRow).toList(growable: false);
-  }
+  @override
+  Map<String, dynamic> get tableData => {
+        'id': id,
+        'subject_year_id': subjectYearId,
+        'prepared_by': preparedById,
+        'assessment_type': assessmentType.value,
+        'title': title,
+        'instructions': instructions,
+        'total_questions': totalQuestions,
+        'duration_mins': durationMinutes,
+        'randomize_sequence': randomizeSequence,
+        'status': status.value,
+      };
 
-  Future<SubjectYear> subjectYear() async {
-    var results = await db.execute(subjectYearSql, [subjectYearId]);
-    return SubjectYear.fromRow(results.first);
-  }
-
-  static Future<List<AssessmentTaker>> getAssessmentTakers(assessmentId) async {
-    var results = await db.execute(assessmentTakersSql, [assessmentId]);
-    return results.map(AssessmentTaker.fromRow).toList(growable: false);
-  }
-
-  static Stream<List<Assessment>> watchLists(AssessmentType assessmentType) {
-    return db.watch(
-      assessmentsSql,
-      parameters: [assessmentType.value],
-    ).map((results) {
-      return results.map(Assessment.fromRow).toList(growable: false);
-    });
-  }
+  factory Assessment.fromRow(sqlite.Row row) => Assessment(
+        id: row['id'],
+        subjectYearId: row['subject_year_id'],
+        preparedById: row['prepared_by'],
+        assessmentType: AssessmentType.fromString(row['assessment_type']),
+        title: row['title'],
+        instructions: row['instructions'],
+        totalQuestions: row['total_questions'],
+        randomizeSequence: (row['randomize_sequence'] == 1),
+        durationMinutes: row['duration_mins'],
+        status: AssessmentStatus.fromString(row['status']),
+        subjectName: row['subject_name'],
+      );
 }

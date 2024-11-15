@@ -1,24 +1,43 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:powersync/sqlite3_common.dart' as sqlite;
-import 'package:school_erp/dtos/assessment_taker_dto.dart';
+import './base_model/base_model.dart';
 
-class AssessmentTaker {
-  final String id;
-  final String assessmentId;
-  final String sectionId;
-  final DateTime startTime;
-  final DateTime? deadLine;
+part 'assessment_taker.freezed.dart';
 
-  // from relationships
-  final String? sectionName;
+@freezed
+class AssessmentTaker extends BaseModel with _$AssessmentTaker {
+  const AssessmentTaker._();
 
-  AssessmentTaker({
-    required this.id,
-    required this.assessmentId,
-    required this.sectionId,
-    required this.startTime,
-    this.deadLine,
-    this.sectionName,
-  });
+  const factory AssessmentTaker({
+    String? id,
+    required String assessmentId,
+    required String sectionId,
+    required DateTime startTime,
+    DateTime? deadLine,
+
+    /// from relationships, populated only depending on the SELECT statements
+    String? sectionName,
+  }) = _AssessmentTaker;
+
+  factory AssessmentTaker.initialize({
+    required String assessmentId,
+    required String sectionId,
+  }) {
+    return AssessmentTaker(
+      assessmentId: assessmentId,
+      sectionId: sectionId,
+      startTime: DateTime.now().add(Duration(days: 1)),
+    );
+  }
+
+  @override
+  Map<String, dynamic> get tableData => {
+        'id': id,
+        'assessment_id': assessmentId,
+        'section_id': sectionId,
+        'start_time': startTime.toIso8601String(),
+        'dead_line': deadLine?.toIso8601String(),
+      };
 
   factory AssessmentTaker.fromRow(sqlite.Row row) {
     return AssessmentTaker(
@@ -26,19 +45,9 @@ class AssessmentTaker {
       assessmentId: row['assessment_id'],
       sectionId: row['section_id'],
       startTime: DateTime.parse(row['start_time']),
-      deadLine: DateTime.parse(row['dead_line']),
+      deadLine:
+          row['dead_line'] != null ? DateTime.parse(row['dead_line']) : null,
       sectionName: row['section_name'],
-    );
-  }
-
-  // ahhhhhhhhhhhhhh i dont think this is the way @.@
-  AssessmentTakerUpdateDTO toUpdateDTO() {
-    return AssessmentTakerUpdateDTO(
-      id,
-      assessmentId: assessmentId,
-      sectionId: sectionId,
-      startTime: startTime,
-      deadLine: deadLine,
     );
   }
 }
