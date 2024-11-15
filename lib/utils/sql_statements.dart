@@ -1,11 +1,13 @@
 // GENERAL
+//
+// TODO: IMPORTANT temporary academic years query where academic_years.id = 4
 const assessmentsSql = """
   SELECT assessments.*, subjects.name AS subject_name
   FROM assessments
-  LEFT JOIN assessment_takers ON assessment_takers.assessment_id = assessments.id
-  LEFT JOIN subject_years ON subject_years.id = assessment_takers.subject_year_id
+  LEFT JOIN subject_years ON subject_years.id = assessments.subject_year_id
   LEFT JOIN subjects ON subjects.id = subject_years.subject_id
-  WHERE assessment_type = ?
+  LEFT JOIN academic_years ON academic_years.id = subject_years.academic_year_id
+  WHERE assessment_type = ? AND academic_years.id = 4
   ORDER BY created_at DESC
 """;
 
@@ -26,4 +28,25 @@ const teacherActiveSectionsSql = """
 
 const defaultSqlConsoleQuery = """
   SELECT * FROM ps_crud
+""";
+
+/// general model queries
+const assessmentTakersSql = """
+  SELECT assessment_takers.*, sections.name AS section_name
+  FROM assessment_takers
+  LEFT JOIN assessments ON assessments.id = assessment_takers.assessment_id
+  LEFT JOIN sections ON sections.id = assessment_takers.section_id
+  WHERE assessments.id = ?
+""";
+
+const sectionSql = """
+  SELECT *
+  FROM sections
+  WHERE id = ?
+""";
+
+const subjectYearSql = """
+  SELECT *
+  FROM subject_years
+  WHERE id = ?
 """;
