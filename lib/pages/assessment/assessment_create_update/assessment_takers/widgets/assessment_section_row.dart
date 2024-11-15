@@ -1,93 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/dtos/assessment_taker_dto.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_erp/features/assessment/cubit/assessment_cubit.dart';
+import 'package:school_erp/models/assessment_taker.dart';
 import 'package:school_erp/models/section.dart';
-import 'package:school_erp/pages/assignment/assignment_add/question_builder_page/widgets/question_content/add_item_button.dart';
+import 'package:school_erp/pages/assessment/assessment_create_update/assessment_takers/widgets/add_remove_item_button.dart';
 
-class AssessmentSectionRow extends StatefulWidget {
+class AssessmentSectionRow extends StatelessWidget {
   final int index;
-  final List<Section> activeSections;
-  final AssessmentTakerUpdateDTO assessmentTakerUpdateDTO;
-  final Function(AssessmentTakerUpdateDTO) onAssessmentTakerChanged;
-  final VoidCallback onAddPressed;
-  final VoidCallback onRemovePressed;
-  final VoidCallback onClearPressed;
+  final AssessmentTaker assessmentTaker;
+  final List<Section> sections;
 
   const AssessmentSectionRow({
     required this.index,
-    required this.activeSections,
-    required this.assessmentTakerUpdateDTO,
-    required this.onAssessmentTakerChanged,
-    required this.onAddPressed,
-    required this.onRemovePressed,
-    required this.onClearPressed,
+    required this.assessmentTaker,
+    required this.sections,
     super.key,
   });
 
-  @override
-  State<AssessmentSectionRow> createState() => _AssessmentSectionRowState();
-}
+  void _selectDateTime(BuildContext context, bool isStartTime) async {
+    final cubit = context.read<AssessmentCubit>();
 
-class _AssessmentSectionRowState extends State<AssessmentSectionRow> {
-  late DateTime startTime;
-  late DateTime deadLine;
+    final currentTime =
+        isStartTime ? assessmentTaker.startTime : assessmentTaker.deadLine;
 
-  @override
-  void initState() {
-    super.initState();
-    startTime = widget.assessmentTakerUpdateDTO.startTime!;
-    deadLine = widget.assessmentTakerUpdateDTO.deadLine ??
-        widget.assessmentTakerUpdateDTO.startTime!.add(const Duration(days: 1));
-  }
-
-  void _loadData() async {}
-
-  void _updateAssessmentTaker({
-    String? sectionId,
-    DateTime? newStartTime,
-    DateTime? newDeadLine,
-  }) {
-    final updatedTaker = AssessmentTakerUpdateDTO(
-      widget.assessmentTakerUpdateDTO.id,
-      assessmentId: widget.assessmentTakerUpdateDTO.assessmentId,
-      sectionId: widget.assessmentTakerUpdateDTO.sectionId,
-      startTime: newStartTime ?? startTime,
-      deadLine: newDeadLine ?? deadLine,
-    );
-    widget.onAssessmentTakerChanged(updatedTaker);
-  }
-
-  Future<void> _selectDateTime(bool isStartTime) async {
     final DateTime? selectedDate = await showDatePicker(
       context: context,
-      initialDate: isStartTime ? startTime : deadLine,
-      firstDate: isStartTime ? DateTime.now() : startTime,
+      initialDate: currentTime ?? DateTime.now(),
+      firstDate: isStartTime ? DateTime.now() : assessmentTaker.startTime,
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
+
+    if (!context.mounted) return;
 
     if (selectedDate != null) {
       final TimeOfDay? selectedTime = await showTimePicker(
         context: context,
-        initialTime: TimeOfDay.fromDateTime(isStartTime ? startTime : deadLine),
+        initialTime: TimeOfDay.fromDateTime(currentTime ?? DateTime.now()),
       );
 
-      if (selectedTime != null) {
-        setState(() {
-          final DateTime combined = DateTime(
-            selectedDate.year,
-            selectedDate.month,
-            selectedDate.day,
-            selectedTime.hour,
-            selectedTime.minute,
-          );
+      if (!context.mounted) return;
 
-          if (isStartTime) {
-            startTime = combined;
-            _updateAssessmentTaker(newStartTime: combined);
-          } else {
-            deadLine = combined;
-            _updateAssessmentTaker(newDeadLine: combined);
-          }
-        });
+      if (selectedTime != null) {
+        final DateTime combined = DateTime(
+          selectedDate.year,
+          selectedDate.month,
+          selectedDate.day,
+          selectedTime.hour,
+          selectedTime.minute,
+        );
+
+        final updatedTaker = assessmentTaker.copyWith(
+          startTime: isStartTime ? combined : assessmentTaker.startTime,
+          deadLine: isStartTime ? assessmentTaker.deadLine : combined,
+        );
+
+        cubit.updateAssessmentTaker(index, updatedTaker);
       }
     }
   }
@@ -105,49 +72,56 @@ class _AssessmentSectionRowState extends State<AssessmentSectionRow> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
-                  onTap: () => _selectDateTime(true),
+                  onTap: () => _selectDateTime(context, true),
                   child: Text(
-                    "Start: ${startTime.toLocal()}".split('.')[0],
+                    "Start: ${assessmentTaker.startTime.toLocal().toString().split('.')[0]}",
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ),
                 const SizedBox(height: 5),
                 InkWell(
-                  onTap: () => _selectDateTime(false),
+                  onTap: () => _selectDateTime(context, false),
                   child: Text(
-                    "End: ${deadLine.toLocal()}".split('.')[0],
+                    "End: ${assessmentTaker.deadLine?.toLocal().toString().split('.')[0] ?? 'N/A'}",
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ),
               ],
             ),
           ),
-          // Section Input
           Expanded(
             child: DropdownButtonFormField<Section?>(
               isExpanded: true,
-              value: widget.activeSections.firstWhere(
-                (section) =>
-                    section.id == widget.assessmentTakerUpdateDTO.sectionId,
-                orElse: () => widget.activeSections.first,
-              ),
-              items: widget.activeSections.map((Section? section) {
-                return DropdownMenuItem<Section?>(
+              value: sections
+                      .where(
+                          (section) => section.id == assessmentTaker.sectionId)
+                      .isEmpty
+                  ? null
+                  : sections.firstWhere(
+                      (section) => section.id == assessmentTaker.sectionId,
+                    ),
+              items: sections.map((section) {
+                return DropdownMenuItem<Section>(
                   value: section,
                   child: Text(
-                    section?.name ?? '',
-                    overflow: TextOverflow.ellipsis, // Handle long text
+                    section.name,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 );
               }).toList(),
-              onChanged: (Section? newValue) {
+              onChanged: (newValue) {
                 if (newValue != null) {
-                  _updateAssessmentTaker(sectionId: newValue.id);
+                  final updatedTaker = assessmentTaker.copyWith(
+                    sectionId: newValue.id,
+                  );
+                  context
+                      .read<AssessmentCubit>()
+                      .updateAssessmentTaker(index, updatedTaker);
                 }
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Select Section',
-                border: const UnderlineInputBorder(
+                border: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey),
                 ),
               ),
@@ -155,7 +129,7 @@ class _AssessmentSectionRowState extends State<AssessmentSectionRow> {
                   color: Colors.grey),
               validator: (value) {
                 if (value == null) {
-                  return 'Please select a subject';
+                  return 'Please select a section';
                 }
                 return null;
               },
@@ -163,9 +137,12 @@ class _AssessmentSectionRowState extends State<AssessmentSectionRow> {
           ),
           const SizedBox(width: 8),
           AddItemButton(
-            index: widget.index,
-            onAddPressed: widget.onAddPressed,
-            onRemovePressed: widget.onRemovePressed,
+            index: index,
+            onAddPressed: () =>
+                context.read<AssessmentCubit>().addAssessmentTaker(),
+            onRemovePressed: () => context
+                .read<AssessmentCubit>()
+                .updateAssessmentTakersForRemoval(index),
           ),
         ],
       ),

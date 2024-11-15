@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/models/assessment.dart';
+import 'package:school_erp/features/assessment/cubit/assessment_cubit.dart';
 import 'package:school_erp/pages/assessment/assessment_create_update/assessment_takers/assessment_takers_form.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AssessmentTakersPage extends StatelessWidget {
-  final Assessment? assessment;
-  final String title;
-
-  const AssessmentTakersPage({required this.title, this.assessment, super.key});
-
-  String get pageTitle => '${assessment != null ? 'Update' : 'Assign'} $title';
+  const AssessmentTakersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final state = context.read<AssessmentCubit>().state;
+
     return DefaultLayout(
-      title: pageTitle,
+      title:
+          '${state.actionType.displayName} ${state.assessment.assessmentType.displayName} Takers',
       content: [
-        AssessmentTakersForm(assessment: assessment),
+        AssessmentTakersForm(),
       ],
     );
   }
