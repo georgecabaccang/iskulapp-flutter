@@ -6,6 +6,7 @@ import 'package:school_erp/pages/assessment/assessment_create_update/assessment_
 import 'package:school_erp/pages/common_widgets/app_bar_widgets/add_button.dart';
 import 'package:school_erp/pages/common_widgets/app_content.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
+import 'package:school_erp/repositories/repositories.dart';
 import 'widgets/assignment_card.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:intl/intl.dart';
@@ -24,8 +25,9 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
   @override
   void initState() {
     super.initState();
-    _subscription =
-        Assessment.watchLists(AssessmentType.assignment).listen((data) {
+    _subscription = assessmentRepository
+        .watchAssessmentList(AssessmentType.assignment)
+        .listen((data) {
       if (!mounted) return;
       setState(() => _data = data);
     });
@@ -49,7 +51,8 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
             title: 'Assignment List',
             trailingWidget: AppBarAddButton(
               exitPage: widget,
-              enterPage: const AssessmentSetupPage(title: 'Add Assignment'),
+              enterPage: const AssessmentSetupPage(
+                  assessmentTypeOnCreate: AssessmentType.assignment),
             ),
           ),
           AppContent(
