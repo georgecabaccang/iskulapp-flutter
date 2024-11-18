@@ -7,9 +7,8 @@ part 'auth_response.g.dart';
 @freezed
 sealed class AuthResult with _$AuthResult {
   const factory AuthResult.success(
-    AuthenticatedUser user,
-    @JsonKey(name: 'access_token') String accessToken,
-  ) = AuthRequestSuccess;
+          AuthenticatedUser user, String accessToken, DateTime tokenExpiry) =
+      AuthRequestSuccess;
 
   const factory AuthResult.failure(
     int statusCode,
