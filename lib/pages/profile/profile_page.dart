@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:school_erp/pages/common_widgets/default_layout.dart';
 import 'package:school_erp/pages/profile/formText.dart';
 import 'package:school_erp/theme/colors.dart';
-import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'package:school_erp/pages/common_widgets/app_content.dart';
 
 class FormTextData {
@@ -21,62 +21,54 @@ class MyIcons {
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
-
+  
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.primaryColor,
-      body: Column(
-        children: [
-          CustomAppBar(
-            title: 'My Profile',
-            trailingWidget: TextButton.icon(
-              onPressed: () {
-                print('Done button pressed');
-              },
-              icon: const Icon(
-                Icons.check,
-                color: AppColors.primaryColor,
-              ),
-              label: const Text(
-                'Done',
-                style: TextStyle(
-                  color: AppColors.primaryColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              ),
-            ),
-          ),
+    return DefaultLayout(
+      title: 'My Profile',
+      content: [
+        AppContent(content: [
+          profileCard(),
           AppContent(
             content: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  profileCard(),
-                  SingleChildScrollView(child: profileForm())
-                ],
-              )
+              profileForm(), // Wrap profileForm in its own AppContent
+              // More widgets if needed
             ],
+            isScrollable: true, // Make this specific content scrollable
           ),
-        ],
-      ),
+        ]),
+      ],
+      trailingWidget: TextButton.icon(
+            onPressed: () {
+              print('Done button pressed');
+            },
+            icon: const Icon(
+              Icons.check,
+              color: AppColors.primaryColor,
+            ),
+            label: const Text(
+              'Done',
+              style: TextStyle(
+                color: AppColors.primaryColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            ),
+          ),
     );
   }
-
 
   Widget profileCard() {
     return Row(
@@ -104,54 +96,44 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 240,
+                  const Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 15.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(top: 8.0),
-                                child: SizedBox(
-                                  width: 150,
-                                  child: Text(
-                                    'Akshay Syal',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Icon(
-                                MyIcons.cameraAltOutlined,
-                                size: 23,
-                                color: Colors.grey,
-                              ),
-                            ],
+                          Text(
+                            'Akshay Syal',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 5.0),
-                            child: SizedBox(
-                              child: Text(
-                                'Class XI-B | Roll no: 04',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                ),
-                              ),
+                          Text(
+                            'Class XI-B | Roll no: 04',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
+                  const Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 15.0),
+                      child: Icon(
+                        MyIcons.cameraAltOutlined,
+                        size: 23,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -194,16 +176,17 @@ class _ProfilePageState extends State<ProfilePage> {
       ],
     ];
 
-    return SizedBox(
-      width: double.infinity,
-      height: 650,
-      child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: formTextDataList.length,
-        itemBuilder: (context, index) {
-          return buildFormRow(formTextDataList[index]);
-        },
+    return SingleChildScrollView(
+      child: SizedBox(
+        width: double.infinity,
+        child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: formTextDataList.length,
+          itemBuilder: (context, index) {
+            return buildFormRow(formTextDataList[index]);
+          },
+        ),
       ),
     );
   }
@@ -215,14 +198,16 @@ class _ProfilePageState extends State<ProfilePage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: data.map((item) {
-          return FormText(
-            width: item.width,
-            height: 75,
-            label: item.label,
-            value: item.value,
-            icon: item.icon != null
-                ? Icon(item.icon, size: 22.0, color: Colors.grey)
-                : null,
+          return Expanded(
+            child: FormText(
+              width: item.width,
+              height: 75,
+              label: item.label,
+              value: item.value,
+              icon: item.icon != null
+                  ? Icon(item.icon, size: 22.0, color: Colors.grey)
+                  : null,
+            ),
           );
         }).toList(),
       ),

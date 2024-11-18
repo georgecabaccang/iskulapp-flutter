@@ -63,21 +63,16 @@ class AuthRepository {
 
   Future<String> _getClientToken() async {
     final uri = Uri.http(baseUrl, "/oauth/token");
-    final res = await _httpClient.post(
-      uri,
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: jsonEncode(
-        {
+    final res = await _httpClient.post(uri,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
           "grant_type": "client_credentials",
           "client_id": clientId,
           "client_secret": clientSecret
-        },
-      ),
-    );
-
+        }));
     final parsedBody = jsonDecode(res.body);
     if (res.statusCode != HttpStatus.ok) {
       throw Exception('failed to get client token: $parsedBody');
