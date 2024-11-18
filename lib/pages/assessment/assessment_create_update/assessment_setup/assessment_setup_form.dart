@@ -111,7 +111,7 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
   }
 
   Widget _buildSubjectField(BuildContext context, AssessmentState state) {
-    final selectedSubjectYear = state.assessment.subjectYearId.isEmpty
+    final selectedSubjectYear = state.assessment.subjectYearId == null
         ? null
         : activeSubjects.firstWhere(
             (subjectYear) => subjectYear.id == state.assessment.subjectYearId,
