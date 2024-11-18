@@ -1,33 +1,48 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:powersync/sqlite3_common.dart' as sqlite;
 import './base_model/base_model.dart';
 
-part 'assessment_taker.freezed.dart';
+class AssessmentTaker extends BaseModel {
+  final String? assessmentId;
+  final String? sectionId;
+  final DateTime startTime;
+  final DateTime? deadLine;
 
-@freezed
-class AssessmentTaker extends BaseModel with _$AssessmentTaker {
-  const AssessmentTaker._();
+  /// from relationships, populated only depending on the SELECT statements
+  final String? sectionName;
 
-  const factory AssessmentTaker({
+  AssessmentTaker._({
+    super.id,
+    this.assessmentId,
+    this.sectionId,
+    required this.startTime,
+    this.deadLine,
+    this.sectionName,
+  });
+
+  factory AssessmentTaker({
     String? id,
     required String assessmentId,
     required String sectionId,
     required DateTime startTime,
     DateTime? deadLine,
-
-    /// from relationships, populated only depending on the SELECT statements
     String? sectionName,
-  }) = _AssessmentTaker;
-
-  factory AssessmentTaker.initialize({
-    required String assessmentId,
-    required String sectionId,
   }) {
-    return AssessmentTaker(
+    return AssessmentTaker._(
+      id: id,
       assessmentId: assessmentId,
       sectionId: sectionId,
-      startTime: DateTime.now().add(Duration(days: 1)),
+      startTime: startTime,
+      deadLine: deadLine,
+      sectionName: sectionName,
     );
+  }
+
+  factory AssessmentTaker.initialize() {
+    final assessmentTaker = AssessmentTaker._(
+      startTime: DateTime.now().add(Duration(minutes: 30)),
+      deadLine: DateTime.now().add(Duration(days: 1)),
+    );
+    return assessmentTaker;
   }
 
   @override
@@ -40,14 +55,31 @@ class AssessmentTaker extends BaseModel with _$AssessmentTaker {
       };
 
   factory AssessmentTaker.fromRow(sqlite.Row row) {
-    return AssessmentTaker(
+    return AssessmentTaker._(
       id: row['id'],
       assessmentId: row['assessment_id'],
       sectionId: row['section_id'],
-      startTime: DateTime.parse(row['start_time']),
+      startTime: DateTime.parse(row['start_time'] as String),
       deadLine:
           row['dead_line'] != null ? DateTime.parse(row['dead_line']) : null,
-      sectionName: row['section_name'],
+      sectionName: row['section_name'] as String?,
     );
+  }
+
+  AssessmentTaker copyWith({
+    String? id,
+    String? assessmentId,
+    String? sectionId,
+    DateTime? startTime,
+    DateTime? deadLine,
+  }) {
+    final assessmentTaker = AssessmentTaker._(
+      id: id ?? this.id,
+      assessmentId: assessmentId ?? this.assessmentId,
+      sectionId: sectionId ?? this.sectionId,
+      startTime: startTime ?? this.startTime,
+      deadLine: deadLine ?? this.deadLine,
+    );
+    return assessmentTaker;
   }
 }

@@ -1,16 +1,37 @@
 import 'package:powersync/sqlite3_common.dart' as sqlite;
 import 'package:school_erp/enums/assessment_status.dart';
 import 'package:school_erp/enums/assessment_type.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import './base_model/base_model.dart';
 
-part 'assessment.freezed.dart';
+class Assessment extends BaseModel {
+  final String preparedById;
+  final String? subjectYearId;
+  final AssessmentType assessmentType;
+  final String title;
+  final String instructions;
+  final int totalQuestions;
+  final bool randomizeSequence;
+  final AssessmentStatus status;
+  final int? durationMinutes;
 
-@freezed
-class Assessment extends BaseModel with _$Assessment {
-  const Assessment._();
+  /// from relationships, populated only depending on the SELECT statements
+  final String? subjectName;
 
-  const factory Assessment({
+  Assessment._({
+    super.id,
+    required this.preparedById,
+    this.subjectYearId,
+    required this.assessmentType,
+    required this.title,
+    required this.instructions,
+    required this.totalQuestions,
+    required this.randomizeSequence,
+    required this.status,
+    this.durationMinutes,
+    this.subjectName,
+  });
+
+  factory Assessment({
     String? id,
     required String preparedById,
     required String subjectYearId,
@@ -21,19 +42,30 @@ class Assessment extends BaseModel with _$Assessment {
     required bool randomizeSequence,
     required AssessmentStatus status,
     int? durationMinutes,
-
-    /// from relationships, populated only depending on the SELECT statements
     String? subjectName,
-  }) = _Assessment;
+  }) {
+    final assessment = Assessment._(
+      id: id,
+      preparedById: preparedById,
+      subjectYearId: subjectYearId,
+      assessmentType: assessmentType,
+      title: title,
+      instructions: instructions,
+      totalQuestions: totalQuestions,
+      randomizeSequence: randomizeSequence,
+      status: status,
+      durationMinutes: durationMinutes,
+      subjectName: subjectName,
+    );
+    return assessment;
+  }
 
   factory Assessment.initialize({
     required String preparedById,
-    required String subjectYearId,
     required AssessmentType assessmentType,
   }) {
-    return Assessment(
+    return Assessment._(
       preparedById: preparedById,
-      subjectYearId: subjectYearId,
       assessmentType: assessmentType,
       title: '',
       instructions: '',
@@ -70,4 +102,33 @@ class Assessment extends BaseModel with _$Assessment {
         status: AssessmentStatus.fromString(row['status']),
         subjectName: row['subject_name'],
       );
+
+  Assessment copyWith({
+    String? id,
+    String? preparedById,
+    String? subjectYearId,
+    AssessmentType? assessmentType,
+    String? title,
+    String? instructions,
+    int? totalQuestions,
+    bool? randomizeSequence,
+    AssessmentStatus? status,
+    int? durationMinutes,
+    String? subjectName,
+  }) {
+    final assessment = Assessment._(
+      id: id ?? this.id,
+      preparedById: preparedById ?? this.preparedById,
+      subjectYearId: subjectYearId ?? this.subjectYearId,
+      assessmentType: assessmentType ?? this.assessmentType,
+      title: title ?? this.title,
+      instructions: instructions ?? this.instructions,
+      totalQuestions: totalQuestions ?? this.totalQuestions,
+      randomizeSequence: randomizeSequence ?? this.randomizeSequence,
+      status: status ?? this.status,
+      durationMinutes: durationMinutes ?? this.durationMinutes,
+      subjectName: subjectName ?? this.subjectName,
+    );
+    return assessment;
+  }
 }
