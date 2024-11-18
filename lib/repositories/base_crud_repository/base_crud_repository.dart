@@ -43,6 +43,13 @@ abstract class BaseCrudRepository<M extends BaseModel> {
 
     final executor = tx ?? database;
     final results = await executor.execute(statement, values);
+
+    if (results.isEmpty) {
+      throw StateError(
+        'Failed to create ${M.toString()}: No rows were inserted',
+      );
+    }
+
     return fromRow(results.first);
   }
 
