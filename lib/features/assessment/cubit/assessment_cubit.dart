@@ -27,21 +27,19 @@ class AssessmentCubit extends Cubit<AssessmentState> {
   void updateAssessment(Assessment assessment) {
     emit(
       state.copyWith(
-          assessment: assessment, status: AssessmentStateStatus.staging),
+        assessment: assessment,
+        status: AssessmentStateStatus.staging,
+      ),
     );
   }
 
   void addAssessmentTaker() {
-    var assessmentTaker = AssessmentTaker(
-      assessmentId: state.assessment.id ?? '',
-      sectionId: '',
-      startTime: DateTime.now().add(const Duration(minutes: 30)),
-      deadLine: DateTime.now().add(const Duration(days: 1)),
-    );
+    var assessmentTaker = AssessmentTaker.initialize();
     emit(
       state.copyWith(
-          assessmentTakers: [...state.assessmentTakers, assessmentTaker],
-          status: AssessmentStateStatus.staging),
+        assessmentTakers: [...state.assessmentTakers, assessmentTaker],
+        status: AssessmentStateStatus.staging,
+      ),
     );
   }
 
@@ -92,7 +90,7 @@ class AssessmentCubit extends Cubit<AssessmentState> {
 
       // Validate each assessment taker
       for (var taker in state.assessmentTakers) {
-        if (taker.sectionId.isEmpty) {
+        if (taker.sectionId == null) {
           throw StateError('Section ID is required for all assessment takers');
         }
       }
@@ -149,13 +147,7 @@ class AssessmentCubit extends Cubit<AssessmentState> {
         ));
       } else {
         // Create a default assessment taker for create mode
-        var defaultTaker = AssessmentTaker(
-          assessmentId: state.assessment.id ?? '',
-          sectionId: '',
-          startTime: DateTime.now().add(const Duration(minutes: 30)),
-          deadLine: DateTime.now().add(const Duration(days: 1)),
-        );
-
+        var defaultTaker = AssessmentTaker.initialize();
         emit(state.copyWith(
           assessmentTakers: [defaultTaker],
           isLoading: false,

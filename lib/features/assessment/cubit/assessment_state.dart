@@ -31,8 +31,6 @@ class AssessmentState with _$AssessmentState {
       assessment: existingAssessment ??
           Assessment.initialize(
             preparedById: getTeacherId(authUser),
-            subjectYearId:
-                '', // might need to add additional checking of this in repo level(?)
             assessmentType: assessmentTypeOnCreate,
           ),
       actionType:
