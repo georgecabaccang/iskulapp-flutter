@@ -146,7 +146,7 @@ class AssessmentCubit extends Cubit<AssessmentState> {
           isLoading: false,
         ));
       } else {
-        // Create a default assessment taker for create mode
+        // a default assessment taker for create mode
         var defaultTaker = AssessmentTaker.initialize();
         emit(state.copyWith(
           assessmentTakers: [defaultTaker],
