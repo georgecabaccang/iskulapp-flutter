@@ -11,6 +11,8 @@ class AuthenticatedUser with _$AuthenticatedUser {
     required String role,
     @JsonKey(name: 'first_name') required String firstName,
     @JsonKey(name: 'last_name') required String lastName,
+    @JsonKey(name: 'school_name') required String schoolName,
+    @JsonKey(name: 'academic_year') required String academicYear,
     @JsonKey(name: 'login_type') String? loginType,
     @JsonKey(name: 'login_id') String? loginId,
   }) = _AuthenticatedUser;

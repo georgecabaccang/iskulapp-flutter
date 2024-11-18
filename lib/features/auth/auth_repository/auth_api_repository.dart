@@ -17,8 +17,7 @@ class AuthRepository {
   String get clientId => dotenv.get('CLIENT_ID');
 
   Future<AuthResult> login(String email, String password) async {
-
-    try{
+    try {
       final clientToken = await _getClientToken();
       final uri = Uri.http(baseUrl, "/api/login");
       final res = await _httpClient.post(
@@ -38,9 +37,12 @@ class AuthRepository {
       if (res.statusCode != HttpStatus.ok) {
         return AuthResult.failure(res.statusCode, message);
       }
-      return AuthRequestSuccess.fromJson(data);
-
-    }catch (e){
+      return AuthResult.success(
+        AuthenticatedUser.fromJson(data),
+        data['access_token'],
+        DateTime.parse(data['token_expiry']),
+      );
+    } catch (e) {
       print(e);
       return AuthResult.failure(500, e.toString());
     }
@@ -61,20 +63,26 @@ class AuthRepository {
 
   Future<String> _getClientToken() async {
     final uri = Uri.http(baseUrl, "/oauth/token");
-    final res = await _httpClient.post(uri,
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-        },
-        body: jsonEncode({
+    final res = await _httpClient.post(
+      uri,
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: jsonEncode(
+        {
           "grant_type": "client_credentials",
           "client_id": clientId,
           "client_secret": clientSecret
-        }));
-    final parsed = jsonDecode(res.body);
-    final String accessToken = parsed['access_token'];
-    print(accessToken);
+        },
+      ),
+    );
 
+    final parsedBody = jsonDecode(res.body);
+    if (res.statusCode != HttpStatus.ok) {
+      throw Exception('failed to get client token: $parsedBody');
+    }
+    final String accessToken = parsedBody['access_token'];
     return accessToken;
   }
 }
