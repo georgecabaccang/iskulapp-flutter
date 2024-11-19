@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_erp/constants/assessments/form_labels.dart' as form;
+import 'package:school_erp/constants/assessments/form_validation.dart'
+    as validation;
+import 'package:school_erp/constants/common/validation.dart'
+    as common_validation;
 import 'package:school_erp/features/assessment/cubit/assessment_cubit.dart';
 import 'package:school_erp/features/assessment/cubit/assessment_state.dart';
 import 'package:school_erp/features/transition/clean_slide_transition.dart';
@@ -9,7 +14,7 @@ import 'package:school_erp/pages/common_widgets/form_fields/number_input.dart';
 import 'package:school_erp/theme/colors.dart';
 
 class AssessmentQuestionSetupForm extends StatefulWidget {
-  const AssessmentQuestionSetupForm();
+  const AssessmentQuestionSetupForm({super.key});
 
   _AssessmentQuestionSetupFormState createState() =>
       _AssessmentQuestionSetupFormState();
@@ -55,26 +60,26 @@ class _AssessmentQuestionSetupFormState
                     const SizedBox(height: 5),
                     const SizedBox(height: 25),
                     LabeledDropdownFormField<bool>(
-                      label: "AI Generated",
+                      label: form.aiGeneratedLabel,
                       dropdownItems: const {"True": true, "False": false},
                       initialValue: false,
                       onSaved: (value) {},
                     ),
                     const SizedBox(height: 25),
                     NumberInputFormField(
-                        label: 'No. of Questions',
+                        label: form.noOfQuestionsLabel,
                         initialValue: state.assessment.totalQuestions,
-                        helperText: 'Enter the total number of questions',
+                        helperText: form.noOfQuestionsLabel,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter the number of questions';
+                            return validation.emptyQuestionCount;
                           }
                           final number = int.tryParse(value);
                           if (number == null) {
-                            return 'Please enter a valid number';
+                            return validation.emptyQuestionCount;
                           }
                           if (number <= 0) {
-                            return 'Number of questions must be greater than 0';
+                            return common_validation.positiveInt;
                           }
                           return null;
                         },
@@ -89,7 +94,7 @@ class _AssessmentQuestionSetupFormState
                         }),
                     const SizedBox(height: 25),
                     LabeledDropdownFormField<bool>(
-                      label: "Select Randomness",
+                      label: form.randomnessLabel,
                       dropdownItems: const {"True": true, "False": false},
                       initialValue: state.assessment.randomizeSequence,
                       onSaved: (value) {

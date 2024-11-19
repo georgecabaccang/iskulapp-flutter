@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_erp/constants/assessments/form_labels.dart' as form;
+import 'package:school_erp/constants/assessments/form_validation.dart'
+    as validation;
 import 'package:school_erp/features/assessment/cubit/assessment_cubit.dart';
 import 'package:school_erp/models/assessment_taker.dart';
 import 'package:school_erp/models/section.dart';
@@ -120,7 +123,7 @@ class AssessmentSectionRow extends StatelessWidget {
                 }
               },
               decoration: const InputDecoration(
-                labelText: 'Select Section',
+                labelText: form.sectionLabel,
                 border: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey),
                 ),
@@ -129,7 +132,7 @@ class AssessmentSectionRow extends StatelessWidget {
                   color: Colors.grey),
               validator: (value) {
                 if (value == null) {
-                  return 'Please select a section';
+                  return validation.emptySection;
                 }
                 return null;
               },

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_erp/constants/assessments/form_validation.dart'
+    as validation;
 import 'package:school_erp/features/assessment/cubit/assessment_cubit.dart';
 import 'package:school_erp/features/assessment/cubit/assessment_state.dart';
 import 'package:school_erp/features/transition/clean_slide_transition.dart';
@@ -49,7 +51,7 @@ class _AssessmentTakersFormState extends State<AssessmentTakersForm> {
       if (taker.sectionId == '') {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Please select a section for all assessment takers'),
+            content: Text(validation.emptySectionField),
             backgroundColor: Colors.red,
           ),
         );

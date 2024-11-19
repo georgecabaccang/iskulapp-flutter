@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_erp/constants/assessments/form_labels.dart' as form;
+import 'package:school_erp/constants/assessments/form_validation.dart'
+    as validation;
 import 'package:school_erp/enums/assignment_type.dart';
 import 'package:school_erp/features/assessment/cubit/assessment_cubit.dart';
 import 'package:school_erp/features/assessment/cubit/assessment_state.dart';
@@ -48,7 +51,7 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fix the errors in red')),
+        const SnackBar(content: Text(validation.unfilledFields)),
       );
     }
   }
@@ -93,12 +96,12 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
       initialValue: state.assessment.title,
       maxLength: 30,
       decoration: const InputDecoration(
-        hintText: 'What should you call this assignment',
-        labelText: 'Title',
+        hintText: form.titleTextHint,
+        labelText: form.titleLabel,
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Enter Title';
+          return validation.emptyTitle;
         }
         return null;
       },
@@ -133,7 +136,7 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
             );
       },
       decoration: const InputDecoration(
-        labelText: 'Subject',
+        labelText: form.subjectLabel,
         border: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),
         ),
@@ -142,7 +145,7 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
       icon: const Icon(Icons.keyboard_arrow_down_sharp, color: Colors.grey),
       validator: (value) {
         if (value == null) {
-          return 'Please select a subject';
+          return validation.emptySubject;
         }
         return null;
       },
@@ -161,7 +164,7 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
       }).toList(),
       onChanged: (newValue) {},
       decoration: const InputDecoration(
-        labelText: 'Select Type',
+        labelText: form.typeLabel,
         border: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),
         ),
@@ -169,7 +172,7 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
       icon: const Icon(Icons.keyboard_arrow_down_sharp, color: Colors.grey),
       validator: (value) {
         if (value == null) {
-          return 'Please select a type';
+          return validation.emptyType;
         }
         return null;
       },
@@ -181,7 +184,7 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
       initialValue: state.assessment.instructions,
       maxLength: 30,
       decoration: const InputDecoration(
-        labelText: 'Instructions',
+        labelText: form.instructionLabel,
       ),
       onSaved: (value) {
         context
