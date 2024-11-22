@@ -44,15 +44,16 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'St. Andrew Academy',
+          widget.user.schoolName,
           style: headingStyle().copyWith(color: AppColors.primaryColor),
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Text(
-              'YR: 2024 - 2025',
-              style: bodyStyle().copyWith(color: AppColors.primaryColor, fontSize: 12),
+              'Year ${widget.user.academicYear}',
+              style: bodyStyle()
+                  .copyWith(color: AppColors.primaryColor, fontSize: 12),
             ),
           )
         ],
@@ -73,7 +74,7 @@ class _HomePageState extends State<HomePage> {
             label: 'Feeds',
           ),
           NavigationDestination(
-            selectedIcon:Icon(Icons.messenger_sharp),
+            selectedIcon: Icon(Icons.messenger_sharp),
             icon: Icon(Icons.messenger_outline_sharp),
             label: 'Rooms',
           ),
@@ -137,7 +138,7 @@ class ComingSoonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child:  Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
@@ -168,4 +169,3 @@ class ComingSoonWidget extends StatelessWidget {
     );
   }
 }
-

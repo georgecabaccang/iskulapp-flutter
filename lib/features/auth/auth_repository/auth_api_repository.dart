@@ -28,7 +28,11 @@ class AuthRepository {
       if (res.statusCode != HttpStatus.ok) {
         return AuthResult.failure(res.statusCode, message);
       }
-      return AuthRequestSuccess.fromJson(data);
+      return AuthResult.success(
+        AuthenticatedUser.fromJson(data),
+        data['access_token'],
+        DateTime.parse(data['token_expiry']),
+      );
     } catch (e) {
       print(e);
       return AuthResult.failure(500, e.toString());
