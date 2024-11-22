@@ -37,7 +37,11 @@ class AuthRepository {
       if (res.statusCode != HttpStatus.ok) {
         return AuthResult.failure(res.statusCode, message);
       }
-      return AuthRequestSuccess.fromJson(data);
+      return AuthResult.success(
+        AuthenticatedUser.fromJson(data),
+        data['access_token'],
+        DateTime.parse(data['token_expiry']),
+      );
     } catch (e) {
       print(e);
       return AuthResult.failure(500, e.toString());
@@ -69,11 +73,11 @@ class AuthRepository {
           "client_id": clientId,
           "client_secret": clientSecret
         }));
-    final parsed = jsonDecode(res.body);
-    print(res.body);
-    final String accessToken = parsed['access_token'];
-    print(accessToken);
-
+    final parsedBody = jsonDecode(res.body);
+    if (res.statusCode != HttpStatus.ok) {
+      throw Exception('failed to get client token: $parsedBody');
+    }
+    final String accessToken = parsedBody['access_token'];
     return accessToken;
   }
 }
