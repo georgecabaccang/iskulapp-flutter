@@ -27,19 +27,12 @@ class AuthService {
     return result;
   }
 
-  Future<bool> logout() async {
-    if (await isLoggedIn() == false) {
-      throw UserNotLoggedInException();
-    }
-    // TODO: handle potential errors
+  Future<void> logout() async {
     final token = await getToken();
-    final result = await authRepository.logout(token!);
+    authRepository.logout(token!);
 
-    if (result) {
-      await storage.delete(key: 'access_token');
-      await storage.delete(key: 'user');
-    }
-    return result;
+    await storage.delete(key: 'access_token');
+    await storage.delete(key: 'user');
   }
 
   Future<String?> getToken() async {

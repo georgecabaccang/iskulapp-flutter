@@ -29,9 +29,14 @@ class ApiClient {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     };
+
     if (accessToken != null) {
       headers['Authorization'] = 'Bearer $accessToken';
+    } else {
+      final clientToken = await getClientToken();
+      headers['Authorization'] = 'Bearer $clientToken';
     }
+
     return headers;
   }
 
@@ -78,20 +83,38 @@ class ApiClient {
     return res;
   }
 
-  Future<String> getClientToken(String path) async {
-    final res = await post('/oauth/token', {
+  Future<String> getClientToken() async {
+    final uri = Uri.http(baseUrl, '/oauth/token');
+    final headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    };
+
+    final body = {
       "grant_type": "client_credentials",
       "client_id": clientId,
       "client_secret": clientSecret
-    });
+    };
+
+    final res = await httpClient.post(
+      uri,
+      headers: headers,
+      body: jsonEncode(body),
+    );
 
     final data = jsonDecode(res.body);
+
     if (res.statusCode != 200) {
-      final errorString = data['error'];
+      final errorString = data['error'] ?? 'Unknown error';
       throw Exception(
           'Failed to get client token: ${res.statusCode} $errorString');
-    } else {
-      return data['access_token'];
     }
+
+    final token = data['access_token'];
+    if (token == null) {
+      throw Exception('No access token in response');
+    }
+
+    return token;
   }
 }
