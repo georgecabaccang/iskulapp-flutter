@@ -2,14 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/models/assessment.dart';
-import 'package:school_erp/pages/assignment/assignment_add/assignment_add_page/assignment_add_page.dart';
+import 'package:school_erp/pages/assessment/assessment_create_update/assessment_setup/assessment_setup_page.dart';
 import 'package:school_erp/pages/common_widgets/app_bar_widgets/add_button.dart';
 import 'package:school_erp/pages/common_widgets/app_content.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
+import 'package:school_erp/repositories/repositories.dart';
 import 'widgets/assignment_card.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:intl/intl.dart';
-
 
 class AssignmentListPage extends StatefulWidget {
   const AssignmentListPage({super.key});
@@ -19,14 +19,15 @@ class AssignmentListPage extends StatefulWidget {
 }
 
 class _AssignmentListPageState extends State<AssignmentListPage> {
-  List<Assessment?> _data = [];
-  late StreamSubscription<List<Assessment?>>? _subscription;
+  List<Assessment> _data = [];
+  late StreamSubscription<List<Assessment>> _subscription;
 
   @override
   void initState() {
     super.initState();
-    _subscription =
-        Assessment.watchLists(AssessmentType.assignment).listen((data) {
+    _subscription = assessmentRepository
+        .watchAssessmentList(AssessmentType.assignment)
+        .listen((data) {
       if (!mounted) return;
       setState(() => _data = data);
     });
@@ -34,7 +35,7 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
 
   @override
   void dispose() {
-    _subscription?.cancel();
+    _subscription.cancel();
     super.dispose();
   }
 
@@ -50,7 +51,8 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
             title: 'Assignment List',
             trailingWidget: AppBarAddButton(
               exitPage: widget,
-              enterPage: const AssignmentAddPage(),
+              enterPage: const AssessmentSetupPage(
+                  assessmentTypeOnCreate: AssessmentType.assignment),
             ),
           ),
           AppContent(
@@ -61,11 +63,9 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
                   itemCount: _data.length,
                   itemBuilder: (context, index) {
                     final assessment = _data[index];
-                    return assessment != null
-                        ? AssignmentCard(
-                            assessment: assessment,
-                          )
-                        : const SizedBox.shrink();
+                    return AssignmentCard(
+                      assessment: assessment,
+                    );
                   },
                 ),
               ),

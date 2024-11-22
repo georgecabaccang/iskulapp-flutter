@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:school_erp/features/transition/clean_slide_transition.dart';
+import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/enums/assessment_status.dart';
+import 'package:school_erp/features/transition/clean_slide_transition.dart';
 import 'package:school_erp/models/assessment.dart';
-import 'package:school_erp/pages/assignment/assignment_preview/assignment_preview_page.dart';
+import 'package:school_erp/pages/assessment/assessment_create_update/assessment_setup/assessment_setup_page.dart';
 import 'package:school_erp/utils/extensions/string_extension.dart';
 import 'package:school_erp/theme/text_styles.dart';
 
@@ -11,9 +11,9 @@ class AssignmentCard extends StatelessWidget {
   final Assessment assessment;
 
   const AssignmentCard({
-    Key? key,
     required this.assessment,
-  }) : super(key: key);
+    super.key,
+  });
 
   String getStatusText() => assessment.status.displayName;
 
@@ -50,9 +50,13 @@ class AssignmentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        createSlideRoute(const AssignmentPreviewPage()),
+      onTap: () => Navigator.of(context).push(
+        createSlideRoute(
+          AssessmentSetupPage(
+            assessmentTypeOnCreate: AssessmentType.assignment,
+            assessment: assessment,
+          ),
+        ),
       ),
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -80,7 +84,7 @@ class AssignmentCard extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Text(assessment.subject.title(),
+          child: Text(assessment.subjectName!.title(),
               style: headingStyle().copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
@@ -114,9 +118,8 @@ class AssignmentCard extends StatelessWidget {
   }
 
   Widget _buildDates() {
-    final startDate = DateFormat('dd MMM yy').format(assessment.startTime);
-    final submissionDate = DateFormat('dd MMM yy').format(assessment.deadLine);
-
+    //TODO: if student / parent(?) show starTimedeadLine, if teacher dont
+    //
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -131,7 +134,7 @@ class AssignmentCard extends StatelessWidget {
               ),
             ),
             Text(
-              startDate,
+              'startDate', //temporary
               style: headingStyle().copyWith(
                 color: Colors.black,
                 fontSize: 14.0,
@@ -151,7 +154,7 @@ class AssignmentCard extends StatelessWidget {
               ),
             ),
             Text(
-              submissionDate,
+              'submissionDate', //temporary
               style: headingStyle().copyWith(
                 color: Colors.black,
                 fontSize: 14.0,

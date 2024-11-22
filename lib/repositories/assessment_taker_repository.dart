@@ -1,27 +1,8 @@
-import 'package:powersync/powersync.dart';
-import 'package:school_erp/dtos/assessment/assessment_update_dto.dart';
-import 'package:school_erp/dtos/assessment_taker/assessment_taker_create_dto.dart';
+import 'package:school_erp/models/assessment_taker.dart';
 import 'package:school_erp/models/tables/assessment_takers_table.dart';
-import 'package:school_erp/repositories/base_crud_repository.dart';
+import 'package:school_erp/repositories/base_crud_repository/base_crud_repository.dart';
 
-class AssessmentTakerRepository
-    extends BaseCrudRepository<AssessmentTakerCreateDTO, AssessmentUpdateDTO> {
-  AssessmentTakerRepository({required PowerSyncDatabase database})
-      : super(table: assessmentTakersTable, database: database);
-
-  @override
-  Map<String, dynamic> toCreateMap(AssessmentTakerCreateDTO dto) {
-    return {
-      'assessment_id': dto.assessmentId,
-      'section_id': dto.sectionId,
-      'subject_year_id': dto.subjectYearId,
-    };
-  }
-
-  @override
-  Map<String, dynamic> toUpdateMap(AssessmentUpdateDTO dto) {
-    return {
-      'status': 'no implementation', // no implementation yet
-    };
-  }
+class AssessmentTakerRepository extends BaseCrudRepository<AssessmentTaker> {
+  AssessmentTakerRepository({super.database})
+      : super(table: assessmentTakersTable, fromRow: AssessmentTaker.fromRow);
 }
