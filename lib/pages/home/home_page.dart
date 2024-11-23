@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/features/auth/auth_repository/schemas/user.dart';
+import 'package:school_erp/pages/home/utils/bottom_nav/bottom_nav_destinations.dart';
+import 'package:school_erp/pages/home/utils/bottom_nav/bottom_navigation.dart';
 import 'package:school_erp/pages/home/widgets/dashboard_header.dart';
 import 'package:school_erp/pages/home/widgets/features.dart';
 import 'package:school_erp/pages/home/widgets/feeds.dart';
-import 'package:school_erp/pages/home/widgets/message.dart';
+// import 'package:school_erp/pages/home/widgets/message.dart';
 import 'package:school_erp/pages/home/widgets/settings.dart';
 import 'package:school_erp/pages/home/widgets/time_record_card.dart';
 import 'package:school_erp/theme/colors.dart';
@@ -58,33 +60,10 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      bottomNavigationBar: NavigationBar(
-        height: 60,
-        onDestinationSelected: _navOnTap,
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.menu),
-            icon: Icon(Icons.menu_rounded),
-            label: 'Feeds',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.messenger_sharp),
-            icon: Icon(Icons.messenger_outline_sharp),
-            label: 'Rooms',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.settings),
-            icon: Icon(Icons.settings_outlined),
-            label: 'Setting',
-          ),
-        ],
-      ),
+      bottomNavigationBar: BottomNavigation(
+          tapFn: _navOnTap,
+          currentPageIndex: currentPageIndex,
+          destinations: BottomNavDestinations()),
       backgroundColor: AppColors.primaryColor,
       body: PageView(
         controller: _pageController,
