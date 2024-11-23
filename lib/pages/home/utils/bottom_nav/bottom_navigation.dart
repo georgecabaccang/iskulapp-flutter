@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/home/utils/bottom_nav/bottom_nav_destinations.dart';
 
-typedef VoidCallbackWithArg = void Function(int);
-
 class BottomNavigation extends StatelessWidget {
   final BottomNavDestinations destinations;
   final int currentPageIndex;
-  final VoidCallbackWithArg tapFn;
+  final void Function(int) tapFn;
 
   const BottomNavigation({
     super.key,
