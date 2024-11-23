@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/features/auth/auth_repository/schemas/user.dart';
+import 'package:school_erp/pages/home/utils/app_bar/home_app_bar.dart';
 import 'package:school_erp/pages/home/utils/bottom_nav/bottom_nav_destinations.dart';
 import 'package:school_erp/pages/home/utils/bottom_nav/bottom_navigation.dart';
 import 'package:school_erp/pages/home/widgets/dashboard_header.dart';
@@ -44,22 +45,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.user.schoolName,
-          style: headingStyle().copyWith(color: AppColors.primaryColor),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: Text(
-              'Year ${widget.user.academicYear}',
-              style: bodyStyle()
-                  .copyWith(color: AppColors.primaryColor, fontSize: 12),
-            ),
-          )
-        ],
-      ),
+      appBar: HomeAppBar(user: widget.user),
       bottomNavigationBar: BottomNavigation(
           tapFn: _navOnTap,
           currentPageIndex: currentPageIndex,
