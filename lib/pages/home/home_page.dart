@@ -4,7 +4,6 @@ import 'package:school_erp/pages/home/utils/app_bar/home_app_bar.dart';
 import 'package:school_erp/pages/home/utils/app_body/home_app_body.dart';
 import 'package:school_erp/pages/home/utils/bottom_nav/bottom_nav_destinations.dart';
 import 'package:school_erp/pages/home/utils/bottom_nav/bottom_navigation.dart';
-// import 'package:school_erp/pages/home/widgets/message.dart';
 import 'package:school_erp/theme/colors.dart';
 
 class HomePage extends StatefulWidget {
