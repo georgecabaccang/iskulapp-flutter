@@ -6,9 +6,12 @@ import 'package:school_erp/pages/change_password/change_password_page.dart';
 import 'package:school_erp/pages/home/app_body/views/settings/widgets/logout_modal.dart';
 import 'package:school_erp/pages/profile/profile_page.dart';
 
-class PersonalSettings {
-  ListView getList(BuildContext context) {
-    return ListView(
+class PersonalSettings extends StatelessWidget {
+  const PersonalSettings({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
       children: [
         ListTile(
           leading: Icon(Icons.person_outlined),
@@ -40,13 +43,14 @@ class PersonalSettings {
   }
 }
 
-class AppSettings {
+class AppSettings extends StatelessWidget {
   final void Function(String) launchUrlFn;
 
-  AppSettings({required this.launchUrlFn});
+  const AppSettings({super.key, required this.launchUrlFn});
 
-  ListView getList(BuildContext context) {
-    return ListView(
+  @override
+  Widget build(BuildContext context) {
+    return Column(
       children: [
         ListTile(
           leading: Icon(Icons.light_mode_outlined),

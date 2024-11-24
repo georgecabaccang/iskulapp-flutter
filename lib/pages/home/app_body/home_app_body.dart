@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/features/auth/auth_repository/schemas/user.dart';
 import 'package:school_erp/pages/common_widgets/views/comming_soon_widget.dart';
-import 'package:school_erp/pages/home/views/home_widget.dart';
-import 'package:school_erp/pages/home/widgets/feeds.dart';
-import 'package:school_erp/pages/home/widgets/settings.dart';
+import 'package:school_erp/pages/home/app_body/views/home/home_widget.dart';
+import 'package:school_erp/pages/home/app_body/views/home/widgets/feeds.dart';
+import 'package:school_erp/pages/home/app_body/views/settings/settings.dart';
 
 class HomeAppBody extends StatelessWidget {
   final AuthenticatedUser user;

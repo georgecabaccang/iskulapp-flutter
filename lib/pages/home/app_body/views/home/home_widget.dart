@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/features/auth/auth_repository/schemas/user.dart';
-import 'package:school_erp/pages/home/widgets/dashboard_header.dart';
-import 'package:school_erp/pages/home/widgets/features.dart';
-import 'package:school_erp/pages/home/widgets/time_record_card.dart';
+import 'package:school_erp/pages/home/app_body/views/home/widgets/dashboard_header.dart';
+import 'package:school_erp/pages/home/app_body/views/home/widgets/features.dart';
+import 'package:school_erp/pages/home/app_body/views/home/widgets/time_record_card.dart';
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({super.key, required this.user});

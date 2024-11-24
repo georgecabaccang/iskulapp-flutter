@@ -39,10 +39,10 @@ class SettingWidget extends StatelessWidget {
                 ),
                 Divider(),
                 // Personal Settings
-                PersonalSettings().getList(context),
+                PersonalSettings(),
                 Divider(),
                 // App Settings
-                AppSettings(launchUrlFn: _launchURL).getList(context),
+                AppSettings(launchUrlFn: _launchURL),
                 Divider(),
                 Center(
                   child: ListTile(

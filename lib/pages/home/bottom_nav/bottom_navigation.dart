@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/home/utils/bottom_nav/bottom_nav_destinations.dart';
+import 'package:school_erp/pages/home/bottom_nav/bottom_nav_destinations.dart';
 
 class BottomNavigation extends StatelessWidget {
   final BottomNavDestinations destinations;

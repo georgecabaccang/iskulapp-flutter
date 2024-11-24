@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../../../features/auth/auth_repository/schemas/user.dart';
+import '../../../../../../features/auth/auth_repository/schemas/user.dart';
 
 class FeedsWidget extends StatelessWidget {
   final AuthenticatedUser user;
