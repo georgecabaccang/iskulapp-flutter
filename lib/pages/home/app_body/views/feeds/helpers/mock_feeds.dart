@@ -1,6 +1,6 @@
 import 'dart:math';
 
-class DummyFeed {
+class Feed {
   final String firstName;
   final String lastName;
 
@@ -8,7 +8,7 @@ class DummyFeed {
   final String imageUrl;
   final int likes;
 
-  DummyFeed({
+  Feed({
     required this.firstName,
     required this.lastName,
     required this.description,
@@ -17,8 +17,8 @@ class DummyFeed {
   });
 
   // Factory method to generate a Feed from an index
-  factory DummyFeed.fromIndex(int index) {
-    return DummyFeed(
+  factory Feed.fromIndex(int index) {
+    return Feed(
       firstName: generateName(),
       lastName: generateName(),
       description: 'This is the feed description for post #$index.',
@@ -29,20 +29,20 @@ class DummyFeed {
 
   @override
   String toString() {
-    return 'DummyFeed(firstName: $firstName, lastName: $lastName, description: $description, imageUrl: $imageUrl, likes: $likes)';
+    return 'Feed(firstName: $firstName, lastName: $lastName, description: $description, imageUrl: $imageUrl, likes: $likes)';
   }
 }
 
 class DummyFeedDatabase {
-  final List<DummyFeed> _feeds;
+  final List<Feed> _feeds;
   static const int _numberOfFeeds = 23;
 
   DummyFeedDatabase()
       : _feeds = List.generate(
-            _numberOfFeeds, (index) => DummyFeed.fromIndex(index),
+            _numberOfFeeds, (index) => Feed.fromIndex(index),
             growable: true);
 
-  Future<List<DummyFeed>> getFeeds(int startIndex, int count) async {
+  Future<List<Feed>> getFeeds(int startIndex, int count) async {
     // This will handle things to not exceed existing "rows" of data.
     int endIndex = (startIndex + count) > _feeds.length
         ? _feeds.length
@@ -77,11 +77,11 @@ void main() async {
   final int initialNumberOfFeeds = 5;
   final int nextNumberOfFeeds = 5;
 
-  List<DummyFeed> initialFeeds =
+  List<Feed> initialFeeds =
       await feedDatabase.getFeeds(0, initialNumberOfFeeds);
   print('Initial feeds: ${initialFeeds.length}');
 
-  List<DummyFeed> moreFeeds =
+  List<Feed> moreFeeds =
       await feedDatabase.getFeeds(initialNumberOfFeeds, nextNumberOfFeeds);
   print('More feeds: ${moreFeeds.length}');
 }
