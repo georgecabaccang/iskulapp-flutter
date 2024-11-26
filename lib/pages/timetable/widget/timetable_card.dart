@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/theme/text_styles.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:school_erp/theme/colors.dart';
+// import 'package:table_calendar/table_calendar.dart';
+// import 'package:school_erp/theme/colors.dart';
 
 class TimetableCard extends StatelessWidget {
   final String day;
