@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/pages/events/helpers/mock_events.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/theme/text_styles.dart';
 
 class EventDetailsPage extends StatelessWidget {
-  final Map<String, dynamic> event;
+  final Event event;
 
   const EventDetailsPage({super.key, required this.event});
 
@@ -30,7 +31,8 @@ class EventDetailsPage extends StatelessWidget {
           ),
           // Content of the page
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.35, // Start content below the background
+            top: MediaQuery.of(context).size.height *
+                0.35, // Start content below the background
             left: 0,
             right: 0,
             child: Container(
@@ -42,26 +44,29 @@ class EventDetailsPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Row(
+                    Row(
                       children: [
-                        const Icon(Icons.access_time, color: AppColors.primaryColor),
+                        const Icon(Icons.access_time,
+                            color: AppColors.primaryColor),
                         const SizedBox(width: 5),
                         Text(
-                          '${event['date']}, ${event['time']}',
+                          '${event.date}, ${event.time}',
                           style: bodyStyle().copyWith(color: Colors.black),
                         ),
                       ],
                     ),
                     Text(
-                      event['title'],
-                      style: headingStyle().copyWith(fontSize: 24).copyWith(color:Colors.black),
+                      event.title,
+                      style: headingStyle()
+                          .copyWith(fontSize: 24)
+                          .copyWith(color: Colors.black),
                     ),
                     const SizedBox(height: 10),
-                   
                     const SizedBox(height: 10),
                     Text(
-                      event['description'],
-                      style: bodyStyle().copyWith(fontSize: 16, color: Colors.grey),
+                      event.description,
+                      style: bodyStyle()
+                          .copyWith(fontSize: 16, color: Colors.grey),
                     ),
                   ],
                 ),
