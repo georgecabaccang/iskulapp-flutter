@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/features/auth/auth_repository/schemas/user.dart';
 import 'package:school_erp/pages/home/app_body/views/feeds/widgets/feed_content.dart';
 import 'package:school_erp/pages/home/app_body/views/feeds/helpers/mock_feeds.dart';
-import 'package:school_erp/pages/home/app_body/views/feeds/widgets/post_feed_modal.dart';
+import 'package:school_erp/pages/home/app_body/views/feeds/widgets/feeds_modal_form.dart';
 
 class FeedsWidget extends StatefulWidget {
   final AuthenticatedUser user;
@@ -82,7 +82,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
             return FeedContent(feedContent: _feeds[index]);
           },
         ),
-        PostFeedModal()
+        FeedsModalForm()
       ],
     );
   }
