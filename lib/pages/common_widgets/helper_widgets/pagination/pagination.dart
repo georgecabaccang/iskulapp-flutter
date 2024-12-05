@@ -3,60 +3,61 @@ import 'package:school_erp/pages/common_widgets/helper_widgets/pagination/pagina
 import 'package:school_erp/pages/common_widgets/helper_widgets/pagination/pagination_list.dart';
 
 class Pagination<T> extends StatefulWidget {
-  final List<T> listOfData;
-  final Widget Function(BuildContext, T) itemBuilder;
-  final int itemsPerPage;
-  final bool isLoading;
+    final List<T> listOfData;
+    final Widget Function(BuildContext, T) itemBuilder;
+    final int itemsPerPage;
+    final bool isLoading;
 
-  const Pagination({
-    super.key,
-    required this.listOfData,
-    required this.itemBuilder,
-    required this.itemsPerPage,
-    required this.isLoading,
-  });
+    const Pagination({
+        super.key,
+        required this.listOfData,
+        required this.itemBuilder,
+        required this.itemsPerPage,
+        required this.isLoading,
+    });
 
-  @override
-  createState() => _PaginationState<T>();
+    @override
+    createState() => _PaginationState<T>();
 }
 
 class _PaginationState<T> extends State<Pagination<T>> {
-  int currentPage = 1;
-  int currentIndex = 0;
+    int currentPage = 1;
+    int currentIndex = 0;
 
-  @override
-  Widget build(BuildContext context) {
-    int totalPages = (widget.listOfData.length / widget.itemsPerPage).ceil();
+    @override
+    Widget build(BuildContext context) {
+        int totalPages = (widget.listOfData.length / widget.itemsPerPage).ceil();
 
-    return Expanded(
-      child: Column(
-        children: [
-          PaginationList(
-              listOfData: widget.listOfData,
-              itemBuilder: widget.itemBuilder,
-              itemsPerPage: widget.itemsPerPage,
-              isLoading: widget.isLoading,
-              currentIndex: currentIndex),
-          PaginationController(
-            currentPage: currentPage,
-            currentIndex: currentIndex,
-            totalPages: totalPages,
-            itemsPerPage: widget.itemsPerPage,
-            prevPageFn: () {
-              setState(() {
-                currentPage -= 1;
-                currentIndex -= widget.itemsPerPage;
-              });
-            },
-            nextPageFn: () {
-              setState(() {
-                currentPage += 1;
-                currentIndex += widget.itemsPerPage;
-              });
-            },
-          ),
-        ],
-      ),
-    );
-  }
+        return Expanded(
+            child: Column(
+                children: [
+                    PaginationList(
+                        listOfData: widget.listOfData,
+                        itemBuilder: widget.itemBuilder,
+                        itemsPerPage: widget.itemsPerPage,
+                        isLoading: widget.isLoading,
+                        currentIndex: currentIndex),
+                    Visibility(
+                        visible: widget.listOfData.isNotEmpty,
+                        child: PaginationController(
+                            currentPage: currentPage,
+                            totalPages: totalPages,
+                            prevPageFn: () {
+                                setState(() {
+                                        currentPage -= 1;
+                                        currentIndex -= widget.itemsPerPage;
+                                    });
+                            },
+                            nextPageFn: () {
+                                setState(() {
+                                        currentPage += 1;
+                                        currentIndex += widget.itemsPerPage;
+                                    });
+                            },
+                        ),
+                    )
+                ],
+            ),
+        );
+    }
 }
