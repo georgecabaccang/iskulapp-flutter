@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/common_widgets/buttons/primary_round_elevated_buton.dart';
+import 'package:school_erp/pages/common_widgets/buttons/primary_round_elevated_button.dart';
 import 'package:school_erp/pages/common_widgets/helper_widgets/pagination/controller_displays/pagination_pages_display.dart';
 
 class PaginationController extends StatelessWidget {
@@ -25,7 +25,7 @@ class PaginationController extends StatelessWidget {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                        PrimaryRoundElevatedButon(
+                        PrimaryRoundElevatedButton(
                             buttonFn: () {
                                 if (currentPage > 1) {
                                     prevPageFn();
@@ -39,7 +39,7 @@ class PaginationController extends StatelessWidget {
                             isDisabled: currentPage == 1 ? true : false,
                         ),
                         PagesDisplay(currentPage: currentPage, totalPages: totalPages,),
-                        PrimaryRoundElevatedButon(
+                        PrimaryRoundElevatedButton(
                             buttonFn: () {
                                 if (currentPage < totalPages) {
                                     nextPageFn();

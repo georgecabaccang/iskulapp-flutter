@@ -3,14 +3,14 @@ import 'package:school_erp/theme/colors.dart';
 
 enum IconPosition { left, right }
 
-class PrimaryRoundElevatedButon extends StatelessWidget{
+class PrimaryRoundElevatedButton extends StatelessWidget{
     final void Function() buttonFn;
     final bool isDisabled;
     final Icon? icon;
     final String? label;
     final IconPosition? iconPosition;
 
-    const PrimaryRoundElevatedButon({
+    const PrimaryRoundElevatedButton({
         super.key, 
         required this.buttonFn, 
         this.isDisabled = false,
