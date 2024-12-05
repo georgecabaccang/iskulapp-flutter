@@ -21,8 +21,15 @@ class Pagination<T> extends StatefulWidget {
 }
 
 class _PaginationState<T> extends State<Pagination<T>> {
+    final PageController _pageController = PageController();
     int currentPage = 1;
     int currentIndex = 0;
+
+    @override
+    void dispose() {
+        _pageController.dispose();
+        super.dispose();
+    }
 
     @override
     Widget build(BuildContext context) {
@@ -32,6 +39,12 @@ class _PaginationState<T> extends State<Pagination<T>> {
             child: Column(
                 children: [
                     PaginationList(
+                        pageController: _pageController,
+                        onPageChanged: (page) {
+                            setState(() {
+                                    currentPage = page + 1;
+                                });
+                        },
                         listOfData: widget.listOfData,
                         itemBuilder: widget.itemBuilder,
                         itemsPerPage: widget.itemsPerPage,
@@ -46,12 +59,20 @@ class _PaginationState<T> extends State<Pagination<T>> {
                                 setState(() {
                                         currentPage -= 1;
                                         currentIndex -= widget.itemsPerPage;
+                                        _pageController.previousPage(
+                                            duration: Duration(milliseconds: 300),
+                                            curve: Curves.easeInOut,
+                                        );
                                     });
                             },
                             nextPageFn: () {
                                 setState(() {
                                         currentPage += 1;
                                         currentIndex += widget.itemsPerPage;
+                                        _pageController.nextPage(
+                                            duration: Duration(milliseconds: 300),
+                                            curve: Curves.easeInOut,
+                                        );
                                     });
                             },
                         ),
