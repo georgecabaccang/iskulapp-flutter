@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overlay.dart';
 import 'package:school_erp/pages/common_widgets/helper_widgets/pagination/pagination_controller.dart';
 import 'package:school_erp/pages/common_widgets/helper_widgets/pagination/pagination_list.dart';
 
@@ -34,6 +35,14 @@ class _PaginationState<T> extends State<Pagination<T>> {
     Widget build(BuildContext context) {
         int totalPages = (widget.listOfData.length / widget.itemsPerPage).ceil();
 
+        if (widget.listOfData.isEmpty && widget.isLoading) {
+            return Expanded(child: Center(child: LoadingOverlay()));
+        }
+
+        if (widget.listOfData.isEmpty) {
+            return Expanded(child: Center(child: Text("Empty List")));
+        }
+
         return Expanded(
             child: Column(
                 children: [
@@ -49,31 +58,29 @@ class _PaginationState<T> extends State<Pagination<T>> {
                         itemsPerPage: widget.itemsPerPage,
                         isLoading: widget.isLoading,
                     ),
-                    Visibility(
-                        visible: widget.listOfData.isNotEmpty,
-                        child: PaginationController(
-                            currentPage: currentPage,
-                            totalPages: totalPages,
-                            prevPageFn: () {
-                                setState(() {
-                                        currentPage -= 1;
-                                        _pageController.previousPage(
-                                            duration: Duration(milliseconds: 300),
-                                            curve: Curves.easeInOut,
-                                        );
-                                    });
-                            },
-                            nextPageFn: () {
-                                setState(() {
-                                        currentPage += 1;
-                                        _pageController.nextPage(
-                                            duration: Duration(milliseconds: 300),
-                                            curve: Curves.easeInOut,
-                                        );
-                                    });
-                            },
-                        ),
-                    )
+                    PaginationController(
+                        currentPage: currentPage,
+                        totalPages: totalPages,
+                        prevPageFn: () {
+                            setState(() {
+                                    currentPage -= 1;
+                                    _pageController.previousPage(
+                                        duration: Duration(milliseconds: 300),
+                                        curve: Curves.easeInOut,
+                                    );
+                                });
+                        },
+                        nextPageFn: () {
+                            setState(() {
+                                    currentPage += 1;
+                                    _pageController.nextPage(
+                                        duration: Duration(milliseconds: 300),
+                                        curve: Curves.easeInOut,
+                                    );
+                                });
+                        },
+                    ),
+
                 ],
             ),
         );

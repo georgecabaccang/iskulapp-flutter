@@ -29,10 +29,6 @@ class PaginationList<T> extends StatelessWidget {
                 },
                 itemCount: (listOfData.isEmpty && isLoading) ? 1 : (listOfData.length / itemsPerPage).ceil(),
                 itemBuilder: (BuildContext context, int pageIndex) {
-                    if (listOfData.isEmpty && isLoading) {
-                        return Center(child: CircularProgressIndicator());
-                    }
-
                     int startIndex = pageIndex * itemsPerPage;
                     int endIndex = (startIndex + itemsPerPage) > listOfData.length
                         ? listOfData.length
