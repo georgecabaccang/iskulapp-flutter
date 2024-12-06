@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/common_widgets/animation_widgets/loading_overlay.dart';
 import 'package:school_erp/pages/common_widgets/helper_widgets/pagination/pagination_controller.dart';
 import 'package:school_erp/pages/common_widgets/helper_widgets/pagination/pagination_list.dart';
 
@@ -60,7 +59,7 @@ class _PaginationState<T> extends State<Pagination<T>> {
     @override
     Widget build(BuildContext context) {
         if (widget.listOfData.isEmpty && widget.isLoading) {
-            return Expanded(child: Center(child: LoadingOverlay()));
+            return Expanded(child: Center(child: CircularProgressIndicator()));
         }
 
         if (widget.listOfData.isEmpty) {
