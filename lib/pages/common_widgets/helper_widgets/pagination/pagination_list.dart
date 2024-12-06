@@ -5,7 +5,6 @@ class PaginationList<T> extends StatelessWidget {
     final Widget Function(BuildContext, T) itemBuilder;
     final int itemsPerPage;
     final bool isLoading;
-    final int currentIndex;
     final PageController pageController;
     final void Function(int) onPageChanged;
 
@@ -15,7 +14,6 @@ class PaginationList<T> extends StatelessWidget {
         required this.itemBuilder,
         required this.itemsPerPage,
         required this.isLoading,
-        required this.currentIndex, 
         required this.pageController, 
         required this.onPageChanged,
     });

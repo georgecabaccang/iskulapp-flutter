@@ -36,7 +36,7 @@ class AssignmentPagination extends Assignment {
 
 class DummyAssignmentDatabasePagination {
     final List<AssignmentPagination> _assignments;
-    static const int _numberOfAssignments = 22;
+    static const int _numberOfAssignments = 90;
 
     DummyAssignmentDatabasePagination()
         : _assignments = List.generate(_numberOfAssignments,

@@ -23,7 +23,6 @@ class Pagination<T> extends StatefulWidget {
 class _PaginationState<T> extends State<Pagination<T>> {
     final PageController _pageController = PageController();
     int currentPage = 1;
-    int currentIndex = 0;
 
     @override
     void dispose() {
@@ -49,7 +48,7 @@ class _PaginationState<T> extends State<Pagination<T>> {
                         itemBuilder: widget.itemBuilder,
                         itemsPerPage: widget.itemsPerPage,
                         isLoading: widget.isLoading,
-                        currentIndex: currentIndex),
+                    ),
                     Visibility(
                         visible: widget.listOfData.isNotEmpty,
                         child: PaginationController(
@@ -58,7 +57,6 @@ class _PaginationState<T> extends State<Pagination<T>> {
                             prevPageFn: () {
                                 setState(() {
                                         currentPage -= 1;
-                                        currentIndex -= widget.itemsPerPage;
                                         _pageController.previousPage(
                                             duration: Duration(milliseconds: 300),
                                             curve: Curves.easeInOut,
@@ -68,7 +66,6 @@ class _PaginationState<T> extends State<Pagination<T>> {
                             nextPageFn: () {
                                 setState(() {
                                         currentPage += 1;
-                                        currentIndex += widget.itemsPerPage;
                                         _pageController.nextPage(
                                             duration: Duration(milliseconds: 300),
                                             curve: Curves.easeInOut,
