@@ -27,23 +27,26 @@ class _PaginationState<T> extends State<Pagination<T>> {
     int currentPage = 1;
 
     void handlePageChange(PageDirection direction) {
-        if (direction == PageDirection.prev) {
-            return setState(() {
+        setState(() {
+                if (direction == PageDirection.prev) {
                     currentPage -= 1;
-                    _pageController.previousPage(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                            _pageController.previousPage(
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                            );
+                        }
+                    );
+                } else {
+                    currentPage += 1;
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                            _pageController.nextPage(
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                            );
+                        }
                     );
                 }
-            );
-        }
-
-        return setState(() {
-                currentPage += 1;
-                _pageController.nextPage(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                );
             }
         );
     }
