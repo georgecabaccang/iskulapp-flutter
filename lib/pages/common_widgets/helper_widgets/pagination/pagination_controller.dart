@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/pages/common_widgets/buttons/primary_round_elevated_button.dart';
 import 'package:school_erp/pages/common_widgets/helper_widgets/pagination/controller_displays/pagination_pages_display.dart';
 
+enum PageDirection {next, prev}
+
 class PaginationController extends StatelessWidget {
     final int currentPage;
     final int totalPages;
-    final void Function() prevPageFn;
-    final void Function() nextPageFn;
+    final void Function(PageDirection) prevPageFn;
+    final void Function(PageDirection) nextPageFn;
 
     const PaginationController({
         super.key,
@@ -28,7 +30,7 @@ class PaginationController extends StatelessWidget {
                         PrimaryRoundElevatedButton(
                             buttonFn: () {
                                 if (currentPage > 1) {
-                                    prevPageFn();
+                                    prevPageFn(PageDirection.prev);
                                 }
                             },
                             icon: Icon(
@@ -42,7 +44,7 @@ class PaginationController extends StatelessWidget {
                         PrimaryRoundElevatedButton(
                             buttonFn: () {
                                 if (currentPage < totalPages) {
-                                    nextPageFn();
+                                    nextPageFn(PageDirection.next);
                                 }
                             },
                             icon: Icon(

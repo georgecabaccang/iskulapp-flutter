@@ -25,6 +25,28 @@ class _PaginationState<T> extends State<Pagination<T>> {
     final PageController _pageController = PageController();
     int currentPage = 1;
 
+    void handlePageChange(PageDirection direction) {
+        if (direction == PageDirection.prev) {
+            return setState(() {
+                    currentPage -= 1;
+                    _pageController.previousPage(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                    );
+                }
+            );
+        }
+
+        return setState(() {
+                currentPage += 1;
+                _pageController.nextPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                );
+            }
+        );
+    }
+
     @override
     void dispose() {
         _pageController.dispose();
@@ -61,24 +83,8 @@ class _PaginationState<T> extends State<Pagination<T>> {
                     PaginationController(
                         currentPage: currentPage,
                         totalPages: totalPages,
-                        prevPageFn: () {
-                            setState(() {
-                                    currentPage -= 1;
-                                    _pageController.previousPage(
-                                        duration: Duration(milliseconds: 300),
-                                        curve: Curves.easeInOut,
-                                    );
-                                });
-                        },
-                        nextPageFn: () {
-                            setState(() {
-                                    currentPage += 1;
-                                    _pageController.nextPage(
-                                        duration: Duration(milliseconds: 300),
-                                        curve: Curves.easeInOut,
-                                    );
-                                });
-                        },
+                        prevPageFn: handlePageChange,
+                        nextPageFn: handlePageChange,
                     ),
 
                 ],
