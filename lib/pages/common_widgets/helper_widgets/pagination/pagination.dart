@@ -23,6 +23,7 @@ class Pagination<T> extends StatefulWidget {
 
 class _PaginationState<T> extends State<Pagination<T>> {
     final PageController _pageController = PageController();
+    late int totalPages = (widget.listOfData.length / widget.itemsPerPage).ceil();
     int currentPage = 1;
 
     void handlePageChange(PageDirection direction) {
@@ -55,8 +56,6 @@ class _PaginationState<T> extends State<Pagination<T>> {
 
     @override
     Widget build(BuildContext context) {
-        int totalPages = (widget.listOfData.length / widget.itemsPerPage).ceil();
-
         if (widget.listOfData.isEmpty && widget.isLoading) {
             return Expanded(child: Center(child: LoadingOverlay()));
         }
