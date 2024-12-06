@@ -34,16 +34,28 @@ class PaginationList<T> extends StatelessWidget {
                         ? listOfData.length
                         : startIndex + itemsPerPage;
 
-                    return AnimatedSwitcher(
-                        duration: Duration(milliseconds: 300),
-                        child: ListView.builder(
-                            key: ValueKey<int>(pageIndex),
-                            itemCount: endIndex - startIndex,
-                            itemBuilder: (BuildContext context, int index) {
-                                int itemIndex = startIndex + index;
-                                return itemBuilder(context, listOfData[itemIndex]);
-                            },
-                        ),
+                    return AnimatedBuilder(
+                        animation: pageController,
+                        builder: (context, child) {
+                            double scale = 1.0;
+                            if (pageController.position.haveDimensions) {
+                                scale = pageController.page == pageIndex
+                                    ? 1.0  
+                                    : 0.96; 
+                            }
+
+                            return Transform.scale(
+                                scale: scale,
+                                child: ListView.builder(
+                                    key: ValueKey<int>(pageIndex),
+                                    itemCount: endIndex - startIndex,
+                                    itemBuilder: (BuildContext context, int index) {
+                                        int itemIndex = startIndex + index;
+                                        return itemBuilder(context, listOfData[itemIndex]);
+                                    },
+                                ),
+                            );
+                        },
                     );
                 },
             ),
