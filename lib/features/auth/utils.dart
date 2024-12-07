@@ -5,8 +5,12 @@ String getTeacherId(AuthenticatedUser user) {
     throw Exception('Only teachers can create assignments');
   }
 
-  if (user.loginId == null) {
-    throw Exception('Teacher ID not found');
-  }
-  return user.loginId!;
+  return user.loginId;
+}
+
+AuthenticatedUser getAuthUser(AuthState authState) {
+  return switch (authState) {
+    Authenticated(:final user) => user,
+    _ => throw Exception('User must be authenticated'),
+  };
 }
