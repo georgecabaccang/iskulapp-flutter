@@ -7,4 +7,4 @@ export 'teachers_table.dart';
 export 'teacher_year_table.dart';
 export 'teacher_subjects_table.dart';
 export 'sections_table.dart';
-export 'teacher_sections_table.dart';
+export 'subject_classes_table.dart';
