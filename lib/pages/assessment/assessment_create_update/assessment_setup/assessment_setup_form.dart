@@ -37,8 +37,11 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
     final authUser = getAuthUser(authState);
     final teacherId = getTeacherId(authUser);
 
-    final subjects = await teacherRepository.getSubjects(
-        teacherId: teacherId, academicYearId: authUser.academicYearId);
+    final subjects = await subjectYearRepository.getTeacherSubjects(
+      teacherId: teacherId,
+      academicYearId: authUser.academicYearId,
+    );
+
     setState(() {
       activeSubjects = subjects;
     });

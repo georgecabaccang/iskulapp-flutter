@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/features/auth/auth.dart';
@@ -37,8 +36,8 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
     final authUser = getAuthUser(authState);
     final teacherId = getTeacherId(authUser);
 
-    _subscription = teacherRepository
-        .watchAssessments(
+    _subscription = assessmentRepository
+        .watchTeacherAssessments(
       teacherId: teacherId,
       assessmentType: AssessmentType.assignment,
       academicYearId: authUser.academicYearId,

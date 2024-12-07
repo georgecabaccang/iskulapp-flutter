@@ -33,7 +33,8 @@ class _AssessmentTakersFormState extends State<AssessmentTakersForm> {
     final authUser = getAuthUser(authState);
     final teacherId = getTeacherId(authUser);
     final assessment = context.read<AssessmentCubit>().state.assessment;
-    final sections = await teacherRepository.getSectionsBySubject(
+
+    final sections = await sectionRepository.getTeacherSectionsBySubject(
         teacherId: teacherId, subjectYearId: assessment.subjectYearId!);
     setState(() {
       activeSections = sections;
