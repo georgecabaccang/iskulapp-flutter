@@ -1,4 +1,3 @@
-import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/models/assessment_taker.dart';
 import 'package:school_erp/models/tables/assessments_table.dart';
 import 'package:school_erp/models/assessment.dart';
@@ -12,14 +11,5 @@ class AssessmentRepository extends BaseCrudRepository<Assessment> {
   Future<List<AssessmentTaker>> getAssessmentTakers(String assessmentId) async {
     var results = await database.execute(assessmentTakersSql, [assessmentId]);
     return results.map(AssessmentTaker.fromRow).toList(growable: false);
-  }
-
-  Stream<List<Assessment>> watchAssessmentList(AssessmentType assessmentType) {
-    return database.watch(
-      assessmentsSql,
-      parameters: [assessmentType.value],
-    ).map((results) {
-      return results.map(Assessment.fromRow).toList(growable: false);
-    });
   }
 }
