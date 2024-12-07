@@ -1,6 +1,9 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:school_erp/enums/assessment_type.dart';
+import 'package:school_erp/features/auth/auth.dart';
+import 'package:school_erp/features/auth/utils.dart';
 import 'package:school_erp/models/assessment.dart';
 import 'package:school_erp/pages/assessment/assessment_create_update/assessment_setup/assessment_setup_page.dart';
 import 'package:school_erp/pages/common_widgets/app_bar_widgets/add_button.dart';
@@ -10,6 +13,7 @@ import 'package:school_erp/repositories/repositories.dart';
 import 'widgets/assignment_card.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AssignmentListPage extends StatefulWidget {
   const AssignmentListPage({super.key});
@@ -19,17 +23,29 @@ class AssignmentListPage extends StatefulWidget {
 }
 
 class _AssignmentListPageState extends State<AssignmentListPage> {
-  List<Assessment> _data = [];
+  List<Assessment> _assessments = [];
   late StreamSubscription<List<Assessment>> _subscription;
 
   @override
   void initState() {
     super.initState();
-    _subscription = assessmentRepository
-        .watchAssessmentList(AssessmentType.assignment)
+    _watchAssessments();
+  }
+
+  void _watchAssessments() async {
+    final authState = context.read<AuthBloc>().state;
+    final authUser = getAuthUser(authState);
+    final teacherId = getTeacherId(authUser);
+
+    _subscription = teacherRepository
+        .watchAssessments(
+      teacherId: teacherId,
+      assessmentType: AssessmentType.assignment,
+      academicYearId: authUser.academicYearId,
+    )
         .listen((data) {
       if (!mounted) return;
-      setState(() => _data = data);
+      setState(() => _assessments = data);
     });
   }
 
@@ -60,9 +76,9 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.all(16.0),
-                  itemCount: _data.length,
+                  itemCount: _assessments.length,
                   itemBuilder: (context, index) {
-                    final assessment = _data[index];
+                    final assessment = _assessments[index];
                     return AssignmentCard(
                       assessment: assessment,
                     );

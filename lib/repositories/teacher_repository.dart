@@ -44,15 +44,18 @@ class TeacherRepository {
     return results.map(Section.fromRow).toList(growable: false);
   }
 
-  Future<List<Assessment>> getAssessments({
+  Stream<List<Assessment>> watchAssessments({
     required String teacherId,
     required AssessmentType assessmentType,
     required String academicYearId,
-  }) async {
-    final results = await db.execute(
+  }) {
+    final stream = db.watch(
       teacherAssessmentsSql,
-      [teacherId, assessmentType.value, academicYearId],
+      parameters: [teacherId, assessmentType.value, academicYearId],
     );
-    return results.map(Assessment.fromRow).toList(growable: false);
+
+    return stream.map((results) {
+      return results.map(Assessment.fromRow).toList(growable: false);
+    });
   }
 }
