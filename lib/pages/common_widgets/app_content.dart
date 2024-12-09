@@ -13,7 +13,7 @@ class AppContent extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         double screenWidth = MediaQuery.of(context).size.width;
-        double horizontalPadding = screenWidth * 0.03; 
+        double horizontalPadding = screenWidth * 0.05; 
 
         return Expanded(
             child: ClipRRect(
