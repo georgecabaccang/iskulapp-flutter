@@ -12,6 +12,9 @@ class AppContent extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) {
+        double screenWidth = MediaQuery.of(context).size.width;
+        double horizontalPadding = screenWidth * 0.03; 
+
         return Expanded(
             child: ClipRRect(
                 borderRadius: const BorderRadius.only(
@@ -23,7 +26,7 @@ class AppContent extends StatelessWidget {
                         color: Colors.white,
                     ),
                     child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
                         child: isScrollable
                             ? SingleChildScrollView(
                                 child: Column(
