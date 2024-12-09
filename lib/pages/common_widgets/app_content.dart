@@ -13,24 +13,25 @@ class AppContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        padding: const EdgeInsets.only(top: 1.8),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
-          ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
         ),
-        child: isScrollable
-            ? SingleChildScrollView(
-                child: Column(
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+          ),
+          child: isScrollable
+              ? SingleChildScrollView(
+                  child: Column(
+                    children: content,
+                  ),
+                )
+              : Column(
                   children: content,
                 ),
-              )
-            : Column(
-                children: content,
-              ),
+        ),
       ),
     );
   }

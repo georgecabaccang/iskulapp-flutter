@@ -20,7 +20,10 @@ class DefaultLayout extends StatelessWidget {
       backgroundColor: AppColors.primaryColor,
       body: Column(
         children: [
-          CustomAppBar(title: title),
+          CustomAppBar(
+            title: title,
+            trailingWidget: trailingWidget,
+          ),
           AppContent(
             content: content,
           ),

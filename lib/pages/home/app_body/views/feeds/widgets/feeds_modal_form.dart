@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/enums/button_type.dart';
-import 'package:school_erp/pages/common_widgets/modals/form/form_modal.dart';
-import 'package:school_erp/pages/common_widgets/modals/form/widgets/form_modal_button.dart';
-import 'package:school_erp/pages/common_widgets/modals/form/widgets/form_modal_input.dart';
+import 'package:school_erp/pages/common_widgets/forms/modal_form/modal_form.dart';
+import 'package:school_erp/pages/common_widgets/forms/buttons/form_button.dart';
+import 'package:school_erp/pages/common_widgets/forms/inputs/form_input.dart';
 
 class FeedsModalForm extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
