@@ -10,9 +10,9 @@ Schema schema = const Schema(
     sectionsTable,
     subjectYearsTable,
     subjectsTable,
+    subjectClassesTable,
     teachersTable,
     teacherYearTable,
     teacherSubjectsTable,
-    teacherSectionsTable
   ],
 );

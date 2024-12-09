@@ -28,13 +28,13 @@ class AssessmentService {
             await assessmentRepository.create(assessment, tx: tx);
 
         // attach assessment id
-        final assessmentTakersUpdated = assessmentTakers
+        final assessmentTakersWithId = assessmentTakers
             .map((assessmentTaker) =>
                 assessmentTaker.copyWith(assessmentId: assessmentCreated.id!))
             .toList();
 
         final assessmentTakersCreated = await assessmentTakerRepository
-            .bulkCreate(assessmentTakersUpdated, tx: tx);
+            .bulkCreate(assessmentTakersWithId, tx: tx);
 
         return AssessmentWithTakersCreateResult(
           assessment: assessmentCreated,

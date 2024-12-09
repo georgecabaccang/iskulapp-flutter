@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:school_erp/features/auth/auth.dart';
+import 'package:school_erp/features/auth/utils.dart';
+import 'package:school_erp/models/assessment.dart';
 import 'package:school_erp/enums/assessment_type.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_erp/pages/assessment/assessment_create_update/assessment_setup/assessment_setup_page.dart';
-import 'package:school_erp/pages/assignment/assignment_list_page/helpers/mock_assignments_pagination.dart';
 import 'package:school_erp/pages/common_widgets/app_bar_widgets/add_button.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
 import 'package:school_erp/pages/common_widgets/helper_widgets/pagination/pagination.dart';
+import 'package:school_erp/repositories/repositories.dart';
 import 'widgets/assignment_card.dart';
 import 'package:intl/intl.dart';
 
@@ -17,43 +21,39 @@ class AssignmentListPage extends StatefulWidget {
 }
 
 class _AssignmentListPageState extends State<AssignmentListPage> {
+  List<Assessment> _assessments = [];
+  late StreamSubscription<List<Assessment>> _subscription;
+
   // Adjust number of rows to retreive on request
   final int _itemsPerPage = 10;
-  bool _isLoading = false;
-
-  // Assessment or assignment?
-  // NOTE: use mock Assignment for now
-  List<AssignmentPagination> assessments = [];
-  // late StreamSubscription<List<Assessment>> _subscription;
+  final bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    _loadAssignments();
-
-    // _subscription = assessmentRepository
-    //     .watchAssessmentList(AssessmentType.assignment)
-    //     .listen((data) {
-    //   if (!mounted) return;
-    //   setState(() {
-    //     _isLoading = false;
-    //     _data = data;
-    //   });
-    // });
+    _watchAssessments();
   }
 
-  Future<void> _loadAssignments() async {
-    setState(() {
-      _isLoading = true;
-    });
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
 
-    // NOTE: Replace with actual request or implementation of data fetching
-    List<AssignmentPagination> fetchedAssignments =
-        await DummyAssignmentDatabasePagination().getFeeds();
+  void _watchAssessments() async {
+    final authState = context.read<AuthBloc>().state;
+    final authUser = getAuthUser(authState);
+    final teacherId = getTeacherId(authUser);
 
-    setState(() {
-      _isLoading = false;
-      assessments.addAll(fetchedAssignments);
+    _subscription = assessmentRepository
+        .watchTeacherAssessments(
+      teacherId: teacherId,
+      assessmentType: AssessmentType.assignment,
+      academicYearId: authUser.academicYearId,
+    )
+        .listen((data) {
+      if (!mounted) return;
+      setState(() => _assessments.addAll(data));
     });
   }
 
@@ -69,11 +69,11 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
             assessmentTypeOnCreate: AssessmentType.assignment),
       ),
       content: [
-        Pagination<AssignmentPagination>(
-          listOfData: assessments,
+        Pagination<Assessment>(
+          listOfData: _assessments,
           itemsPerPage: _itemsPerPage,
           isLoading: _isLoading,
-          itemBuilder: (BuildContext context, AssignmentPagination assessment) {
+          itemBuilder: (BuildContext context, Assessment assessment) {
             return AssignmentCard(assessment: assessment);
           },
         )

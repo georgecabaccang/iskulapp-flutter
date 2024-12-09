@@ -4,6 +4,8 @@ import 'package:school_erp/constants/assessments/form_validation.dart'
     as validation;
 import 'package:school_erp/features/assessment/cubit/assessment_cubit.dart';
 import 'package:school_erp/features/assessment/cubit/assessment_state.dart';
+import 'package:school_erp/features/auth/auth.dart';
+import 'package:school_erp/features/auth/utils.dart';
 import 'package:school_erp/features/transition/clean_slide_transition.dart';
 import 'package:school_erp/pages/assessment/assessment_create_update/assessment_question_setup/assessment_question_setup_page.dart';
 import 'package:school_erp/pages/assessment/assessment_create_update/assessment_takers/widgets/assessment_section_row.dart';
@@ -27,7 +29,13 @@ class _AssessmentTakersFormState extends State<AssessmentTakersForm> {
   }
 
   void _loadSectionSelection() async {
-    final sections = await teacherRepository.activeSections();
+    final authState = context.read<AuthBloc>().state;
+    final authUser = getAuthUser(authState);
+    final teacherId = getTeacherId(authUser);
+    final assessment = context.read<AssessmentCubit>().state.assessment;
+
+    final sections = await sectionRepository.getTeacherSectionsBySubject(
+        teacherId: teacherId, subjectYearId: assessment.subjectYearId!);
     setState(() {
       activeSections = sections;
     });
