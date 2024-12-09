@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/features/auth/auth_repository/schemas/user.dart';
+import 'package:school_erp/pages/common_widgets/helper_widgets/infinite_scroll_list_view_builder.dart';
 import 'package:school_erp/pages/home/app_body/views/feeds/widgets/feed_content.dart';
 import 'package:school_erp/pages/home/app_body/views/feeds/helpers/mock_feeds.dart';
-import 'package:school_erp/pages/home/app_body/views/feeds/widgets/feeds_modal_form.dart';
 
 class FeedsWidget extends StatefulWidget {
     final AuthenticatedUser user;
@@ -14,7 +14,6 @@ class FeedsWidget extends StatefulWidget {
 }
 
 class _FeedsWidgetState extends State<FeedsWidget> {
-    final ScrollController _scrollController = ScrollController();
     late final List<Feed> _feeds = [];
 
     // Adjust number of rows to retreive on request
@@ -26,24 +25,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
     @override
     void initState() {
         super.initState();
-        _scrollController.addListener(_scrollListener);
         _loadFeeds();
-    }
-
-    @override
-    void dispose() {
-        _scrollController.removeListener(_scrollListener);
-        _scrollController.dispose();
-        super.dispose();
-    }
-
-    void _scrollListener() {
-        if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent) {
-            if (!_isLoading) {
-                _loadFeeds();
-            }
-        }
     }
 
     Future<void> _loadFeeds() async {
@@ -85,22 +67,12 @@ class _FeedsWidgetState extends State<FeedsWidget> {
 
     @override
     Widget build(BuildContext context) {
-        return Stack(
-            children: [
-                ListView.builder(
-                    controller: _scrollController,
-                    itemCount: _currentOffset + 1,
-                    itemBuilder: (BuildContext context, int index) {
-                        if (index == _feeds.length) {
-                            return _isLoading
-                                ? Center(child: CircularProgressIndicator())
-                                : SizedBox.shrink(); // REMINDER: Use in learn view also
-                        }
-                        return FeedContent(feedContent: _feeds[index]);
-                    },
-                ),
-                FeedsModalForm()
-            ],
+        return  InfiniteScrollListView(
+            listOfData: _feeds, 
+            currentOffset: _currentOffset, 
+            isLoading: _isLoading, 
+            loadMoreData: _loadFeeds,
+            itemBuilder: (context, feed) => FeedContent(feedContent: feed), 
         );
     }
 }
