@@ -47,26 +47,31 @@ class _FeedsWidgetState extends State<FeedsWidget> {
     }
 
     Future<void> _loadFeeds() async {
-        setState(() {
-                _isLoading = true;
-            });
-
         try {
-            List<Feed> fetchedFeeds =
-                await DummyFeedDatabase().getFeeds(_currentOffset, _countPerLoad);
-
             if (!mounted) return;
 
             setState(() {
-                    _isLoading = false;
-                    _feeds.addAll(fetchedFeeds);
+                    _isLoading = true;
+                }
+            );
 
-                    if (fetchedFeeds.length < _countPerLoad) {
+            List<Feed> fetchedFeeds =
+                await DummyFeedDatabase().getFeeds(_currentOffset, _countPerLoad);
+
+            if (fetchedFeeds.isNotEmpty) {
+                setState(() {
+                        _isLoading = false;
+                        _feeds.addAll(fetchedFeeds);
+
                         _currentOffset += fetchedFeeds.length;
-                    } else {
-                        _currentOffset += _countPerLoad;
                     }
-                });
+                );
+            }
+
+            setState(() {
+                    _isLoading = false;
+                }
+            );
         } 
         // Handler errors better when real data is being retrieved
         catch (error) {
