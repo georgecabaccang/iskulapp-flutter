@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/common_widgets/app_content.dart';
+import 'package:school_erp/pages/common_widgets/default_layout.dart';
 import 'package:school_erp/pages/timetable/helpers/timetable.dart';
 import 'package:school_erp/pages/timetable/widget/timetable_list.dart';
 import 'package:school_erp/pages/timetable/widget/timetable_tabbar.dart';
-import 'package:school_erp/theme/colors.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 
 class TimeTablePage extends StatefulWidget {
     const TimeTablePage({super.key});
@@ -77,27 +75,23 @@ class _TimeTablePageState extends State<TimeTablePage> with TickerProviderStateM
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
-            backgroundColor: AppColors.primaryColor,
-            body: Column(
-                children: [
-                    const CustomAppBar(title: 'Timetable'),
-                    AppContent(
-                        content: [
-                            const SizedBox(height: 25),
-                            TimeTableTabBar(controller: _tabController),
-                            Expanded(
-                                child: TabBarView(
-                                    controller: _tabController,
-                                    children: [
-                                        ...[for (var day in DaysOfTheWeek.values) _buildTabContent(day)]                                                                                                                
-                                    ],
-                                ),
-                            ),
+        double screenHeight = MediaQuery.of(context).size.height;
+        double topSpacing = screenHeight * 0.05;
+
+        return DefaultLayout(
+            title: "Timetable",
+            content: [ 
+                SizedBox(height: topSpacing),
+                TimeTableTabBar(controller: _tabController),
+                Expanded(
+                    child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                            ...[for (var day in DaysOfTheWeek.values) _buildTabContent(day)]                                                                                                                
                         ],
                     ),
-                ],
-            ),
+                ),
+            ],
         );
     }
 }
