@@ -12,13 +12,11 @@ class CustomListView<T> extends StatelessWidget{
 
     @override
     Widget build(BuildContext context) {
-        return Expanded(
-            child: ListView.builder(
-                itemCount: listOfData.length,
-                itemBuilder:(BuildContext context, int index) {
-                    return  itemBuilder(context, listOfData[index]);
-                },
-            )
+        return ListView.builder(
+            itemCount: listOfData.length,
+            itemBuilder:(BuildContext context, int index) {
+                return  itemBuilder(context, listOfData[index]);
+            },
         );
     }
 }
