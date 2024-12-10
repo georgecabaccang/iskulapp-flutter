@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/common_widgets/app_content.dart';
 import 'package:school_erp/pages/timetable/helpers/timetable.dart';
+import 'package:school_erp/pages/timetable/widget/timetable_list.dart';
 import 'package:school_erp/pages/timetable/widget/timetable_tabbar.dart';
 import 'package:school_erp/theme/colors.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
-import 'package:school_erp/pages/timetable/widget/timetable_card.dart';
 
 class TimeTablePage extends StatefulWidget {
     const TimeTablePage({super.key});
@@ -72,7 +72,7 @@ class _TimeTablePageState extends State<TimeTablePage> with TickerProviderStateM
             return const Center(child: CircularProgressIndicator());
         }
         final classes = List<ClassDetails>.from(timeTable?.data[day] ?? []);
-        return TimetableCard( classes: classes);
+        return TimeTableList( classes: classes);
     }
 
     @override
