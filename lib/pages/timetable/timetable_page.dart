@@ -21,7 +21,7 @@ class _TimeTablePageState extends State<TimeTablePage> with TickerProviderStateM
     @override
     void initState() {
         super.initState();
-        _tabController = TabController(length: 6, vsync: this);
+        _tabController = TabController(length: DaysOfTheWeek.values.length, vsync: this);
         _loadTimetable();
     }
 
@@ -82,13 +82,14 @@ class _TimeTablePageState extends State<TimeTablePage> with TickerProviderStateM
             title: "Timetable",
             content: [ 
                 SizedBox(height: topSpacing),
-                TimeTableTabBar(controller: _tabController),
+                TimeTableTabBar(
+                    controller: _tabController,
+                    tabs: DaysOfTheWeek.values,
+                ),
                 Expanded(
                     child: TabBarView(
                         controller: _tabController,
-                        children: [
-                            ...[for (var day in DaysOfTheWeek.values) _buildTabContent(day)]                                                                                                                
-                        ],
+                        children: DaysOfTheWeek.values.map((day) {return _buildTabContent(day);}).toList(),
                     ),
                 ),
             ],

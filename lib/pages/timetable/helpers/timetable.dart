@@ -1,4 +1,6 @@
-enum DaysOfTheWeek {
+import 'package:school_erp/interfaces/string_values.dart';
+
+enum DaysOfTheWeek implements StringValues {
     monday,
     tuesday,
     wednesday,
@@ -6,7 +8,8 @@ enum DaysOfTheWeek {
     friday,
     saturday;
 
-    String get toStringValue {
+    @override
+      String get toStringValue {
         switch (this) {
             case DaysOfTheWeek.monday:
                 return 'Monday';
@@ -20,6 +23,24 @@ enum DaysOfTheWeek {
                 return 'Friday';
             case DaysOfTheWeek.saturday:
                 return 'Saturday';
+        }
+    }
+
+    @override
+      String get shortened {
+        switch (this) {
+            case DaysOfTheWeek.monday:
+                return 'MON';
+            case DaysOfTheWeek.tuesday:
+                return 'TUE';
+            case DaysOfTheWeek.wednesday:
+                return 'WED';
+            case DaysOfTheWeek.thursday:
+                return 'THU';
+            case DaysOfTheWeek.friday:
+                return 'FRI';
+            case DaysOfTheWeek.saturday:
+                return 'SAT';
         }
     }
 }
