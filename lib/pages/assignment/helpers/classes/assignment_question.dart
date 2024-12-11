@@ -44,24 +44,27 @@ class AssignmentQuestion {
 
 class Answers  {
 
+    final int id;
     final String text;
     final int is_correct;
     final int is_student_answered;
 
     Answers(
+        this.id,
         this.text, 
         this.is_correct, 
-        this.is_student_answered
+        this.is_student_answered,
     ); 
 
     factory Answers.fromJson(Map<String, dynamic> json) {
         return Answers(
+            json["id"] ?? 0,
             json['text'] ?? '',  
             json['is_correct'] ?? 0,  
             json['is_student_answered'] ?? 0, 
         );
     }
 
-    int get isCorrect => is_correct;
-    int get isStudentAnswered => is_student_answered;
+    bool get isCorrect => is_correct == 1 ? true : false;
+    bool get isStudentAnswered => is_student_answered == 1 ? true : false;
 }

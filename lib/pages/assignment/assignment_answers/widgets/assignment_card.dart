@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/pages/assignment/assignment_answers/widgets/answer_displays/multiple_answers_display.dart';
 import 'package:school_erp/pages/assignment/helpers/classes/assignment_question.dart';
 import 'package:school_erp/pages/common_widgets/cards/custom_item_card.dart';
 
@@ -15,7 +16,8 @@ class AssignmentCard extends StatelessWidget{
         return CustomItemCard(
             itemContents: [
                 Text(questionDetails.question),
-                ...questionDetails.answers.map((answer) => Text(answer.text))
+                MultipleAnswersDisplay(answers: questionDetails.answers)
+
             ]
         );
     }
