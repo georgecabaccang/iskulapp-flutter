@@ -1,8 +1,8 @@
 [
     {
       "id": 1,
-      "q": "In 2017, which player became the leading run scorer of all time in women's ODI cricket?In 2017, which player became the leading run scorer of all time in women's ODI cricket?In 2017, which player became the leading run scorer of all time in women's ODI cricket?In 2017, which player became the leading run scorer of all time in women's ODI cricket?",
-      "type": "multi",
+      "question": "In 2017, which player became the leading run scorer of all time in women's ODI cricket?",
+      "type": "multipleChoice",
       "answers": [
         { "id": 1, "text": "Stefanie Taylor", "is_correct": 0, "is_student_answered": 0 },
         { "id": 2, "text": "Mithali Raj", "is_correct": 1, "is_student_answered": 1 },
@@ -12,8 +12,8 @@
     },
     {
       "id": 2,
-      "q": "Who is Magellan?",
-      "type": "multi",
+      "question": "Who is Magellan?",
+      "type": "multipleChoice",
       "answers": [
         { "id": 1, "text": "Yes", "is_correct": 0, "is_student_answered": 1 },
         { "id": 2, "text": "No", "is_correct": 1, "is_student_answered": 0 }
@@ -21,14 +21,16 @@
     },
     {
       "id": 3,
-      "q": "Describe Magellan.",
+      "question": "Describe Magellan.",
       "type": "essay",
-      "answers": "Magellan was an explorer who..."
+      "answers": [
+        { "id": 1, "text": "Magellan was an explorer who...", "is_correct": 0, "is_student_answered": 0 }
+      ]
     },
     {
       "id": 4,
-      "q": "Sino si mama mo?",
-      "type": "multi",
+      "question": "Sino si mama mo?",
+      "type": "multipleChoice",
       "answers": [
         { "id": 1, "text": "Yes", "is_correct": 0, "is_student_answered": 1 },
         { "id": 2, "text": "No", "is_correct": 0, "is_student_answered": 0 },
