@@ -2,10 +2,8 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:school_erp/theme/colors.dart';
-import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
 import 'package:school_erp/pages/assignment/assignment_check_page/widgets/student_item.dart';
 import 'widgets/assignment_card.dart';
-import 'package:school_erp/theme/text_styles.dart';
 
 class AssignmentAnswersPage extends StatefulWidget {
   final Student student;
@@ -13,7 +11,7 @@ class AssignmentAnswersPage extends StatefulWidget {
   const AssignmentAnswersPage({super.key, required this.student});
 
   @override
-  _AssignmentAnswersPageState createState() => _AssignmentAnswersPageState();
+  createState() => _AssignmentAnswersPageState();
 }
 
 class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
