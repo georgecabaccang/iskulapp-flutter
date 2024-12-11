@@ -1,5 +1,5 @@
 {
-    "timetable": {
+ 
       "Monday": [
         {
           "subject": "Computer Science",
@@ -215,7 +215,6 @@
           "teacher": "Kuya Kim",
           "period": "Period 5"
         }
-      ]
-    }
-  }
+      ]    
+}
   

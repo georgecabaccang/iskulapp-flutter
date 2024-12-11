@@ -1,89 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/features/auth/auth_repository/schemas/user.dart';
+import 'package:school_erp/pages/common_widgets/helper_widgets/infinite_scroll_list_view_builder.dart';
 import 'package:school_erp/pages/home/app_body/views/feeds/widgets/feed_content.dart';
 import 'package:school_erp/pages/home/app_body/views/feeds/helpers/mock_feeds.dart';
-import 'package:school_erp/pages/home/app_body/views/feeds/widgets/feeds_modal_form.dart';
 
 class FeedsWidget extends StatefulWidget {
-  final AuthenticatedUser user;
+    final AuthenticatedUser user;
 
-  const FeedsWidget({super.key, required this.user});
+    const FeedsWidget({super.key, required this.user});
 
-  @override
-  createState() => _FeedsWidgetState();
+    @override
+    createState() => _FeedsWidgetState();
 }
 
 class _FeedsWidgetState extends State<FeedsWidget> {
-  final ScrollController _scrollController = ScrollController();
-  late final List<Feed> _feeds = [];
+    late final List<Feed> _feeds = [];
 
-  // Adjust number of rows to retreive on request
-  final int _countPerLoad = 10;
+    // Adjust number of rows to retreive on request
+    final int _countPerLoad = 10;
 
-  bool _isLoading = false;
-  int _currentOffset = 0;
+    bool _isLoading = false;
+    int _currentOffset = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_scrollListener);
-    _loadFeeds();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.removeListener(_scrollListener);
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  void _scrollListener() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      if (!_isLoading) {
+    @override
+    void initState() {
+        super.initState();
         _loadFeeds();
-      }
     }
-  }
 
-  Future<void> _loadFeeds() async {
-    setState(() {
-      _isLoading = true;
-    });
+    Future<void> _loadFeeds() async {
+        try {
+            if (!mounted) return;
 
-    List<Feed> fetchedFeeds =
-        await DummyFeedDatabase().getFeeds(_currentOffset, _countPerLoad);
+            setState(() {
+                    _isLoading = true;
+                }
+            );
 
-    setState(() {
-      _isLoading = false;
-      _feeds.addAll(fetchedFeeds);
+            List<Feed> fetchedFeeds =
+                await DummyFeedDatabase().getFeeds(_currentOffset, _countPerLoad);
 
-      if (fetchedFeeds.length < _countPerLoad) {
-        _currentOffset += fetchedFeeds.length;
-      } else {
-        _currentOffset += _countPerLoad;
-      }
-    });
-  }
+            if (fetchedFeeds.isNotEmpty) {
+                setState(() {
+                        _isLoading = false;
+                        _feeds.addAll(fetchedFeeds);
 
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ListView.builder(
-          controller: _scrollController,
-          itemCount: _currentOffset + 1,
-          itemBuilder: (BuildContext context, int index) {
-            if (index == _feeds.length) {
-              return _isLoading
-                  ? Center(child: CircularProgressIndicator())
-                  : SizedBox.shrink(); // REMINDER: Use in learn view also
+                        _currentOffset += fetchedFeeds.length;
+                    }
+                );
             }
-            return FeedContent(feedContent: _feeds[index]);
-          },
-        ),
-        FeedsModalForm()
-      ],
-    );
-  }
+
+            setState(() {
+                    _isLoading = false;
+                }
+            );
+        } 
+        // Handler errors better when real data is being retrieved
+        catch (error) {
+            if (!mounted) return;
+            setState(() {
+                    _isLoading = false;
+                }
+            );
+        }
+    }
+
+    @override
+    Widget build(BuildContext context) {
+        return  InfiniteScrollListView(
+            listOfData: _feeds, 
+            currentOffset: _currentOffset, 
+            isLoading: _isLoading, 
+            loadMoreData: _loadFeeds,
+            itemBuilder: (context, feed) => FeedContent(feedContent: feed), 
+        );
+    }
 }
