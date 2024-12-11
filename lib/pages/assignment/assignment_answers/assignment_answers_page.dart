@@ -3,7 +3,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/assignment/assignment_answers/widgets/assignment_answers_form_buttons.dart';
 import 'package:school_erp/pages/assignment/assignment_answers/widgets/assignment_answers_header.dart';
-import 'package:school_erp/pages/assignment/assignment_answers/widgets/assignment_card.dart';
+import 'package:school_erp/pages/assignment/assignment_answers/widgets/assignment_answers_pages.dart';
 import 'package:school_erp/pages/assignment/helpers/classes/assignment_question.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
 
@@ -19,15 +19,23 @@ class AssignmentAnswersPage extends StatefulWidget {
 }
 
 class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
+    final PageController _pageController = PageController();
     List<AssignmentQuestion> questions = [];
-    int currentQuestionIndex = 0;
-    int? selectedOption;
+    int currentPage = 0;
     bool _isLoading = true;
+    bool _isAnimating = false;
+    int animationDuration = 300;
 
     @override
     void initState() {
         super.initState();
         _loadQuestions();
+    }
+
+    @override
+    void dispose() {
+        _pageController.dispose();
+        super.dispose();
     }
 
     Future<void> _loadQuestions() async {
@@ -68,50 +76,71 @@ class _AssignmentAnswersPageState extends State<AssignmentAnswersPage> {
         }
     }
 
-    // void _handleBackPress(BuildContext context) {
-    //     Navigator.pop(context);
-    // }
+    void handlePageChange(PageDirection direction) {
+        if (_isAnimating) return; 
 
-    // void _nextQuestion() {
-    //     if (currentQuestionIndex < questions.length - 1) {
-    //         setState(() {
-    //                 // currentQuestionIndex++;
-    //                 // // Automatically select the correct answer for the next question
-    //                 // if (questions[currentQuestionIndex]['type'] == 'multi') {
-    //                 //   final correctOption = questions[currentQuestionIndex]['answers']
-    //                 //       .firstWhere((option) => option['is_correct'] == 1);
-    //                 //   selectedOption = correctOption['id'];
-    //                 // } else {
-    //                 //   selectedOption = null;
-    //                 // }
-    //             });
-    //     } else {
-    //         _handleSubmit(context, questions[currentQuestionIndex]);
-    //     }
-    // }
+        setState(() {
+                _isAnimating = true;
+            }
+        );
 
-    // void _handleSubmit(BuildContext context, dynamic question) {
-    //     // Handle submission logic
-    // }
+        setState(() {
+                if (direction == PageDirection.prev && currentPage > 0) {
+                    currentPage -= 1;
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                            _pageController.previousPage(
+                                duration: Duration(milliseconds: animationDuration),
+                                curve: Curves.easeInOut,
+                            );
+                        }
+                    );
+                } else if (direction == PageDirection.next && currentPage < questions.length - 1) {
+                    currentPage += 1;
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                            _pageController.nextPage(
+                                duration: Duration(milliseconds: animationDuration),
+                                curve: Curves.easeInOut,
+                            );
+                        }
+                    );
+                }
+            }
+        );
 
-    // void _updateQuestion() {
-    //     // Handle update logic
-    // }
-
-    // void _onOptionSelected(int optionId) {
-    //     setState(() {
-    //             selectedOption = optionId;
-    //         });
-    // }
+        // To avoid changing state while animation is happening
+        Future.delayed(Duration(milliseconds: animationDuration), () {
+                setState(() {
+                        _isAnimating = false;
+                    }
+                );
+            }
+        );
+    }
 
     @override
     Widget build(BuildContext context) {
         return DefaultLayout(
-            title: "Assignment Answers", 
+            title: "Assignment Answers",
             content: [
-                AssignmentAnswersHeader(), 
-                AssignmentCard(questionDetails: questions[0]),
-                AssignmentAnswersFormButtons()
-            ]);
+                AssignmentAnswersHeader(
+                    currentPageIndex: currentPage,
+                    totalPages: questions.length,
+                ),
+                AssignmentAnswersPages(
+                    pageController: _pageController,
+                    questions: questions,
+                    onPageChanged: (page) {
+                        setState(() {
+                                currentPage = page;
+                            }
+                        );
+                    },
+                ),
+                AssignmentAnswersFormButtons(
+                    prevPageFn: () => handlePageChange(PageDirection.prev),
+                    nextPageFn: () => handlePageChange(PageDirection.next),
+                ),
+            ],
+        );
     }
 }

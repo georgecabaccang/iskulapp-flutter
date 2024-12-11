@@ -29,7 +29,7 @@ class FormButton extends StatelessWidget {
                 ),
             ),
             onPressed: () {
-                if (buttonType == ButtonType.submit && buttonFn != null) {
+                if ((buttonType == ButtonType.submit || buttonType == ButtonType.button ) && buttonFn != null) {
                     buttonFn!();
                 } else {
                     Navigator.of(context).pop();

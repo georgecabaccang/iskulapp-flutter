@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AssignmentAnswersHeader extends StatelessWidget {
-    const AssignmentAnswersHeader({super.key});
+    final int currentPageIndex;
+    final int totalPages;
+
+    const AssignmentAnswersHeader({
+        super.key,
+        required this.currentPageIndex,
+        required this.totalPages,
+    });
 
     @override
     Widget build(BuildContext context) {
@@ -10,7 +17,7 @@ class AssignmentAnswersHeader extends StatelessWidget {
             child: Row(
                 children: [
                     Text("Testing"),
-                    Text("1/10"), 
+                    Text("${currentPageIndex + 1}/$totalPages"),  
                 ],
             ),
         );
