@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/interfaces/string_values.dart';
+import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/theme/colors.dart';
 
-class TimeTableTabBar<T extends StringValues> extends StatefulWidget {
+class TimeTableTabBar<T extends DisplayValues> extends StatefulWidget {
     final TabController controller;
     final List<T> tabs;
 
@@ -43,7 +43,7 @@ class _TimeTableTabBarState extends State<TimeTableTabBar> {
                                 height: isSelected ? 50.0 : 40.0,
                                 alignment: Alignment.center,
                                 child: Text(
-                                    widget.tabs[index].shortened
+                                    widget.tabs[index].displayName
                                 ),
                             ),
                         );

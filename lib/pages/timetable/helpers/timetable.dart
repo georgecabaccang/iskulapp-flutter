@@ -1,48 +1,19 @@
-import 'package:school_erp/interfaces/string_values.dart';
+import 'package:school_erp/interfaces/display_values.dart';
 
-enum DaysOfTheWeek implements StringValues {
-    monday,
-    tuesday,
-    wednesday,
-    thursday,
-    friday,
-    saturday;
-
-    @override
-      String get toStringValue {
-        switch (this) {
-            case DaysOfTheWeek.monday:
-                return 'Monday';
-            case DaysOfTheWeek.tuesday:
-                return 'Tuesday';
-            case DaysOfTheWeek.wednesday:
-                return 'Wednesday';
-            case DaysOfTheWeek.thursday:
-                return 'Thursday';
-            case DaysOfTheWeek.friday:
-                return 'Friday';
-            case DaysOfTheWeek.saturday:
-                return 'Saturday';
-        }
-    }
+enum DaysOfTheWeek implements DisplayValues{
+    monday("Monday", "MON"),
+    tuesday("Tuesday", "TUE"),
+    wednesday("Wednesday", "WED"),
+    thursday("Thursday", "THU"),
+    friday("Friday", "FRI"),
+    saturday("Saturday", "SAT");
 
     @override
-      String get shortened {
-        switch (this) {
-            case DaysOfTheWeek.monday:
-                return 'MON';
-            case DaysOfTheWeek.tuesday:
-                return 'TUE';
-            case DaysOfTheWeek.wednesday:
-                return 'WED';
-            case DaysOfTheWeek.thursday:
-                return 'THU';
-            case DaysOfTheWeek.friday:
-                return 'FRI';
-            case DaysOfTheWeek.saturday:
-                return 'SAT';
-        }
-    }
+    final String value;
+    @override
+    final String displayName;
+
+    const DaysOfTheWeek(this.value, this.displayName);
 }
 
 class ClassDetails {
