@@ -56,6 +56,8 @@ class LeaveApplicationForm extends StatelessWidget{
             formKey: _formKey, 
             textFields: textFields, 
             formButtons: formButtons,
+            horizontalPadding: 10,
+            verticalPadding: 10,
         );
     }
 
