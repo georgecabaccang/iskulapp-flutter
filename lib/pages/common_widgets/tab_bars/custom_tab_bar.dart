@@ -10,10 +10,10 @@ class CustomTabBar<T extends DisplayValues> extends StatefulWidget {
     const CustomTabBar({super.key, required this.controller, required this.tabs});
 
     @override
-    createState() => _TimeTableTabBarState();
+    createState() => _CustomTabBar();
 }
 
-class _TimeTableTabBarState extends State<CustomTabBar> {
+class _CustomTabBar extends State<CustomTabBar> {
     @override
     Widget build(BuildContext context) {
         final screenWidth = MediaQuery.of(context).size.width;
