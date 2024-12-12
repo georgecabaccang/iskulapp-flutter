@@ -3,7 +3,7 @@ import 'package:school_erp/pages/common_widgets/lists/custom_list_view.dart';
 import 'package:school_erp/pages/timetable/helpers/timetable.dart';
 import 'package:school_erp/pages/timetable/widget/timetable_card.dart';
 
-class TimeTableList<T> extends StatelessWidget {
+class TimeTableList extends StatelessWidget {
     final List<ClassDetails> classes;
 
     const TimeTableList({
