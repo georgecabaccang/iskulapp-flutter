@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
 import 'package:school_erp/pages/timetable/helpers/timetable.dart';
 import 'package:school_erp/pages/timetable/widget/timetable_list.dart';
-import 'package:school_erp/pages/timetable/widget/timetable_tabbar.dart';
+import 'package:school_erp/pages/common_widgets/tab_bars/custom_tab_bar.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 
@@ -82,7 +82,7 @@ class _TimeTablePageState extends State<TimeTablePage> with TickerProviderStateM
             title: "Timetable",
             content: [ 
                 SizedBox(height: topSpacing),
-                TimeTableTabBar(
+                CustomTabBar(
                     controller: _tabController,
                     tabs: DaysOfTheWeek.values,
                 ),

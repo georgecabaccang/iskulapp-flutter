@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/theme/colors.dart';
 
-class TimeTableTabBar<T extends DisplayValues> extends StatefulWidget {
+// Implment DisplayValues to the enum that is going to be used with this widget.
+class CustomTabBar<T extends DisplayValues> extends StatefulWidget {
     final TabController controller;
     final List<T> tabs;
 
-    const TimeTableTabBar({super.key, required this.controller, required this.tabs});
+    const CustomTabBar({super.key, required this.controller, required this.tabs});
 
     @override
     createState() => _TimeTableTabBarState();
 }
 
-class _TimeTableTabBarState extends State<TimeTableTabBar> {
+class _TimeTableTabBarState extends State<CustomTabBar> {
     @override
     Widget build(BuildContext context) {
         final screenWidth = MediaQuery.of(context).size.width;
