@@ -14,6 +14,18 @@ enum DaysOfTheWeek implements DisplayValues{
     final String displayName;
 
     const DaysOfTheWeek(this.value, this.displayName);
+
+    static DaysOfTheWeek? getDayFromString(String day) {
+        // Opted for a try-catch block here instead of throwing an exception.
+        // Just to ignore the (if ever) invalid day from database.
+        try {
+            return DaysOfTheWeek.values.firstWhere(
+                (d) => d.value.toLowerCase() == day.toLowerCase(),
+            );
+        } catch (error) {
+            return null;
+        }
+    }
 }
 
 class ClassDetails {
@@ -62,7 +74,7 @@ class Timetable {
         Map<DaysOfTheWeek, List<ClassDetails>> timetableData = {};
 
         json.forEach((key, value) {
-                final day = _getDayFromString(key);
+                final day = DaysOfTheWeek.getDayFromString(key);
                 if (day != null && value is List) {
                     timetableData[day] = List<ClassDetails>.from(
                         value.map((classJson) => ClassDetails.fromJson(classJson))
@@ -73,22 +85,5 @@ class Timetable {
         return Timetable(data: timetableData);
     }
 
-    static DaysOfTheWeek? _getDayFromString(String day) {
-        switch (day.toLowerCase()) {
-            case 'monday':
-                return DaysOfTheWeek.monday;
-            case 'tuesday':
-                return DaysOfTheWeek.tuesday;
-            case 'wednesday':
-                return DaysOfTheWeek.wednesday;
-            case 'thursday':
-                return DaysOfTheWeek.thursday;
-            case 'friday':
-                return DaysOfTheWeek.friday;
-            case 'saturday':
-                return DaysOfTheWeek.saturday;
-            default:
-            return null;
-        }
-    }
+
 }
