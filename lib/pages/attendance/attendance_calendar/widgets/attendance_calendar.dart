@@ -34,7 +34,10 @@ class AttendanceCalendar extends StatelessWidget{
             onDaySelected: (selectedDay, focusedDay) {
                 DateDetails? dayDetails = details[selectedDay];
                 if (dayDetails != null) {
-                    AnimatedCustomModal.show(context, [Text(dayDetails.attendanceStatus)]);
+                    AnimatedCustomModal.show(
+                        context, 
+                        [Text(dayDetails.attendanceStatus.displayName)]
+                    );
                 }
 
                 onChangeFocusedDate(selectedDay, focusedDay);

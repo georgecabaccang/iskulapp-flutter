@@ -1,3 +1,5 @@
+import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/attendance_status.dart';
+
 class Date {
     final Map<DateTime, DateDetails> date;
 
@@ -17,7 +19,7 @@ class Date {
 }
 
 class DateDetails {
-    final String attendanceStatus;
+    final AttendanceStatus attendanceStatus;
     final String? lateTime;
 
     DateDetails({
@@ -27,7 +29,7 @@ class DateDetails {
 
     factory DateDetails.fromJson(Map<String, dynamic> json) {
         return DateDetails(
-            attendanceStatus: json['attendanceStatus'] ?? '',
+            attendanceStatus: AttendanceStatus.fromString(json['attendanceStatus']) ?? AttendanceStatus.absent,
             lateTime: json['lateTime'] ?? '',
         );
     }

@@ -31,7 +31,10 @@ class CustomCalenderBuilders {
                                             width: childWidth, 
                                             height: childHeight, 
                                             decoration: BoxDecoration(shape: BoxShape.circle, 
-                                                color: dayDetails != null ? AttendanceDayDecorators.getDecorationForStatus(dayDetails.attendanceStatus) : Colors.transparent,
+                                                color: 
+                                                dayDetails != null 
+                                                    ? AttendanceDayDecorators.getDecorationForStatus(dayDetails.attendanceStatus.value) 
+                                                    : Colors.transparent,
                                             ),
                                         ),
                                     ),
