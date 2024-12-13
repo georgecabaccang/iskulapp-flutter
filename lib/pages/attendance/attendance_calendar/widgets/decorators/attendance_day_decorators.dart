@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/widgets/decorators/custom_calender_builders.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/attendance_status.dart';
 
 class AttendanceDayDecorators {
     static Color getDecorationForStatus(String status){
