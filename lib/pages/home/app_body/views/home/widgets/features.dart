@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:school_erp/features/transition/clean_slide_transition.dart';
 import 'package:school_erp/pages/assignment/assignment_answers/assignment_answers_page.dart';
 import 'package:school_erp/pages/assignment/assignment_list_page/assignment_list_page.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/attendance_calendar_page.dart';
 import 'package:school_erp/pages/calendar/calendar_attendance_page.dart';
 import 'package:school_erp/pages/defualt_page.dart';
 import 'package:school_erp/pages/events/events_page.dart';
@@ -26,7 +27,7 @@ class Features extends StatelessWidget {
         FeatureButton(title: 'Quiz', icon: Icons.edit_note_outlined, target: DefaultPage()),
         FeatureButton(title: 'Homework', icon: Icons.assignment, target: AssignmentAnswersPage()),
         FeatureButton(title: 'Learn', icon: Icons.local_library_outlined, target: LearnPage()),
-        FeatureButton(title: 'Attendance', icon: Icons.emoji_people_outlined, target: DefaultPage()),
+        FeatureButton(title: 'Attendance', icon: Icons.emoji_people_outlined, target: AttendanceCalendarPage()),
         FeatureButton(title: 'Billing', icon: Icons.payment_outlined, target: DefaultPage()),
       ]),
       FeatureSection(title: 'Time Calendar', features: <FeatureButton>[

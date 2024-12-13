@@ -1,46 +1,29 @@
-import 'package:school_erp/interfaces/string_values.dart';
+import 'package:school_erp/interfaces/display_values.dart';
 
-enum DaysOfTheWeek implements StringValues {
-    monday,
-    tuesday,
-    wednesday,
-    thursday,
-    friday,
-    saturday;
-
-    @override
-      String get toStringValue {
-        switch (this) {
-            case DaysOfTheWeek.monday:
-                return 'Monday';
-            case DaysOfTheWeek.tuesday:
-                return 'Tuesday';
-            case DaysOfTheWeek.wednesday:
-                return 'Wednesday';
-            case DaysOfTheWeek.thursday:
-                return 'Thursday';
-            case DaysOfTheWeek.friday:
-                return 'Friday';
-            case DaysOfTheWeek.saturday:
-                return 'Saturday';
-        }
-    }
+enum DaysOfTheWeek implements DisplayValues{
+    monday("Monday", "MON"),
+    tuesday("Tuesday", "TUE"),
+    wednesday("Wednesday", "WED"),
+    thursday("Thursday", "THU"),
+    friday("Friday", "FRI"),
+    saturday("Saturday", "SAT");
 
     @override
-      String get shortened {
-        switch (this) {
-            case DaysOfTheWeek.monday:
-                return 'MON';
-            case DaysOfTheWeek.tuesday:
-                return 'TUE';
-            case DaysOfTheWeek.wednesday:
-                return 'WED';
-            case DaysOfTheWeek.thursday:
-                return 'THU';
-            case DaysOfTheWeek.friday:
-                return 'FRI';
-            case DaysOfTheWeek.saturday:
-                return 'SAT';
+    final String value;
+    @override
+    final String displayName;
+
+    const DaysOfTheWeek(this.value, this.displayName);
+
+    static DaysOfTheWeek? getDayFromString(String day) {
+        // Opted for a try-catch block here instead of throwing an exception.
+        // Just to ignore the (if ever) invalid day from database.
+        try {
+            return DaysOfTheWeek.values.firstWhere(
+                (d) => d.value.toLowerCase() == day.toLowerCase(),
+            );
+        } catch (error) {
+            return null;
         }
     }
 }
@@ -91,7 +74,7 @@ class Timetable {
         Map<DaysOfTheWeek, List<ClassDetails>> timetableData = {};
 
         json.forEach((key, value) {
-                final day = _getDayFromString(key);
+                final day = DaysOfTheWeek.getDayFromString(key);
                 if (day != null && value is List) {
                     timetableData[day] = List<ClassDetails>.from(
                         value.map((classJson) => ClassDetails.fromJson(classJson))
@@ -102,22 +85,5 @@ class Timetable {
         return Timetable(data: timetableData);
     }
 
-    static DaysOfTheWeek? _getDayFromString(String day) {
-        switch (day.toLowerCase()) {
-            case 'monday':
-                return DaysOfTheWeek.monday;
-            case 'tuesday':
-                return DaysOfTheWeek.tuesday;
-            case 'wednesday':
-                return DaysOfTheWeek.wednesday;
-            case 'thursday':
-                return DaysOfTheWeek.thursday;
-            case 'friday':
-                return DaysOfTheWeek.friday;
-            case 'saturday':
-                return DaysOfTheWeek.saturday;
-            default:
-            return null;
-        }
-    }
+
 }
