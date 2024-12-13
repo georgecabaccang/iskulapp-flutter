@@ -17,7 +17,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     late DateTime _firstDay;
     late DateTime _lastDay;
     late DateTime _focusedDay;
-    List<DateDetails> _details = [];
+    final Map<DateTime, DateDetails> _details = {};
 
     @override
     void initState() {
@@ -30,11 +30,18 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
 
     Future<void> _loadAttendance() async {
         final String response = await rootBundle.loadString('assets/attendance.json');
-        final List<dynamic> decoded = json.decode(response);
+        final Map<String, dynamic> decoded = json.decode(response);
+
+        Map<DateTime, DateDetails> loadedDetails = {};
+
+        decoded.forEach((key, value) {
+                Date date = Date.fromJson({key: value});
+                loadedDetails.addAll(date.date);
+            }
+        );
 
         setState(() {
-                _details =List<DateDetails>.from(
-                    decoded.map((detail) => DateDetails.fromJson(detail)));
+                _details.addAll(loadedDetails);  
             }
         );
     }

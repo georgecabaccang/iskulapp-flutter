@@ -4,23 +4,15 @@ import 'package:school_erp/pages/attendance/attendance_calendar/widgets/decorato
 import 'package:table_calendar/table_calendar.dart';
 
 class CustomCalenderBuilders {
-    static CalendarBuilders calendarBuilders(List<DateDetails> details) {
+    static CalendarBuilders calendarBuilders(Map<DateTime, DateDetails> details) {
         return CalendarBuilders(
             defaultBuilder: (context, day, focusedDay) {
                 bool isSunday = day.weekday == 7;
                 DateDetails? dayDetails;
 
-                // immediately return decorations for sunday if isSunday to skip looping through details
                 if (isSunday) return AttendanceDayDecorators.sundayDecorations(day.day);
 
-                for (var detail in details) {
-                    if (detail.date?.year == day.year &&
-                        detail.date?.month == day.month &&
-                        detail.date?.day == day.day) {
-                        dayDetails = detail;
-                        break;
-                    }
-                }
+                dayDetails = details[day];
 
                 return SizedBox(
                     child: LayoutBuilder(

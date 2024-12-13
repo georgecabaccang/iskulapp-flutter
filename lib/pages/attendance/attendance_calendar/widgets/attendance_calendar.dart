@@ -8,7 +8,7 @@ class AttendanceCalendar extends StatelessWidget{
     final DateTime lastDay;
     final DateTime focusedDay;
     final void Function(DateTime, DateTime) onChangeFocusedDate;
-    final List<DateDetails> details;
+    final Map<DateTime, DateDetails> details;
 
     const AttendanceCalendar({
         super.key, 
