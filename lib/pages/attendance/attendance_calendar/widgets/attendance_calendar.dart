@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/date_details.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_info.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/decorators/custom_calender_builders.dart';
 import 'package:school_erp/pages/common_widgets/modals/animated_custom_modal.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -36,7 +37,7 @@ class AttendanceCalendar extends StatelessWidget{
                 if (dayDetails != null) {
                     AnimatedCustomModal.show(
                         context, 
-                        [Text(dayDetails.attendanceStatus.displayName)]
+                        [AttendanceInfo(details: dayDetails)]
                     );
                 }
 
