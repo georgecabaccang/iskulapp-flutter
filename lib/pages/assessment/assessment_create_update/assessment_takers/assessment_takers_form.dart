@@ -29,9 +29,8 @@ class _AssessmentTakersFormState extends State<AssessmentTakersForm> {
   }
 
   void _loadSectionSelection() async {
-    final authState = context.read<AuthBloc>().state;
-    final authUser = getAuthUser(authState);
-    final teacherId = getTeacherId(authUser);
+    final teacherId = getTeacherId(context);
+
     final assessment = context.read<AssessmentCubit>().state.assessment;
 
     final sections = await sectionRepository.getTeacherSectionsBySubject(

@@ -33,9 +33,8 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
   }
 
   void _loadSubjectSelection() async {
-    final authState = context.read<AuthBloc>().state;
-    final authUser = getAuthUser(authState);
-    final teacherId = getTeacherId(authUser);
+    final authUser = getAuthUser(context);
+    final teacherId = getTeacherId(context);
 
     final subjects = await subjectYearRepository.getTeacherSubjects(
       teacherId: teacherId,
