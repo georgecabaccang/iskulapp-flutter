@@ -99,6 +99,9 @@ flutter:
     - .env
     - assets/questions.json
     - assets/attendance.json
+    - assets/mocks/attendance_mocks/students.json
+    - assets/mocks/attendance_mocks/sections.json
+
   fonts:
     - family: SourceSans
       fonts:
