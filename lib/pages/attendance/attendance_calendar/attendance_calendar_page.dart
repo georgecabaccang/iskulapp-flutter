@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/date_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_calendar.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_filters.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
 import 'dart:convert';
+
+// For testing only. 
+// Remove and replace with proper thing after.
+enum Roles {student, teacher, parent}
 
 class AttendanceCalendarPage extends StatefulWidget{
 
@@ -53,6 +58,10 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         );
     }
 
+    void _onChangeFilter(String name) {
+        print(name);
+    }
+
     @override
     Widget build(BuildContext context) {
         return DefaultLayout(
@@ -64,7 +73,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                     lastDay: _lastDay,  
                     focusedDay: _focusedDay,
                     onChangeFocusedDate: _onChangeFocusedDate,
-                )
+                ),
+                AttendanceFilters(role: Roles.teacher, changeFilter: _onChangeFilter,)
             ]
         );
     }
