@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/theme/colors.dart';
 
-class FormDropDownList extends StatelessWidget {
-    final String? selectedValue;
-    final List<String> options;
+// NOTE: Implment DisplayValues to what class you're going to pass here as T.
+class FormDropDownList<T extends DisplayValues> extends StatelessWidget {
+    final T? selectedValue;
+    final List<T> options;
     final String label;
     final String hint;
     final String errorMessage;
-    final ValueChanged<String?> onChangedFn; 
+    final ValueChanged<DisplayValues?> onChangedFn; 
 
     const FormDropDownList({
         super.key, 
@@ -16,7 +18,7 @@ class FormDropDownList extends StatelessWidget {
         required this.label,
         required this.hint,
         required this.errorMessage,
-        required this.onChangedFn,
+        required this.onChangedFn, 
     });
 
     @override
@@ -25,7 +27,7 @@ class FormDropDownList extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: FormField<String>(
                 builder: (state) {
-                    return DropdownButtonFormField<String>(
+                    return DropdownButtonFormField<T>(
                         value: selectedValue,
                         hint: Text(hint),
                         decoration: InputDecoration(
@@ -46,21 +48,21 @@ class FormDropDownList extends StatelessWidget {
                                 ),
                             ),
                         ),
-                        onChanged: (String? newValue) {
+                        onChanged: (T? newValue) {
                             onChangedFn(newValue);
                         },
                         validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null) {
                                 return errorMessage;
                             }
                             return null;
                         },
                         dropdownColor: AppColors.whiteColor,
                         items: options
-                            .map((String option) {
+                            .map((T option) {
                                     return DropdownMenuItem(
                                         value: option,
-                                        child: Text(option),
+                                        child: Text(option.displayName)
                                     );
                                 })
                             .toList(),

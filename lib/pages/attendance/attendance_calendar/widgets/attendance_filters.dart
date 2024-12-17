@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/attendance_calendar_page.dart';
@@ -9,8 +10,8 @@ import 'package:flutter/services.dart';
 
 class AttendanceFilters extends StatefulWidget{
     final Roles role;
-    final ValueChanged<String> changeFilter;
-    final List<MockStundet> students;
+    final ValueChanged<MockStudent> changeFilter;
+    final List<MockStudent> students;
 
     const AttendanceFilters({
         super.key, 
@@ -25,10 +26,10 @@ class AttendanceFilters extends StatefulWidget{
 
 class _AttendanceFiltersState extends State<AttendanceFilters> {
     List<MockSection> sections = [];
-    late List<MockStundet> studentsOfSection = [];
+    late List<MockStudent> studentsOfSection = [];
     bool _isLoading = true;
 
-    String? _nameSelected;
+    MockStudent? _studentSelected;
 
     @override
     void initState() {
@@ -61,21 +62,25 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
-    void _handleChangeSection(String? newSection) {
+    void _handleChangeSection(DisplayValues? newSection) {
         if (widget.role != Roles.teacher) return;
 
-        setState(() {
-                _nameSelected = null;
+        if (newSection is MockSection) {
+            setState(() {
+                    _studentSelected = null;
 
-                MockSection currentSection = sections.firstWhere((section) => section.name == newSection);
-                studentsOfSection = widget.students.where((student) => student.sectionId == currentSection.id).toList();
-            }
-        );
+                    MockSection currentSection = sections.firstWhere((section) => section.id == newSection.id);
+                    studentsOfSection = widget.students.where((student) => student.sectionId == currentSection.id).toList();
+                }
+            );
+        }
     }
 
-    void _handleChangName(String? name) {
-        setState(() => _nameSelected = name);
-        if (_nameSelected != null) widget.changeFilter(_nameSelected!);
+    void _handleChangeStudent(DisplayValues? student) {
+        if (student is MockStudent) {
+            setState(() => _studentSelected = student);
+            if (_studentSelected != null) widget.changeFilter(_studentSelected!);
+        }
     }
 
     @override
@@ -87,19 +92,19 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         final List<FormDropDownList> dropDowns = [
             FormDropDownList(
                 selectedValue: null,
-                options: sections.map((section) => section.name).toList(), 
+                options: sections, 
                 label: "Section", 
                 hint: "Select a section...", 
                 errorMessage: "Please select a section.", 
                 onChangedFn: _handleChangeSection,
             ),
             FormDropDownList(
-                selectedValue: _nameSelected,
-                options: studentsOfSection.map((student) => '${student.firstName} ${student.lastName}').toList(), 
+                selectedValue: _studentSelected,
+                options: studentsOfSection,
                 label: "Name", 
                 hint: "Select a name...", 
                 errorMessage: "Please select a name.", 
-                onChangedFn: _handleChangName,
+                onChangedFn: _handleChangeStudent,
             ),
 
         ];
