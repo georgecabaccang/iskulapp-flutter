@@ -7,7 +7,7 @@ class FormDropDownList extends StatelessWidget {
     final String label;
     final String hint;
     final String errorMessage;
-    final void Function(String?) onChangedFn; 
+    final ValueChanged<String?> onChangedFn; 
 
     const FormDropDownList({
         super.key, 

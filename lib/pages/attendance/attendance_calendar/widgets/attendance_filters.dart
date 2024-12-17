@@ -73,7 +73,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         );
     }
 
-    void handleChangName(String? name) {
+    void _handleChangName(String? name) {
         setState(() => _nameSelected = name);
         if (_nameSelected != null) widget.changeFilter(_nameSelected!);
     }
@@ -91,7 +91,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 label: "Section", 
                 hint: "Select a section...", 
                 errorMessage: "Please select a section.", 
-                onChangedFn: (value) => _handleChangeSection(value),
+                onChangedFn: _handleChangeSection,
             ),
             FormDropDownList(
                 selectedValue: _nameSelected,
@@ -99,7 +99,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 label: "Name", 
                 hint: "Select a name...", 
                 errorMessage: "Please select a name.", 
-                onChangedFn: (value) => handleChangName(value)
+                onChangedFn: _handleChangName,
             ),
 
         ];
