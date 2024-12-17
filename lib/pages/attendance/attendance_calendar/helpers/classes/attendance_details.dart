@@ -22,7 +22,14 @@ class AttendanceDetails {
             id: json['id'], 
             studentId: json['student_id'], 
             sectionId: json['section_id'], 
-            attendanceDate: DateTime.parse(json['attendance_date']), 
+            // This is the way it is because of yyyy-mm-dd.
+            // To have the same format as the Calendar pacakge does.
+            attendanceDate: DateTime.utc(
+                int.parse(json['attendance_date'].substring(0, 4)),
+                int.parse(json['attendance_date'].substring(5, 7)),
+                int.parse(json['attendance_date'].substring(8, 10)),
+                0, 0, 0, 0, 0,
+            ),
             status: AttendanceStatus.fromString(json['status']) ?? AttendanceStatus.absent, 
             timeIn: json['time_in'],
         );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/date_details.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_info.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/decorators/custom_calender_builders.dart';
 import 'package:school_erp/pages/common_widgets/modals/animated_custom_modal.dart';

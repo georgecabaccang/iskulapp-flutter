@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/date_details.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/attendance_status.dart';
 
 class AttendanceInfo extends StatelessWidget{
-    final DateDetails details;
+    final AttendanceDetails details;
 
     const AttendanceInfo({super.key, required this.details});
 
@@ -14,15 +14,15 @@ class AttendanceInfo extends StatelessWidget{
                 Row(
                     children: [
                         Text('Status: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(details.attendanceStatus.displayName),
+                        Text(details.status.displayName),
                     ],
                 ),
 
-                if (details.attendanceStatus == AttendanceStatus.late) 
+                if (details.status == AttendanceStatus.late) 
                 Row(
                     children: [
                         Text('Late Time: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(details.lateTime ?? 'No late time recorded'),
+                        Text(details.timeIn ?? 'No late time recorded'),
                     ],
                 ),
 
