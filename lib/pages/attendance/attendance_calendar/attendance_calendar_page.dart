@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:school_erp/mocks/mock_student.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/date_details.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_calendar.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_filters.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
@@ -23,10 +23,16 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     late DateTime _firstDay;
     late DateTime _lastDay;
     late DateTime _focusedDay;
-    final Map<DateTime, DateDetails> _details = {};
+    // final Map<DateTime, DateDetails> _details = {};
 
     // For testing purposes with students.json
-    List<MockStundet> students = [];
+    List<MockStudent> students = [];
+
+    // For testing purposes with attendance.json
+    List<AttendanceDetails> attendance = [];
+
+    // For testing purposes for attendance for each student
+    Map<DateTime, AttendanceDetails> studentAttendanceDetails = {};
 
     @override
     void initState() {
@@ -34,27 +40,20 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         _firstDay = DateTime.utc(2000, 1, 1); 
         _lastDay = DateTime.utc(3000, 12, 31); 
         _focusedDay = DateTime.now(); 
-        // _loadAttendance();
+        _loadAttendance();
+
         // Ties in with students.json testing
         _loadStudents();
     }
 
     Future<void> _loadAttendance() async {
-        final String response = await rootBundle.loadString('assets/attendance.json');
-        final Map<String, dynamic> decoded = json.decode(response);
+        final String response = await rootBundle.loadString('assets/mocks/attendance_mocks/attendance.json');
+        final List<dynamic> decodedResponse = json.decode(response);
 
-        Map<DateTime, DateDetails> loadedDetails = {};
-
-        decoded.forEach((key, value) {
-                Date date = Date.fromJson({key: value});
-                loadedDetails.addAll(date.date);
-            }
-        );
-
-        setState(() {
-                _details.addAll(loadedDetails);  
-            }
-        );
+        for (var attendanceDetailsJson in decodedResponse) {
+            AttendanceDetails attendanceDetails = AttendanceDetails.fromJson(attendanceDetailsJson);
+            attendance.add(attendanceDetails);
+        } 
     }
 
     void _onChangeFocusedDate(DateTime selectedDay, DateTime focusedDay) {
@@ -69,13 +68,14 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         final List<dynamic> decodedResponse = json.decode(response);
 
         for (var student in decodedResponse) {
-            MockStundet mockStudent = MockStundet.fromJson(student);
+            MockStudent mockStudent = MockStudent.fromJson(student);
             students.add(mockStudent);
         }
     }
 
-    void _onChangeFilter(String name) {
-        print(name);
+    void _onChangeFilter(MockStudent student) {
+        List<AttendanceDetails> studentAttendanceRecord = attendance.where((attendance) => attendance.studentId == student.id).toList();
+        setState(() => studentAttendanceDetails = ConvertedAttendanceDetails.fromAttendanceList(studentAttendanceRecord).dateDetails);
     }
 
     @override
@@ -84,7 +84,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
             title: "Attendance", 
             content: [
                 AttendanceCalendar(
-                    details: _details,
+                    details: studentAttendanceDetails,
                     firstDay: _firstDay, 
                     lastDay: _lastDay,  
                     focusedDay: _focusedDay,
