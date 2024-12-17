@@ -73,7 +73,11 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         }
     }
 
-    void _onChangeFilter(MockStudent student) {
+    void _onChangeSection() {
+        setState(() => studentAttendanceDetails = {});
+    }
+
+    void _onChangeStudent(MockStudent student) {
         List<AttendanceDetails> studentAttendanceRecord = attendance.where((attendance) => attendance.studentId == student.id).toList();
         setState(() => studentAttendanceDetails = ConvertedAttendanceDetails.fromAttendanceList(studentAttendanceRecord).dateDetails);
     }
@@ -92,7 +96,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                 ),
                 AttendanceFilters(
                     role: Roles.teacher, 
-                    changeFilter: _onChangeFilter,
+                    changeStudentFilter: _onChangeStudent,
+                    changeSectionFilter: _onChangeSection,
                     students: students
                 )
             ]

@@ -10,13 +10,16 @@ import 'package:flutter/services.dart';
 
 class AttendanceFilters extends StatefulWidget{
     final Roles role;
-    final ValueChanged<MockStudent> changeFilter;
+    final ValueChanged<MockStudent> changeStudentFilter;
+    final void Function() changeSectionFilter;
+
     final List<MockStudent> students;
 
     const AttendanceFilters({
         super.key, 
         required this.role, 
-        required this.changeFilter, 
+        required this.changeStudentFilter, 
+        required this.changeSectionFilter, 
         required this.students
     });
 
@@ -68,6 +71,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         if (newSection is MockSection) {
             setState(() {
                     _studentSelected = null;
+                    widget.changeSectionFilter();
 
                     MockSection currentSection = sections.firstWhere((section) => section.id == newSection.id);
                     studentsOfSection = widget.students.where((student) => student.sectionId == currentSection.id).toList();
@@ -79,7 +83,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     void _handleChangeStudent(DisplayValues? student) {
         if (student is MockStudent) {
             setState(() => _studentSelected = student);
-            if (_studentSelected != null) widget.changeFilter(_studentSelected!);
+            if (_studentSelected != null) widget.changeStudentFilter(_studentSelected!);
         }
     }
 
