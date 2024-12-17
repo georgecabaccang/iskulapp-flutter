@@ -13,7 +13,7 @@ class MockSections {
 }
 
 class MockSection {
-    final int id;
+    final String id;
     final String name;
 
     MockSection({required this.id, required this.name});
