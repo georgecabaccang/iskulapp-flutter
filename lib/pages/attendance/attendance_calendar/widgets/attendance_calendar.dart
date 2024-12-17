@@ -3,6 +3,7 @@ import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_info.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/decorators/custom_calender_builders.dart';
 import 'package:school_erp/pages/common_widgets/modals/animated_custom_modal.dart';
+import 'package:school_erp/theme/colors.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class AttendanceCalendar extends StatelessWidget{
@@ -44,8 +45,10 @@ class AttendanceCalendar extends StatelessWidget{
                 onChangeFocusedDate(selectedDay, focusedDay);
             },
             calendarStyle: CalendarStyle(
-                todayDecoration: BoxDecoration(), 
-                todayTextStyle: TextStyle(),
+                todayDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColors.primaryColor
+                ), 
                 cellPadding: EdgeInsets.all(5)
             ),
             calendarBuilders: CustomCalenderBuilders.calendarBuilders(details)
