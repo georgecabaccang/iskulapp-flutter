@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/mocks/mock_section.dart';
+import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/attendance_calendar_page.dart';
 import 'package:school_erp/pages/common_widgets/dropdowns/form_drop_down_list.dart';
 import 'package:school_erp/pages/common_widgets/forms/drop_down_form/drop_down_form.dart';
@@ -9,11 +10,13 @@ import 'package:flutter/services.dart';
 class AttendanceFilters extends StatefulWidget{
     final Roles role;
     final ValueChanged<String> changeFilter;
+    final List<MockStundet> students;
 
     const AttendanceFilters({
         super.key, 
         required this.role, 
-        required this.changeFilter
+        required this.changeFilter, 
+        required this.students
     });
 
     @override
@@ -22,10 +25,9 @@ class AttendanceFilters extends StatefulWidget{
 
 class _AttendanceFiltersState extends State<AttendanceFilters> {
     List<MockSection> sections = [];
-    late List<String> names = [];
+    late List<MockStundet> studentsOfSection = [];
     bool _isLoading = true;
 
-    String? _sectionSelected;
     String? _nameSelected;
 
     @override
@@ -59,29 +61,14 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
-    void _handleChangeSection(String? section) {
+    void _handleChangeSection(String? newSection) {
         if (widget.role != Roles.teacher) return;
 
         setState(() {
-                _sectionSelected = section;
                 _nameSelected = null;
 
-                // Use proper request for list of names here 
-                // For now, testing lang muna.
-                if (_sectionSelected != null) {
-                    switch (_sectionSelected) {
-                        case "Apple": 
-                            names = ["Test", "Ing", "Lang", "For", "Apple"];
-                            break;
-                        case "Banana":
-                            names = ["Banana", "Naman", "Ini"];
-                            break;
-                        case "Cherry":
-                            names = ["Para", "Sa", "Cherry"];
-                            break;
-                    }
-
-                }
+                MockSection currentSection = sections.firstWhere((section) => section.name == newSection);
+                studentsOfSection = widget.students.where((student) => student.sectionId == currentSection.id).toList();
             }
         );
     }
@@ -108,7 +95,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
             ),
             FormDropDownList(
                 selectedValue: _nameSelected,
-                options: names, 
+                options: studentsOfSection.map((student) => '${student.firstName} ${student.lastName}').toList(), 
                 label: "Name", 
                 hint: "Select a name...", 
                 errorMessage: "Please select a name.", 

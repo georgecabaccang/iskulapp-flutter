@@ -90,7 +90,11 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                     focusedDay: _focusedDay,
                     onChangeFocusedDate: _onChangeFocusedDate,
                 ),
-                AttendanceFilters(role: Roles.teacher, changeFilter: _onChangeFilter,)
+                AttendanceFilters(
+                    role: Roles.teacher, 
+                    changeFilter: _onChangeFilter,
+                    students: students
+                )
             ]
         );
     }
