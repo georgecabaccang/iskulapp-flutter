@@ -1,3 +1,5 @@
+import 'package:school_erp/interfaces/display_values.dart';
+
 class MockSections {
     final List<MockSection> mockSections;
 
@@ -12,7 +14,7 @@ class MockSections {
     }
 }
 
-class MockSection {
+class MockSection implements DisplayValues{
     final String id;
     final String name;
 
@@ -24,4 +26,11 @@ class MockSection {
             name: json['name'], 
         );
     }
+
+    @override
+    String get value => name;
+
+    @override
+    String get displayName => name;
+
 }
