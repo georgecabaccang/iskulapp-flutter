@@ -3,11 +3,14 @@ import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/at
 
 class AttendanceDayDecorators {
     static Color getDecorationForStatus(String status){
+        // Will change this. Fow, is okay.
         return status == AttendanceStatus.present.value 
             ? Colors.green.withOpacity(0.5) 
             : status == AttendanceStatus.late.value 
                 ? const Color.fromARGB(255, 240, 190, 50).withOpacity(0.7) 
-                : Colors.red.withOpacity(0.7);
+                :  status == AttendanceStatus.leave.value
+                    ? const Color.fromARGB(220, 0, 190, 210)
+                    : Colors.red.withOpacity(0.7);
     }
 
     static Widget sundayDecorations(int day) {
