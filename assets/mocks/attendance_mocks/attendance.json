@@ -2,8 +2,6 @@
   {
     "id": "1",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-02",
     "status": "late",
@@ -12,8 +10,6 @@
   {
     "id": "2",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-03",
     "status": "present",
@@ -22,8 +18,6 @@
   {
     "id": "3",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-04",
     "status": "absent",
@@ -32,8 +26,6 @@
   {
     "id": "4",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-05",
     "status": "present",
@@ -42,8 +34,6 @@
   {
     "id": "5",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-06",
     "status": "late",
@@ -52,8 +42,6 @@
   {
     "id": "6",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-07",
     "status": "present",
@@ -62,8 +50,6 @@
   {
     "id": "7",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-09",
     "status": "present",
@@ -72,8 +58,6 @@
   {
     "id": "8",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-10",
     "status": "late",
@@ -82,8 +66,6 @@
   {
     "id": "9",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-11",
     "status": "leave",
@@ -92,8 +74,6 @@
   {
     "id": "10",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-12",
     "status": "present",
@@ -102,8 +82,6 @@
   {
     "id": "11",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-13",
     "status": "late",
@@ -112,8 +90,6 @@
   {
     "id": "12",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-14",
     "status": "absent",
@@ -122,8 +98,6 @@
   {
     "id": "13",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-16",
     "status": "present",
@@ -132,8 +106,6 @@
   {
     "id": "14",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-17",
     "status": "leave",
@@ -142,8 +114,6 @@
   {
     "id": "15",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-18",
     "status": "present",
@@ -152,8 +122,6 @@
   {
     "id": "16",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-19",
     "status": "late",
@@ -162,8 +130,6 @@
   {
     "id": "17",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-20",
     "status": "present",
@@ -172,8 +138,6 @@
   {
     "id": "18",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-21",
     "status": "absent",
@@ -182,8 +146,6 @@
   {
     "id": "19",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-23",
     "status": "present",
@@ -192,8 +154,6 @@
   {
     "id": "20",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-24",
     "status": "late",
@@ -202,8 +162,6 @@
   {
     "id": "21",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-25",
     "status": "present",
@@ -212,8 +170,6 @@
   {
     "id": "22",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-26",
     "status": "absent",
@@ -222,8 +178,6 @@
   {
     "id": "23",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-27",
     "status": "leave",
@@ -232,8 +186,6 @@
   {
     "id": "24",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-28",
     "status": "present",
@@ -242,8 +194,6 @@
   {
     "id": "25",
     "student_id": "1",
-    "first_name": "John",
-    "last_name": "Doe",
     "section_id": "1",
     "attendance_date": "2024-12-30",
     "status": "late",
@@ -252,8 +202,6 @@
   {
     "id": "26",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-02",
     "status": "present",
@@ -262,8 +210,6 @@
   {
     "id": "27",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-03",
     "status": "late",
@@ -272,8 +218,6 @@
   {
     "id": "28",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-04",
     "status": "leave",
@@ -282,8 +226,6 @@
   {
     "id": "29",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-05",
     "status": "absent",
@@ -292,8 +234,6 @@
   {
     "id": "30",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-06",
     "status": "present",
@@ -302,8 +242,6 @@
   {
     "id": "31",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-07",
     "status": "late",
@@ -312,8 +250,6 @@
   {
     "id": "32",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-09",
     "status": "present",
@@ -322,8 +258,6 @@
   {
     "id": "33",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-10",
     "status": "late",
@@ -332,8 +266,6 @@
   {
     "id": "34",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-11",
     "status": "leave",
@@ -342,8 +274,6 @@
   {
     "id": "35",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-12",
     "status": "present",
@@ -352,8 +282,6 @@
   {
     "id": "36",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-13",
     "status": "late",
@@ -362,8 +290,6 @@
   {
     "id": "37",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-14",
     "status": "absent",
@@ -372,8 +298,6 @@
   {
     "id": "38",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-16",
     "status": "present",
@@ -382,8 +306,6 @@
   {
     "id": "39",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-17",
     "status": "late",
@@ -392,8 +314,6 @@
   {
     "id": "40",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-18",
     "status": "present",
@@ -402,8 +322,6 @@
   {
     "id": "41",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-19",
     "status": "absent",
@@ -412,8 +330,6 @@
   {
     "id": "42",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-20",
     "status": "present",
@@ -422,8 +338,6 @@
   {
     "id": "43",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-21",
     "status": "late",
@@ -432,8 +346,6 @@
   {
     "id": "44",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-23",
     "status": "present",
@@ -442,8 +354,6 @@
   {
     "id": "45",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-24",
     "status": "late",
@@ -452,8 +362,6 @@
   {
     "id": "46",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-25",
     "status": "present",
@@ -462,8 +370,6 @@
   {
     "id": "47",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-26",
     "status": "absent",
@@ -472,8 +378,6 @@
   {
     "id": "48",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-27",
     "status": "leave",
@@ -482,8 +386,6 @@
   {
     "id": "49",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-28",
     "status": "present",
@@ -492,8 +394,6 @@
   {
     "id": "50",
     "student_id": "2",
-    "first_name": "Jane",
-    "last_name": "Smith",
     "section_id": "1",
     "attendance_date": "2024-12-30",
     "status": "late",
@@ -502,8 +402,6 @@
   {
     "id": "51",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-02",
     "status": "present",
@@ -512,8 +410,6 @@
   {
     "id": "52",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-03",
     "status": "late",
@@ -522,8 +418,6 @@
   {
     "id": "53",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-04",
     "status": "absent",
@@ -532,8 +426,6 @@
   {
     "id": "54",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-05",
     "status": "present",
@@ -542,8 +434,6 @@
   {
     "id": "55",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-06",
     "status": "late",
@@ -552,8 +442,6 @@
   {
     "id": "56",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-07",
     "status": "present",
@@ -562,8 +450,6 @@
   {
     "id": "57",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-09",
     "status": "leave",
@@ -572,8 +458,6 @@
   {
     "id": "58",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-10",
     "status": "present",
@@ -582,8 +466,6 @@
   {
     "id": "59",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-11",
     "status": "late",
@@ -592,8 +474,6 @@
   {
     "id": "60",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-12",
     "status": "present",
@@ -602,8 +482,6 @@
   {
     "id": "61",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-13",
     "status": "absent",
@@ -612,8 +490,6 @@
   {
     "id": "62",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-14",
     "status": "present",
@@ -622,8 +498,6 @@
   {
     "id": "63",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-16",
     "status": "late",
@@ -632,8 +506,6 @@
   {
     "id": "64",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-17",
     "status": "leave",
@@ -642,8 +514,6 @@
   {
     "id": "65",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-18",
     "status": "present",
@@ -652,8 +522,6 @@
   {
     "id": "66",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-19",
     "status": "late",
@@ -662,8 +530,6 @@
   {
     "id": "67",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-20",
     "status": "present",
@@ -672,8 +538,6 @@
   {
     "id": "68",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-21",
     "status": "absent",
@@ -682,8 +546,6 @@
   {
     "id": "69",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-23",
     "status": "late",
@@ -692,8 +554,6 @@
   {
     "id": "70",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-24",
     "status": "present",
@@ -702,8 +562,6 @@
   {
     "id": "71",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-25",
     "status": "absent",
@@ -712,8 +570,6 @@
   {
     "id": "72",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-26",
     "status": "present",
@@ -722,8 +578,6 @@
   {
     "id": "73",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-27",
     "status": "leave",
@@ -732,8 +586,6 @@
   {
     "id": "74",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-28",
     "status": "present",
@@ -742,8 +594,6 @@
   {
     "id": "75",
     "student_id": "3",
-    "first_name": "Jim",
-    "last_name": "Brown",
     "section_id": "1",
     "attendance_date": "2024-12-30",
     "status": "late",
@@ -752,8 +602,6 @@
   {
     "id": "76",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-02",
     "status": "late",
@@ -762,8 +610,6 @@
   {
     "id": "77",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-03",
     "status": "present",
@@ -772,8 +618,6 @@
   {
     "id": "78",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-04",
     "status": "absent",
@@ -782,8 +626,6 @@
   {
     "id": "79",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-05",
     "status": "present",
@@ -792,8 +634,6 @@
   {
     "id": "80",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-06",
     "status": "late",
@@ -802,8 +642,6 @@
   {
     "id": "81",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-07",
     "status": "present",
@@ -812,8 +650,6 @@
   {
     "id": "82",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-09",
     "status": "leave",
@@ -822,8 +658,6 @@
   {
     "id": "83",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-10",
     "status": "present",
@@ -832,8 +666,6 @@
   {
     "id": "84",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-11",
     "status": "late",
@@ -842,8 +674,6 @@
   {
     "id": "85",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-12",
     "status": "present",
@@ -852,8 +682,6 @@
   {
     "id": "86",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-13",
     "status": "absent",
@@ -862,8 +690,6 @@
   {
     "id": "87",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-14",
     "status": "present",
@@ -872,8 +698,6 @@
   {
     "id": "88",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-16",
     "status": "late",
@@ -882,8 +706,6 @@
   {
     "id": "89",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-17",
     "status": "leave",
@@ -892,8 +714,6 @@
   {
     "id": "90",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-18",
     "status": "present",
@@ -902,8 +722,6 @@
   {
     "id": "91",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-19",
     "status": "late",
@@ -912,8 +730,6 @@
   {
     "id": "92",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-20",
     "status": "present",
@@ -922,8 +738,6 @@
   {
     "id": "93",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-21",
     "status": "absent",
@@ -932,8 +746,6 @@
   {
     "id": "94",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-23",
     "status": "late",
@@ -942,8 +754,6 @@
   {
     "id": "95",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-24",
     "status": "present",
@@ -952,8 +762,6 @@
   {
     "id": "96",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-25",
     "status": "absent",
@@ -962,8 +770,6 @@
   {
     "id": "97",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-26",
     "status": "present",
@@ -972,8 +778,6 @@
   {
     "id": "98",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-27",
     "status": "leave",
@@ -982,8 +786,6 @@
   {
     "id": "99",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-28",
     "status": "present",
@@ -992,8 +794,6 @@
   {
     "id": "100",
     "student_id": "4",
-    "first_name": "Alice",
-    "last_name": "Green",
     "section_id": "2",
     "attendance_date": "2024-12-30",
     "status": "late",
@@ -1002,8 +802,6 @@
   {
     "id": "101",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-02",
     "status": "present",
@@ -1012,8 +810,6 @@
   {
     "id": "102",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-03",
     "status": "late",
@@ -1022,8 +818,6 @@
   {
     "id": "103",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-04",
     "status": "absent",
@@ -1032,8 +826,6 @@
   {
     "id": "104",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-05",
     "status": "present",
@@ -1042,8 +834,6 @@
   {
     "id": "105",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-06",
     "status": "late",
@@ -1052,8 +842,6 @@
   {
     "id": "106",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-07",
     "status": "present",
@@ -1062,8 +850,6 @@
   {
     "id": "107",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-09",
     "status": "leave",
@@ -1072,8 +858,6 @@
   {
     "id": "108",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-10",
     "status": "present",
@@ -1082,8 +866,6 @@
   {
     "id": "109",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-11",
     "status": "late",
@@ -1092,8 +874,6 @@
   {
     "id": "110",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-12",
     "status": "present",
@@ -1102,8 +882,6 @@
   {
     "id": "111",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-13",
     "status": "absent",
@@ -1112,8 +890,6 @@
   {
     "id": "112",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-14",
     "status": "present",
@@ -1122,8 +898,6 @@
   {
     "id": "113",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-16",
     "status": "late",
@@ -1132,8 +906,6 @@
   {
     "id": "114",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-17",
     "status": "leave",
@@ -1142,8 +914,6 @@
   {
     "id": "115",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-18",
     "status": "present",
@@ -1152,8 +922,6 @@
   {
     "id": "116",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-19",
     "status": "late",
@@ -1162,8 +930,6 @@
   {
     "id": "117",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-20",
     "status": "present",
@@ -1172,8 +938,6 @@
   {
     "id": "118",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-21",
     "status": "absent",
@@ -1182,8 +946,6 @@
   {
     "id": "119",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-23",
     "status": "late",
@@ -1192,8 +954,6 @@
   {
     "id": "120",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-24",
     "status": "present",
@@ -1202,8 +962,6 @@
   {
     "id": "121",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-25",
     "status": "absent",
@@ -1212,8 +970,6 @@
   {
     "id": "122",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-26",
     "status": "present",
@@ -1222,8 +978,6 @@
   {
     "id": "123",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-27",
     "status": "leave",
@@ -1232,8 +986,6 @@
   {
     "id": "124",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-28",
     "status": "present",
@@ -1242,8 +994,6 @@
   {
     "id": "125",
     "student_id": "5",
-    "first_name": "Bob",
-    "last_name": "White",
     "section_id": "2",
     "attendance_date": "2024-12-30",
     "status": "late",
@@ -1252,8 +1002,6 @@
   {
     "id": "126",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-02",
     "status": "present",
@@ -1262,8 +1010,6 @@
   {
     "id": "127",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-03",
     "status": "late",
@@ -1272,8 +1018,6 @@
   {
     "id": "128",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-04",
     "status": "absent",
@@ -1282,8 +1026,6 @@
   {
     "id": "129",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-05",
     "status": "present",
@@ -1292,8 +1034,6 @@
   {
     "id": "130",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-06",
     "status": "late",
@@ -1302,8 +1042,6 @@
   {
     "id": "131",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-07",
     "status": "present",
@@ -1312,8 +1050,6 @@
   {
     "id": "132",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-09",
     "status": "leave",
@@ -1322,8 +1058,6 @@
   {
     "id": "133",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-10",
     "status": "present",
@@ -1332,8 +1066,6 @@
   {
     "id": "134",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-11",
     "status": "late",
@@ -1342,8 +1074,6 @@
   {
     "id": "135",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-12",
     "status": "present",
@@ -1352,8 +1082,6 @@
   {
     "id": "136",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-13",
     "status": "absent",
@@ -1362,8 +1090,6 @@
   {
     "id": "137",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-14",
     "status": "present",
@@ -1372,8 +1098,6 @@
   {
     "id": "138",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-16",
     "status": "late",
@@ -1382,8 +1106,6 @@
   {
     "id": "139",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-17",
     "status": "leave",
@@ -1392,8 +1114,6 @@
   {
     "id": "140",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-18",
     "status": "present",
@@ -1402,8 +1122,6 @@
   {
     "id": "141",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-19",
     "status": "late",
@@ -1412,8 +1130,6 @@
   {
     "id": "142",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-20",
     "status": "present",
@@ -1422,8 +1138,6 @@
   {
     "id": "143",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-21",
     "status": "absent",
@@ -1432,8 +1146,6 @@
   {
     "id": "144",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-23",
     "status": "late",
@@ -1442,8 +1154,6 @@
   {
     "id": "145",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-24",
     "status": "present",
@@ -1452,8 +1162,6 @@
   {
     "id": "146",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-25",
     "status": "absent",
@@ -1462,8 +1170,6 @@
   {
     "id": "147",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-26",
     "status": "present",
@@ -1472,8 +1178,6 @@
   {
     "id": "148",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-27",
     "status": "leave",
@@ -1482,8 +1186,6 @@
   {
     "id": "149",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-28",
     "status": "present",
@@ -1492,8 +1194,6 @@
   {
     "id": "150",
     "student_id": "6",
-    "first_name": "Charlie",
-    "last_name": "Black",
     "section_id": "2",
     "attendance_date": "2024-12-30",
     "status": "late",
@@ -1502,8 +1202,6 @@
   {
     "id": "151",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-02",
     "status": "present",
@@ -1512,8 +1210,6 @@
   {
     "id": "152",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-03",
     "status": "late",
@@ -1522,8 +1218,6 @@
   {
     "id": "153",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-04",
     "status": "absent",
@@ -1532,8 +1226,6 @@
   {
     "id": "154",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-05",
     "status": "present",
@@ -1542,8 +1234,6 @@
   {
     "id": "155",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-06",
     "status": "late",
@@ -1552,8 +1242,6 @@
   {
     "id": "156",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-07",
     "status": "present",
@@ -1562,8 +1250,6 @@
   {
     "id": "157",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-09",
     "status": "leave",
@@ -1572,8 +1258,6 @@
   {
     "id": "158",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-10",
     "status": "present",
@@ -1582,8 +1266,6 @@
   {
     "id": "159",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-11",
     "status": "late",
@@ -1592,8 +1274,6 @@
   {
     "id": "160",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-12",
     "status": "present",
@@ -1602,8 +1282,6 @@
   {
     "id": "161",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-13",
     "status": "absent",
@@ -1612,8 +1290,6 @@
   {
     "id": "162",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-14",
     "status": "present",
@@ -1622,8 +1298,6 @@
   {
     "id": "163",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-16",
     "status": "late",
@@ -1632,8 +1306,6 @@
   {
     "id": "164",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-17",
     "status": "leave",
@@ -1642,8 +1314,6 @@
   {
     "id": "165",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-18",
     "status": "present",
@@ -1652,8 +1322,6 @@
   {
     "id": "166",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-19",
     "status": "late",
@@ -1662,8 +1330,6 @@
   {
     "id": "167",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-20",
     "status": "present",
@@ -1672,8 +1338,6 @@
   {
     "id": "168",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-21",
     "status": "absent",
@@ -1682,8 +1346,6 @@
   {
     "id": "169",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-23",
     "status": "late",
@@ -1692,8 +1354,6 @@
   {
     "id": "170",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-24",
     "status": "present",
@@ -1702,8 +1362,6 @@
   {
     "id": "171",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-25",
     "status": "absent",
@@ -1712,8 +1370,6 @@
   {
     "id": "172",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-26",
     "status": "present",
@@ -1722,8 +1378,6 @@
   {
     "id": "173",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-27",
     "status": "leave",
@@ -1732,8 +1386,6 @@
   {
     "id": "174",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-28",
     "status": "present",
@@ -1742,8 +1394,6 @@
   {
     "id": "175",
     "student_id": "7",
-    "first_name": "David",
-    "last_name": "Gray",
     "section_id": "3",
     "attendance_date": "2024-12-30",
     "status": "late",
@@ -1752,8 +1402,6 @@
   {
     "id": "176",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-02",
     "status": "present",
@@ -1762,8 +1410,6 @@
   {
     "id": "177",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-03",
     "status": "late",
@@ -1772,8 +1418,6 @@
   {
     "id": "178",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-04",
     "status": "absent",
@@ -1782,8 +1426,6 @@
   {
     "id": "179",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-05",
     "status": "present",
@@ -1792,8 +1434,6 @@
   {
     "id": "180",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-06",
     "status": "late",
@@ -1802,8 +1442,6 @@
   {
     "id": "181",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-07",
     "status": "present",
@@ -1812,8 +1450,6 @@
   {
     "id": "182",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-09",
     "status": "leave",
@@ -1822,8 +1458,6 @@
   {
     "id": "183",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-10",
     "status": "present",
@@ -1832,8 +1466,6 @@
   {
     "id": "184",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-11",
     "status": "late",
@@ -1842,8 +1474,6 @@
   {
     "id": "185",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-12",
     "status": "present",
@@ -1852,8 +1482,6 @@
   {
     "id": "186",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-13",
     "status": "absent",
@@ -1862,8 +1490,6 @@
   {
     "id": "187",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-14",
     "status": "present",
@@ -1872,8 +1498,6 @@
   {
     "id": "188",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-16",
     "status": "late",
@@ -1882,8 +1506,6 @@
   {
     "id": "189",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-17",
     "status": "leave",
@@ -1892,8 +1514,6 @@
   {
     "id": "190",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-18",
     "status": "present",
@@ -1902,8 +1522,6 @@
   {
     "id": "191",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-19",
     "status": "late",
@@ -1912,8 +1530,6 @@
   {
     "id": "192",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-20",
     "status": "present",
@@ -1922,8 +1538,6 @@
   {
     "id": "193",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-21",
     "status": "absent",
@@ -1932,8 +1546,6 @@
   {
     "id": "194",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-23",
     "status": "late",
@@ -1942,8 +1554,6 @@
   {
     "id": "195",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-24",
     "status": "present",
@@ -1952,8 +1562,6 @@
   {
     "id": "196",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-25",
     "status": "absent",
@@ -1962,8 +1570,6 @@
   {
     "id": "197",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-26",
     "status": "present",
@@ -1972,8 +1578,6 @@
   {
     "id": "198",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-27",
     "status": "leave",
@@ -1982,8 +1586,6 @@
   {
     "id": "199",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-28",
     "status": "present",
@@ -1992,8 +1594,6 @@
   {
     "id": "200",
     "student_id": "8",
-    "first_name": "Eva",
-    "last_name": "Blue",
     "section_id": "3",
     "attendance_date": "2024-12-30",
     "status": "late",
@@ -2002,8 +1602,6 @@
   {
     "id": "201",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-02",
     "status": "present",
@@ -2012,8 +1610,6 @@
   {
     "id": "202",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-03",
     "status": "late",
@@ -2022,8 +1618,6 @@
   {
     "id": "203",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-04",
     "status": "absent",
@@ -2032,8 +1626,6 @@
   {
     "id": "204",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-05",
     "status": "present",
@@ -2042,8 +1634,6 @@
   {
     "id": "205",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-06",
     "status": "late",
@@ -2052,8 +1642,6 @@
   {
     "id": "206",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-07",
     "status": "present",
@@ -2062,8 +1650,6 @@
   {
     "id": "207",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-09",
     "status": "leave",
@@ -2072,8 +1658,6 @@
   {
     "id": "208",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-10",
     "status": "present",
@@ -2082,8 +1666,6 @@
   {
     "id": "209",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-11",
     "status": "late",
@@ -2092,8 +1674,6 @@
   {
     "id": "210",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-12",
     "status": "present",
@@ -2102,8 +1682,6 @@
   {
     "id": "211",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-13",
     "status": "absent",
@@ -2112,8 +1690,6 @@
   {
     "id": "212",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-14",
     "status": "present",
@@ -2122,8 +1698,6 @@
   {
     "id": "213",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-16",
     "status": "late",
@@ -2132,8 +1706,6 @@
   {
     "id": "214",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-17",
     "status": "leave",
@@ -2142,8 +1714,6 @@
   {
     "id": "215",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-18",
     "status": "present",
@@ -2152,8 +1722,6 @@
   {
     "id": "216",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-19",
     "status": "late",
@@ -2162,8 +1730,6 @@
   {
     "id": "217",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-20",
     "status": "present",
@@ -2172,8 +1738,6 @@
   {
     "id": "218",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-21",
     "status": "absent",
@@ -2182,8 +1746,6 @@
   {
     "id": "219",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-23",
     "status": "late",
@@ -2192,8 +1754,6 @@
   {
     "id": "220",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-24",
     "status": "present",
@@ -2202,8 +1762,6 @@
   {
     "id": "221",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-25",
     "status": "absent",
@@ -2212,8 +1770,6 @@
   {
     "id": "222",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-26",
     "status": "present",
@@ -2222,8 +1778,6 @@
   {
     "id": "223",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-27",
     "status": "leave",
@@ -2232,8 +1786,6 @@
   {
     "id": "224",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-28",
     "status": "present",
@@ -2242,8 +1794,6 @@
   {
     "id": "225",
     "student_id": "9",
-    "first_name": "Frank",
-    "last_name": "Yellow",
     "section_id": "3",
     "attendance_date": "2024-12-30",
     "status": "late",
