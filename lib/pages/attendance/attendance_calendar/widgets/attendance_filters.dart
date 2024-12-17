@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/attendance_calendar_page.dart';
 import 'package:school_erp/pages/common_widgets/dropdowns/form_drop_down_list.dart';
 import 'package:school_erp/pages/common_widgets/forms/drop_down_form/drop_down_form.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
 
 class AttendanceFilters extends StatefulWidget{
     final Roles role;
@@ -18,8 +21,9 @@ class AttendanceFilters extends StatefulWidget{
 }
 
 class _AttendanceFiltersState extends State<AttendanceFilters> {
-    List<String> sections = [];
+    List<MockSection> sections = [];
     late List<String> names = [];
+    bool _isLoading = true;
 
     String? _sectionSelected;
     String? _nameSelected;
@@ -27,8 +31,32 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     @override
     void initState() {
         super.initState();
-        sections =  ["Atis", "Banana", "Guava"];
-        _sectionSelected = "Atis";
+
+        _loadSections();
+    }
+
+    Future<void> _loadSections() async{
+        try {
+            if (!mounted) return;
+
+            setState(() => _isLoading = true);
+
+            final String response = await rootBundle.loadString('assets/mocks/attendance_mocks/sections.json');
+            if (response.isNotEmpty) {
+                setState(() {
+                        sections = MockSections.fromJson(json.decode(response)).mockSections;
+                    }
+                );
+            }
+
+            setState(() => _isLoading = false);
+
+        } 
+        // Handler errors better when real data is being retrieved
+        catch (error) {
+            if (!mounted) return;
+            setState(() => _isLoading = false);
+        }
     }
 
     void _handleChangeSection(String? section) {
@@ -42,14 +70,14 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 // For now, testing lang muna.
                 if (_sectionSelected != null) {
                     switch (_sectionSelected) {
-                        case "Atis": 
-                            names = ["Test", "Ing", "Lang", "For", "Atis"];
+                        case "Apple": 
+                            names = ["Test", "Ing", "Lang", "For", "Apple"];
                             break;
                         case "Banana":
                             names = ["Banana", "Naman", "Ini"];
                             break;
-                        case "Guava":
-                            names = ["Para", "Sa", "Guava"];
+                        case "Cherry":
+                            names = ["Para", "Sa", "Cherry"];
                             break;
                     }
 
@@ -72,7 +100,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         final List<FormDropDownList> dropDowns = [
             FormDropDownList(
                 selectedValue: null,
-                options: sections, 
+                options: sections.map((section) => section.name).toList(), 
                 label: "Section", 
                 hint: "Select a section...", 
                 errorMessage: "Please select a section.", 
