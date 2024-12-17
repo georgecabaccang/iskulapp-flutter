@@ -2,7 +2,7 @@ class MockStundet {
     final String id;
     final String firstName;
     final String lastName;
-    final int sectionId;
+    final String sectionId;
 
     MockStundet({required this.id, required this.firstName, required this.lastName, required this.sectionId});
 
