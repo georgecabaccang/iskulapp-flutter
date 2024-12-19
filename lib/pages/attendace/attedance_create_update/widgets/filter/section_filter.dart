@@ -31,7 +31,7 @@ class SectionFilter extends StatelessWidget {
       decoration: const InputDecoration(
         labelText: form.sectionLabel,
         border: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
+          borderSide: BorderSide(color: AppColors.greyColor),
         ),
       ),
       isExpanded: true,
