@@ -4,6 +4,7 @@ import 'package:school_erp/features/attendance/cubit/attendance_check_cubit.dart
 import 'package:school_erp/features/attendance/cubit/attendance_check_state.dart';
 import 'package:school_erp/models/section.dart';
 import 'package:school_erp/pages/attendace/attedance_create_update/widgets/attendance_check_item.dart';
+import 'package:school_erp/pages/common_widgets/dividers/general_divider.dart';
 
 class AttendanceCheckList extends StatelessWidget {
   final DateTime? date;
@@ -47,10 +48,9 @@ class AttendanceCheckList extends StatelessWidget {
                 separatorBuilder: (context, index) => Column(
                   children: [
                     const SizedBox(height: 5),
-                    Divider(
-                      color: Colors.grey.shade300,
-                      height: 1,
-                      thickness: 1,
+                    GeneralDivider(
+                      symmetricDividerSpaceHeight: 0.25,
+                      dividerColor: Colors.grey.shade300,
                     ),
                   ],
                 ),
