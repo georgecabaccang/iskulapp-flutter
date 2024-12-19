@@ -3,11 +3,11 @@ import 'package:school_erp/features/transition/clean_slide_transition.dart';
 import 'package:school_erp/theme/colors.dart';
 
 class CustomItemCard extends StatelessWidget {
-    final Widget slideRoute;
+    final Widget? slideRoute;
     final List<Widget> itemContents;
 
     const CustomItemCard(
-    {super.key, required this.slideRoute, required this.itemContents});
+    {super.key, this.slideRoute, required this.itemContents});
 
     @override
     Widget build(BuildContext context) {
@@ -16,12 +16,14 @@ class CustomItemCard extends StatelessWidget {
 
         return InkWell(
             onTap: () {
-                Navigator.push(
-                    context,
-                    createSlideRoute(
-                        slideRoute,
-                    ),
-                );
+                if (slideRoute != null) {
+                    Navigator.push(
+                        context,
+                        createSlideRoute(
+                            slideRoute!,
+                        ),
+                    );
+                }
             },
             child: Card(
                 margin: EdgeInsets.only(bottom: verticalPadding),

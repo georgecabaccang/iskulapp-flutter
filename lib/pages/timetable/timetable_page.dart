@@ -1,80 +1,98 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/common_widgets/app_content.dart';
-import 'package:school_erp/pages/timetable/widget/timetable_tabbar.dart';
-import 'package:school_erp/theme/colors.dart';
+import 'package:school_erp/pages/common_widgets/default_layout.dart';
+import 'package:school_erp/pages/timetable/helpers/timetable.dart';
+import 'package:school_erp/pages/timetable/widget/timetable_list.dart';
+import 'package:school_erp/pages/common_widgets/tab_bars/custom_tab_bar.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:school_erp/pages/common_widgets/custom_app_bar.dart';
-import 'package:school_erp/pages/timetable/widget/timetable_card.dart';
 
 class TimeTablePage extends StatefulWidget {
-  const TimeTablePage({super.key});
+    const TimeTablePage({super.key});
 
-  @override
-  _TimeTablePageState createState() => _TimeTablePageState();
+    @override
+    createState() => _TimeTablePageState();
 }
 
 class _TimeTablePageState extends State<TimeTablePage> with TickerProviderStateMixin {
-  late TabController _tabController;
-  Map<String, dynamic>? timetableData;
+    late TabController _tabController;
+    late Timetable? timeTable;
+    bool _isLoading = true;
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 6, vsync: this);
-    _loadTimetable();
-  }
-
-
-  Future<void> _loadTimetable() async {
-    final String response = await rootBundle.loadString('assets/timetable.json');
-    setState(() {
-      timetableData = json.decode(response);
-    });
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  Widget _buildTabContent(String day) {
-    if (timetableData == null) {
-      return const Center(child: CircularProgressIndicator());
+    @override
+    void initState() {
+        super.initState();
+        _tabController = TabController(length: DaysOfTheWeek.values.length, vsync: this);
+        _loadTimetable();
     }
-    final subjects = List<Map<String, dynamic>>.from(timetableData!['timetable'][day]);
-    return TimetableCard(day: day, subjects: subjects);
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.primaryColor,
-      body: Column(
-        children: [
-          const CustomAppBar(title: 'Timetable'),
-          AppContent(
-            content: [
-              const SizedBox(height: 25),
-              TimeTableTabBar(controller: _tabController),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    _buildTabContent('Monday'),
-                    _buildTabContent('Tuesday'),
-                    _buildTabContent('Wednesday'),
-                    _buildTabContent('Thursday'),
-                    _buildTabContent('Friday'),
-                    _buildTabContent('Saturday'),
-                  ],
+    Future<void> _loadTimetable() async {
+        try {
+            if (!mounted) return;
+
+            setState(() {
+                    _isLoading = true;
+                });
+
+            final String response = await rootBundle.loadString('assets/timetable.json');
+            if (response.isNotEmpty) {
+                setState(() {
+                        _isLoading = false;
+                        timeTable = Timetable.fromJson(json.decode(response));
+                    }
+                );
+            }
+
+            setState(() {
+                    _isLoading = false;
+                }
+            );
+
+        } 
+        // Handler errors better when real data is being retrieved
+        catch (e) {
+            if (!mounted) return;
+            setState(() {
+                    _isLoading = false;
+                }
+            );
+        }
+
+    }
+
+    @override
+    void dispose() {
+        _tabController.dispose();
+        super.dispose();
+    }
+
+    Widget _buildTabContent(DaysOfTheWeek day) {
+        if (_isLoading) {
+            return const Center(child: CircularProgressIndicator());
+        }
+        final classes = List<ClassDetails>.from(timeTable?.data[day] ?? []);
+        return TimeTableList( classes: classes);
+    }
+
+    @override
+    Widget build(BuildContext context) {
+        double screenHeight = MediaQuery.of(context).size.height;
+        double topSpacing = screenHeight * 0.05;
+
+        return DefaultLayout(
+            title: "Timetable",
+            content: [ 
+                SizedBox(height: topSpacing),
+                CustomTabBar(
+                    controller: _tabController,
+                    tabs: DaysOfTheWeek.values,
                 ),
-              ),
+                Expanded(
+                    child: TabBarView(
+                        controller: _tabController,
+                        children: DaysOfTheWeek.values.map((day) {return _buildTabContent(day);}).toList(),
+                    ),
+                ),
             ],
-          ),
-        ],
-      ),
-    );
-  }
+        );
+    }
 }
