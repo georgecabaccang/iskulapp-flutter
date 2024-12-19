@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/interfaces/display_values.dart';
+import 'package:school_erp/mocks/mock_roles.dart';
 import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/mocks/mock_student.dart';
+import 'package:school_erp/mocks/mock_teacher.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/attendance_calendar_page.dart';
 import 'package:school_erp/pages/common_widgets/dropdowns/form_drop_down_list.dart';
 import 'package:school_erp/pages/common_widgets/forms/drop_down_form/drop_down_form.dart';
@@ -29,6 +31,8 @@ class AttendanceFilters extends StatefulWidget{
 
 class _AttendanceFiltersState extends State<AttendanceFilters> {
     List<MockSection> sections = [];
+    List<MockRole> roles = [];
+    late List<MockTeacher> teachersOfSection = [];
     late List<MockStudent> studentsOfSection = [];
     bool _isLoading = true;
 
@@ -38,29 +42,38 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     void initState() {
         super.initState();
 
-        _loadSections();
+        if (widget.role == Roles.teacher) {_loadSectionsAndRoles();}
     }
 
-    Future<void> _loadSections() async{
+    Future<void> _loadSectionsAndRoles() async{
         try {
             if (!mounted) return;
 
             setState(() => _isLoading = true);
 
-            final String response = await rootBundle.loadString('assets/mocks/attendance_mocks/sections.json');
-            if (response.isNotEmpty) {
+            final String responseSections = await rootBundle.loadString('assets/mocks/attendance_mocks/sections.json');
+            final String responseRoles = await rootBundle.loadString('assets/mocks/attendance_mocks/roles.json');
+
+            if (responseSections.isNotEmpty) {
                 setState(() {
-                        sections = MockSections.fromJson(json.decode(response)).mockSections;
+                        sections = MockSections.fromJson(json.decode(responseSections)).mockSections;
                     }
                 );
             }
 
-            setState(() => _isLoading = false);
-
+            if (responseRoles.isNotEmpty) {
+                setState(() {
+                        roles = MockRoles.fromJson(json.decode(responseRoles)).mockRoles;
+                    }
+                );
+            }
         } 
         // Handler errors better when real data is being retrieved
         catch (error) {
             if (!mounted) return;
+            print(error);
+        }
+        finally {
             setState(() => _isLoading = false);
         }
     }
@@ -87,7 +100,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
-    void _handleChangeRole(DisplayValues? student) {
+    void _handleChangeFilterBy(DisplayValues? student) {
         if (student is MockStudent) {
             setState(() => _studentSelected = student);
             if (_studentSelected != null) widget.changeStudentFilter(_studentSelected!);
