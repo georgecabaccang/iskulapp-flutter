@@ -20,18 +20,7 @@ class DateSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
-        final DateTime? pickedDate = await showDatePicker(
-          context: context,
-          initialDate: selectedDate,
-          firstDate: firstDate ?? DateTime(2000),
-          lastDate: lastDate ?? DateTime(2100),
-        );
-
-        if (pickedDate != null) {
-          onDateSelected(pickedDate);
-        }
-      },
+      onTap: () => _showDatePicker(context),
       child: InputDecorator(
         decoration: InputDecoration(
           labelText: labelText,
@@ -44,5 +33,18 @@ class DateSelector extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _showDatePicker(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: firstDate ?? DateTime(2000),
+      lastDate: lastDate ?? DateTime(2100),
+    );
+
+    if (pickedDate != null) {
+      onDateSelected(pickedDate);
+    }
   }
 }
