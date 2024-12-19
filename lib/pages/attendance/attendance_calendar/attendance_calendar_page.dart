@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/mocks/mock_teacher.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_calendar.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_filters.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/resource_loader.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
-import 'dart:convert';
 
 // For testing only. 
 // Remove and replace with proper thing after.
@@ -26,8 +25,10 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     late DateTime _focusedDay;
     // final Map<DateTime, DateDetails> _details = {};
 
+    late ResourceLoader resourceLoader = ResourceLoader();
+
     // For testing purposes with teacher.json
-    List<MockTeacher> teachers = [];
+    late List<MockTeacher> teachers;
 
     // For testing purposes with students.json
     List<MockStudent> students = [];
@@ -44,23 +45,27 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         _firstDay = DateTime.utc(2000, 1, 1); 
         _lastDay = DateTime.utc(3000, 12, 31); 
         _focusedDay = DateTime.now(); 
-        _loadAttendance();
 
-        // Ties in with teachers.json testing
-        _loadTeachers();
-
-        // Ties in with students.json testing
-        _loadStudents();
+        // Load resources
+        _loadData();
     }
 
-    Future<void> _loadAttendance() async {
-        final String response = await rootBundle.loadString('assets/mocks/attendance_mocks/attendance.json');
-        final List<dynamic> decodedResponse = json.decode(response);
+    Future<void> _loadData() async {
+        if (!mounted) return;
 
-        for (var attendanceDetailsJson in decodedResponse) {
-            AttendanceDetails attendanceDetails = AttendanceDetails.fromJson(attendanceDetailsJson);
-            attendance.add(attendanceDetails);
+        try {
+            await resourceLoader.loadResources();
+
+            setState(() {
+                    attendance = resourceLoader.attendance;
+                    teachers = resourceLoader.teachers;
+                    students = resourceLoader.students;
+                });
         } 
+        // handle errors properly when real data is used.
+        catch (error) {
+            print(error);
+        }
     }
 
     void _onChangeFocusedDate(DateTime selectedDay, DateTime focusedDay) {
@@ -68,26 +73,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                 _focusedDay = focusedDay;
             }
         );
-    }
-
-    void _loadTeachers() async {
-        final String response = await rootBundle.loadString('assets/mocks/attendance_mocks/teachers.json');
-        final List<dynamic> decodedResponse = json.decode(response);
-
-        for (var teacher in decodedResponse) {
-            MockTeacher mockTeacher = MockTeacher.fromJson(teacher);
-            teachers.add(mockTeacher);
-        }
-    }
-
-    void _loadStudents() async {
-        final String response = await rootBundle.loadString('assets/mocks/attendance_mocks/students.json');
-        final List<dynamic> decodedResponse = json.decode(response);
-
-        for (var student in decodedResponse) {
-            MockStudent mockStudent = MockStudent.fromJson(student);
-            students.add(mockStudent);
-        }
     }
 
     void _onChangeSection() {
