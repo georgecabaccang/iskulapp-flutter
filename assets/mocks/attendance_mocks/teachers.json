@@ -1,0 +1,110 @@
+[
+    {
+      "id": "1",
+      "first_name": "Ethan",
+      "last_name": "Clark",
+      "section_id": "1"
+    },
+    {
+      "id": "2",
+      "first_name": "Olivia",
+      "last_name": "Miller",
+      "section_id": "1"
+    },
+    {
+      "id": "3",
+      "first_name": "Liam",
+      "last_name": "Wilson",
+      "section_id": "1"
+    },
+    {
+      "id": "10",
+      "first_name": "Grace",
+      "last_name": "Harrison",
+      "section_id": "1"
+    },
+    {
+      "id": "11",
+      "first_name": "James",
+      "last_name": "Moore",
+      "section_id": "1"
+    },
+    {
+      "id": "12",
+      "first_name": "Ava",
+      "last_name": "Taylor",
+      "section_id": "1"
+    },
+    {
+      "id": "4",
+      "first_name": "Benjamin",
+      "last_name": "Roberts",
+      "section_id": "2"
+    },
+    {
+      "id": "5",
+      "first_name": "Chloe",
+      "last_name": "Evans",
+      "section_id": "2"
+    },
+    {
+      "id": "6",
+      "first_name": "Noah",
+      "last_name": "Lopez",
+      "section_id": "2"
+    },
+    {
+      "id": "13",
+      "first_name": "Lily",
+      "last_name": "Martinez",
+      "section_id": "2"
+    },
+    {
+      "id": "14",
+      "first_name": "Henry",
+      "last_name": "Lee",
+      "section_id": "2"
+    },
+    {
+      "id": "15",
+      "first_name": "Charlotte",
+      "last_name": "Gonzalez",
+      "section_id": "2"
+    },
+    {
+      "id": "7",
+      "first_name": "Jack",
+      "last_name": "Adams",
+      "section_id": "3"
+    },
+    {
+      "id": "8",
+      "first_name": "Amelia",
+      "last_name": "Baker",
+      "section_id": "3"
+    },
+    {
+      "id": "9",
+      "first_name": "Oliver",
+      "last_name": "Carter",
+      "section_id": "3"
+    },
+    {
+      "id": "16",
+      "first_name": "Sophia",
+      "last_name": "Nelson",
+      "section_id": "3"
+    },
+    {
+      "id": "17",
+      "first_name": "Lucas",
+      "last_name": "King",
+      "section_id": "3"
+    },
+    {
+      "id": "18",
+      "first_name": "Mia",
+      "last_name": "Scott",
+      "section_id": "3"
+    }
+  ]

@@ -87,6 +87,13 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
+    void _handleChangeRole(DisplayValues? student) {
+        if (student is MockStudent) {
+            setState(() => _studentSelected = student);
+            if (_studentSelected != null) widget.changeStudentFilter(_studentSelected!);
+        }
+    }
+
     @override
     Widget build(Object context) {
         if (widget.role != Roles.teacher) {
