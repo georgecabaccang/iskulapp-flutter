@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/attendance_status.dart';
 
 class AttendanceInfo extends StatelessWidget{
     final AttendanceDetails details;
 
     const AttendanceInfo({super.key, required this.details});
+
+    String _formatTime(String? time) {
+        if (time == null) return "No time-in recorded.";
+
+        // Can be a one-liner, but opted for this for readability.
+        DateFormat format = DateFormat("HH:mm");
+        DateTime timeFromString = format.parse(time);
+        DateFormat outputFormat = DateFormat("hh:mm a");
+        return outputFormat.format(timeFromString);
+    }
 
     @override
     Widget build(BuildContext context) {
@@ -28,11 +37,10 @@ class AttendanceInfo extends StatelessWidget{
                     ],
                 ),
 
-                if (details.status == AttendanceStatus.late) 
                 Row(
                     children: [
-                        Text('Late Time: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(details.timeIn ?? 'No late time recorded'),
+                        Text('Time in: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(_formatTime(details.timeIn)),
                     ],
                 ),
 
