@@ -41,9 +41,8 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
   }
 
   void _watchAssessments() async {
-    final authState = context.read<AuthBloc>().state;
-    final authUser = getAuthUser(authState);
-    final teacherId = getTeacherId(authUser);
+    final authUser = getAuthUser(context);
+    final teacherId = getTeacherId(context);
 
     _subscription = assessmentRepository
         .watchTeacherAssessments(

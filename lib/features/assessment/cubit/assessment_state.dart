@@ -1,8 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:school_erp/enums/action_type.dart';
 import 'package:school_erp/enums/assessment_type.dart';
-import 'package:school_erp/features/auth/auth.dart';
-import 'package:school_erp/features/auth/utils.dart';
 import 'package:school_erp/models/assessment.dart';
 import 'package:school_erp/models/assessment_taker.dart';
 
@@ -23,14 +21,14 @@ class AssessmentState with _$AssessmentState {
   }) = _AssessmentState;
 
   factory AssessmentState.initial({
-    required AuthenticatedUser authUser,
+    required String teacherId,
     required AssessmentType assessmentTypeOnCreate,
     Assessment? existingAssessment,
   }) {
     return AssessmentState(
       assessment: existingAssessment ??
           Assessment.initialize(
-            preparedById: getTeacherId(authUser),
+            preparedById: teacherId,
             assessmentType: assessmentTypeOnCreate,
           ),
       actionType:

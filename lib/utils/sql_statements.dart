@@ -46,8 +46,38 @@ const teacherSectionsBySubjectSql = """
     AND subject_classes.subject_year_id = ?
 """;
 
+const teacherSectionsSql = """
+  SELECT DISTINCT sections.*
+  FROM sections
+  LEFT JOIN subject_classes ON subject_classes.section_id = sections.id
+  LEFT JOIN academic_years ON academic_years.id = sections.academic_year_id
+  WHERE subject_classes.teacher_id = ?
+    AND academic_years.id = ?
+""";
+
+const studentsAttendanceByDateAndSectionSql = """
+  SELECT *
+  FROM attendances
+  WHERE attendance_date = ?
+    AND section_id = ? 
+""";
+
+const studentsBySectionSql = """
+  SELECT 
+    students.*, 
+    user_profiles.first_name,
+    user_profiles.last_name
+  FROM students
+  LEFT JOIN student_sections ON student_sections.student_id = students.id
+  LEFT JOIN user_profiles ON user_profiles.user_id = students.user_id
+  WHERE student_sections.section_id = ?
+  ORDER BY user_profiles.last_name ASC;
+""";
+
 const assessmentTakersSql = """
-  SELECT assessment_takers.*, sections.name AS section_name
+  SELECT 
+    assessment_takers.*, 
+    sections.name AS section_name
   FROM assessment_takers
   LEFT JOIN assessments ON assessments.id = assessment_takers.assessment_id
   LEFT JOIN sections ON sections.id = assessment_takers.section_id
