@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_erp/features/attendance/attendance_service.dart';
 import 'package:school_erp/features/attendance/cubit/attendance_check_cubit.dart';
-import 'package:school_erp/pages/attendace/attedance_create_update/attendance_create_update_form.dart';
-import 'package:school_erp/pages/common_widgets/default_layout.dart';
+import 'package:school_erp/pages/attendace/attedance_create_update/attendance_create_update_view.dart';
 import 'package:school_erp/repositories/attendance_repository.dart';
 import 'package:school_erp/repositories/student_repository.dart';
 
@@ -45,16 +44,5 @@ class AttendanceCreateUpdatePage extends StatelessWidget {
         },
       ),
     );
-  }
-}
-
-class AttendanceCreateUpdateView extends StatelessWidget {
-  const AttendanceCreateUpdateView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultLayout(title: 'Check Attendance', content: [
-      AttendanceCreateUpdateForm(),
-    ]);
   }
 }
