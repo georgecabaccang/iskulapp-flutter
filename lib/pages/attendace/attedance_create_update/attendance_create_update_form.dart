@@ -66,32 +66,35 @@ class _AttendanceCreateUpdateFormState
   Widget build(BuildContext context) {
     return isLoading
         ? const CircularProgressIndicator()
-        : Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AttendanceFilter(
-                selectedSection: selectedSection,
-                sectionList: sectionList,
-                selectedDate: selectedDate,
-                onSectionSelected: (section) {
-                  setState(() {
-                    selectedSection = section;
-                    _getAttendanceList(context);
-                  });
-                },
-                onDateSelected: (pickedDate) {
-                  setState(() {
-                    selectedDate = pickedDate!;
-                    _getAttendanceList(context);
-                  });
-                },
-              ),
-              const SizedBox(height: 8),
-              AttendanceCheckList(
-                section: selectedSection,
-                date: selectedDate,
-              ),
-            ],
+        : Expanded(
+            child: Column(
+              children: [
+                AttendanceFilter(
+                  selectedSection: selectedSection,
+                  sectionList: sectionList,
+                  selectedDate: selectedDate,
+                  onSectionSelected: (section) {
+                    setState(() {
+                      selectedSection = section;
+                      _getAttendanceList(context);
+                    });
+                  },
+                  onDateSelected: (pickedDate) {
+                    setState(() {
+                      selectedDate = pickedDate!;
+                      _getAttendanceList(context);
+                    });
+                  },
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                Expanded(
+                  child: AttendanceCheckList(
+                    section: selectedSection,
+                    date: selectedDate,
+                  ),
+                ),
+              ],
+            ),
           );
   }
 }

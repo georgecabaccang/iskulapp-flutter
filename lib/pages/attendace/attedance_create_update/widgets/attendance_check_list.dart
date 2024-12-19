@@ -8,13 +8,11 @@ import 'package:school_erp/pages/attendace/attedance_create_update/widgets/atten
 class AttendanceCheckList extends StatelessWidget {
   final DateTime? date;
   final Section? section;
-
   const AttendanceCheckList({
     required this.section,
     required this.date,
     super.key,
   });
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AttendanceCheckCubit, AttendanceCheckState>(
@@ -41,23 +39,25 @@ class AttendanceCheckList extends StatelessWidget {
               height: 1,
               thickness: 1,
             ),
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: state.attendanceList.length,
-              separatorBuilder: (context, index) => Column(
-                children: [
-                  const SizedBox(height: 5),
-                  Divider(
-                    color: Colors.grey.shade300,
-                    height: 1,
-                    thickness: 1,
-                  ),
-                ],
+            Expanded(
+              child: ListView.separated(
+                shrinkWrap: true,
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemCount: state.attendanceList.length,
+                separatorBuilder: (context, index) => Column(
+                  children: [
+                    const SizedBox(height: 5),
+                    Divider(
+                      color: Colors.grey.shade300,
+                      height: 1,
+                      thickness: 1,
+                    ),
+                  ],
+                ),
+                itemBuilder: (context, idx) {
+                  return AttendanceCheckItem(index: idx);
+                },
               ),
-              itemBuilder: (context, idx) {
-                return AttendanceCheckItem(index: idx);
-              },
             ),
           ],
         );
