@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/models/section.dart';
+import 'package:school_erp/theme/colors.dart';
 import 'package:school_erp/utils/extensions/string_extension.dart';
 import 'package:school_erp/constants/attendance/form_labels.dart' as form;
 
@@ -34,7 +35,8 @@ class SectionFilter extends StatelessWidget {
         ),
       ),
       isExpanded: true,
-      icon: const Icon(Icons.keyboard_arrow_down_sharp, color: Colors.grey),
+      icon: const Icon(Icons.keyboard_arrow_down_sharp,
+          color: AppColors.greyColor),
     );
   }
 }
