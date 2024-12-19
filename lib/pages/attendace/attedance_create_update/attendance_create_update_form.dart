@@ -29,15 +29,25 @@ class _AttendanceCreateUpdateFormState
   }
 
   Future<void> _loadSections() async {
-    final authUser = getAuthUser(context);
-    final teacherId = getTeacherId(context);
-    final fetchedSections = await sectionRepository.getTeacherSectionsAll(
-      teacherId: teacherId,
-      academicYearId: authUser.academicYearId,
-    );
-    sectionList.addAll(fetchedSections);
+    if (!mounted) return;
 
-    setState(() => isLoading = false);
+    try {
+      final authUser = getAuthUser(context);
+      final teacherId = getTeacherId(context);
+      final fetchedSections = await sectionRepository.getTeacherSectionsAll(
+        teacherId: teacherId,
+        academicYearId: authUser.academicYearId,
+      );
+
+      sectionList.addAll(fetchedSections);
+    } catch (error) {
+      //TODO: handle potential errors
+      rethrow;
+    } finally {
+      if (mounted) {
+        setState(() => isLoading = false);
+      }
+    }
   }
 
   void _getAttendanceList(BuildContext context) {
