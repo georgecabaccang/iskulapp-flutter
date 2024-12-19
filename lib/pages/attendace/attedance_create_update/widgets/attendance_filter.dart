@@ -21,6 +21,9 @@ class AttendanceFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sw = MediaQuery.of(context).size.width;
+    final boxWidth = sw * 0.10;
+
     return Row(
       children: [
         Expanded(
@@ -31,7 +34,7 @@ class AttendanceFilter extends StatelessWidget {
             onSectionSelected: onSectionSelected,
           ),
         ),
-        const SizedBox(width: 30),
+        SizedBox(width: boxWidth),
         Expanded(
           flex: 1,
           child: DateSelector(
