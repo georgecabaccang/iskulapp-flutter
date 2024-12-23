@@ -29,16 +29,16 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     late ResourceLoader resourceLoader = ResourceLoader();
 
     // For testing purposes with teacher.json
-    late List<MockTeacher> teachers;
+    List<MockTeacher> teachers = [];
 
     // For testing purposes with students.json
-    late List<MockStudent> students;
+    List<MockStudent> students = [];
 
     // For testing purposes with attendance.json
-    late List<AttendanceDetails> attendanceStudent;
+    List<AttendanceDetails> attendanceStudent = [];
 
     // For testing purposes with teacher_attendance.json
-    late List<AttendanceDetails> attendanceTeacher;
+    List<AttendanceDetails> attendanceTeacher = [];
 
     // For testing purposes for attendance for each person
     Map<DateTime, AttendanceDetails> attendanceDetails = {};
