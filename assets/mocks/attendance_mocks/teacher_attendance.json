@@ -1,0 +1,1587 @@
+[
+    {
+      "id": "1",
+      "teacher_id": "1",
+      "section_id": "1",
+      "attendance_date": "2024-12-02",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "2",
+      "teacher_id": "1",
+      "section_id": "1",
+      "attendance_date": "2024-12-03",
+      "status": "late",
+      "time_in": "9:00"
+    },
+    {
+      "id": "3",
+      "teacher_id": "1",
+      "section_id": "1",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "4",
+      "teacher_id": "1",
+      "section_id": "1",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "5",
+      "teacher_id": "1",
+      "section_id": "1",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "6",
+      "teacher_id": "1",
+      "section_id": "1",
+      "attendance_date": "2024-12-07",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "7",
+      "teacher_id": "1",
+      "section_id": "1",
+      "attendance_date": "2024-12-09",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "8",
+      "teacher_id": "1",
+      "section_id": "1",
+      "attendance_date": "2024-12-10",
+      "status": "late",
+      "time_in": "8:30"
+    },
+    {
+      "id": "9",
+      "teacher_id": "1",
+      "section_id": "1",
+      "attendance_date": "2024-12-11",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "10",
+      "teacher_id": "1",
+      "section_id": "1",
+      "attendance_date": "2024-12-12",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "11",
+      "teacher_id": "1",
+      "section_id": "1",
+      "attendance_date": "2024-12-13",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "12",
+      "teacher_id": "2",
+      "section_id": "1",
+      "attendance_date": "2024-12-02",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "13",
+      "teacher_id": "2",
+      "section_id": "1",
+      "attendance_date": "2024-12-03",
+      "status": "late",
+      "time_in": "9:00"
+    },
+    {
+      "id": "14",
+      "teacher_id": "2",
+      "section_id": "1",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "15",
+      "teacher_id": "2",
+      "section_id": "1",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "16",
+      "teacher_id": "2",
+      "section_id": "1",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "17",
+      "teacher_id": "2",
+      "section_id": "1",
+      "attendance_date": "2024-12-07",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "18",
+      "teacher_id": "2",
+      "section_id": "1",
+      "attendance_date": "2024-12-09",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "19",
+      "teacher_id": "2",
+      "section_id": "1",
+      "attendance_date": "2024-12-10",
+      "status": "late",
+      "time_in": "8:30"
+    },
+    {
+      "id": "20",
+      "teacher_id": "2",
+      "section_id": "1",
+      "attendance_date": "2024-12-11",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "21",
+      "teacher_id": "2",
+      "section_id": "1",
+      "attendance_date": "2024-12-12",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "22",
+      "teacher_id": "2",
+      "section_id": "1",
+      "attendance_date": "2024-12-13",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "23",
+      "teacher_id": "3",
+      "section_id": "1",
+      "attendance_date": "2024-12-02",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "24",
+      "teacher_id": "3",
+      "section_id": "1",
+      "attendance_date": "2024-12-03",
+      "status": "late",
+      "time_in": "10:00"
+    },
+    {
+      "id": "25",
+      "teacher_id": "3",
+      "section_id": "1",
+      "attendance_date": "2024-12-04",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "26",
+      "teacher_id": "3",
+      "section_id": "1",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "27",
+      "teacher_id": "3",
+      "section_id": "1",
+      "attendance_date": "2024-12-06",
+      "status": "late",
+      "time_in": "11:30"
+    },
+    {
+      "id": "28",
+      "teacher_id": "3",
+      "section_id": "1",
+      "attendance_date": "2024-12-07",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "29",
+      "teacher_id": "3",
+      "section_id": "1",
+      "attendance_date": "2024-12-09",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "30",
+      "teacher_id": "3",
+      "section_id": "1",
+      "attendance_date": "2024-12-10",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "31",
+      "teacher_id": "3",
+      "section_id": "1",
+      "attendance_date": "2024-12-11",
+      "status": "late",
+      "time_in": "8:15"
+    },
+    {
+      "id": "32",
+      "teacher_id": "3",
+      "section_id": "1",
+      "attendance_date": "2024-12-12",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "33",
+      "teacher_id": "3",
+      "section_id": "1",
+      "attendance_date": "2024-12-13",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "34",
+      "teacher_id": "10",
+      "section_id": "1",
+      "attendance_date": "2024-12-02",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "35",
+      "teacher_id": "10",
+      "section_id": "1",
+      "attendance_date": "2024-12-03",
+      "status": "late",
+      "time_in": "9:00"
+    },
+    {
+      "id": "36",
+      "teacher_id": "10",
+      "section_id": "1",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "37",
+      "teacher_id": "10",
+      "section_id": "1",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "38",
+      "teacher_id": "10",
+      "section_id": "1",
+      "attendance_date": "2024-12-06",
+      "status": "late",
+      "time_in": "11:00"
+    },
+    {
+      "id": "39",
+      "teacher_id": "10",
+      "section_id": "1",
+      "attendance_date": "2024-12-07",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "40",
+      "teacher_id": "10",
+      "section_id": "1",
+      "attendance_date": "2024-12-09",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "41",
+      "teacher_id": "10",
+      "section_id": "1",
+      "attendance_date": "2024-12-10",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "42",
+      "teacher_id": "10",
+      "section_id": "1",
+      "attendance_date": "2024-12-11",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "43",
+      "teacher_id": "10",
+      "section_id": "1",
+      "attendance_date": "2024-12-12",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "44",
+      "teacher_id": "10",
+      "section_id": "1",
+      "attendance_date": "2024-12-13",
+      "status": "late",
+      "time_in": "8:30"
+    },
+    {
+      "id": "45",
+      "teacher_id": "11",
+      "section_id": "1",
+      "attendance_date": "2024-12-02",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "46",
+      "teacher_id": "11",
+      "section_id": "1",
+      "attendance_date": "2024-12-03",
+      "status": "late",
+      "time_in": "9:30"
+    },
+    {
+      "id": "47",
+      "teacher_id": "11",
+      "section_id": "1",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "48",
+      "teacher_id": "11",
+      "section_id": "1",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "49",
+      "teacher_id": "11",
+      "section_id": "1",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "50",
+      "teacher_id": "11",
+      "section_id": "1",
+      "attendance_date": "2024-12-07",
+      "status": "late",
+      "time_in": "11:00"
+    },
+    {
+      "id": "51",
+      "teacher_id": "11",
+      "section_id": "1",
+      "attendance_date": "2024-12-09",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "52",
+      "teacher_id": "11",
+      "section_id": "1",
+      "attendance_date": "2024-12-10",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "53",
+      "teacher_id": "11",
+      "section_id": "1",
+      "attendance_date": "2024-12-11",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "54",
+      "teacher_id": "11",
+      "section_id": "1",
+      "attendance_date": "2024-12-12",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "55",
+      "teacher_id": "11",
+      "section_id": "1",
+      "attendance_date": "2024-12-13",
+      "status": "late",
+      "time_in": "9:15"
+    },
+    {
+      "id": "56",
+      "teacher_id": "12",
+      "section_id": "1",
+      "attendance_date": "2024-12-02",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "57",
+      "teacher_id": "12",
+      "section_id": "1",
+      "attendance_date": "2024-12-03",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "58",
+      "teacher_id": "12",
+      "section_id": "1",
+      "attendance_date": "2024-12-04",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "59",
+      "teacher_id": "12",
+      "section_id": "1",
+      "attendance_date": "2024-12-05",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "60",
+      "teacher_id": "12",
+      "section_id": "1",
+      "attendance_date": "2024-12-06",
+      "status": "late",
+      "time_in": "10:00"
+    },
+    {
+      "id": "61",
+      "teacher_id": "12",
+      "section_id": "1",
+      "attendance_date": "2024-12-07",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "62",
+      "teacher_id": "12",
+      "section_id": "1",
+      "attendance_date": "2024-12-09",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "63",
+      "teacher_id": "12",
+      "section_id": "1",
+      "attendance_date": "2024-12-10",
+      "status": "late",
+      "time_in": "11:30"
+    },
+    {
+      "id": "64",
+      "teacher_id": "12",
+      "section_id": "1",
+      "attendance_date": "2024-12-11",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "65",
+      "teacher_id": "12",
+      "section_id": "1",
+      "attendance_date": "2024-12-12",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "66",
+      "teacher_id": "12",
+      "section_id": "1",
+      "attendance_date": "2024-12-13",
+      "status": "late",
+      "time_in": "9:00"
+    },
+    {
+      "id": "67",
+      "teacher_id": "4",
+      "section_id": "2",
+      "attendance_date": "2024-12-02",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "68",
+      "teacher_id": "4",
+      "section_id": "2",
+      "attendance_date": "2024-12-03",
+      "status": "late",
+      "time_in": "8:30"
+    },
+    {
+      "id": "69",
+      "teacher_id": "4",
+      "section_id": "2",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "70",
+      "teacher_id": "4",
+      "section_id": "2",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "71",
+      "teacher_id": "4",
+      "section_id": "2",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "72",
+      "teacher_id": "4",
+      "section_id": "2",
+      "attendance_date": "2024-12-07",
+      "status": "late",
+      "time_in": "10:00"
+    },
+    {
+      "id": "73",
+      "teacher_id": "4",
+      "section_id": "2",
+      "attendance_date": "2024-12-09",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "74",
+      "teacher_id": "4",
+      "section_id": "2",
+      "attendance_date": "2024-12-10",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "75",
+      "teacher_id": "4",
+      "section_id": "2",
+      "attendance_date": "2024-12-11",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "76",
+      "teacher_id": "4",
+      "section_id": "2",
+      "attendance_date": "2024-12-12",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "77",
+      "teacher_id": "4",
+      "section_id": "2",
+      "attendance_date": "2024-12-13",
+      "status": "late",
+      "time_in": "9:15"
+    },
+    {
+      "id": "78",
+      "teacher_id": "5",
+      "section_id": "2",
+      "attendance_date": "2024-12-02",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "79",
+      "teacher_id": "5",
+      "section_id": "2",
+      "attendance_date": "2024-12-03",
+      "status": "late",
+      "time_in": "9:15"
+    },
+    {
+      "id": "80",
+      "teacher_id": "5",
+      "section_id": "2",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "81",
+      "teacher_id": "5",
+      "section_id": "2",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "82",
+      "teacher_id": "5",
+      "section_id": "2",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "83",
+      "teacher_id": "5",
+      "section_id": "2",
+      "attendance_date": "2024-12-07",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "84",
+      "teacher_id": "5",
+      "section_id": "2",
+      "attendance_date": "2024-12-09",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "85",
+      "teacher_id": "5",
+      "section_id": "2",
+      "attendance_date": "2024-12-10",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "86",
+      "teacher_id": "5",
+      "section_id": "2",
+      "attendance_date": "2024-12-11",
+      "status": "late",
+      "time_in": "10:30"
+    },
+    {
+      "id": "87",
+      "teacher_id": "5",
+      "section_id": "2",
+      "attendance_date": "2024-12-12",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "88",
+      "teacher_id": "5",
+      "section_id": "2",
+      "attendance_date": "2024-12-13",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "89",
+      "teacher_id": "6",
+      "section_id": "2",
+      "attendance_date": "2024-12-02",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "90",
+      "teacher_id": "6",
+      "section_id": "2",
+      "attendance_date": "2024-12-03",
+      "status": "late",
+      "time_in": "8:00"
+    },
+    {
+      "id": "91",
+      "teacher_id": "6",
+      "section_id": "2",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "92",
+      "teacher_id": "6",
+      "section_id": "2",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "93",
+      "teacher_id": "6",
+      "section_id": "2",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "94",
+      "teacher_id": "6",
+      "section_id": "2",
+      "attendance_date": "2024-12-07",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "95",
+      "teacher_id": "6",
+      "section_id": "2",
+      "attendance_date": "2024-12-09",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "96",
+      "teacher_id": "6",
+      "section_id": "2",
+      "attendance_date": "2024-12-10",
+      "status": "late",
+      "time_in": "9:00"
+    },
+    {
+      "id": "97",
+      "teacher_id": "6",
+      "section_id": "2",
+      "attendance_date": "2024-12-11",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "98",
+      "teacher_id": "6",
+      "section_id": "2",
+      "attendance_date": "2024-12-12",
+      "status": "late",
+      "time_in": "10:00"
+    },
+    {
+      "id": "99",
+      "teacher_id": "6",
+      "section_id": "2",
+      "attendance_date": "2024-12-13",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "100",
+      "teacher_id": "13",
+      "section_id": "2",
+      "attendance_date": "2024-12-02",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "101",
+      "teacher_id": "13",
+      "section_id": "2",
+      "attendance_date": "2024-12-03",
+      "status": "late",
+      "time_in": "8:45"
+    },
+    {
+      "id": "102",
+      "teacher_id": "13",
+      "section_id": "2",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "103",
+      "teacher_id": "13",
+      "section_id": "2",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "104",
+      "teacher_id": "13",
+      "section_id": "2",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "105",
+      "teacher_id": "13",
+      "section_id": "2",
+      "attendance_date": "2024-12-07",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "106",
+      "teacher_id": "13",
+      "section_id": "2",
+      "attendance_date": "2024-12-09",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "107",
+      "teacher_id": "13",
+      "section_id": "2",
+      "attendance_date": "2024-12-10",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "108",
+      "teacher_id": "13",
+      "section_id": "2",
+      "attendance_date": "2024-12-11",
+      "status": "late",
+      "time_in": "9:30"
+    },
+    {
+      "id": "109",
+      "teacher_id": "13",
+      "section_id": "2",
+      "attendance_date": "2024-12-12",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "110",
+      "teacher_id": "13",
+      "section_id": "2",
+      "attendance_date": "2024-12-13",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "111",
+      "teacher_id": "14",
+      "section_id": "2",
+      "attendance_date": "2024-12-02",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "112",
+      "teacher_id": "14",
+      "section_id": "2",
+      "attendance_date": "2024-12-03",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "113",
+      "teacher_id": "14",
+      "section_id": "2",
+      "attendance_date": "2024-12-04",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "114",
+      "teacher_id": "14",
+      "section_id": "2",
+      "attendance_date": "2024-12-05",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "115",
+      "teacher_id": "14",
+      "section_id": "2",
+      "attendance_date": "2024-12-06",
+      "status": "late",
+      "time_in": "9:00"
+    },
+    {
+      "id": "116",
+      "teacher_id": "14",
+      "section_id": "2",
+      "attendance_date": "2024-12-07",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "117",
+      "teacher_id": "14",
+      "section_id": "2",
+      "attendance_date": "2024-12-09",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "118",
+      "teacher_id": "14",
+      "section_id": "2",
+      "attendance_date": "2024-12-10",
+      "status": "late",
+      "time_in": "10:30"
+    },
+    {
+      "id": "119",
+      "teacher_id": "14",
+      "section_id": "2",
+      "attendance_date": "2024-12-11",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "120",
+      "teacher_id": "14",
+      "section_id": "2",
+      "attendance_date": "2024-12-12",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "121",
+      "teacher_id": "14",
+      "section_id": "2",
+      "attendance_date": "2024-12-13",
+      "status": "late",
+      "time_in": "8:45"
+    },
+    {
+      "id": "122",
+      "teacher_id": "15",
+      "section_id": "2",
+      "attendance_date": "2024-12-02",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "123",
+      "teacher_id": "15",
+      "section_id": "2",
+      "attendance_date": "2024-12-03",
+      "status": "late",
+      "time_in": "8:15"
+    },
+    {
+      "id": "124",
+      "teacher_id": "15",
+      "section_id": "2",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "125",
+      "teacher_id": "15",
+      "section_id": "2",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "126",
+      "teacher_id": "15",
+      "section_id": "2",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "127",
+      "teacher_id": "15",
+      "section_id": "2",
+      "attendance_date": "2024-12-07",
+      "status": "late",
+      "time_in": "9:30"
+    },
+    {
+      "id": "128",
+      "teacher_id": "15",
+      "section_id": "2",
+      "attendance_date": "2024-12-09",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "129",
+      "teacher_id": "15",
+      "section_id": "2",
+      "attendance_date": "2024-12-10",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "130",
+      "teacher_id": "15",
+      "section_id": "2",
+      "attendance_date": "2024-12-11",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "131",
+      "teacher_id": "15",
+      "section_id": "2",
+      "attendance_date": "2024-12-12",
+      "status": "late",
+      "time_in": "8:45"
+    },
+    {
+      "id": "132",
+      "teacher_id": "15",
+      "section_id": "2",
+      "attendance_date": "2024-12-13",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "133",
+      "teacher_id": "7",
+      "section_id": "3",
+      "attendance_date": "2024-12-02",
+      "status": "late",
+      "time_in": "9:00"
+    },
+    {
+      "id": "134",
+      "teacher_id": "7",
+      "section_id": "3",
+      "attendance_date": "2024-12-03",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "135",
+      "teacher_id": "7",
+      "section_id": "3",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "136",
+      "teacher_id": "7",
+      "section_id": "3",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "137",
+      "teacher_id": "7",
+      "section_id": "3",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "138",
+      "teacher_id": "7",
+      "section_id": "3",
+      "attendance_date": "2024-12-07",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "139",
+      "teacher_id": "7",
+      "section_id": "3",
+      "attendance_date": "2024-12-09",
+      "status": "late",
+      "time_in": "10:15"
+    },
+    {
+      "id": "140",
+      "teacher_id": "7",
+      "section_id": "3",
+      "attendance_date": "2024-12-10",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "141",
+      "teacher_id": "7",
+      "section_id": "3",
+      "attendance_date": "2024-12-11",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "142",
+      "teacher_id": "7",
+      "section_id": "3",
+      "attendance_date": "2024-12-12",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "143",
+      "teacher_id": "7",
+      "section_id": "3",
+      "attendance_date": "2024-12-13",
+      "status": "late",
+      "time_in": "9:30"
+    },
+    {
+      "id": "144",
+      "teacher_id": "8",
+      "section_id": "3",
+      "attendance_date": "2024-12-02",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "145",
+      "teacher_id": "8",
+      "section_id": "3",
+      "attendance_date": "2024-12-03",
+      "status": "late",
+      "time_in": "8:30"
+    },
+    {
+      "id": "146",
+      "teacher_id": "8",
+      "section_id": "3",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "147",
+      "teacher_id": "8",
+      "section_id": "3",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "148",
+      "teacher_id": "8",
+      "section_id": "3",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "149",
+      "teacher_id": "8",
+      "section_id": "3",
+      "attendance_date": "2024-12-07",
+      "status": "late",
+      "time_in": "9:00"
+    },
+    {
+      "id": "150",
+      "teacher_id": "8",
+      "section_id": "3",
+      "attendance_date": "2024-12-09",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "151",
+      "teacher_id": "8",
+      "section_id": "3",
+      "attendance_date": "2024-12-10",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "152",
+      "teacher_id": "8",
+      "section_id": "3",
+      "attendance_date": "2024-12-11",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "153",
+      "teacher_id": "8",
+      "section_id": "3",
+      "attendance_date": "2024-12-12",
+      "status": "late",
+      "time_in": "9:15"
+    },
+    {
+      "id": "154",
+      "teacher_id": "8",
+      "section_id": "3",
+      "attendance_date": "2024-12-13",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "155",
+      "teacher_id": "9",
+      "section_id": "3",
+      "attendance_date": "2024-12-02",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "156",
+      "teacher_id": "9",
+      "section_id": "3",
+      "attendance_date": "2024-12-03",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "157",
+      "teacher_id": "9",
+      "section_id": "3",
+      "attendance_date": "2024-12-04",
+      "status": "late",
+      "time_in": "8:45"
+    },
+    {
+      "id": "158",
+      "teacher_id": "9",
+      "section_id": "3",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "159",
+      "teacher_id": "9",
+      "section_id": "3",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "160",
+      "teacher_id": "9",
+      "section_id": "3",
+      "attendance_date": "2024-12-07",
+      "status": "late",
+      "time_in": "9:30"
+    },
+    {
+      "id": "161",
+      "teacher_id": "9",
+      "section_id": "3",
+      "attendance_date": "2024-12-09",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "162",
+      "teacher_id": "9",
+      "section_id": "3",
+      "attendance_date": "2024-12-10",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "163",
+      "teacher_id": "9",
+      "section_id": "3",
+      "attendance_date": "2024-12-11",
+      "status": "late",
+      "time_in": "8:00"
+    },
+    {
+      "id": "164",
+      "teacher_id": "9",
+      "section_id": "3",
+      "attendance_date": "2024-12-12",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "165",
+      "teacher_id": "9",
+      "section_id": "3",
+      "attendance_date": "2024-12-13",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "166",
+      "teacher_id": "16",
+      "section_id": "3",
+      "attendance_date": "2024-12-02",
+      "status": "late",
+      "time_in": "9:00"
+    },
+    {
+      "id": "167",
+      "teacher_id": "16",
+      "section_id": "3",
+      "attendance_date": "2024-12-03",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "168",
+      "teacher_id": "16",
+      "section_id": "3",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "169",
+      "teacher_id": "16",
+      "section_id": "3",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "170",
+      "teacher_id": "16",
+      "section_id": "3",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "171",
+      "teacher_id": "16",
+      "section_id": "3",
+      "attendance_date": "2024-12-07",
+      "status": "late",
+      "time_in": "9:30"
+    },
+    {
+      "id": "172",
+      "teacher_id": "16",
+      "section_id": "3",
+      "attendance_date": "2024-12-09",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "173",
+      "teacher_id": "16",
+      "section_id": "3",
+      "attendance_date": "2024-12-10",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "174",
+      "teacher_id": "16",
+      "section_id": "3",
+      "attendance_date": "2024-12-11",
+      "status": "late",
+      "time_in": "8:15"
+    },
+    {
+      "id": "175",
+      "teacher_id": "16",
+      "section_id": "3",
+      "attendance_date": "2024-12-12",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "176",
+      "teacher_id": "16",
+      "section_id": "3",
+      "attendance_date": "2024-12-13",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "177",
+      "teacher_id": "17",
+      "section_id": "3",
+      "attendance_date": "2024-12-02",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "178",
+      "teacher_id": "17",
+      "section_id": "3",
+      "attendance_date": "2024-12-03",
+      "status": "late",
+      "time_in": "8:15"
+    },
+    {
+      "id": "179",
+      "teacher_id": "17",
+      "section_id": "3",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "180",
+      "teacher_id": "17",
+      "section_id": "3",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "181",
+      "teacher_id": "17",
+      "section_id": "3",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "182",
+      "teacher_id": "17",
+      "section_id": "3",
+      "attendance_date": "2024-12-07",
+      "status": "late",
+      "time_in": "9:00"
+    },
+    {
+      "id": "183",
+      "teacher_id": "17",
+      "section_id": "3",
+      "attendance_date": "2024-12-09",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "184",
+      "teacher_id": "17",
+      "section_id": "3",
+      "attendance_date": "2024-12-10",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "185",
+      "teacher_id": "17",
+      "section_id": "3",
+      "attendance_date": "2024-12-11",
+      "status": "late",
+      "time_in": "8:30"
+    },
+    {
+      "id": "186",
+      "teacher_id": "17",
+      "section_id": "3",
+      "attendance_date": "2024-12-12",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "187",
+      "teacher_id": "17",
+      "section_id": "3",
+      "attendance_date": "2024-12-13",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "188",
+      "teacher_id": "18",
+      "section_id": "3",
+      "attendance_date": "2024-12-02",
+      "status": "late",
+      "time_in": "9:00"
+    },
+    {
+      "id": "189",
+      "teacher_id": "18",
+      "section_id": "3",
+      "attendance_date": "2024-12-03",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "190",
+      "teacher_id": "18",
+      "section_id": "3",
+      "attendance_date": "2024-12-04",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "191",
+      "teacher_id": "18",
+      "section_id": "3",
+      "attendance_date": "2024-12-05",
+      "status": "leave",
+      "time_in": ""
+    },
+    {
+      "id": "192",
+      "teacher_id": "18",
+      "section_id": "3",
+      "attendance_date": "2024-12-06",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "193",
+      "teacher_id": "18",
+      "section_id": "3",
+      "attendance_date": "2024-12-07",
+      "status": "late",
+      "time_in": "9:30"
+    },
+    {
+      "id": "194",
+      "teacher_id": "18",
+      "section_id": "3",
+      "attendance_date": "2024-12-09",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "195",
+      "teacher_id": "18",
+      "section_id": "3",
+      "attendance_date": "2024-12-10",
+      "status": "absent",
+      "time_in": ""
+    },
+    {
+      "id": "196",
+      "teacher_id": "18",
+      "section_id": "3",
+      "attendance_date": "2024-12-11",
+      "status": "late",
+      "time_in": "8:00"
+    },
+    {
+      "id": "197",
+      "teacher_id": "18",
+      "section_id": "3",
+      "attendance_date": "2024-12-12",
+      "status": "present",
+      "time_in": "7:00"
+    },
+    {
+      "id": "198",
+      "teacher_id": "18",
+      "section_id": "3",
+      "attendance_date": "2024-12-13",
+      "status": "leave",
+      "time_in": ""
+    }
+  ]
+  
