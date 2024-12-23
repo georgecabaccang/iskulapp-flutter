@@ -36,9 +36,6 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     List<MockRole> roles = [];
     late List<MockTeacher> teachersOfSection = [];
     late List<MockStudent> studentsOfSection = [];
-    // Remove this "ignore" later when _isLoading is used.
-    // This is just to supress the warning for now.
-    // ignore: unused_field
     bool _isLoading = true;
 
     MockStudent? _studentSelected;
@@ -64,8 +61,11 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                     sections = data['sections'] ?? [];
                     roles = data['roles'] ?? [];
                 });
-        } catch (error) {
+        } 
+        // Properly handle errors in the future.
+        catch (error) {
             if (!mounted) return;
+            print(error);
         } finally {
             setState(() => _isLoading = false);
         }
@@ -76,11 +76,13 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
 
         if (newSection is MockSection) {
             setState(() {
+                    // Reset all values here to avoid exceptions.
                     _studentSelected = null;
                     _teacherSelected = null;
                     _roleSelected = null;
                     widget.changeSectionFilter();
 
+                    // Get students and teachers per section on change of section
                     MockSection currentSection = sections.firstWhere((section) => section.id == newSection.id);
                     studentsOfSection = widget.students.where((student) => student.sectionId == currentSection.id).toList();
                     teachersOfSection = widget.teachers.where((teacher) => teacher.sectionId == currentSection.id).toList();
@@ -90,6 +92,12 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     }
 
     void _handleChangePerson(DisplayValues? person) {
+        // These setStates here are needed here to rebuild the 'Name' dropdown list
+        // and display update data based on selected person.
+
+        // widget.changePersonFilter() here is responsible for changing the display
+        // on the calendar depending on the data.
+
         if (person is MockStudent) {
             setState(() => _studentSelected = person);
             widget.changePersonFilter(_studentSelected);
@@ -104,10 +112,13 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     void _handleChangeFilterBy(DisplayValues? role) {
         if (role is MockRole) {
             setState(() {
+                    // Reset _studentSelected and _teacherSelected here to avoid exceptions.
                     _roleSelected = role;
                     _studentSelected = null;
                     _teacherSelected = null;
                 });
+
+            // This is to remove decorations and details of attendance status on the calendar.
             widget.changePersonFilter(null);
         }
     }
@@ -118,6 +129,9 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
 
         if (_isLoading) return Center(child: CircularProgressIndicator());
 
+        // This can be optimized futher, but will have to
+        // separate these dropdowns in to its own statefulwidgets,
+        // but for now, this is fine. Just something to think about.
         final List<FormDropDownList> dropDowns = [
             FormDropDownList(
                 selectedValue: null,
