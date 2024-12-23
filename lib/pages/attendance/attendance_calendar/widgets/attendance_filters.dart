@@ -35,13 +35,13 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     List<MockSection> sections = [];
     List<MockRole> roles = [];
     late List<MockTeacher> teachersOfSection = [];
-    late List<MockStudent> studentsOfSection = [];
+    late List<MockStudent> peopleOfSection = [];
     // Remove this "ignore" later when _isLoading is used.
     // This is just to supress the warning for now.
     // ignore: unused_field
     bool _isLoading = true;
 
-    MockStudent? _studentSelected;
+    MockStudent? _personSelected;
     MockRole? _roleSelected;
 
     @override
@@ -89,21 +89,21 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
 
         if (newSection is MockSection) {
             setState(() {
-                    _studentSelected = null;
+                    _personSelected = null;
                     _roleSelected = null;
                     widget.changeSectionFilter();
 
                     MockSection currentSection = sections.firstWhere((section) => section.id == newSection.id);
-                    studentsOfSection = widget.students.where((student) => student.sectionId == currentSection.id).toList();
+                    peopleOfSection = widget.students.where((student) => student.sectionId == currentSection.id).toList();
                 }
             );
         }
     }
 
-    void _handleChangeStudent(DisplayValues? student) {
-        if (student is MockStudent) {
-            setState(() => _studentSelected = student);
-            if (_studentSelected != null) widget.changeStudentFilter(_studentSelected!);
+    void _handleChangePerson(DisplayValues? person) {
+        if (person is MockStudent) {
+            setState(() => _personSelected = person);
+            if (_personSelected != null) widget.changeStudentFilter(_personSelected!);
         }
     }
 
@@ -111,9 +111,9 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         if (role is MockRole) {
             setState(() {
                     _roleSelected = role;
-                    _studentSelected = null;
+                    _personSelected = null;
                 });
-            if (_roleSelected != null) widget.changeStudentFilter(_studentSelected);
+            if (_roleSelected != null) widget.changeStudentFilter(_personSelected);
         }
     }
 
@@ -141,12 +141,12 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 onChangedFn: _handleChangeFilterBy,
             ),
             FormDropDownList(
-                selectedValue: _studentSelected,
-                options: studentsOfSection,
+                selectedValue: _personSelected,
+                options: peopleOfSection,
                 label: "Name", 
                 hint: "Select a name...", 
                 errorMessage: "Please select a name.", 
-                onChangedFn: _handleChangeStudent,
+                onChangedFn: _handleChangePerson,
             ),
 
         ];

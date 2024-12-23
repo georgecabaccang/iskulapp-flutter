@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/mocks/mock_teacher.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
@@ -37,7 +38,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     List<AttendanceDetails> attendance = [];
 
     // For testing purposes for attendance for each student
-    Map<DateTime, AttendanceDetails> studentAttendanceDetails = {};
+    Map<DateTime, AttendanceDetails> personAttendanceDetails = {};
 
     @override
     void initState() {
@@ -76,15 +77,17 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     }
 
     void _onChangeSection() {
-        setState(() => studentAttendanceDetails = {});
+        setState(() => personAttendanceDetails = {});
     }
 
-    void _onChangeStudent(MockStudent? student) {
-        if (student == null) {
-            return setState(() => studentAttendanceDetails = {});
+    void _onChangePerson(DisplayValues? person) {
+        if (person == null) {
+            return setState(() => personAttendanceDetails = {});
         }
-        List<AttendanceDetails> studentAttendanceRecord = attendance.where((attendance) => attendance.studentId == student.id).toList();
-        setState(() => studentAttendanceDetails = ConvertedAttendanceDetails.fromAttendanceList(studentAttendanceRecord).dateDetails);
+        if (person is MockStudent) {
+            List<AttendanceDetails> studentAttendanceRecord = attendance.where((attendance) => attendance.studentId == person.id).toList();
+            setState(() => personAttendanceDetails = ConvertedAttendanceDetails.fromAttendanceList(studentAttendanceRecord).dateDetails);
+        }
     }
 
     @override
@@ -93,7 +96,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
             title: "Attendance", 
             content: [
                 AttendanceCalendar(
-                    details: studentAttendanceDetails,
+                    details: personAttendanceDetails,
                     firstDay: _firstDay, 
                     lastDay: _lastDay,  
                     focusedDay: _focusedDay,
@@ -102,7 +105,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                 AttendanceFilters(
                     // This role if only for testing/development purposes
                     role: Roles.teacher, 
-                    changeStudentFilter: _onChangeStudent,
+                    changeStudentFilter: _onChangePerson,
                     changeSectionFilter: _onChangeSection,
                     students: students,
                     teachers: teachers
