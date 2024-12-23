@@ -5,10 +5,9 @@ import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/mocks/mock_teacher.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/attendance_calendar_page.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attedance_calendar_services.dart';
 import 'package:school_erp/pages/common_widgets/dropdowns/form_drop_down_list.dart';
 import 'package:school_erp/pages/common_widgets/forms/drop_down_form/drop_down_form.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart';
 
 class AttendanceFilters extends StatefulWidget{
     final Roles role;
@@ -43,8 +42,9 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
 
     MockStudent? _studentSelected;
     MockTeacher? _teacherSelected;
-
     MockRole? _roleSelected;
+
+    final AttedanceCalendarServices _attendanceService = AttedanceCalendarServices();
 
     @override
     void initState() {
@@ -53,35 +53,19 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         if (widget.role == Roles.teacher) {_loadSectionsAndRoles();}
     }
 
-    Future<void> _loadSectionsAndRoles() async{
+    Future<void> _loadSectionsAndRoles() async {
         try {
-            if (!mounted) return;
-
             setState(() => _isLoading = true);
 
-            final String responseSections = await rootBundle.loadString('assets/mocks/attendance_mocks/sections.json');
-            final String responseRoles = await rootBundle.loadString('assets/mocks/attendance_mocks/roles.json');
+            final data = await _attendanceService.loadSectionsAndRoles();
 
-            if (responseSections.isNotEmpty) {
-                setState(() {
-                        sections = MockSections.fromJson(json.decode(responseSections)).mockSections;
-                    }
-                );
-            }
-
-            if (responseRoles.isNotEmpty) {
-                setState(() {
-                        roles = MockRoles.fromJson(json.decode(responseRoles)).mockRoles;
-                    }
-                );
-            }
-        } 
-        // Handler errors better when real data is being retrieved
-        catch (error) {
+            setState(() {
+                    sections = data['sections'] ?? [];
+                    roles = data['roles'] ?? [];
+                });
+        } catch (error) {
             if (!mounted) return;
-            print(error);
-        }
-        finally {
+        } finally {
             setState(() => _isLoading = false);
         }
     }
@@ -136,9 +120,9 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
 
     @override
     Widget build(Object context) {
-        if (widget.role != Roles.teacher) {
-            return SizedBox.shrink();
-        }
+        if (widget.role != Roles.teacher) return SizedBox.shrink();
+
+        if (_isLoading) return Center(child: CircularProgressIndicator());
 
         final List<FormDropDownList> dropDowns = [
             FormDropDownList(
