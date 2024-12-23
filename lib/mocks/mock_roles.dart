@@ -31,5 +31,5 @@ class MockRole implements DisplayValues{
     String get value => throw UnimplementedError();
 
     @override
-    String get displayName => role;
+    String get displayName => role[0].toUpperCase() + role.substring(1);
 }

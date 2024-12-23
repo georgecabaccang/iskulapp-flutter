@@ -12,17 +12,19 @@ import 'package:flutter/services.dart';
 
 class AttendanceFilters extends StatefulWidget{
     final Roles role;
-    final ValueChanged<MockStudent> changeStudentFilter;
+    final ValueChanged<MockStudent?> changeStudentFilter;
     final void Function() changeSectionFilter;
 
     final List<MockStudent> students;
+    final List<MockTeacher> teachers;
 
     const AttendanceFilters({
         super.key, 
         required this.role, 
         required this.changeStudentFilter, 
         required this.changeSectionFilter, 
-        required this.students
+        required this.students,
+        required this.teachers
     });
 
     @override
@@ -34,9 +36,13 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     List<MockRole> roles = [];
     late List<MockTeacher> teachersOfSection = [];
     late List<MockStudent> studentsOfSection = [];
+    // Remove this "ignore" later when _isLoading is used.
+    // This is just to supress the warning for now.
+    // ignore: unused_field
     bool _isLoading = true;
 
     MockStudent? _studentSelected;
+    MockRole? _roleSelected;
 
     @override
     void initState() {
@@ -84,6 +90,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         if (newSection is MockSection) {
             setState(() {
                     _studentSelected = null;
+                    _roleSelected = null;
                     widget.changeSectionFilter();
 
                     MockSection currentSection = sections.firstWhere((section) => section.id == newSection.id);
@@ -100,10 +107,13 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
-    void _handleChangeFilterBy(DisplayValues? student) {
-        if (student is MockStudent) {
-            setState(() => _studentSelected = student);
-            if (_studentSelected != null) widget.changeStudentFilter(_studentSelected!);
+    void _handleChangeFilterBy(DisplayValues? role) {
+        if (role is MockRole) {
+            setState(() {
+                    _roleSelected = role;
+                    _studentSelected = null;
+                });
+            if (_roleSelected != null) widget.changeStudentFilter(_studentSelected);
         }
     }
 
@@ -121,6 +131,14 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 hint: "Select a section...", 
                 errorMessage: "Please select a section.", 
                 onChangedFn: _handleChangeSection,
+            ),
+            FormDropDownList(
+                selectedValue: _roleSelected,
+                options: roles, 
+                label: "Filter by", 
+                hint: "Select a role...", 
+                errorMessage: "Please select a role.", 
+                onChangedFn: _handleChangeFilterBy,
             ),
             FormDropDownList(
                 selectedValue: _studentSelected,
