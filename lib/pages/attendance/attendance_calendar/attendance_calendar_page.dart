@@ -113,7 +113,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                 AttendanceFilters(
                     // This role if only for testing/development purposes
                     role: Roles.teacher, 
-                    changeStudentFilter: _onChangePerson,
+                    changePersonFilter: _onChangePerson,
                     changeSectionFilter: _onChangeSection,
                     students: students,
                     teachers: teachers

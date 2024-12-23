@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 
 class AttendanceFilters extends StatefulWidget{
     final Roles role;
-    final ValueChanged<MockStudent?> changeStudentFilter;
+    final ValueChanged<DisplayValues?> changePersonFilter;
     final void Function() changeSectionFilter;
 
     final List<MockStudent> students;
@@ -21,7 +21,7 @@ class AttendanceFilters extends StatefulWidget{
     const AttendanceFilters({
         super.key, 
         required this.role, 
-        required this.changeStudentFilter, 
+        required this.changePersonFilter, 
         required this.changeSectionFilter, 
         required this.students,
         required this.teachers
@@ -35,13 +35,15 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     List<MockSection> sections = [];
     List<MockRole> roles = [];
     late List<MockTeacher> teachersOfSection = [];
-    late List<MockStudent> peopleOfSection = [];
+    late List<MockStudent> studentsOfSection = [];
     // Remove this "ignore" later when _isLoading is used.
     // This is just to supress the warning for now.
     // ignore: unused_field
     bool _isLoading = true;
 
-    MockStudent? _personSelected;
+    MockStudent? _studentSelected;
+    MockTeacher? _teacherSelected;
+
     MockRole? _roleSelected;
 
     @override
@@ -89,12 +91,14 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
 
         if (newSection is MockSection) {
             setState(() {
-                    _personSelected = null;
+                    _studentSelected = null;
+                    _teacherSelected = null;
                     _roleSelected = null;
                     widget.changeSectionFilter();
 
                     MockSection currentSection = sections.firstWhere((section) => section.id == newSection.id);
-                    peopleOfSection = widget.students.where((student) => student.sectionId == currentSection.id).toList();
+                    studentsOfSection = widget.students.where((student) => student.sectionId == currentSection.id).toList();
+                    teachersOfSection = widget.teachers.where((teacher) => teacher.sectionId == currentSection.id).toList();
                 }
             );
         }
@@ -102,8 +106,13 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
 
     void _handleChangePerson(DisplayValues? person) {
         if (person is MockStudent) {
-            setState(() => _personSelected = person);
-            if (_personSelected != null) widget.changeStudentFilter(_personSelected!);
+            setState(() => _studentSelected = person);
+            if (_studentSelected != null) widget.changePersonFilter(_studentSelected);
+        }
+
+        if (person is MockTeacher) {
+            setState(() => _teacherSelected = person);
+            if (_teacherSelected != null) widget.changePersonFilter(_teacherSelected);
         }
     }
 
@@ -111,10 +120,18 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         if (role is MockRole) {
             setState(() {
                     _roleSelected = role;
-                    _personSelected = null;
+                    _studentSelected = null;
+                    _teacherSelected = null;
                 });
-            if (_roleSelected != null) widget.changeStudentFilter(_personSelected);
+            if (_roleSelected != null) widget.changePersonFilter(null);
         }
+    }
+
+    // This function is configured like this to keep it pure.
+    List<DisplayValues> _peopleOptions(MockRole? curentRole) {
+        if (curentRole == null) return [];
+        if (curentRole.role == "teacher") return teachersOfSection;
+        return studentsOfSection;
     }
 
     @override
@@ -141,8 +158,8 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 onChangedFn: _handleChangeFilterBy,
             ),
             FormDropDownList(
-                selectedValue: _personSelected,
-                options: peopleOfSection,
+                selectedValue: _roleSelected?.role == "teacher" ? _teacherSelected : _studentSelected,
+                options: _peopleOptions(_roleSelected),
                 label: "Name", 
                 hint: "Select a name...", 
                 errorMessage: "Please select a name.", 
