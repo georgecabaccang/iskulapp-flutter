@@ -2,7 +2,8 @@ import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/at
 
 class AttendanceDetails {
     final String id;
-    final String studentId;
+    final String? studentId;
+    final String? teacherId;
     final String sectionId;
     final DateTime attendanceDate;
     final AttendanceStatus status;
@@ -11,6 +12,7 @@ class AttendanceDetails {
     AttendanceDetails({
         required this.id, 
         required this.studentId, 
+        required this.teacherId, 
         required this.sectionId,
         required this.attendanceDate, 
         required this.status, 
@@ -20,7 +22,8 @@ class AttendanceDetails {
     factory AttendanceDetails.fromJson(Map<String, dynamic> json) {
         return AttendanceDetails(
             id: json['id'], 
-            studentId: json['student_id'], 
+            studentId: json.containsKey('student_id') ? json['student_id'] : null, 
+            teacherId: json.containsKey('teacher_id') ? json['teacher_id'] : null, 
             sectionId: json['section_id'], 
             // This is the way it is because of yyyy-mm-dd.
             // To have the same format as the Calendar pacakge does.

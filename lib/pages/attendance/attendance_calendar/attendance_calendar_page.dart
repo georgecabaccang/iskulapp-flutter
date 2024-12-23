@@ -32,13 +32,16 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     late List<MockTeacher> teachers;
 
     // For testing purposes with students.json
-    List<MockStudent> students = [];
+    late List<MockStudent> students;
 
     // For testing purposes with attendance.json
-    List<AttendanceDetails> attendance = [];
+    late List<AttendanceDetails> attendanceStudent;
 
-    // For testing purposes for attendance for each student
-    Map<DateTime, AttendanceDetails> personAttendanceDetails = {};
+    // For testing purposes with teacher_attendance.json
+    late List<AttendanceDetails> attendanceTeacher;
+
+    // For testing purposes for attendance for each person
+    Map<DateTime, AttendanceDetails> attendanceDetails = {};
 
     @override
     void initState() {
@@ -58,7 +61,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
             await resourceLoader.loadResources();
 
             setState(() {
-                    attendance = resourceLoader.attendance;
+                    attendanceStudent = resourceLoader.studentAttendance;
+                    attendanceTeacher = resourceLoader.teacherAttendance;
                     teachers = resourceLoader.teachers;
                     students = resourceLoader.students;
                 });
@@ -77,16 +81,20 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     }
 
     void _onChangeSection() {
-        setState(() => personAttendanceDetails = {});
+        setState(() => attendanceDetails = {});
     }
 
     void _onChangePerson(DisplayValues? person) {
         if (person == null) {
-            return setState(() => personAttendanceDetails = {});
+            return setState(() => attendanceDetails = {});
         }
         if (person is MockStudent) {
-            List<AttendanceDetails> studentAttendanceRecord = attendance.where((attendance) => attendance.studentId == person.id).toList();
-            setState(() => personAttendanceDetails = ConvertedAttendanceDetails.fromAttendanceList(studentAttendanceRecord).dateDetails);
+            List<AttendanceDetails> studentAttendanceRecord = attendanceStudent.where((attendance) => attendance.studentId == person.id).toList();
+            return setState(() => attendanceDetails = ConvertedAttendanceDetails.fromAttendanceList(studentAttendanceRecord).dateDetails);
+        }
+        if (person is MockTeacher) {
+            List<AttendanceDetails> teacherAttendanceRecord = attendanceTeacher.where((attendance) => attendance.teacherId == person.id).toList();
+            return setState(() => attendanceDetails = ConvertedAttendanceDetails.fromAttendanceList(teacherAttendanceRecord).dateDetails);
         }
     }
 
@@ -96,7 +104,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
             title: "Attendance", 
             content: [
                 AttendanceCalendar(
-                    details: personAttendanceDetails,
+                    details: attendanceDetails,
                     firstDay: _firstDay, 
                     lastDay: _lastDay,  
                     focusedDay: _focusedDay,
