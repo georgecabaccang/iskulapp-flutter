@@ -92,12 +92,12 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     void _handleChangePerson(DisplayValues? person) {
         if (person is MockStudent) {
             setState(() => _studentSelected = person);
-            if (_studentSelected != null) widget.changePersonFilter(_studentSelected);
+            widget.changePersonFilter(_studentSelected);
         }
 
         if (person is MockTeacher) {
             setState(() => _teacherSelected = person);
-            if (_teacherSelected != null) widget.changePersonFilter(_teacherSelected);
+            widget.changePersonFilter(_teacherSelected);
         }
     }
 
@@ -108,7 +108,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                     _studentSelected = null;
                     _teacherSelected = null;
                 });
-            if (_roleSelected != null) widget.changePersonFilter(null);
+            widget.changePersonFilter(null);
         }
     }
 
@@ -147,8 +147,5 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         ];
 
         return DropDownForm(dropDowns: dropDowns);
-
     }
-
-
 }
