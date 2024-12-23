@@ -6,6 +6,7 @@ import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/mocks/mock_teacher.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/attendance_calendar_page.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attedance_calendar_services.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_utils.dart';
 import 'package:school_erp/pages/common_widgets/dropdowns/form_drop_down_list.dart';
 import 'package:school_erp/pages/common_widgets/forms/drop_down_form/drop_down_form.dart';
 
@@ -111,13 +112,6 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
-    // This function is configured like this to keep it pure.
-    List<DisplayValues> _peopleOptions(MockRole? curentRole) {
-        if (curentRole == null) return [];
-        if (curentRole.role == "teacher") return teachersOfSection;
-        return studentsOfSection;
-    }
-
     @override
     Widget build(Object context) {
         if (widget.role != Roles.teacher) return SizedBox.shrink();
@@ -143,7 +137,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
             ),
             FormDropDownList(
                 selectedValue: _roleSelected?.role == "teacher" ? _teacherSelected : _studentSelected,
-                options: _peopleOptions(_roleSelected),
+                options: AttendanceCalendarUtils.peopleOptions(_roleSelected, studentsOfSection, teachersOfSection),
                 label: "Name", 
                 hint: "Select a name...", 
                 errorMessage: "Please select a name.", 
