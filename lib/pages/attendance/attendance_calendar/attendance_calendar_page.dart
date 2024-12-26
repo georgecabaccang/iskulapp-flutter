@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/enums/filter_by_type.dart';
 import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/mocks/mock_teacher.dart';
@@ -42,6 +43,9 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
 
     // For testing purposes for attendance for each person
     Map<DateTime, AttendanceDetails> attendanceDetails = {};
+
+    DisplayValues? filterBy;
+    List<DisplayValues> filters = FilterByType.values.toList();
 
     @override
     void initState() {
@@ -98,25 +102,32 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         }
     }
 
+    void _onChangeFilterBy(FilterByType? filter) {
+        setState(() => filterBy = filter);
+    }
+
     @override
     Widget build(BuildContext context) {
         return DefaultLayout(
             title: "Attendance", 
             content: [
+                if (filterBy != FilterByType.date) 
                 AttendanceCalendar(
                     details: attendanceDetails,
                     firstDay: _firstDay, 
                     lastDay: _lastDay,  
                     focusedDay: _focusedDay,
                     onChangeFocusedDate: _onChangeFocusedDate,
-                ),
+                ), 
                 AttendanceFilters(
                     // This role is only for testing/development purposes
                     role: Roles.teacher, 
                     changePersonFilter: _onChangePerson,
                     changeSectionFilter: _onChangeSection,
+                    changeFilterBy: _onChangeFilterBy,
                     students: students,
-                    teachers: teachers
+                    teachers: teachers,
+                    filters: filters,
                 )
             ]
         );

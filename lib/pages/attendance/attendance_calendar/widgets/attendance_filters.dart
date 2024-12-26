@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/enums/filter_by_type.dart';
 import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/mocks/mock_roles.dart';
 import 'package:school_erp/mocks/mock_section.dart';
@@ -14,17 +15,21 @@ class AttendanceFilters extends StatefulWidget{
     final Roles role;
     final ValueChanged<DisplayValues?> changePersonFilter;
     final void Function() changeSectionFilter;
+    final void Function(FilterByType) changeFilterBy;
 
     final List<MockStudent> students;
     final List<MockTeacher> teachers;
+    final List<DisplayValues> filters;
 
     const AttendanceFilters({
         super.key, 
         required this.role, 
         required this.changePersonFilter, 
         required this.changeSectionFilter, 
+        required this.changeFilterBy, 
         required this.students,
-        required this.teachers
+        required this.teachers,
+        required this.filters
     });
 
     @override
@@ -41,6 +46,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     MockStudent? _studentSelected;
     MockTeacher? _teacherSelected;
     MockRole? _roleSelected;
+    FilterByType? _filterSelected;
 
     final AttedanceCalendarServices _attendanceService = AttedanceCalendarServices();
 
@@ -109,17 +115,17 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
-    void _handleChangeFilterBy(DisplayValues? role) {
-        if (role is MockRole) {
+    void _handleChangeFilterBy(DisplayValues? filter) {
+        if (filter is FilterByType) {
             setState(() {
                     // Reset _studentSelected and _teacherSelected here to avoid exceptions.
-                    _roleSelected = role;
+                    _filterSelected = filter;
                     _studentSelected = null;
                     _teacherSelected = null;
                 });
 
-            // This is to remove decorations and details of attendance status on the calendar.
-            widget.changePersonFilter(null);
+            // This is to hide main calendar if FilterByType.date is selected.
+            widget.changeFilterBy(_filterSelected!);
         }
     }
 
@@ -143,12 +149,14 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
             ),
             FormDropDownList(
                 selectedValue: _roleSelected,
-                options: roles, 
+                options: widget.filters, 
                 label: "Filter by", 
-                hint: "Select a role...", 
-                errorMessage: "Please select a role.", 
+                hint: "Select a filter...", 
+                errorMessage: "Please select a filter.", 
                 onChangedFn: _handleChangeFilterBy,
             ),
+            // Hide if filter chosen if by date
+            if (_filterSelected == FilterByType.student) 
             FormDropDownList(
                 selectedValue: _roleSelected?.role == "teacher" ? _teacherSelected : _studentSelected,
                 options: AttendanceCalendarUtils.peopleOptions(_roleSelected, studentsOfSection, teachersOfSection),
