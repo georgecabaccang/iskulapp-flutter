@@ -85,7 +85,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                     // Reset all values here to avoid exceptions.
                     _studentSelected = null;
                     _teacherSelected = null;
-                    _roleSelected = null;
+                    _filterSelected = null;
                     widget.changeSectionFilter();
 
                     // Get students and teachers per section on change of section
@@ -155,11 +155,11 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 errorMessage: "Please select a filter.", 
                 onChangedFn: _handleChangeFilterBy,
             ),
-            // Hide if filter chosen if by date
+            // Hide if filter chosen is by date
             if (_filterSelected == FilterByType.student) 
             FormDropDownList(
-                selectedValue: _roleSelected?.role == "teacher" ? _teacherSelected : _studentSelected,
-                options: AttendanceCalendarUtils.peopleOptions(_roleSelected, studentsOfSection, teachersOfSection),
+                selectedValue: _studentSelected,
+                options: AttendanceCalendarUtils.peopleOptions(_filterSelected, studentsOfSection, teachersOfSection),
                 label: "Name", 
                 hint: "Select a name...", 
                 errorMessage: "Please select a name.", 

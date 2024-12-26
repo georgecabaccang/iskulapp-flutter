@@ -103,7 +103,10 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     }
 
     void _onChangeFilterBy(FilterByType? filter) {
-        setState(() => filterBy = filter);
+        setState(() {
+                filterBy = filter; 
+                attendanceDetails = {}; 
+            });
     }
 
     @override
