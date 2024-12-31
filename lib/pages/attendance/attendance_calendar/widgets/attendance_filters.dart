@@ -17,7 +17,7 @@ import 'package:school_erp/pages/common_widgets/forms/drop_down_form/drop_down_f
 class AttendanceFilters extends StatefulWidget{
     final Roles role;
     final ValueChanged<DisplayValues?> changePersonFilter;
-    final void Function() changeSectionFilter;
+    final void Function(MockSection) changeSectionFilter;
     final void Function(FilterByType) changeFilterBy;
 
     final List<MockStudent> students;
@@ -91,7 +91,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                     _studentSelected = null;
                     _teacherSelected = null;
                     _filterSelected = null;
-                    widget.changeSectionFilter();
+                    widget.changeSectionFilter(newSection);
 
                     // Get students and teachers per section on change of section
                     MockSection currentSection = sections.firstWhere((section) => section.id == newSection.id);

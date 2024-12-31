@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/enums/filter_by_type.dart';
 import 'package:school_erp/interfaces/display_values.dart';
+import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/mocks/mock_teacher.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
@@ -28,6 +29,9 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     // final Map<DateTime, DateDetails> _details = {};
 
     late ResourceLoader resourceLoader = ResourceLoader();
+
+    // For testing purposes with teacher.json
+    MockSection? currentSection;
 
     // For testing purposes with teacher.json
     List<MockTeacher> teachers = [];
@@ -84,8 +88,11 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         );
     }
 
-    void _onChangeSection() {
-        setState(() => attendanceDetails = {});
+    void _onChangeSection(MockSection newSection) {
+        setState(() {
+                currentSection = newSection;
+                attendanceDetails = {};
+            });
     }
 
     void _onChangePerson(DisplayValues? person) {
@@ -114,7 +121,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         return DefaultLayout(
             title: "Attendance", 
             content: [
-                if (filterBy != FilterByType.date) 
+                if (filterBy == FilterByType.student && currentSection != null) 
                 AttendanceCalendar(
                     details: attendanceDetails,
                     firstDay: _firstDay, 
