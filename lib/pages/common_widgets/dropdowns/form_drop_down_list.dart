@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/theme/colors.dart';
 
-// NOTE: Implment DisplayValues to what class you're going to pass here as T.
-class FormDropDownList<T extends DisplayValues> extends StatelessWidget {
+// NOTE: Implment EntityDisplayData to what class you're going to pass here as T.
+class FormDropDownList<T extends EntityDisplayData> extends StatelessWidget {
     final T? selectedValue;
     final List<T> options;
     final String label;
     final String hint;
     final String errorMessage;
-    final ValueChanged<DisplayValues?> onChangedFn; 
+    final ValueChanged<EntityDisplayData?> onChangedFn; 
 
     const FormDropDownList({
         super.key, 

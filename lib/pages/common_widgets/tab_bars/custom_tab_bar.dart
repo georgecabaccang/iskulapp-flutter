@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/theme/colors.dart';
 
-// Implment DisplayValues to the enum that is going to be used with this widget.
-class CustomTabBar<T extends DisplayValues> extends StatefulWidget {
+// Implment EntityDisplayData to the enum that is going to be used with this widget.
+class CustomTabBar<T extends EntityDisplayData> extends StatefulWidget {
     final TabController controller;
     final List<T> tabs;
 

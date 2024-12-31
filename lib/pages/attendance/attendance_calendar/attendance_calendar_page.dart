@@ -48,8 +48,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     // For testing purposes for attendance for each person
     Map<DateTime, AttendanceDetails> attendanceDetails = {};
 
-    DisplayValues? filterBy;
-    List<DisplayValues> filters = FilterByType.values.toList();
+    EntityDisplayData? filterBy;
+    List<EntityDisplayData> filters = FilterByType.values.toList();
 
     @override
     void initState() {
@@ -95,7 +95,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
             });
     }
 
-    void _onChangePerson(DisplayValues? person) {
+    void _onChangePerson(EntityDisplayData? person) {
         if (person == null) {
             return setState(() => attendanceDetails = {});
         }

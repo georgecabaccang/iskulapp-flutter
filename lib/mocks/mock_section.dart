@@ -14,7 +14,7 @@ class MockSections {
     }
 }
 
-class MockSection implements DisplayValues{
+class MockSection implements EntityDisplayData{
     final String id;
     final String name;
 

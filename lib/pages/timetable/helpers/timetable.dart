@@ -1,6 +1,6 @@
 import 'package:school_erp/interfaces/display_values.dart';
 
-enum DaysOfTheWeek implements DisplayValues{
+enum DaysOfTheWeek implements EntityDisplayData{
     monday("Monday", "MON"),
     tuesday("Tuesday", "TUE"),
     wednesday("Wednesday", "WED"),

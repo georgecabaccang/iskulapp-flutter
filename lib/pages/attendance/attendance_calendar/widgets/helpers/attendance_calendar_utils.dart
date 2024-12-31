@@ -7,7 +7,7 @@ import 'package:school_erp/mocks/mock_teacher.dart';
 class AttendanceCalendarUtils {
 
     // This function is configured like this to keep it pure.
-    static List<DisplayValues> peopleOptions(
+    static List<EntityDisplayData> peopleOptions(
         FilterByType? filter,
         List<MockStudent> studentsOfSection,
         List<MockTeacher> teachersOfSection,

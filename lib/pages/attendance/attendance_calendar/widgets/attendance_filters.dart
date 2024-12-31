@@ -16,13 +16,13 @@ import 'package:school_erp/pages/common_widgets/forms/drop_down_form/drop_down_f
 
 class AttendanceFilters extends StatefulWidget{
     final Roles role;
-    final ValueChanged<DisplayValues?> changePersonFilter;
+    final ValueChanged<EntityDisplayData?> changePersonFilter;
     final void Function(MockSection) changeSectionFilter;
     final void Function(FilterByType) changeFilterBy;
 
     final List<MockStudent> students;
     final List<MockTeacher> teachers;
-    final List<DisplayValues> filters;
+    final List<EntityDisplayData> filters;
 
     const AttendanceFilters({
         super.key, 
@@ -82,7 +82,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
-    void _handleChangeSection(DisplayValues? newSection) {
+    void _handleChangeSection(EntityDisplayData? newSection) {
         if (widget.role != Roles.teacher) return;
 
         if (newSection is MockSection) {
@@ -102,7 +102,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
-    void _handleChangePerson(DisplayValues? person) {
+    void _handleChangePerson(EntityDisplayData? person) {
         // These setStates here are needed here to rebuild the 'Name' dropdown list
         // and display update data based on selected person.
 
@@ -120,7 +120,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
-    void _handleChangeFilterBy(DisplayValues? filter) {
+    void _handleChangeFilterBy(EntityDisplayData? filter) {
         if (filter is FilterByType) {
             setState(() {
                     // Reset _studentSelected and _teacherSelected here to avoid exceptions.

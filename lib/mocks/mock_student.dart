@@ -1,6 +1,6 @@
 import 'package:school_erp/interfaces/display_values.dart';
 
-class MockStudent implements DisplayValues {
+class MockStudent implements EntityDisplayData {
     final String id;
     final String firstName;
     final String lastName;

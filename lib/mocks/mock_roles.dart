@@ -14,7 +14,7 @@ class MockRoles {
     }
 }
 
-class MockRole implements DisplayValues{
+class MockRole implements EntityDisplayData{
     final String id;
     final String role;
 

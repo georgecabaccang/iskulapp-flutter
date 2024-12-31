@@ -1,6 +1,6 @@
 import 'package:school_erp/interfaces/display_values.dart';
 
-enum FilterByType implements DisplayValues {
+enum FilterByType implements EntityDisplayData {
     student("student", "Student"),
     date("date", "Date");
 
