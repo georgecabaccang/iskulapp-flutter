@@ -19,6 +19,7 @@ class AttendanceFilters extends StatefulWidget{
     final ValueChanged<EntityDisplayData?> changePersonFilter;
     final void Function(MockSection) changeSectionFilter;
     final void Function(FilterByType) changeFilterBy;
+    final void Function(DateTimeRange) changeDateRange;
 
     final List<MockStudent> students;
     final List<MockTeacher> teachers;
@@ -30,6 +31,7 @@ class AttendanceFilters extends StatefulWidget{
         required this.changePersonFilter, 
         required this.changeSectionFilter, 
         required this.changeFilterBy, 
+        required this.changeDateRange, 
         required this.students,
         required this.teachers,
         required this.filters
@@ -140,6 +142,8 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         if (dateRange != null) {
             String startDate = AttendanceCalendarUtils.dateToStringConverter(dateRange.start);
             String endDate = AttendanceCalendarUtils.dateToStringConverter(dateRange.end);
+
+            widget.changeDateRange(dateRange);
 
             setState(() {
                     dateRangeDisplay = '$startDate - $endDate';

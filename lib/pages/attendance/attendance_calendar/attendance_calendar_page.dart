@@ -116,6 +116,12 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
             });
     }
 
+    void _onChangeFilterRange(DateTimeRange dateTimeRange) {
+        attendanceStudent = attendanceStudent.where((attendance) {
+                return attendance.attendanceDate.isAfter(dateTimeRange.start) && attendance.attendanceDate.isBefore(dateTimeRange.end);
+            }).toList();
+    }
+
     @override
     Widget build(BuildContext context) {
         return DefaultLayout(
@@ -135,6 +141,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                     changePersonFilter: _onChangePerson,
                     changeSectionFilter: _onChangeSection,
                     changeFilterBy: _onChangeFilterBy,
+                    changeDateRange: _onChangeFilterRange,
                     students: students,
                     teachers: teachers,
                     filters: filters,
