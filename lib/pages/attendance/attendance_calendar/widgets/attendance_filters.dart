@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_erp/enums/button_type.dart';
 import 'package:school_erp/enums/filter_by_type.dart';
 import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/mocks/mock_roles.dart';
@@ -6,9 +7,11 @@ import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/mocks/mock_teacher.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/attendance_calendar_page.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attedance_calendar_services.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_services.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_utils.dart';
 import 'package:school_erp/pages/common_widgets/dropdowns/form_drop_down_list.dart';
+import 'package:school_erp/pages/common_widgets/forms/buttons/form_button.dart';
+import 'package:school_erp/pages/common_widgets/forms/calendar_range_picker/custom_range_picker.dart';
 import 'package:school_erp/pages/common_widgets/forms/drop_down_form/drop_down_form.dart';
 
 class AttendanceFilters extends StatefulWidget{
@@ -48,7 +51,9 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     MockRole? _roleSelected;
     FilterByType? _filterSelected;
 
-    final AttedanceCalendarServices _attendanceService = AttedanceCalendarServices();
+    String? dateRangeDisplay;
+
+    final AttendanceCalendarServices _attendanceService = AttendanceCalendarServices();
 
     @override
     void initState() {
@@ -129,6 +134,19 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
+    void _handleDateRange() async {
+        DateTimeRange? dateRange = await CustomRangePicker.showPicker(context);
+
+        if (dateRange != null) {
+            String startDate = AttendanceCalendarUtils.dateToStringConverter(dateRange.start);
+            String endDate = AttendanceCalendarUtils.dateToStringConverter(dateRange.end);
+
+            setState(() {
+                    dateRangeDisplay = '$startDate - $endDate';
+                });
+        }
+    }
+
     @override
     Widget build(Object context) {
         if (widget.role != Roles.teacher) return SizedBox.shrink();
@@ -165,9 +183,22 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 errorMessage: "Please select a name.", 
                 onChangedFn: _handleChangePerson,
             ),
-
         ];
 
-        return DropDownForm(dropDowns: dropDowns);
+        return Expanded(
+            child: Column(
+                children: [
+                    DropDownForm(dropDowns: dropDowns),
+                    if (dateRangeDisplay != null) 
+                    Text(dateRangeDisplay!),
+                    if (_filterSelected == FilterByType.date) 
+                    FormButton(
+                        buttonLabel: "Choose range", 
+                        buttonType: ButtonType.button,
+                        buttonFn: () => _handleDateRange(),
+                    )
+                ],
+            )
+        );
     }
 }

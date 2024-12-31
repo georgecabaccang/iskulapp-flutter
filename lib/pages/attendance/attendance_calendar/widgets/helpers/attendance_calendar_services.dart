@@ -3,7 +3,7 @@ import 'package:school_erp/mocks/mock_roles.dart';
 import 'package:school_erp/mocks/mock_section.dart';
 import 'dart:convert';
 
-class AttedanceCalendarServices {
+class AttendanceCalendarServices {
     Future<Map<String, dynamic>> loadSectionsAndRoles() async {
         try {
             final String responseSections = await rootBundle.loadString('assets/mocks/attendance_mocks/sections.json');
