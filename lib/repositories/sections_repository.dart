@@ -1,12 +1,11 @@
-import 'package:powersync/powersync.dart';
-import 'package:school_erp/features/powersync/db.dart';
 import 'package:school_erp/models/section.dart';
+import 'package:school_erp/models/tables/sections_table.dart';
+import 'package:school_erp/repositories/base_repository/read_only_repository.dart';
 import 'package:school_erp/utils/sql_statements.dart';
 
-class SectionRepository {
-  PowerSyncDatabase database;
-
-  SectionRepository({PowerSyncDatabase? database}) : database = database ?? db;
+class SectionRepository extends ReadOnlyRepository<Section> {
+  SectionRepository({super.database})
+      : super(table: sectionsTable, fromRow: Section.fromRow);
 
   Future<List<Section>> getTeacherSectionsBySubject({
     required String teacherId,

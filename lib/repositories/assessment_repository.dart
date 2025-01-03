@@ -1,7 +1,7 @@
 import 'package:school_erp/enums/assessment_type.dart';
+import 'package:school_erp/repositories/base_repository/base_crud_repository.dart';
 import 'package:school_erp/models/tables/assessments_table.dart';
 import 'package:school_erp/models/assessment.dart';
-import 'package:school_erp/repositories/base_crud_repository/base_crud_repository.dart';
 import 'package:school_erp/utils/sql_statements.dart';
 
 class AssessmentRepository extends BaseCrudRepository<Assessment> {
