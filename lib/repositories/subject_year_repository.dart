@@ -1,13 +1,12 @@
-import 'package:powersync/powersync.dart';
 import 'package:school_erp/features/powersync/db.dart';
 import 'package:school_erp/models/subject_year.dart';
+import 'package:school_erp/models/tables/subject_years_table.dart';
+import 'package:school_erp/repositories/base_repository/read_only_repository.dart';
 import 'package:school_erp/utils/sql_statements.dart';
 
-class SubjectYearRepository {
-  PowerSyncDatabase database;
-
-  SubjectYearRepository({PowerSyncDatabase? database})
-      : database = database ?? db;
+class SubjectYearRepository extends ReadOnlyRepository<SubjectYear> {
+  SubjectYearRepository({super.database})
+      : super(table: subjectYearsTable, fromRow: SubjectYear.fromRow);
 
   Future<List<SubjectYear>> getTeacherSubjects({
     required String teacherId,
