@@ -166,6 +166,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 errorMessage: "Please select a section.", 
                 onChangedFn: _handleChangeSection,
             ),
+            if (_currentSection != null)
             FormDropDownList(
                 selectedValue: _filterSelected,
                 options: widget.filters, 
