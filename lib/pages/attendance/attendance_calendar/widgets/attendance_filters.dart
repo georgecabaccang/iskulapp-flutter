@@ -53,8 +53,6 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     bool _isLoading = true;
 
     MockStudent? _studentSelected;
-    MockTeacher? _teacherSelected;
-    MockRole? _roleSelected;
     FilterByType? _filterSelected;
 
     String? dateRangeDisplay;
@@ -96,8 +94,9 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
             setState(() {
                     // Reset all values here to avoid exceptions.
                     _studentSelected = null;
-                    _teacherSelected = null;
                     _filterSelected = null;
+                    dateRangeDisplay = null;
+                    dateDifference = 0;
                     widget.changeSectionFilter(newSection);
 
                     // Get students and teachers per section on change of section
@@ -120,11 +119,6 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
             setState(() => _studentSelected = person);
             widget.changePersonFilter(_studentSelected);
         }
-
-        if (person is MockTeacher) {
-            setState(() => _teacherSelected = person);
-            widget.changePersonFilter(_teacherSelected);
-        }
     }
 
     void _handleChangeFilterBy(EntityDisplayData? filter) {
@@ -133,7 +127,6 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                     // Reset _studentSelected and _teacherSelected here to avoid exceptions.
                     _filterSelected = filter;
                     _studentSelected = null;
-                    _teacherSelected = null;
                 });
 
             // This is to hide main calendar if FilterByType.date is selected.
@@ -143,7 +136,6 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
 
     void _handleDateRange() async {
         DateTimeRange? dateRange = await CustomRangePicker.showPicker(context);
-
         if (dateRange != null) {
             String startDate = AttendanceCalendarUtils.dateToStringConverter(dateRange.start);
             String endDate = AttendanceCalendarUtils.dateToStringConverter(dateRange.end);
@@ -176,7 +168,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 onChangedFn: _handleChangeSection,
             ),
             FormDropDownList(
-                selectedValue: _roleSelected,
+                selectedValue: _filterSelected,
                 options: widget.filters, 
                 label: "Filter by", 
                 hint: "Select a filter...", 
@@ -187,7 +179,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
             if (_filterSelected == FilterByType.student) 
             FormDropDownList(
                 selectedValue: _studentSelected,
-                options: AttendanceCalendarUtils.peopleOptions(_filterSelected, studentsOfSection, teachersOfSection),
+                options: widget.students,
                 label: "Name", 
                 hint: "Select a name...", 
                 errorMessage: "Please select a name.", 

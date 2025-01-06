@@ -7,7 +7,7 @@ import 'package:school_erp/mocks/mock_teacher.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_calendar.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_filters.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/resource_loader.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_services.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
 
 // For testing only. 
@@ -27,8 +27,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     late DateTime _lastDay;
     late DateTime _focusedDay;
     // final Map<DateTime, DateDetails> _details = {};
-
-    late ResourceLoader resourceLoader = ResourceLoader();
 
     // For testing purposes with teacher.json
     MockSection? currentSection;
@@ -57,28 +55,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         _firstDay = DateTime.utc(2000, 1, 1); 
         _lastDay = DateTime.utc(3000, 12, 31); 
         _focusedDay = DateTime.now(); 
-
-        // Load resources
-        _loadData();
-    }
-
-    Future<void> _loadData() async {
-        if (!mounted) return;
-
-        try {
-            await resourceLoader.loadResources();
-
-            setState(() {
-                    attendanceStudent = resourceLoader.studentAttendance;
-                    attendanceTeacher = resourceLoader.teacherAttendance;
-                    teachers = resourceLoader.teachers;
-                    students = resourceLoader.students;
-                });
-        } 
-        // handle errors properly when real data is used.
-        catch (error) {
-            print(error);
-        }
     }
 
     void _onChangeFocusedDate(DateTime selectedDay, DateTime focusedDay) {
@@ -88,9 +64,14 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         );
     }
 
-    void _onChangeSection(MockSection newSection) {
+    void _onChangeSection(MockSection newSection) async {
+        List<AttendanceDetails> attendanceForSection = await AttendanceCalendarServices.loadStudentAttendance(newSection);
+        List<MockStudent> studentsOfSection = await AttendanceCalendarServices.loadStudentsOfSection(newSection);
+
         setState(() {
                 currentSection = newSection;
+                attendanceStudent = attendanceForSection;
+                students = studentsOfSection;
                 attendanceDetails = {};
             });
     }
@@ -111,15 +92,17 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
 
     void _onChangeFilterBy(FilterByType? filter) {
         setState(() {
-                filterBy = filter; 
+                filterBy = filter;
                 attendanceDetails = {}; 
             });
     }
 
     void _onChangeFilterRange(DateTimeRange dateTimeRange) {
-        attendanceStudent = attendanceStudent.where((attendance) {
-                return attendance.attendanceDate.isAfter(dateTimeRange.start) && attendance.attendanceDate.isBefore(dateTimeRange.end);
-            }).toList();
+        setState(() =>
+            attendanceStudent = attendanceStudent.where((attendance) {
+                    return attendance.attendanceDate.isAfter(dateTimeRange.start) && attendance.attendanceDate.isBefore(dateTimeRange.end);
+                }).toList()
+        );
     }
 
     @override

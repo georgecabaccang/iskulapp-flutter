@@ -101,9 +101,7 @@ flutter:
     - assets/mocks/attendance_mocks/attendance.json
     - assets/mocks/attendance_mocks/students.json
     - assets/mocks/attendance_mocks/sections.json
-    - assets/mocks/attendance_mocks/teachers.json
     - assets/mocks/attendance_mocks/roles.json
-    - assets/mocks/attendance_mocks/teacher_attendance.json
 
   fonts:
     - family: SourceSans
