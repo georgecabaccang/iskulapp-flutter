@@ -50,8 +50,10 @@ class AttendanceListItemCard extends StatelessWidget{
                                     children: [
                                         _buildCircle(attendanceData.totalPresent, Colors.green.withOpacity(0.5)),
                                         _buildCircle(attendanceData.totalLate, Color.fromARGB(255, 240, 190, 50).withOpacity(0.7) ), 
-                                        _buildCircle(attendanceData.totalAbsent, Color.fromARGB(220, 0, 190, 210)),
-                                        _buildCircle(attendanceData.totalLeave, Colors.red.withOpacity(0.7))],)
+                                        _buildCircle(attendanceData.totalAbsent, Colors.red.withOpacity(0.7)),
+                                        _buildCircle(attendanceData.totalLeave, Color.fromARGB(220, 0, 190, 210))
+                                    ],
+                                )
                             ],
                         )
                     ],
