@@ -7,6 +7,8 @@ import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/mocks/mock_teacher.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/attendance_calendar_page.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_list.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_services.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_utils.dart';
 import 'package:school_erp/pages/common_widgets/dropdowns/form_drop_down_list.dart';
@@ -24,6 +26,7 @@ class AttendanceFilters extends StatefulWidget{
     final List<MockStudent> students;
     final List<MockTeacher> teachers;
     final List<EntityDisplayData> filters;
+    final List<AttendanceDetails> attendance;
 
     const AttendanceFilters({
         super.key, 
@@ -34,7 +37,8 @@ class AttendanceFilters extends StatefulWidget{
         required this.changeDateRange, 
         required this.students,
         required this.teachers,
-        required this.filters
+        required this.filters, 
+        required this.attendance
     });
 
     @override
@@ -54,6 +58,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     FilterByType? _filterSelected;
 
     String? dateRangeDisplay;
+    int dateDifference = 0;
 
     final AttendanceCalendarServices _attendanceService = AttendanceCalendarServices();
 
@@ -144,6 +149,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
             String endDate = AttendanceCalendarUtils.dateToStringConverter(dateRange.end);
 
             widget.changeDateRange(dateRange);
+            dateDifference = dateRange.end.difference(dateRange.start).inDays;
 
             setState(() {
                     dateRangeDisplay = '$startDate - $endDate';
@@ -192,17 +198,34 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         return Expanded(
             child: Column(
                 children: [
-                    DropDownForm(dropDowns: dropDowns),
-                    if (dateRangeDisplay != null) 
-                    Text(dateRangeDisplay!),
-                    if (_filterSelected == FilterByType.date) 
-                    FormButton(
-                        buttonLabel: "Choose range", 
-                        buttonType: ButtonType.button,
-                        buttonFn: () => _handleDateRange(),
-                    )
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [DropDownForm(dropDowns: dropDowns)]
+                    ),
+                    if (dateDifference != 0) 
+                    Expanded(
+                        child: AttendanceList(
+                            students: widget.students,
+                            attendance: widget.attendance, 
+                            range: dateDifference
+                        ),
+                    ),
+                    if (dateRangeDisplay != null)
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [Text(dateRangeDisplay!)] 
+                    ),
+                    if (_filterSelected == FilterByType.date)
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [FormButton(
+                                buttonLabel: "Choose range",
+                                buttonType: ButtonType.button,
+                                buttonFn: () => _handleDateRange(),
+                            )]
+                    ),
                 ],
-            )
+            ),
         );
     }
 }

@@ -142,10 +142,11 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                     changeSectionFilter: _onChangeSection,
                     changeFilterBy: _onChangeFilterBy,
                     changeDateRange: _onChangeFilterRange,
+                    attendance: attendanceStudent,
                     students: students,
                     teachers: teachers,
                     filters: filters,
-                )
+                ),
             ]
         );
     }
