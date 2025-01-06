@@ -52,6 +52,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
 
     MockStudent? _studentSelected;
     FilterByType? _filterSelected;
+    MockSection? _currentSection;
 
     String? dateRangeDisplay;
     int dateDifference = 0;
@@ -87,9 +88,12 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
 
     void _handleChangeSection(EntityDisplayData? newSection) {
         if (widget.role != Roles.teacher) return;
+        if (_currentSection == newSection) return;
 
         if (newSection is MockSection) {
             setState(() {
+                    _currentSection = newSection;
+
                     // Reset all values here to avoid exceptions.
                     _studentSelected = null;
                     _filterSelected = null;
@@ -153,7 +157,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         // but for now, this is fine. Just something to think about.
         final List<FormDropDownList> dropDowns = [
             FormDropDownList(
-                selectedValue: null,
+                selectedValue: _currentSection,
                 options: sections, 
                 label: "Section", 
                 hint: "Select a section...", 
