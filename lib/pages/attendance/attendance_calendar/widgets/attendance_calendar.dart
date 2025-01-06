@@ -24,7 +24,6 @@ class AttendanceCalendar extends StatelessWidget{
 
     @override
     Widget build(BuildContext context) {
-
         return TableCalendar(
             focusedDay: focusedDay,
             firstDay: firstDay,

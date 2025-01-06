@@ -44,11 +44,11 @@ class ConvertedAttendanceDetails {
 
     ConvertedAttendanceDetails({required this.dateDetails});
 
-    factory ConvertedAttendanceDetails.fromAttendanceList(List<AttendanceDetails>json) {
+    factory ConvertedAttendanceDetails.fromAttendanceList(List<AttendanceDetails> attendanceDetails) {
         Map<DateTime, AttendanceDetails> dateData = {};
 
-        for (var attendanceDetails in json) {
-            dateData[attendanceDetails.attendanceDate] = attendanceDetails;
+        for (var detail in attendanceDetails) {
+            dateData[detail.attendanceDate] = detail;
         }
 
         return ConvertedAttendanceDetails(dateDetails: dateData);
