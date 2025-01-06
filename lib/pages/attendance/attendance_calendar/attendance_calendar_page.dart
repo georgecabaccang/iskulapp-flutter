@@ -4,6 +4,7 @@ import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/attendance_status.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_calendar.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_filters.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_services.dart';
@@ -96,11 +97,42 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         );
     }
 
+    Widget _buildLegend(String legendText, Color legendColor) {
+        return Row(
+            children: [
+                Container(
+                    width: 25,
+                    height: 25,
+                    decoration: BoxDecoration(
+                        color: legendColor,
+                        shape: BoxShape.circle,
+                    ),
+                    child: SizedBox.shrink()
+                ),
+                SizedBox(width: 3),
+                Text(legendText)
+            ],
+        );
+    }
+
     @override
     Widget build(BuildContext context) {
         return DefaultLayout(
             title: "Attendance", 
             content: [
+                Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child:  Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                            _buildLegend(AttendanceStatus.present.displayName, Colors.green.withOpacity(0.5)),
+                            _buildLegend(AttendanceStatus.late.displayName, Color.fromARGB(255, 240, 190, 50).withOpacity(0.7)),
+                            _buildLegend(AttendanceStatus.absent.displayName, Colors.red.withOpacity(0.7)),
+                            _buildLegend(AttendanceStatus.leave.displayName, Color.fromARGB(220, 0, 190, 210)),
+                        ],
+                    ),
+                ),
+
                 if (filterBy == FilterByType.student && currentSection != null) 
                 AttendanceCalendar(
                     details: attendanceDetails,
