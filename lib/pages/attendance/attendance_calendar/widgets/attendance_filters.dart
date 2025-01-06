@@ -202,7 +202,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [DropDownForm(dropDowns: dropDowns)]
                     ),
-                    if (dateDifference != 0) 
+                    if (dateDifference != 0 && _filterSelected == FilterByType.date) 
                     Expanded(
                         child: AttendanceList(
                             students: widget.students,
@@ -210,7 +210,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                             range: dateDifference
                         ),
                     ),
-                    if (dateRangeDisplay != null)
+                    if (dateRangeDisplay != null && _filterSelected == FilterByType.date)
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [Text(dateRangeDisplay!)] 
