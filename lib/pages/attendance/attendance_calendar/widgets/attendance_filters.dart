@@ -26,6 +26,7 @@ class AttendanceFilters extends StatefulWidget{
     final List<MockStudent> students;
     final List<EntityDisplayData> filters;
     final List<AttendanceDetails> attendance;
+    final List<AttendanceDetails> attendanceOfRange;
 
     const AttendanceFilters({
         super.key, 
@@ -36,7 +37,8 @@ class AttendanceFilters extends StatefulWidget{
         required this.changeDateRange, 
         required this.students,
         required this.filters, 
-        required this.attendance
+        required this.attendance, 
+        required this.attendanceOfRange
     });
 
     @override
@@ -195,7 +197,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                     Expanded(
                         child: AttendanceList(
                             students: widget.students,
-                            attendance: widget.attendance, 
+                            attendance: widget.attendanceOfRange, 
                             range: dateDifference
                         ),
                     ),

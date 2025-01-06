@@ -36,6 +36,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     // For testing purposes with attendance.json
     List<AttendanceDetails> attendanceStudent = [];
 
+    List<AttendanceDetails> attendanceOfDateRange = [];
+
     // For testing purposes for attendance for each person
     Map<DateTime, AttendanceDetails> attendanceDetails = {};
 
@@ -88,7 +90,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
 
     void _onChangeFilterRange(DateTimeRange dateTimeRange) {
         setState(() =>
-            attendanceStudent = attendanceStudent.where((attendance) {
+            attendanceOfDateRange = attendanceStudent.where((attendance) {
                     return attendance.attendanceDate.isAfter(dateTimeRange.start) && attendance.attendanceDate.isBefore(dateTimeRange.end);
                 }).toList()
         );
@@ -115,6 +117,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                     changeFilterBy: _onChangeFilterBy,
                     changeDateRange: _onChangeFilterRange,
                     attendance: attendanceStudent,
+                    attendanceOfRange: attendanceOfDateRange,
                     students: students,
                     filters: filters,
                 ),
