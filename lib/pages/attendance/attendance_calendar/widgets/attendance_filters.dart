@@ -24,7 +24,6 @@ class AttendanceFilters extends StatefulWidget{
     final void Function(DateTimeRange) changeDateRange;
 
     final List<MockStudent> students;
-    final List<MockTeacher> teachers;
     final List<EntityDisplayData> filters;
     final List<AttendanceDetails> attendance;
 
@@ -36,7 +35,6 @@ class AttendanceFilters extends StatefulWidget{
         required this.changeFilterBy, 
         required this.changeDateRange, 
         required this.students,
-        required this.teachers,
         required this.filters, 
         required this.attendance
     });
@@ -98,11 +96,6 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                     dateRangeDisplay = null;
                     dateDifference = 0;
                     widget.changeSectionFilter(newSection);
-
-                    // Get students and teachers per section on change of section
-                    MockSection currentSection = sections.firstWhere((section) => section.id == newSection.id);
-                    studentsOfSection = widget.students.where((student) => student.sectionId == currentSection.id).toList();
-                    teachersOfSection = widget.teachers.where((teacher) => teacher.sectionId == currentSection.id).toList();
                 }
             );
         }

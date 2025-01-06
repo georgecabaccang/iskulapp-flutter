@@ -3,7 +3,6 @@ import 'package:school_erp/enums/filter_by_type.dart';
 import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/mocks/mock_student.dart';
-import 'package:school_erp/mocks/mock_teacher.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_calendar.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_filters.dart';
@@ -31,17 +30,11 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     // For testing purposes with teacher.json
     MockSection? currentSection;
 
-    // For testing purposes with teacher.json
-    List<MockTeacher> teachers = [];
-
     // For testing purposes with students.json
     List<MockStudent> students = [];
 
     // For testing purposes with attendance.json
     List<AttendanceDetails> attendanceStudent = [];
-
-    // For testing purposes with teacher_attendance.json
-    List<AttendanceDetails> attendanceTeacher = [];
 
     // For testing purposes for attendance for each person
     Map<DateTime, AttendanceDetails> attendanceDetails = {};
@@ -84,10 +77,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
             List<AttendanceDetails> studentAttendanceRecord = attendanceStudent.where((attendance) => attendance.studentId == person.id).toList();
             return setState(() => attendanceDetails = ConvertedAttendanceDetails.fromAttendanceList(studentAttendanceRecord).dateDetails);
         }
-        if (person is MockTeacher) {
-            List<AttendanceDetails> teacherAttendanceRecord = attendanceTeacher.where((attendance) => attendance.teacherId == person.id).toList();
-            return setState(() => attendanceDetails = ConvertedAttendanceDetails.fromAttendanceList(teacherAttendanceRecord).dateDetails);
-        }
     }
 
     void _onChangeFilterBy(FilterByType? filter) {
@@ -127,7 +116,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                     changeDateRange: _onChangeFilterRange,
                     attendance: attendanceStudent,
                     students: students,
-                    teachers: teachers,
                     filters: filters,
                 ),
             ]
