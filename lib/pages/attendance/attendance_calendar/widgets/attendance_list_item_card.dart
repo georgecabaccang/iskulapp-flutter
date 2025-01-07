@@ -12,24 +12,26 @@ class AttendanceListItemCard extends StatelessWidget{
     });
 
     Widget _buildCircle(int label, Color color) {
-        return Container(
-            width: 30,
-            height: 30,
-            decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-            ),
-            child: Center(
-                child: Text(
-                    label.toString(),
-                    style: TextStyle(
-                        color: AppColors.whiteColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
+        return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 1), 
+            child:Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                    color: color,
+                    shape: BoxShape.circle,
+                ),
+                child: Center(
+                    child: Text(
+                        label.toString(),
+                        style: TextStyle(
+                            color: AppColors.whiteColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                        ),
                     ),
                 ),
-            ),
-        );
+            ));
     }
 
     @override
