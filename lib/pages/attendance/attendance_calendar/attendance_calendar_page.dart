@@ -66,6 +66,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         List<MockStudent> studentsOfSection = await AttendanceCalendarServices.loadStudentsOfSection(newSection);
 
         setState(() {
+                filterBy = null;
                 currentSection = newSection;
                 attendanceStudent = attendanceForSection;
                 students = studentsOfSection;
