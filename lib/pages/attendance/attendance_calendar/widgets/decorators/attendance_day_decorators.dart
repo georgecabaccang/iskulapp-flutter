@@ -4,14 +4,15 @@ import 'package:school_erp/theme/colors.dart';
 
 class AttendanceDayDecorators {
     static Color getDecorationForStatus(String status){
-        // Will change this. Fow, is okay.
-        return status == AttendanceStatus.present.value 
-            ? AppColors.presentColor 
-            : status == AttendanceStatus.late.value 
-                ? AppColors.lateColor 
-                :  status == AttendanceStatus.leave.value
-                    ? AppColors.leaveColor
-                    : AppColors.absentColor;
+        // Mapping this has a little overhead, but has better scaling.
+        // Can be a swtich statement if no new statuses will be added.
+        final statusColors = {
+            AttendanceStatus.present.value: AppColors.presentColor,
+            AttendanceStatus.late.value: AppColors.lateColor,
+            AttendanceStatus.leave.value: AppColors.leaveColor,
+        };
+
+        return statusColors[status] ?? AppColors.absentColor;
     }
 
     static Widget sundayDecorations(int day) {
