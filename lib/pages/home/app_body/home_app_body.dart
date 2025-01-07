@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/features/auth/auth_repository/schemas/user.dart';
-import 'package:school_erp/pages/common_widgets/views/comming_soon_widget.dart';
+import 'package:school_erp/pages/common_widgets/views/coming_soon_widget.dart';
 import 'package:school_erp/pages/home/app_body/views/home/home_widget.dart';
 import 'package:school_erp/pages/home/app_body/views/feeds/feeds.dart';
 import 'package:school_erp/pages/home/app_body/views/settings/settings.dart';
@@ -24,7 +24,7 @@ class HomeAppBody extends StatelessWidget {
       children: [
         HomeWidget(user: user),
         FeedsWidget(user: user),
-        ComingSoonWidget(),
+        ComingSoonWidget(title: "Chat"),
         //MessageWidget(user: widget.user),
         SettingWidget(user: user),
       ],

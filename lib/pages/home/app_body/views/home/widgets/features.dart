@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:school_erp/features/transition/clean_slide_transition.dart';
 import 'package:school_erp/pages/assignment/assignment_list_page/assignment_list_page.dart';
 import 'package:school_erp/pages/attendace/attedance_create_update/attendance_create_update_page.dart';
 import 'package:school_erp/pages/calendar/calendar_attendance_page.dart';
-import 'package:school_erp/pages/defualt_page.dart';
+import 'package:school_erp/pages/default_page.dart';
 import 'package:school_erp/pages/events/events_page.dart';
 import 'package:school_erp/pages/learn/learn.dart';
 import 'package:school_erp/pages/leave_application/leave_application_page.dart';
@@ -24,47 +23,76 @@ class Features extends StatelessWidget {
     List<FeatureSection> features = [
       const FeatureSection(title: 'Core', features: <FeatureButton>[
         FeatureButton(
-            title: 'Quiz',
-            icon: Icons.edit_note_outlined,
-            target: DefaultPage()),
+          title: 'Quiz',
+          icon: Icons.edit_note_outlined,
+          target: DefaultPage(title: "Quiz", fontColor: AppColors.primaryColor),
+        ),
         FeatureButton(
-            title: 'Homework',
-            icon: Icons.assignment,
-            target: AssignmentListPage()),
+          title: 'Homework',
+          icon: Icons.assignment,
+          target: DefaultPage(
+              title: "Assignment", fontColor: AppColors.primaryColor),
+          //target: AssignmentListPage(),
+        ),
         FeatureButton(
-            title: 'Learn',
-            icon: Icons.local_library_outlined,
-            target: LearnPage()),
+          title: 'Learn',
+          icon: Icons.local_library_outlined,
+          target:
+              DefaultPage(title: "Learn", fontColor: AppColors.primaryColor),
+          //target: LearnPage(),
+        ),
         FeatureButton(
-            title: 'Attendance',
-            icon: Icons.emoji_people_outlined,
-            target: AttendanceCreateUpdatePage()),
+          title: 'Attendance',
+          icon: Icons.emoji_people_outlined,
+          target: AttendanceCreateUpdatePage(),
+        ),
         FeatureButton(
-            title: 'Billing',
-            icon: Icons.payment_outlined,
-            target: DefaultPage()),
+          title: 'Billing',
+          icon: Icons.payment_outlined,
+          target:
+              DefaultPage(title: "Billing", fontColor: AppColors.primaryColor),
+        ),
       ]),
       FeatureSection(title: 'Time Calendar', features: <FeatureButton>[
         FeatureButton(
-            title: 'Calendar',
-            icon: Icons.calendar_month,
-            target: CalendarAttendancePage()),
+          title: 'Calendar',
+          icon: Icons.calendar_month,
+          target: DefaultPage(
+              title: "Attendance", fontColor: AppColors.primaryColor),
+          //target: CalendarAttendancePage(),
+        ),
         const FeatureButton(
-            title: 'Subject\nSchedule',
-            icon: Icons.event_note,
-            target: TimeTablePage()),
+          title: 'Subject\nSchedule',
+          icon: Icons.event_note,
+          target: DefaultPage(
+              title: "Time Table", fontColor: AppColors.primaryColor),
+          //target: TimeTablePage(),
+        ),
         const FeatureButton(
-            title: 'Apply Absents',
-            icon: Icons.edit_calendar,
-            target: LeaveApplicationPage()),
+          title: 'Apply Absents',
+          icon: Icons.edit_calendar,
+          target: DefaultPage(
+              title: "Leave Application", fontColor: AppColors.primaryColor),
+          //target: LeaveApplicationPage(),
+        ),
       ]),
       const FeatureSection(title: 'Activities', features: <FeatureButton>[
         FeatureButton(
-            title: 'Events', icon: Icons.celebration, target: EventsPage()),
+          title: 'Events',
+          icon: Icons.celebration,
+          target: DefaultPage(
+            title: "Events",
+            fontColor: AppColors.primaryColor,
+          ),
+          //target: EventsPage(),
+        ),
         FeatureButton(
-            title: 'School Gallery',
-            icon: Icons.collections,
-            target: SchoolGalleryPage()),
+          title: 'School Gallery',
+          icon: Icons.collections,
+          target: DefaultPage(
+              title: "School Gallery", fontColor: AppColors.primaryColor),
+        ),
+        //target: SchoolGalleryPage(),
       ]),
     ];
 
