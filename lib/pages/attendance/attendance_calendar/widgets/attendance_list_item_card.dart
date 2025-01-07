@@ -19,10 +19,17 @@ class AttendanceListItemCard extends StatelessWidget{
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                        Column(
-                            children: [
-                                Text(attendanceData.student.displayName)
-                            ],
+                        Expanded(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                    Text(
+                                        attendanceData.student.displayName,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                    ),
+                                ],
+                            ),
                         ),
                         Column(children: [
                                 Row(

@@ -62,7 +62,16 @@ class FormDropDownList<T extends EntityDisplayData> extends StatelessWidget {
                             .map((T option) {
                                     return DropdownMenuItem(
                                         value: option,
-                                        child: Text(option.displayName)
+                                        child: ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                                maxWidth: 300.0,
+                                            ),
+                                            child: Text(
+                                                option.displayName,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                            ),
+                                        ),
                                     );
                                 })
                             .toList(),
