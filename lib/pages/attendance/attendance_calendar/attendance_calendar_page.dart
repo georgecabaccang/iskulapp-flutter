@@ -49,7 +49,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     void initState() {
         super.initState();
         _firstDay = DateTime.utc(2000, 1, 1); 
-        _lastDay = DateTime.utc(3000, 12, 31); 
+        _lastDay = DateTime.now(); 
         _focusedDay = DateTime.now(); 
     }
 

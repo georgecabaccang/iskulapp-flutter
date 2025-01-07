@@ -6,7 +6,7 @@ class CustomRangePicker {
         final DateTimeRange? result = await showDateRangePicker(
             context: context,
             firstDate: DateTime(2000, 1, 1),
-            lastDate: DateTime(2100, 12, 31),
+            lastDate: DateTime.now(),
             currentDate: DateTime.now(),
             saveText: 'Done',
             builder: (context, child) {
