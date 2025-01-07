@@ -1,8 +1,12 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:school_erp/enums/filter_by_type.dart';
 import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/mocks/mock_teacher.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class AttendanceCalendarUtils {
 
@@ -20,5 +24,52 @@ class AttendanceCalendarUtils {
     static String dateToStringConverter(DateTime date) {
         String formattedDate = DateFormat('dd MMM, yyyy').format(date);
         return formattedDate;
+    }
+
+    static Widget buildStatus(BuildContext context, String label, Color color, bool isInCircle) {
+        double screenWidth = MediaQuery.of(context).size.width;
+
+        double containerSize = isInCircle ? screenWidth * 0.075 : screenWidth * 0.06; 
+        double fontSize = screenWidth * 0.022;
+        double paddingHorizontal = screenWidth * 0.002;
+        double textSpacing = screenWidth * 0.01;
+
+        return Padding(
+            padding: EdgeInsets.symmetric(horizontal: paddingHorizontal), 
+            child: Row(
+                children: [
+                    Container(
+                        width: containerSize,
+                        height: containerSize,
+                        decoration: BoxDecoration(
+                            color: color,
+                            shape: BoxShape.circle,
+                        ),
+                        child: isInCircle 
+                            ? Center(
+                                child: Text(
+                                    label.toString(),
+                                    style: TextStyle(
+                                        color: AppColors.whiteColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: fontSize,
+                                    ),
+                                ),
+                            )
+                            : SizedBox.shrink() 
+                    ),
+                    if (!isInCircle) 
+                    Row(
+                        children: [
+                            SizedBox(width: textSpacing),
+                            Text(
+                                label, 
+                                style: TextStyle(fontSize: fontSize)
+                            )
+                        ],
+                    ),
+                ],
+            ),
+        );
     }
 }

@@ -8,6 +8,7 @@ import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/at
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_calendar.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_filters.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_services.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_utils.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
 import 'package:school_erp/theme/colors.dart';
 
@@ -99,24 +100,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         );
     }
 
-    Widget _buildLegend(String legendText, Color legendColor) {
-        return Row(
-            children: [
-                Container(
-                    width: 25,
-                    height: 25,
-                    decoration: BoxDecoration(
-                        color: legendColor,
-                        shape: BoxShape.circle,
-                    ),
-                    child: SizedBox.shrink()
-                ),
-                SizedBox(width: 3),
-                Text(legendText)
-            ],
-        );
-    }
-
     @override
     Widget build(BuildContext context) {
         return DefaultLayout(
@@ -127,10 +110,10 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                     child:  Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                            _buildLegend(AttendanceStatus.present.displayName, AppColors.presentColor),
-                            _buildLegend(AttendanceStatus.late.displayName, AppColors.lateColor),
-                            _buildLegend(AttendanceStatus.absent.displayName, AppColors.absentColor),
-                            _buildLegend(AttendanceStatus.leave.displayName, AppColors.leaveColor),
+                            AttendanceCalendarUtils.buildStatus(context, AttendanceStatus.present.displayName, AppColors.presentColor, false),
+                            AttendanceCalendarUtils.buildStatus(context, AttendanceStatus.late.displayName, AppColors.lateColor, false),
+                            AttendanceCalendarUtils.buildStatus(context, AttendanceStatus.absent.displayName, AppColors.absentColor, false),
+                            AttendanceCalendarUtils.buildStatus(context, AttendanceStatus.leave.displayName, AppColors.leaveColor, false),
                         ],
                     ),
                 ),

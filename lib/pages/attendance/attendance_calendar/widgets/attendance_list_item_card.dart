@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_list_item_data.dart';
+import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_utils.dart';
 import 'package:school_erp/pages/common_widgets/cards/custom_item_card.dart';
 import 'package:school_erp/theme/colors.dart';
 
@@ -10,29 +11,6 @@ class AttendanceListItemCard extends StatelessWidget{
         super.key,
         required this.attendanceData
     });
-
-    Widget _buildCircle(int label, Color color) {
-        return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 1), 
-            child:Container(
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                    color: color,
-                    shape: BoxShape.circle,
-                ),
-                child: Center(
-                    child: Text(
-                        label.toString(),
-                        style: TextStyle(
-                            color: AppColors.whiteColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                        ),
-                    ),
-                ),
-            ));
-    }
 
     @override
     Widget build(BuildContext context) {
@@ -50,10 +28,10 @@ class AttendanceListItemCard extends StatelessWidget{
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
-                                        _buildCircle(attendanceData.totalPresent, AppColors.presentColor),
-                                        _buildCircle(attendanceData.totalLate, AppColors.lateColor), 
-                                        _buildCircle(attendanceData.totalAbsent, AppColors.absentColor),
-                                        _buildCircle(attendanceData.totalLeave, AppColors.leaveColor)
+                                        AttendanceCalendarUtils.buildStatus(context, attendanceData.totalPresent.toString(), AppColors.presentColor, true),
+                                        AttendanceCalendarUtils.buildStatus(context, attendanceData.totalLate.toString(), AppColors.lateColor, true), 
+                                        AttendanceCalendarUtils.buildStatus(context, attendanceData.totalAbsent.toString(), AppColors.absentColor, true),
+                                        AttendanceCalendarUtils.buildStatus(context, attendanceData.totalLeave.toString(), AppColors.leaveColor, true)
                                     ],
                                 )
                             ],
