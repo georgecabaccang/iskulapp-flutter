@@ -9,6 +9,7 @@ import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendan
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_filters.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_services.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
+import 'package:school_erp/theme/colors.dart';
 
 // For testing only. 
 // Remove and replace with proper thing after.
@@ -125,10 +126,10 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                     child:  Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                            _buildLegend(AttendanceStatus.present.displayName, Colors.green.withOpacity(0.5)),
-                            _buildLegend(AttendanceStatus.late.displayName, Color.fromARGB(255, 240, 190, 50).withOpacity(0.7)),
-                            _buildLegend(AttendanceStatus.absent.displayName, Colors.red.withOpacity(0.7)),
-                            _buildLegend(AttendanceStatus.leave.displayName, Color.fromARGB(220, 0, 190, 210)),
+                            _buildLegend(AttendanceStatus.present.displayName, AppColors.presentColor),
+                            _buildLegend(AttendanceStatus.late.displayName, AppColors.lateColor),
+                            _buildLegend(AttendanceStatus.absent.displayName, AppColors.absentColor),
+                            _buildLegend(AttendanceStatus.leave.displayName, AppColors.leaveColor),
                         ],
                     ),
                 ),

@@ -16,4 +16,8 @@ class AppColors {
 
     static const Color disabled = Color.fromARGB(110, 196, 196, 196); // light grey
 
+    static const Color presentColor = Color.fromARGB(100, 0, 150, 0);
+    static const Color lateColor = Color.fromARGB(200, 240, 190, 65);
+    static const Color absentColor = Color.fromARGB(130, 220, 0, 0);
+    static const Color leaveColor = Color.fromARGB(160, 0, 130, 150);
 }

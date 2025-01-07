@@ -13,8 +13,8 @@ class AttendanceListItemCard extends StatelessWidget{
 
     Widget _buildCircle(int label, Color color) {
         return Container(
-            width: 25,
-            height: 25,
+            width: 30,
+            height: 30,
             decoration: BoxDecoration(
                 color: color,
                 shape: BoxShape.circle,
@@ -48,10 +48,10 @@ class AttendanceListItemCard extends StatelessWidget{
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
-                                        _buildCircle(attendanceData.totalPresent, Colors.green.withOpacity(0.5)),
-                                        _buildCircle(attendanceData.totalLate, Color.fromARGB(255, 240, 190, 50).withOpacity(0.7) ), 
-                                        _buildCircle(attendanceData.totalAbsent, Colors.red.withOpacity(0.7)),
-                                        _buildCircle(attendanceData.totalLeave, Color.fromARGB(220, 0, 190, 210))
+                                        _buildCircle(attendanceData.totalPresent, AppColors.presentColor),
+                                        _buildCircle(attendanceData.totalLate, AppColors.lateColor), 
+                                        _buildCircle(attendanceData.totalAbsent, AppColors.absentColor),
+                                        _buildCircle(attendanceData.totalLeave, AppColors.leaveColor)
                                     ],
                                 )
                             ],

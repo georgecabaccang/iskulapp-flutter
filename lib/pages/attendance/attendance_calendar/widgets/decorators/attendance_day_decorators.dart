@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/attendance_status.dart';
+import 'package:school_erp/theme/colors.dart';
 
 class AttendanceDayDecorators {
     static Color getDecorationForStatus(String status){
         // Will change this. Fow, is okay.
         return status == AttendanceStatus.present.value 
-            ? Colors.green.withOpacity(0.5) 
+            ? AppColors.presentColor 
             : status == AttendanceStatus.late.value 
-                ? const Color.fromARGB(255, 240, 190, 50).withOpacity(0.7) 
+                ? AppColors.lateColor 
                 :  status == AttendanceStatus.leave.value
-                    ? const Color.fromARGB(220, 0, 190, 210)
-                    : Colors.red.withOpacity(0.7);
+                    ? AppColors.leaveColor
+                    : AppColors.absentColor;
     }
 
     static Widget sundayDecorations(int day) {
