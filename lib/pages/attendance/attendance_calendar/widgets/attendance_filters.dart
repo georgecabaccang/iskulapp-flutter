@@ -5,10 +5,10 @@ import 'package:school_erp/mocks/mock_roles.dart';
 import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/mocks/mock_teacher.dart';
+import 'package:school_erp/models/section.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/attendance_calendar_page.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_list.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_services.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_utils.dart';
 import 'package:school_erp/pages/common_widgets/dropdowns/form_drop_down_list.dart';
 import 'package:school_erp/pages/common_widgets/forms/buttons/form_button.dart';
@@ -18,10 +18,11 @@ import 'package:school_erp/pages/common_widgets/forms/drop_down_form/drop_down_f
 class AttendanceFilters extends StatefulWidget{
     final Roles role;
     final ValueChanged<MockStudent?> changePersonFilter;
-    final void Function(MockSection) changeSectionFilter;
+    final void Function(Section) changeSectionFilter;
     final void Function(FilterByType) changeFilterBy;
     final void Function(DateTimeRange) changeDateRange;
 
+    final List<Section> sections;
     final List<MockStudent> students;
     final List<FilterByType> filters;
     final List<AttendanceDetails> attendance;
@@ -34,6 +35,7 @@ class AttendanceFilters extends StatefulWidget{
         required this.changeSectionFilter, 
         required this.changeFilterBy, 
         required this.changeDateRange, 
+        required this.sections,
         required this.students,
         required this.filters, 
         required this.attendance, 
@@ -53,57 +55,32 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
 
     MockStudent? _studentSelected;
     FilterByType? _filterSelected;
-    MockSection? _currentSection;
+    Section? _currentSection;
 
     String? dateRangeDisplay;
     int dateDifference = 0;
 
-    final AttendanceCalendarServices _attendanceService = AttendanceCalendarServices();
-
     @override
     void initState() {
         super.initState();
-
-        if (widget.role == Roles.teacher) {_loadSectionsAndRoles();}
     }
 
-    Future<void> _loadSectionsAndRoles() async {
-        try {
-            setState(() => _isLoading = true);
-
-            final data = await _attendanceService.loadSectionsAndRoles();
-
-            setState(() {
-                    sections = data['sections'] ?? [];
-                    roles = data['roles'] ?? [];
-                });
-        } 
-        // Properly handle errors in the future.
-        catch (error) {
-            if (!mounted) return;
-            print(error);
-        } finally {
-            setState(() => _isLoading = false);
-        }
-    }
-
-    void _handleChangeSection(MockSection? newSection) {
+    void _handleChangeSection(Section? newSection) {
         if (widget.role != Roles.teacher) return;
         if (_currentSection == newSection) return;
 
-        if (newSection is MockSection) {
-            setState(() {
-                    _currentSection = newSection;
+        setState(() {
+                _currentSection = newSection;
 
-                    // Reset all values here to avoid exceptions.
-                    _studentSelected = null;
-                    _filterSelected = null;
-                    dateRangeDisplay = null;
-                    dateDifference = 0;
-                    widget.changeSectionFilter(newSection);
-                }
-            );
-        }
+                // Reset all values here to avoid exceptions.
+                _studentSelected = null;
+                _filterSelected = null;
+                dateRangeDisplay = null;
+                dateDifference = 0;
+                widget.changeSectionFilter(newSection!);
+            }
+        );
+
     }
 
     void _handleChangePerson(MockStudent? person) {
@@ -155,9 +132,9 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         // separate these dropdowns in to its own statefulwidgets,
         // but for now, this is fine. Just something to think about.
         final List<FormDropDownList> dropDowns = [
-            FormDropDownList<MockSection>(
+            FormDropDownList<Section>(
                 selectedValue: _currentSection,
-                options: sections, 
+                options: widget.sections, 
                 label: "Section", 
                 hint: "Select a section...", 
                 errorMessage: "Please select a section.", 

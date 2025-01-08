@@ -1,25 +1,24 @@
 import 'package:flutter/services.dart';
-import 'package:school_erp/mocks/mock_roles.dart';
 import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/mocks/mock_student.dart';
+import 'package:school_erp/models/section.dart';
 import 'dart:convert';
 
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
+import 'package:school_erp/repositories/sections_repository.dart';
 
 class AttendanceCalendarServices {
-    Future<Map<String, dynamic>> loadSectionsAndRoles() async {
+    static Future< List<Section>> loadSectionsOfTeacher(String teacherId, String academicYearId) async {
         try {
-            final String responseSections = await rootBundle.loadString('assets/mocks/attendance_mocks/sections.json');
-            final String responseRoles = await rootBundle.loadString('assets/mocks/attendance_mocks/roles.json');
+            SectionRepository sectionRepo = SectionRepository();
 
-            if (responseSections.isEmpty || responseRoles.isEmpty) {
-                throw Exception("Failed to load sections or roles.");
+            final List<Section> responseSections = await sectionRepo.getTeacherSectionsAll(teacherId: teacherId, academicYearId: academicYearId);
+
+            if (responseSections.isEmpty) {
+                throw Exception("Failed to fetch sections.");
             }
 
-            final sections = MockSections.fromJson(json.decode(responseSections)).mockSections;
-            final roles = MockRoles.fromJson(json.decode(responseRoles)).mockRoles;
-
-            return {'sections': sections, 'roles': roles};
+            return responseSections;
         } catch (error) {
             rethrow;
         }

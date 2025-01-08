@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/enums/filter_by_type.dart';
-import 'package:school_erp/mocks/mock_section.dart';
+import 'package:school_erp/features/auth/auth_repository/schemas/schemas.dart';
+import 'package:school_erp/features/auth/utils.dart';
 import 'package:school_erp/mocks/mock_student.dart';
+import 'package:school_erp/models/section.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/attendance_status.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_calendar.dart';
@@ -9,6 +11,7 @@ import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendan
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_services.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_utils.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
+import 'package:school_erp/repositories/sections_repository.dart';
 import 'package:school_erp/theme/colors.dart';
 
 // For testing only. 
@@ -27,10 +30,10 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     late DateTime _firstDay;
     late DateTime _lastDay;
     late DateTime _focusedDay;
-    // final Map<DateTime, DateDetails> _details = {};
 
-    // For testing purposes with teacher.json
-    MockSection? currentSection;
+    List<Section> sectionsOfTeacher = [];
+
+    Section? currentSection;
 
     // For testing purposes with students.json
     List<MockStudent> students = [];
@@ -52,6 +55,28 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         _firstDay = DateTime.utc(2000, 1, 1); 
         _lastDay = DateTime.now(); 
         _focusedDay = DateTime.now(); 
+
+        _getSectionsOfTeacher();
+
+    }
+
+    void _getSectionsOfTeacher() async {
+        try {
+            SectionRepository sectionRepository = SectionRepository();
+
+            String teacherId = getTeacherId(context);
+            AuthenticatedUser authUser = getAuthUser(context);
+
+            List<Section> responseSections = await sectionRepository.getTeacherSectionsAll(teacherId: teacherId, academicYearId: authUser.academicYearId);
+
+            if (responseSections.isEmpty) throw Exception("Teacher has no sections handled.");
+
+            setState(() => sectionsOfTeacher = responseSections);
+        } 
+        // Handle better in the future.
+        catch (error) {
+            print(error);
+        }
     }
 
     void _onChangeFocusedDate(DateTime selectedDay, DateTime focusedDay) {
@@ -61,7 +86,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         );
     }
 
-    void _onChangeSection(MockSection newSection) async {
+    void _onChangeSection(Section newSection) async {
         List<AttendanceDetails> attendanceForSection = await AttendanceCalendarServices.loadStudentAttendance(newSection);
         List<MockStudent> studentsOfSection = await AttendanceCalendarServices.loadStudentsOfSection(newSection);
 
@@ -136,6 +161,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                     attendanceOfRange: attendanceOfDateRange,
                     students: students,
                     filters: filters,
+                    sections: sectionsOfTeacher
                 ),
             ]
         );
