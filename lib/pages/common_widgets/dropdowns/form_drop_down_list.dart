@@ -9,7 +9,7 @@ class FormDropDownList<T extends EntityDisplayData> extends StatelessWidget {
     final String label;
     final String hint;
     final String errorMessage;
-    final ValueChanged<EntityDisplayData?> onChangedFn; 
+    final ValueChanged<T?> onChangedFn; 
 
     const FormDropDownList({
         super.key, 

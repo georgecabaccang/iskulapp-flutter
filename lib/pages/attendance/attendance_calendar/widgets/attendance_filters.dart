@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/enums/button_type.dart';
 import 'package:school_erp/enums/filter_by_type.dart';
-import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/mocks/mock_roles.dart';
 import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/mocks/mock_student.dart';
@@ -18,13 +17,13 @@ import 'package:school_erp/pages/common_widgets/forms/drop_down_form/drop_down_f
 
 class AttendanceFilters extends StatefulWidget{
     final Roles role;
-    final ValueChanged<EntityDisplayData?> changePersonFilter;
+    final ValueChanged<MockStudent?> changePersonFilter;
     final void Function(MockSection) changeSectionFilter;
     final void Function(FilterByType) changeFilterBy;
     final void Function(DateTimeRange) changeDateRange;
 
     final List<MockStudent> students;
-    final List<EntityDisplayData> filters;
+    final List<FilterByType> filters;
     final List<AttendanceDetails> attendance;
     final List<AttendanceDetails> attendanceOfRange;
 
@@ -88,7 +87,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
-    void _handleChangeSection(EntityDisplayData? newSection) {
+    void _handleChangeSection(MockSection? newSection) {
         if (widget.role != Roles.teacher) return;
         if (_currentSection == newSection) return;
 
@@ -107,7 +106,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
-    void _handleChangePerson(EntityDisplayData? person) {
+    void _handleChangePerson(MockStudent? person) {
         // These setStates here are needed here to rebuild the 'Name' dropdown list
         // and display update data based on selected person.
 
@@ -120,17 +119,15 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         }
     }
 
-    void _handleChangeFilterBy(EntityDisplayData? filter) {
-        if (filter is FilterByType) {
-            setState(() {
-                    // Reset _studentSelected and _teacherSelected here to avoid exceptions.
-                    _filterSelected = filter;
-                    _studentSelected = null;
-                });
+    void _handleChangeFilterBy(FilterByType? filter) {
+        setState(() {
+                // Reset _studentSelected and _teacherSelected here to avoid exceptions.
+                _filterSelected = filter;
+                _studentSelected = null;
+            });
 
-            // This is to hide main calendar if FilterByType.date is selected.
-            widget.changeFilterBy(_filterSelected!);
-        }
+        // This is to hide main calendar if FilterByType.date is selected.
+        widget.changeFilterBy(_filterSelected!);
     }
 
     void _handleDateRange() async {
@@ -158,7 +155,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
         // separate these dropdowns in to its own statefulwidgets,
         // but for now, this is fine. Just something to think about.
         final List<FormDropDownList> dropDowns = [
-            FormDropDownList(
+            FormDropDownList<MockSection>(
                 selectedValue: _currentSection,
                 options: sections, 
                 label: "Section", 
@@ -167,7 +164,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 onChangedFn: _handleChangeSection,
             ),
             if (_currentSection != null)
-            FormDropDownList(
+            FormDropDownList<FilterByType>(
                 selectedValue: _filterSelected,
                 options: widget.filters, 
                 label: "Filter by", 
@@ -177,7 +174,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
             ),
             // Hide if filter chosen is by date
             if (_filterSelected == FilterByType.student) 
-            FormDropDownList(
+            FormDropDownList<MockStudent>(
                 selectedValue: _studentSelected,
                 options: widget.students,
                 label: "Name", 

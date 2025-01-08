@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/enums/filter_by_type.dart';
-import 'package:school_erp/interfaces/display_values.dart';
 import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
@@ -44,8 +43,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     // For testing purposes for attendance for each person
     Map<DateTime, AttendanceDetails> attendanceDetails = {};
 
-    EntityDisplayData? filterBy;
-    List<EntityDisplayData> filters = FilterByType.values.toList();
+    FilterByType? filterBy;
+    List<FilterByType> filters = FilterByType.values;
 
     @override
     void initState() {
@@ -75,14 +74,12 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
             });
     }
 
-    void _onChangePerson(EntityDisplayData? person) {
+    void _onChangePerson(MockStudent? person) {
         if (person == null) {
             return setState(() => attendanceDetails = {});
         }
-        if (person is MockStudent) {
-            List<AttendanceDetails> studentAttendanceRecord = attendanceStudent.where((attendance) => attendance.studentId == person.id).toList();
-            return setState(() => attendanceDetails = ConvertedAttendanceDetails.fromAttendanceList(studentAttendanceRecord).dateDetails);
-        }
+        List<AttendanceDetails> studentAttendanceRecord = attendanceStudent.where((attendance) => attendance.studentId == person.id).toList();
+        return setState(() => attendanceDetails = ConvertedAttendanceDetails.fromAttendanceList(studentAttendanceRecord).dateDetails);
     }
 
     void _onChangeFilterBy(FilterByType? filter) {
