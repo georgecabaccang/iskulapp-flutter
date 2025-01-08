@@ -6,6 +6,8 @@ import 'package:school_erp/constants/assessments/form_validation.dart'
 import 'package:school_erp/enums/assignment_type.dart';
 import 'package:school_erp/features/assessment/cubit/assessment_cubit.dart';
 import 'package:school_erp/features/assessment/cubit/assessment_state.dart';
+import 'package:school_erp/features/auth/auth.dart';
+import 'package:school_erp/features/auth/utils.dart';
 import 'package:school_erp/features/transition/clean_slide_transition.dart';
 import 'package:school_erp/models/subject_year.dart';
 import 'package:school_erp/pages/assessment/assessment_create_update/assessment_takers/assessment_takers_page.dart';
@@ -31,7 +33,14 @@ class _AssessmentSetupFormState extends State<AssessmentSetupForm> {
   }
 
   void _loadSubjectSelection() async {
-    final subjects = await teacherRepository.activeSubjects();
+    final authUser = getAuthUser(context);
+    final teacherId = getTeacherId(context);
+
+    final subjects = await subjectYearRepository.getTeacherSubjects(
+      teacherId: teacherId,
+      academicYearId: authUser.academicYearId,
+    );
+
     setState(() {
       activeSubjects = subjects;
     });

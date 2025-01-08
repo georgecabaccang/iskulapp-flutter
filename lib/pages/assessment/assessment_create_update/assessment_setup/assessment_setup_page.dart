@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/features/assessment/assessment_service.dart';
 import 'package:school_erp/features/assessment/cubit/assessment_cubit.dart';
-import 'package:school_erp/features/auth/auth.dart';
+import 'package:school_erp/features/auth/utils.dart';
 import 'package:school_erp/pages/assessment/assessment_create_update/assessment_setup/assessment_setup_form.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
 import 'package:school_erp/models/assessment.dart';
@@ -20,11 +20,7 @@ class AssessmentSetupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authState = context.read<AuthBloc>().state;
-    final authUser = switch (authState) {
-      Authenticated(:final user) => user,
-      _ => throw Exception('User must be authenticated'),
-    };
+    final teacherId = getTeacherId(context);
 
     return BlocProvider<AssessmentCubit>(
       create: (_) {
@@ -32,7 +28,7 @@ class AssessmentSetupPage extends StatelessWidget {
         return AssessmentCubit(
           assessmentService: assessmentService,
           assessmentTypeOnCreate: assessmentTypeOnCreate,
-          authUser: authUser,
+          teacherId: teacherId,
           assessment: assessment,
         );
       },

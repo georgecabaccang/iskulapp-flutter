@@ -20,7 +20,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Text(
-              'Year ${user.academicYear}',
+              'Year ${user.academicYearId}',
               style: bodyStyle()
                   .copyWith(color: AppColors.primaryColor, fontSize: 12),
             ),

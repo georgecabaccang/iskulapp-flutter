@@ -1,5 +1,5 @@
 import 'package:powersync/powersync.dart';
-import 'package:school_erp/repositories/base_crud_repository/base_crud_repository.dart';
+import 'package:school_erp/repositories/base_repository/base_crud_repository.dart';
 import 'test_model.dart';
 import 'test_table.dart';
 

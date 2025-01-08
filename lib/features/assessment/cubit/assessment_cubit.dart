@@ -3,9 +3,9 @@ import 'package:school_erp/enums/action_type.dart';
 import 'package:school_erp/enums/assessment_type.dart';
 import 'package:school_erp/features/assessment/assessment_service.dart';
 import 'package:school_erp/features/assessment/cubit/assessment_state.dart';
-import 'package:school_erp/features/auth/auth.dart';
 import 'package:school_erp/models/assessment.dart';
 import 'package:school_erp/models/assessment_taker.dart';
+import 'package:school_erp/repositories/repositories.dart';
 
 class AssessmentCubit extends Cubit<AssessmentState> {
   final AssessmentService _assessmentService;
@@ -13,11 +13,11 @@ class AssessmentCubit extends Cubit<AssessmentState> {
   AssessmentCubit({
     required AssessmentService assessmentService,
     required AssessmentType assessmentTypeOnCreate,
-    required AuthenticatedUser authUser,
+    required String teacherId,
     Assessment? assessment,
   })  : _assessmentService = assessmentService,
         super(AssessmentState.initial(
-          authUser: authUser,
+          teacherId: teacherId,
           assessmentTypeOnCreate: assessmentTypeOnCreate,
           existingAssessment: assessment,
         )) {
@@ -139,8 +139,8 @@ class AssessmentCubit extends Cubit<AssessmentState> {
       /// load assessment takers when updating
       if (state.actionType == ActionType.update &&
           state.assessment.id != null) {
-        final assessmentTakers = await _assessmentService.assessmentRepository
-            .getAssessmentTakers(state.assessment.id!);
+        final assessmentTakers = await assessmentTakerRepository
+            .getByAssessment(state.assessment.id!);
         emit(state.copyWith(
           assessmentTakers: assessmentTakers,
           isLoading: false,
