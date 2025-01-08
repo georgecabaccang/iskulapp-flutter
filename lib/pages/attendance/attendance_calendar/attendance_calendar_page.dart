@@ -65,6 +65,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         List<AttendanceDetails> attendanceForSection = await AttendanceCalendarServices.loadStudentAttendance(newSection);
         List<MockStudent> studentsOfSection = await AttendanceCalendarServices.loadStudentsOfSection(newSection);
 
+        studentsOfSection.sort((a, b) => a.lastName.toLowerCase().compareTo(b.lastName.toLowerCase()));
+
         setState(() {
                 filterBy = null;
                 currentSection = newSection;
