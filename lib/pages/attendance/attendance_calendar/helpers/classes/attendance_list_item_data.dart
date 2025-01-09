@@ -1,6 +1,6 @@
+import 'package:school_erp/enums/attendance_status.dart';
 import 'package:school_erp/models/student.dart';
 import 'package:school_erp/models/attendance.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/attendance_status.dart';
 
 class AttendanceListItemData {
     final Student student;
@@ -34,7 +34,7 @@ class AttendanceListItemData {
                     if (attendance.status == AttendanceStatus.present) present++;
                     if (attendance.status == AttendanceStatus.late) late++; 
                     if (attendance.status == AttendanceStatus.absent) absent++; 
-                    if (attendance.status == AttendanceStatus.leave) leave++; 
+                    if (attendance.status == AttendanceStatus.authorizedAbsence) leave++; 
                 }
             }
         })();
