@@ -143,7 +143,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         }
     }
 
-    void _onChangePerson(Student? person) {
+    void _onChangeStudent(Student? person) {
         if (person == null) {
             return setState(() => attendanceDetails = {});
         }
@@ -196,7 +196,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                 AttendanceFilters(
                     // This role is only for testing/development purposes
                     role: role, 
-                    changePersonFilter: _onChangePerson,
+                    changeStudentFilter: _onChangeStudent,
                     changeSectionFilter: _onChangeSection,
                     changeFilterBy: _onChangeFilterBy,
                     changeDateRange: _onChangeFilterRange,
