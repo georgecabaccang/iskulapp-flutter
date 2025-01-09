@@ -99,6 +99,13 @@ const studentsBySectionSql = """
   ORDER BY user_profiles.last_name ASC;
 """;
 
+const attendanceOfStudentSql = """
+  SELECT
+    *
+  FROM attendances
+  WHERE student_id = ?
+""";
+
 const assessmentTakersSql = """
   SELECT 
     assessment_takers.*, 
