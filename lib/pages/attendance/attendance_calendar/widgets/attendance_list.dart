@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/models/student.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
+import 'package:school_erp/models/attendance.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_list_item_data.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_list_item_card.dart';
 import 'package:school_erp/pages/common_widgets/lists/custom_list_view.dart';
 
 class AttendanceList extends StatelessWidget {
     final List<Student> students;
-    final List<AttendanceDetails> attendance;
+    final List<Attendance> attendance;
     final int range;
 
     const AttendanceList({
@@ -18,7 +18,7 @@ class AttendanceList extends StatelessWidget {
     });
 
     // Configured like this it to keep it pure.
-    List<AttendanceListItemData> _handleDisplayOfStudentData(List<Student> students, List<AttendanceDetails> attendance, int range ) {
+    List<AttendanceListItemData> _handleDisplayOfStudentData(List<Student> students, List<Attendance> attendance, int range ) {
         List<AttendanceListItemData> itemData = [];
 
         for (var student in students) {

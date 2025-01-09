@@ -5,7 +5,6 @@ import 'package:school_erp/features/auth/utils.dart';
 import 'package:school_erp/models/attendance.dart';
 import 'package:school_erp/models/section.dart';
 import 'package:school_erp/models/student.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/attendance_status.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_calendar.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_filters.dart';
@@ -42,7 +41,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     List<Attendance> attendanceStudent = [];
 
     Section? currentSection;
-    List<AttendanceDetails> attendanceOfDateRange = [];
+    List<Attendance> attendanceOfDateRange = [];
 
     // Converted List<Attendance> to map for ease of access of data.
     Map<DateTime, Attendance> attendanceDetails = {};

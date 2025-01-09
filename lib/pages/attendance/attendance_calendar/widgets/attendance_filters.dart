@@ -9,7 +9,6 @@ import 'package:school_erp/models/attendance.dart';
 import 'package:school_erp/models/section.dart';
 import 'package:school_erp/models/student.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/attendance_calendar_page.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_list.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_utils.dart';
 import 'package:school_erp/pages/common_widgets/dropdowns/form_drop_down_list.dart';
@@ -28,7 +27,7 @@ class AttendanceFilters extends StatefulWidget{
     final List<Student> students;
     final List<FilterByType> filters;
     final List<Attendance> attendance;
-    final List<AttendanceDetails> attendanceOfRange;
+    final List<Attendance> attendanceOfRange;
 
     const AttendanceFilters({
         super.key, 
