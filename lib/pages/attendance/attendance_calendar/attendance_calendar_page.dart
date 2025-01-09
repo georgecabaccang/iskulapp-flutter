@@ -49,6 +49,11 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     FilterByType? filterBy;
     List<FilterByType> filters = FilterByType.values;
 
+    final Map<String, bool> _loadingStates = {
+        "isSectionsLoading": false,
+        "isStudentsLoading": false,
+    };
+
     @override
     void initState() {
         super.initState();
@@ -62,6 +67,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
 
     void _getSectionsOfTeacher() async {
         try {
+            setState(() => _loadingStates["isSectionsLoading"] = true);
+
             String teacherId = getTeacherId(context);
             AuthenticatedUser authUser = getAuthUser(context);
 
@@ -74,6 +81,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         // Handle better in the future.
         catch (error) {
             print(error);
+        } finally {
+            setState(() => _loadingStates["isSectionsLoading"] = false);
         }
     }
 
@@ -86,6 +95,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
 
     void _onChangeSection(Section newSection) async {
         try {
+            setState(() => _loadingStates["isStudentsLoading"] = true);
+
             List<Student> studentsOfSection = await studentRepository.getStudentsBySection(newSection.id);
             List<Attendance> attendanceOfStudents = await  attendanceRepository.getStudentsAttendanceBySection(sectionId: newSection.id);
 
@@ -105,6 +116,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         // Handle better in the future. 
         catch (error) {
             print(error);
+        } finally {
+            setState(() => _loadingStates["isStudentsLoading"] = false);
         }
     }
 
@@ -168,7 +181,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                     attendanceOfRange: attendanceOfDateRange,
                     students: students,
                     filters: filters,
-                    sections: sectionsOfTeacher
+                    sections: sectionsOfTeacher,
+                    isLoading: _loadingStates
                 ),
             ]
         );

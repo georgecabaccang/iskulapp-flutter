@@ -25,6 +25,7 @@ class AttendanceFilters extends StatefulWidget{
     final List<FilterByType> filters;
     final List<Attendance> attendance;
     final List<Attendance> attendanceOfRange;
+    final Map<String, bool> isLoading;
 
     const AttendanceFilters({
         super.key, 
@@ -37,7 +38,8 @@ class AttendanceFilters extends StatefulWidget{
         required this.students,
         required this.filters, 
         required this.attendance, 
-        required this.attendanceOfRange
+        required this.attendanceOfRange,
+        required this.isLoading
     });
 
     @override
@@ -126,6 +128,8 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 hint: "Select a section...", 
                 errorMessage: "Please select a section.", 
                 onChangedFn: _handleChangeSection,
+                isLoading: widget.isLoading["isSectionsLoading"]!
+                ,
             ),
             if (_currentSection != null)
             FormDropDownList<FilterByType>(
@@ -135,6 +139,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 hint: "Select a filter...", 
                 errorMessage: "Please select a filter.", 
                 onChangedFn: _handleChangeFilterBy,
+                isLoading: widget.isLoading["isStudentsLoading"]!
             ),
             // Hide if filter chosen is by date
             if (_filterSelected == FilterByType.student) 
@@ -145,6 +150,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 hint: "Select a name...", 
                 errorMessage: "Please select a name.", 
                 onChangedFn: _handleChangePerson,
+                isLoading: widget.isLoading["isStudentsLoading"]!
             ),
         ];
 

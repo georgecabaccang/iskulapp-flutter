@@ -10,6 +10,7 @@ class FormDropDownList<T extends EntityDisplayData> extends StatelessWidget {
     final String hint;
     final String errorMessage;
     final ValueChanged<T?> onChangedFn; 
+    final bool isLoading;
 
     const FormDropDownList({
         super.key, 
@@ -18,66 +19,71 @@ class FormDropDownList<T extends EntityDisplayData> extends StatelessWidget {
         required this.label,
         required this.hint,
         required this.errorMessage,
-        required this.onChangedFn, 
+        required this.onChangedFn,
+        this.isLoading = false, 
     });
 
     @override
     Widget build(BuildContext context) {
         return Padding(
             padding: const EdgeInsets.all(16.0),
-            child: FormField<String>(
-                builder: (state) {
-                    return DropdownButtonFormField<T>(
-                        value: selectedValue,
-                        hint: Text(hint),
-                        decoration: InputDecoration(
-                            labelText: label,
-                            labelStyle: TextStyle(
-                                color: AppColors.secondaryFontColor, 
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColors.primaryColor, 
-                                    width: 2.0, 
+            child: 
+            isLoading ? Center(
+                    child: CircularProgressIndicator(),
+                ) :
+                FormField<String>(
+                    builder: (state) {
+                        return DropdownButtonFormField<T>(
+                            value: selectedValue,
+                            hint: Text(hint),
+                            decoration: InputDecoration(
+                                labelText: label,
+                                labelStyle: TextStyle(
+                                    color: AppColors.secondaryFontColor, 
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: AppColors.primaryColor, 
+                                        width: 2.0, 
+                                    ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: AppColors.greyColor, 
+                                        width: 1.0,
+                                    ),
                                 ),
                             ),
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColors.greyColor, 
-                                    width: 1.0,
-                                ),
-                            ),
-                        ),
-                        onChanged: (T? newValue) {
-                            onChangedFn(newValue);
-                        },
-                        validator: (value) {
-                            if (value == null) {
-                                return errorMessage;
-                            }
-                            return null;
-                        },
-                        dropdownColor: AppColors.whiteColor,
-                        items: options
-                            .map((T option) {
-                                    return DropdownMenuItem(
-                                        value: option,
-                                        child: ConstrainedBox(
-                                            constraints: BoxConstraints(
-                                                maxWidth: 300.0,
+                            onChanged: (T? newValue) {
+                                onChangedFn(newValue);
+                            },
+                            validator: (value) {
+                                if (value == null) {
+                                    return errorMessage;
+                                }
+                                return null;
+                            },
+                            dropdownColor: AppColors.whiteColor,
+                            items: options
+                                .map((T option) {
+                                        return DropdownMenuItem(
+                                            value: option,
+                                            child: ConstrainedBox(
+                                                constraints: BoxConstraints(
+                                                    maxWidth: 300.0,
+                                                ),
+                                                child: Text(
+                                                    option.displayName,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    maxLines: 1,
+                                                ),
                                             ),
-                                            child: Text(
-                                                option.displayName,
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                            ),
-                                        ),
-                                    );
-                                })
-                            .toList(),
-                    );
-                },
-            ),
+                                        );
+                                    })
+                                .toList(),
+                        );
+                    },
+                ),
         );
     }
 }
