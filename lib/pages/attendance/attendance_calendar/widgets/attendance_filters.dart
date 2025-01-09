@@ -14,7 +14,7 @@ import 'package:school_erp/pages/common_widgets/forms/drop_down_form/drop_down_f
 
 class AttendanceFilters extends StatefulWidget{
     final Roles role;
-    final ValueChanged<Student?> changeStudentFilter;
+    final ValueChanged<Student?> changePersonFilter;
     final void Function(Section) changeSectionFilter;
     final void Function(FilterByType) changeFilterBy;
     final void Function(DateTimeRange) changeDateRange;
@@ -29,7 +29,7 @@ class AttendanceFilters extends StatefulWidget{
     const AttendanceFilters({
         super.key, 
         required this.role, 
-        required this.changeStudentFilter, 
+        required this.changePersonFilter, 
         required this.changeSectionFilter, 
         required this.changeFilterBy, 
         required this.changeDateRange, 
@@ -78,11 +78,11 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
 
     }
 
-    void _handleChangeStudent(Student? person) {
-        // widget.changeStudentFilter() here is responsible for changing the display
+    void _handleChangePerson(Student? person) {
+        // widget.changePersonFilter() here is responsible for changing the display
         // on the calendar depending on the data.
         setState(() => _studentSelected = person);
-        widget.changeStudentFilter(_studentSelected);
+        widget.changePersonFilter(_studentSelected);
     }
 
     void _handleChangeFilterBy(FilterByType? filter) {
@@ -147,7 +147,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
                 label: "Name", 
                 hint: "Select a name...", 
                 errorMessage: "Please select a name.", 
-                onChangedFn: _handleChangeStudent,
+                onChangedFn: _handleChangePerson,
                 isLoading: widget.isLoading["isStudentsLoading"]!
             ),
         ];
