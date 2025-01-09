@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
+import 'package:school_erp/models/attendance.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_info.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/decorators/custom_calender_builders.dart';
 import 'package:school_erp/pages/common_widgets/modals/animated_custom_modal.dart';
@@ -11,7 +11,7 @@ class AttendanceCalendar extends StatelessWidget{
     final DateTime lastDay;
     final DateTime focusedDay;
     final void Function(DateTime, DateTime) onChangeFocusedDate;
-    final Map<DateTime, AttendanceDetails> details;
+    final Map<DateTime, Attendance> details;
 
     const AttendanceCalendar({
         super.key, 
@@ -33,7 +33,7 @@ class AttendanceCalendar extends StatelessWidget{
                 CalendarFormat.month: 'Month',
             },
             onDaySelected: (selectedDay, focusedDay) {
-                AttendanceDetails? dayDetails = details[selectedDay];
+                Attendance? dayDetails = details[selectedDay];
                 if (dayDetails != null) {
                     AnimatedCustomModal.show(
                         context, 

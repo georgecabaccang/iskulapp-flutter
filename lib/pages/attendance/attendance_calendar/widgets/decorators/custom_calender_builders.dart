@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
+import 'package:school_erp/models/attendance.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/decorators/attendance_day_decorators.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CustomCalenderBuilders {
-    static CalendarBuilders calendarBuilders(Map<DateTime, AttendanceDetails> details) {
+    static CalendarBuilders calendarBuilders(Map<DateTime, Attendance> details) {
         return CalendarBuilders(
             defaultBuilder: (context, day, focusedDay) {
                 bool isSunday = day.weekday == 7;
-                AttendanceDetails? dayDetails;
+                Attendance? dayDetails;
 
                 if (isSunday) return AttendanceDayDecorators.sundayDecorations(day.day);
 
@@ -33,7 +33,7 @@ class CustomCalenderBuilders {
                                             decoration: BoxDecoration(shape: BoxShape.circle, 
                                                 color: 
                                                 dayDetails != null 
-                                                    ? AttendanceDayDecorators.getDecorationForStatus(dayDetails.status.value) 
+                                                    ? AttendanceDayDecorators.getDecorationForStatus(dayDetails.status!.value) 
                                                     : Colors.transparent,
                                             ),
                                         ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/enums/filter_by_type.dart';
 import 'package:school_erp/features/auth/auth_repository/schemas/schemas.dart';
 import 'package:school_erp/features/auth/utils.dart';
-import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/models/attendance.dart';
 import 'package:school_erp/models/section.dart';
 import 'package:school_erp/models/student.dart';
@@ -45,8 +44,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     Section? currentSection;
     List<AttendanceDetails> attendanceOfDateRange = [];
 
-    // For testing purposes for attendance for each person
-    Map<DateTime, AttendanceDetails> attendanceDetails = {};
+    // Converted List<Attendance> to map for ease of access of data.
+    Map<DateTime, Attendance> attendanceDetails = {};
 
     FilterByType? filterBy;
     List<FilterByType> filters = FilterByType.values;
@@ -88,9 +87,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
 
     void _onChangeSection(Section newSection) async {
         try {
-            
             List<Student> studentsOfSection = await studentRepository.getStudentsBySection(newSection.id);
-            List<Attendance> attendanceOfStudents = await  attendanceRepository.getStudentsAttendanceBySection(sectionId: newSection.id)
+            List<Attendance> attendanceOfStudents = await  attendanceRepository.getStudentsAttendanceBySection(sectionId: newSection.id);
 
             if (studentsOfSection.isEmpty) throw Exception("No students in ths section.");
             if (attendanceOfStudents.isEmpty) attendanceOfStudents = [];
@@ -111,12 +109,12 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         }
     }
 
-    void _onChangePerson(MockStudent? person) {
+    void _onChangePerson(Student? person) {
         if (person == null) {
             return setState(() => attendanceDetails = {});
         }
-        List<AttendanceDetails> studentAttendanceRecord = attendanceStudent.where((attendance) => attendance.studentId == person.id).toList();
-        return setState(() => attendanceDetails = ConvertedAttendanceDetails.fromAttendanceList(studentAttendanceRecord).dateDetails);
+        List<Attendance> studentAttendanceRecord = attendanceStudent.where((attendance) => attendance.studentId == person.id).toList();
+        return setState(() => attendanceDetails = AttendanceCalendarUtils.convertAttendanceDetails(studentAttendanceRecord));
     }
 
     void _onChangeFilterBy(FilterByType? filter) {

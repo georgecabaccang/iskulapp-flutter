@@ -39,18 +39,3 @@ class AttendanceDetails {
     }
 }
 
-class ConvertedAttendanceDetails {
-    final Map<DateTime, AttendanceDetails> dateDetails;
-
-    ConvertedAttendanceDetails({required this.dateDetails});
-
-    factory ConvertedAttendanceDetails.fromAttendanceList(List<AttendanceDetails> attendanceDetails) {
-        Map<DateTime, AttendanceDetails> dateData = {};
-
-        for (var detail in attendanceDetails) {
-            dateData[detail.attendanceDate] = detail;
-        }
-
-        return ConvertedAttendanceDetails(dateDetails: dateData);
-    }
-}

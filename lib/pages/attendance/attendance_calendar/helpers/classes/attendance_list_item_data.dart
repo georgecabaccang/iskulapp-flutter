@@ -1,9 +1,9 @@
-import 'package:school_erp/mocks/mock_student.dart';
+import 'package:school_erp/models/student.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/attendance_status.dart';
 
 class AttendanceListItemData {
-    final MockStudent student;
+    final Student student;
     final int totalPresent;
     final int totalLate;
     final int totalAbsent;
@@ -17,7 +17,7 @@ class AttendanceListItemData {
         required this.totalLeave
     });
 
-    factory AttendanceListItemData.generateData(MockStudent student, List<AttendanceDetails> attendanceList, int range) {
+    factory AttendanceListItemData.generateData(Student student, List<AttendanceDetails> attendanceList, int range) {
         int present = 0;
         int late = 0;
         int absent = 0;

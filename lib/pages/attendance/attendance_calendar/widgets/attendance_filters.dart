@@ -5,7 +5,9 @@ import 'package:school_erp/mocks/mock_roles.dart';
 import 'package:school_erp/mocks/mock_section.dart';
 import 'package:school_erp/mocks/mock_student.dart';
 import 'package:school_erp/mocks/mock_teacher.dart';
+import 'package:school_erp/models/attendance.dart';
 import 'package:school_erp/models/section.dart';
+import 'package:school_erp/models/student.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/attendance_calendar_page.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_list.dart';
@@ -17,15 +19,15 @@ import 'package:school_erp/pages/common_widgets/forms/drop_down_form/drop_down_f
 
 class AttendanceFilters extends StatefulWidget{
     final Roles role;
-    final ValueChanged<MockStudent?> changePersonFilter;
+    final ValueChanged<Student?> changePersonFilter;
     final void Function(Section) changeSectionFilter;
     final void Function(FilterByType) changeFilterBy;
     final void Function(DateTimeRange) changeDateRange;
 
     final List<Section> sections;
-    final List<MockStudent> students;
+    final List<Student> students;
     final List<FilterByType> filters;
-    final List<AttendanceDetails> attendance;
+    final List<Attendance> attendance;
     final List<AttendanceDetails> attendanceOfRange;
 
     const AttendanceFilters({
@@ -53,7 +55,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     late List<MockStudent> studentsOfSection = [];
     bool _isLoading = true;
 
-    MockStudent? _studentSelected;
+    Student? _studentSelected;
     FilterByType? _filterSelected;
     Section? _currentSection;
 
@@ -83,17 +85,11 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
 
     }
 
-    void _handleChangePerson(MockStudent? person) {
-        // These setStates here are needed here to rebuild the 'Name' dropdown list
-        // and display update data based on selected person.
-
+    void _handleChangePerson(Student? person) {
         // widget.changePersonFilter() here is responsible for changing the display
         // on the calendar depending on the data.
-
-        if (person is MockStudent) {
-            setState(() => _studentSelected = person);
-            widget.changePersonFilter(_studentSelected);
-        }
+        setState(() => _studentSelected = person);
+        widget.changePersonFilter(_studentSelected);
     }
 
     void _handleChangeFilterBy(FilterByType? filter) {
@@ -151,7 +147,7 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
             ),
             // Hide if filter chosen is by date
             if (_filterSelected == FilterByType.student) 
-            FormDropDownList<MockStudent>(
+            FormDropDownList<Student>(
                 selectedValue: _studentSelected,
                 options: widget.students,
                 label: "Name", 

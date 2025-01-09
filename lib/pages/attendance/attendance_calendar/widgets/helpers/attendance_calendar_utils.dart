@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:school_erp/models/attendance.dart';
 import 'package:school_erp/theme/colors.dart';
 
 class AttendanceCalendarUtils {
@@ -69,4 +70,15 @@ class AttendanceCalendarUtils {
             ),
         );
     }
+
+    static Map<DateTime, Attendance> convertAttendanceDetails(List<Attendance> attendanceDetails) {
+        final Map<DateTime, Attendance> dateDetails = {};
+
+        for (var detail in attendanceDetails) {
+            dateDetails[detail.attendanceDate] = detail;
+        }
+
+        return dateDetails;
+    }
 }
+
