@@ -32,6 +32,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     late DateTime _lastDay;
     late DateTime _focusedDay;
 
+    Roles role = Roles.teacher;
+
     SectionRepository sectionRepository = SectionRepository();
     StudentRepository studentRepository = StudentRepository();
     AttendanceRepository attendanceRepository = AttendanceRepository();
@@ -52,6 +54,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     final Map<String, bool> _loadingStates = {
         "isSectionsLoading": false,
         "isStudentsLoading": false,
+        "isStudentAttendanceLoading": false
     };
 
     @override
@@ -61,7 +64,26 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         _lastDay = DateTime.now(); 
         _focusedDay = DateTime.now(); 
 
-        _getSectionsOfTeacher();
+        if (role == Roles.teacher) _getSectionsOfTeacher();
+        if (role == Roles.student) _getStudentAttendance();
+    }
+
+    void _getStudentAttendance() async {
+        try {
+            setState(() => _loadingStates["isStudentAttendanceLoading"] = true);
+
+            List<Attendance> studentAttendance = await attendanceRepository.getStudentAttendance(1);
+
+            if (studentAttendance.isEmpty) throw Exception("No attendance record.");
+
+            setState(() => attendanceDetails = AttendanceCalendarUtils.convertAttendanceDetails(studentAttendance));
+        }
+        // Handle better in the future.
+        catch (error) {
+            print(error);
+        } finally {
+            setState(() => _loadingStates["isStudentAttendanceLoading"] = false);
+        }
 
     }
 
@@ -162,7 +184,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                     ),
                 ),
 
-                if (filterBy == FilterByType.student && currentSection != null) 
+                if (filterBy == FilterByType.student && currentSection != null 
+                    || role == Roles.student && !_loadingStates["isStudentAttendanceLoading"]!) 
                 AttendanceCalendar(
                     details: attendanceDetails,
                     firstDay: _firstDay, 
@@ -172,7 +195,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                 ), 
                 AttendanceFilters(
                     // This role is only for testing/development purposes
-                    role: Roles.teacher, 
+                    role: role, 
                     changePersonFilter: _onChangePerson,
                     changeSectionFilter: _onChangeSection,
                     changeFilterBy: _onChangeFilterBy,
