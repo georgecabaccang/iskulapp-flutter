@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:school_erp/models/attendance.dart';
+import 'package:school_erp/models/summaries/attendance_summary.dart';
 import 'package:school_erp/models/tables/tables.dart';
 import 'package:school_erp/repositories/base_repository/base_repository.dart';
 import 'package:school_erp/repositories/base_repository/create_mixin.dart';
@@ -28,5 +29,31 @@ class AttendanceRepository extends BaseRepository<Attendance>
     }
 
     return results.map(Attendance.fromRow).toList(growable: false);
+  }
+
+  Future<List<Attendance>> getStudentsAttendanceBySection({
+    required String sectionId,
+  }) async {
+    var results =
+        await database.execute(studentsAttendanceBySectionSql, [sectionId]);
+
+    if (results.isEmpty) {
+      return [];
+    }
+
+    return results.map(Attendance.fromRow).toList(growable: false);
+  }
+
+  Future<List<AttendanceSummary>> getStudentsAttendanceSummaries({
+    required String sectionId,
+  }) async {
+    var results =
+        await database.execute(studentsAttendanceSummariesSql, [sectionId]);
+
+    if (results.isEmpty) {
+      return [];
+    }
+
+    return results.map(AttendanceSummary.fromRow).toList(growable: false);
   }
 }

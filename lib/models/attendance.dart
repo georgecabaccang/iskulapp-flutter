@@ -13,6 +13,10 @@ class Attendance extends BaseModel {
   final TimeOfDay? timeIn;
   final AttendanceStatus? status;
 
+  // from relationships
+  final String? firstName;
+  final String? lastName;
+
   Attendance._({
     super.id,
     required this.studentId,
@@ -21,6 +25,8 @@ class Attendance extends BaseModel {
     this.checkedBy,
     this.timeIn,
     this.status,
+    this.firstName,
+    this.lastName,
   });
 
   factory Attendance({
@@ -31,6 +37,8 @@ class Attendance extends BaseModel {
     required String checkedBy,
     required AttendanceStatus status,
     TimeOfDay? timeIn,
+    String? firstName,
+    String? lastName,
   }) {
     return Attendance._(
       id: id,
@@ -40,6 +48,8 @@ class Attendance extends BaseModel {
       attendanceDate: attendanceDate,
       timeIn: timeIn,
       status: status,
+      firstName: firstName,
+      lastName: lastName,
     );
   }
 
@@ -74,20 +84,26 @@ class Attendance extends BaseModel {
       attendanceDate: DateTime.parse(row['attendance_date'] as String),
       timeIn: row['time_in'] != null ? parseTimeOfDay(row['time_in']) : null,
       status: AttendanceStatus.fromString(row['status']),
+      firstName: row['first_name'],
+      lastName: row['last_name'],
     );
   }
+
   Attendance copyWith({
     String? checkedBy,
     TimeOfDay? timeIn,
     AttendanceStatus? status,
   }) {
     return Attendance._(
-        id: id,
-        studentId: studentId,
-        sectionId: sectionId,
-        attendanceDate: attendanceDate,
-        checkedBy: checkedBy ?? this.checkedBy,
-        timeIn: timeIn ?? this.timeIn,
-        status: status ?? this.status);
+      id: id,
+      studentId: studentId,
+      sectionId: sectionId,
+      attendanceDate: attendanceDate,
+      checkedBy: checkedBy ?? this.checkedBy,
+      timeIn: timeIn ?? this.timeIn,
+      status: status ?? this.status,
+      firstName: firstName,
+      lastName: lastName,
+    );
   }
 }
