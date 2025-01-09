@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:school_erp/enums/button_type.dart';
 import 'package:school_erp/enums/filter_by_type.dart';
 import 'package:school_erp/mocks/mock_roles.dart';
-import 'package:school_erp/mocks/mock_section.dart';
-import 'package:school_erp/mocks/mock_student.dart';
-import 'package:school_erp/mocks/mock_teacher.dart';
 import 'package:school_erp/models/attendance.dart';
 import 'package:school_erp/models/section.dart';
 import 'package:school_erp/models/student.dart';
@@ -48,11 +45,8 @@ class AttendanceFilters extends StatefulWidget{
 }
 
 class _AttendanceFiltersState extends State<AttendanceFilters> {
-    List<MockSection> sections = [];
+    List<Section> sections = [];
     List<MockRole> roles = [];
-    late List<MockTeacher> teachersOfSection = [];
-    late List<MockStudent> studentsOfSection = [];
-    bool _isLoading = true;
 
     Student? _studentSelected;
     FilterByType? _filterSelected;
@@ -120,8 +114,6 @@ class _AttendanceFiltersState extends State<AttendanceFilters> {
     @override
     Widget build(Object context) {
         if (widget.role != Roles.teacher) return SizedBox.shrink();
-
-        if (_isLoading) return Center(child: CircularProgressIndicator());
 
         // This can be optimized futher, but will have to
         // separate these dropdowns in to its own statefulwidgets,
