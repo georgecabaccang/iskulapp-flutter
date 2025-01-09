@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_erp/enums/button_type.dart';
 import 'package:school_erp/enums/filter_by_type.dart';
-import 'package:school_erp/mocks/mock_roles.dart';
 import 'package:school_erp/models/attendance.dart';
 import 'package:school_erp/models/section.dart';
 import 'package:school_erp/models/student.dart';
@@ -48,7 +47,6 @@ class AttendanceFilters extends StatefulWidget{
 
 class _AttendanceFiltersState extends State<AttendanceFilters> {
     List<Section> sections = [];
-    List<MockRole> roles = [];
 
     Student? _studentSelected;
     FilterByType? _filterSelected;

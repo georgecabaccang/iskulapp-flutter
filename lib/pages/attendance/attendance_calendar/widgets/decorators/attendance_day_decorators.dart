@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/attendance_status.dart';
+import 'package:school_erp/enums/attendance_status.dart';
 import 'package:school_erp/theme/colors.dart';
 
 class AttendanceDayDecorators {
@@ -9,7 +9,7 @@ class AttendanceDayDecorators {
         final statusColors = {
             AttendanceStatus.present.value: AppColors.presentColor,
             AttendanceStatus.late.value: AppColors.lateColor,
-            AttendanceStatus.leave.value: AppColors.leaveColor,
+            AttendanceStatus.authorizedAbsence.value: AppColors.leaveColor,
         };
 
         return statusColors[status] ?? AppColors.absentColor;

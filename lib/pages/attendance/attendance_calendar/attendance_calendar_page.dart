@@ -5,7 +5,7 @@ import 'package:school_erp/features/auth/utils.dart';
 import 'package:school_erp/models/attendance.dart';
 import 'package:school_erp/models/section.dart';
 import 'package:school_erp/models/student.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/attendance_status.dart';
+import 'package:school_erp/enums/attendance_status.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_calendar.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_filters.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_utils.dart';
@@ -157,7 +157,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                             AttendanceCalendarUtils.buildStatus(context, AttendanceStatus.present.displayName, AppColors.presentColor, false),
                             AttendanceCalendarUtils.buildStatus(context, AttendanceStatus.late.displayName, AppColors.lateColor, false),
                             AttendanceCalendarUtils.buildStatus(context, AttendanceStatus.absent.displayName, AppColors.absentColor, false),
-                            AttendanceCalendarUtils.buildStatus(context, AttendanceStatus.leave.displayName, AppColors.leaveColor, false),
+                            AttendanceCalendarUtils.buildStatus(context, AttendanceStatus.authorizedAbsence.displayName, AppColors.leaveColor, false),
                         ],
                     ),
                 ),
