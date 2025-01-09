@@ -3,15 +3,18 @@ import 'package:school_erp/enums/filter_by_type.dart';
 import 'package:school_erp/features/auth/auth_repository/schemas/schemas.dart';
 import 'package:school_erp/features/auth/utils.dart';
 import 'package:school_erp/mocks/mock_student.dart';
+import 'package:school_erp/models/attendance.dart';
 import 'package:school_erp/models/section.dart';
+import 'package:school_erp/models/student.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/classes/attendance_details.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/helpers/enums/attendance_status.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_calendar.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/attendance_filters.dart';
-import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_services.dart';
 import 'package:school_erp/pages/attendance/attendance_calendar/widgets/helpers/attendance_calendar_utils.dart';
 import 'package:school_erp/pages/common_widgets/default_layout.dart';
+import 'package:school_erp/repositories/attendance_repository.dart';
 import 'package:school_erp/repositories/sections_repository.dart';
+import 'package:school_erp/repositories/student_repository.dart';
 import 'package:school_erp/theme/colors.dart';
 
 // For testing only. 
@@ -31,16 +34,15 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     late DateTime _lastDay;
     late DateTime _focusedDay;
 
+    SectionRepository sectionRepository = SectionRepository();
+    StudentRepository studentRepository = StudentRepository();
+    AttendanceRepository attendanceRepository = AttendanceRepository();
+
     List<Section> sectionsOfTeacher = [];
+    List<Student> students = [];
+    List<Attendance> attendanceStudent = [];
 
     Section? currentSection;
-
-    // For testing purposes with students.json
-    List<MockStudent> students = [];
-
-    // For testing purposes with attendance.json
-    List<AttendanceDetails> attendanceStudent = [];
-
     List<AttendanceDetails> attendanceOfDateRange = [];
 
     // For testing purposes for attendance for each person
@@ -62,8 +64,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
 
     void _getSectionsOfTeacher() async {
         try {
-            SectionRepository sectionRepository = SectionRepository();
-
             String teacherId = getTeacherId(context);
             AuthenticatedUser authUser = getAuthUser(context);
 
@@ -87,18 +87,28 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     }
 
     void _onChangeSection(Section newSection) async {
-        List<AttendanceDetails> attendanceForSection = await AttendanceCalendarServices.loadStudentAttendance(newSection);
-        List<MockStudent> studentsOfSection = await AttendanceCalendarServices.loadStudentsOfSection(newSection);
+        try {
+            
+            List<Student> studentsOfSection = await studentRepository.getStudentsBySection(newSection.id);
+            List<Attendance> attendanceOfStudents = await  attendanceRepository.getStudentsAttendanceBySection(sectionId: newSection.id)
 
-        studentsOfSection.sort((a, b) => a.lastName.toLowerCase().compareTo(b.lastName.toLowerCase()));
+            if (studentsOfSection.isEmpty) throw Exception("No students in ths section.");
+            if (attendanceOfStudents.isEmpty) attendanceOfStudents = [];
 
-        setState(() {
-                filterBy = null;
-                currentSection = newSection;
-                attendanceStudent = attendanceForSection;
-                students = studentsOfSection;
-                attendanceDetails = {};
-            });
+            studentsOfSection.sort((a, b) => a.lastName!.toLowerCase().compareTo(b.lastName!.toLowerCase()));
+
+            setState(() {
+                    filterBy = null;
+                    currentSection = newSection;
+                    attendanceStudent = attendanceOfStudents;
+                    students = studentsOfSection;
+                    attendanceDetails = {};
+                });
+        }
+        // Handle better in the future. 
+        catch (error) {
+            print(error);
+        }
     }
 
     void _onChangePerson(MockStudent? person) {
